@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NebulaAuth", "NebulaAuth\NebulaAuth.csproj", "{0FD01700-6D5C-451B-93BA-0860647E8F13}"
+	ProjectSection(ProjectDependencies) = postProject
+		{09F02072-F91D-4DAA-87BC-A34D3E150570} = {09F02072-F91D-4DAA-87BC-A34D3E150570}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NebulaAuth.LegacyConverter", "NebulaAuth.LegacyConverter\NebulaAuth.LegacyConverter.csproj", "{2D78A7D9-986A-4890-8A91-7ABD57A91830}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamLibForked", "SteamLibForked\SteamLibForked.csproj", "{09F02072-F91D-4DAA-87BC-A34D3E150570}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0FD01700-6D5C-451B-93BA-0860647E8F13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FD01700-6D5C-451B-93BA-0860647E8F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FD01700-6D5C-451B-93BA-0860647E8F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FD01700-6D5C-451B-93BA-0860647E8F13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D78A7D9-986A-4890-8A91-7ABD57A91830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D78A7D9-986A-4890-8A91-7ABD57A91830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D78A7D9-986A-4890-8A91-7ABD57A91830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D78A7D9-986A-4890-8A91-7ABD57A91830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09F02072-F91D-4DAA-87BC-A34D3E150570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09F02072-F91D-4DAA-87BC-A34D3E150570}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09F02072-F91D-4DAA-87BC-A34D3E150570}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09F02072-F91D-4DAA-87BC-A34D3E150570}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA34DDD5-BDC0-4C0A-B347-4ECDBF446900}
+	EndGlobalSection
+EndGlobal

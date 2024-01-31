@@ -1,0 +1,211 @@
+﻿<w:FontScaleWindow x:Class="NebulaAuth.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:w="clr-namespace:NebulaAuth.Theme"
+                   xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                   xmlns:windowStyle="clr-namespace:NebulaAuth.Theme.WindowStyle"
+                   xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   xmlns:converters="clr-namespace:NebulaAuth.Converters"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:entities="clr-namespace:NebulaAuth.Model.Entities"
+                   xmlns:viewModel="clr-namespace:NebulaAuth.ViewModel"
+                   WindowStartupLocation="CenterScreen"
+                   MinHeight="500" MinWidth="500" DefaultFontSize="18" ScaleCoefficient="0.4"
+                   Title="NebulaAuth" Height="800" Width="730" Style="{StaticResource MainWindow}"
+                   RenderOptions.BitmapScalingMode="HighQuality" Foreground="#FFF5F5F5"
+                   FontFamily="{md:MaterialDesignFont}"
+                   TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                   mc:Ignorable="d" 
+                   d:DataContext="{d:DesignInstance viewModel:MainVM}"
+
+                   
+                   >
+    <b:Interaction.Behaviors>
+        <windowStyle:WindowChromeRenderedBehavior />
+    </b:Interaction.Behaviors>
+
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding Path=CopyMafileFromBufferCommand}" 
+                    Key="V" 
+                    Modifiers="Control"/>
+    </Window.InputBindings>
+    <Border Name="DragNDropBorder" Panel.ZIndex="3" Opacity="1" AllowDrop="True" DragDrop.DragEnter="Rectangle_DragEnter" DragLeave="Rectangle_DragLeave" Drop="Rectangle_Drop">
+        <md:DialogHost DialogOpened="DialogHost_DialogOpened" DialogClosed="DialogHost_DialogClosed">
+            <Grid ZIndex="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Image Grid.RowSpan="2" Opacity="0.6" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="LowQuality" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Settings.BackgroundMode, Converter={StaticResource BackgroundImageVisibleConverter}}" Source="{Binding Settings.BackgroundMode, Mode=OneWay, Converter={StaticResource BackgroundSourceConverter}}" />
+                <Rectangle Grid.Row="0" Grid.RowSpan="2" Opacity="0.5" Fill="#FF1F1D1D" Visibility="{Binding Settings.BackgroundMode, Converter={StaticResource BackgroundImageVisibleConverter}}" />
+                <Rectangle Name="DragNDropOverlay" Grid.Row="0" Grid.RowSpan="3" Panel.ZIndex="1" Fill="#242123" Opacity="0.9" Visibility="Hidden" />
+                <StackPanel Name="DragNDropPanel" Grid.Row="0" ZIndex="2" w:FontScaleWindow.Scale="1" w:FontScaleWindow.ResizeFont="True" Grid.RowSpan="3" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock FontWeight="Bold" Foreground="#9a65b8">Отпустите, чтобы добавить mafile</TextBlock>
+                    <md:PackIcon Foreground="#9a65b8" HorizontalAlignment="Center" Width="36" Height="36" Kind="FileReplaceOutline" />
+                </StackPanel>
+                <ToolBarTray IsLocked="True" Grid.Row="0">
+                    <ToolBarTray.Background>
+                        <SolidColorBrush Opacity="0.6" Color="#FF1A1C25" />
+                    </ToolBarTray.Background>
+                    <ToolBar Background="#00FFFFFF" ClipToBounds="False" Style="{StaticResource MaterialDesignToolBar}" w:FontScaleWindow.Scale="0.75" w:FontScaleWindow.ResizeFont="True">
+                        <Menu>
+                            <MenuItem Header="{Tr MainWindow.Menu.File.Caption}">
+                                <MenuItem Header="{Tr MainWindow.Menu.File.Import}" Command="{Binding AddMafileCommand}" />
+                                <MenuItem Header="{Tr MainWindow.Menu.File.Remove}" Command="{Binding RemoveMafileCommand}" />
+                                <MenuItem Header="{Tr MainWindow.Menu.File.OpenFolder}" Command="{Binding OpenMafileFolderCommand}" />
+                                <MenuItem IsEnabled="False" Header="⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯" Height="15" />
+                                <MenuItem Header="{Tr MainWindow.Menu.File.Settings}" Command="{Binding OpenSettingsDialogCommand}" />
+                            </MenuItem>
+                        </Menu>
+                        <Menu>
+                            <MenuItem Header="{Tr MainWindow.Menu.Account.Caption}">
+                                <MenuItem Header="{Tr MainWindow.Menu.Account.Link}" Command="{Binding LinkAccountCommand}" />
+                                <MenuItem Header="{Tr MainWindow.Menu.Account.Unlink}" Command="{Binding RemoveAuthenticatorCommand}"/>
+                                <MenuItem IsEnabled="False" Header="⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯" Height="15" />
+                                <MenuItem Header="{Tr MainWindow.Menu.Account.RefreshSession}" Command="{Binding RefreshSessionCommand}" />
+                                <MenuItem Header="{Tr MainWindow.Menu.Account.LoginAgain}" Command="{Binding LoginAgainCommand}" />
+                            </MenuItem>
+                        </Menu>
+                        <Separator />
+                        <ComboBox MinWidth="100" Margin="8,0,8,0" VerticalAlignment="Center" md:HintAssist.Hint="{Tr MainWindow.AppBar.GroupsHint}" md:TextFieldAssist.HasClearButton="True" IsEditable="True" ItemsSource="{Binding Groups}" SelectedValue="{Binding SelectedGroup}">
+                            <FrameworkElement.Resources>
+                                <ResourceDictionary>
+                                    <Style TargetType="{x:Type md:PackIcon}">
+                                        <Setter Property="Width" Value="15" />
+                                        <Setter Property="Height" Value="15" />
+                                    </Style>
+                                </ResourceDictionary>
+                            </FrameworkElement.Resources>
+                            <UIElement.InputBindings>
+                                <KeyBinding Key="Enter" Command="{Binding AddGroupCommand}" CommandParameter="{Binding Path=Text, RelativeSource={RelativeSource AncestorType=ComboBox}}" />
+                            </UIElement.InputBindings>
+                        </ComboBox>
+                        <ComboBox MinWidth="100" Margin="8,0,8,0" VerticalAlignment="Center" md:HintAssist.Hint="{Tr MainWindow.AppBar.Proxy.ProxyHint}" md:ComboBoxAssist.ShowSelectedItem="False" SelectedItem="{Binding SelectedProxy}" ItemsSource="{Binding Proxies}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type entities:MaProxy}">
+                                    <TextBlock Text="{Binding Converter={StaticResource ProxyTextConverter}, Mode=OneWay}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <FrameworkElement.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="{Tr MainWindow.AppBar.Proxy.ProxyOpenManagerHint}" Command="{Binding OpenProxyManagerCommand}" />
+                                </ContextMenu>
+                            </FrameworkElement.ContextMenu>
+                            <UIElement.InputBindings>
+                                <KeyBinding Key="Delete" Command="{Binding RemoveProxyCommand}" />
+                            </UIElement.InputBindings>
+                        </ComboBox>
+                        <md:PackIcon  Kind="StopAlert" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFF0000" Margin="3" ToolTip="{Tr MainWindow.AppBar.Proxy.ProxyAlert.MafileProxyInUse}" ToolTipService.InitialShowDelay="600">
+                            <UIElement.Visibility>
+                                <Binding Path="ProxyExist">
+                                    <Binding.Converter>
+                                        <converters:ValueConverterGroup>
+                                            <converters:ReverseBooleanConverter />
+                                            <BooleanToVisibilityConverter />
+                                        </converters:ValueConverterGroup>
+                                    </Binding.Converter>
+                                </Binding>
+                            </UIElement.Visibility>
+                        </md:PackIcon>
+                        <md:PackIcon Kind="StopAlert" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFA500" Margin="3" ToolTip="{Tr MainWindow.AppBar.Proxy.ProxyAlert.DefaultInUse}" ToolTipService.InitialShowDelay="600" Visibility="{Binding IsDefaultProxy, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <CheckBox FontSize="14" Style="{StaticResource MaterialDesignFilterChipAccentCheckBox}" IsChecked="{Binding TradeTimerEnabled}" Content="{Tr MainWindow.AppBar.TradeTimerHint}"/>
+                        <CheckBox FontSize="14" Style="{StaticResource MaterialDesignFilterChipAccentCheckBox}" IsChecked="{Binding MarketTimerEnabled}" Content="{Tr MainWindow.AppBar.MarketTimerHint}"/>
+                        <TextBox w:FontScaleWindow.Scale="0.8" w:FontScaleWindow.ResizeFont="True" md:HintAssist.Hint="{Tr Common.Abbreviations.Time.Seconds}" Margin="10,0,0,0" MinWidth="30" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimerCheckSeconds, UpdateSourceTrigger=PropertyChanged, Delay=700}" PreviewTextInput="UIElement_OnPreviewTextInput" />
+                    </ToolBar>
+                </ToolBarTray>
+                <Grid Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*" />
+                        <ColumnDefinition Width="0.6*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ListBox w:FontScaleWindow.Scale="0.8" w:FontScaleWindow.ResizeFont="True" Margin="10,15,10,15" DisplayMemberPath="AccountName" ItemsSource="{Binding MaFiles}" SelectedValue="{Binding SelectedMafile}">
+                            <FrameworkElement.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.AddToGroup}" ItemsSource="{Binding Groups}">
+                                        <ItemsControl.ItemContainerStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignMenuItem}" TargetType="{x:Type MenuItem}">
+                                                <Setter Property="MenuItem.Command" Value="{Binding DataContext.AddToGroupCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                                <Setter Property="MenuItem.CommandParameter">
+                                                    <Setter.Value>
+                                                        <MultiBinding Converter="{StaticResource MultiCommandParameterConverter}">
+                                                            <Binding />
+                                                            <Binding Path="PlacementTarget.SelectedValue" RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
+                                                        </MultiBinding>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ItemsControl.ItemContainerStyle>
+                                    </MenuItem>
+                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.RemoveFromGroup}" Command="{Binding Path=RemoveGroupCommand}" CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                                </ContextMenu>
+                            </FrameworkElement.ContextMenu>
+                        </ListBox>
+                        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:TextFieldAssist.HasClearButton="True" w:FontScaleWindow.Scale="0.7" w:FontScaleWindow.ResizeFont="True" Grid.Row="1" Margin="10" md:HintAssist.Hint="{Tr MainWindow.LeftPart.SearchBoxHint}" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                    <md:Card Grid.Column="1" Margin="10,10,15,10" UniformCornerRadius="15">
+                        <Control.Background>
+                            <SolidColorBrush Color="#FF1A1D25" Opacity="0.6" />
+                        </Control.Background>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Row="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBox w:FontScaleWindow.Scale="1.1" w:FontScaleWindow.ResizeFont="True" IsReadOnly="True" HorizontalContentAlignment="Center" Background="#00FFFFFF" Style="{StaticResource MaterialDesignFilledTextBox}" Text="{Binding Code, FallbackValue=Code}" PreviewMouseDown="SteamGuard_DoubleClick" />
+                                <Grid Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ProgressBar Margin="5" Foreground="#FF9932CC" Height="15" md:TransitionAssist.DisableTransitions="True"  Value="{Binding CodeProgress}" />
+                                </Grid>
+                            </Grid>
+                            <Button w:FontScaleWindow.Scale="0.7" w:FontScaleWindow.ResizeFont="True" Grid.Row="1" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="10" Command="{Binding GetConfirmationsCommand}" Width="{Binding Path=ActualWidth, Converter={StaticResource CoefficientConverter}, ConverterParameter=0.6, RelativeSource={RelativeSource AncestorType=md:Card}}">
+                                <TextBlock TextWrapping="Wrap" TextTrimming="WordEllipsis" Text="{Tr MainWindow.RightPart.LoadConfirmations}"/>
+                            </Button>
+                            <ListBox md:RippleAssist.IsDisabled="True" Focusable="False" Grid.Row="2" w:FontScaleWindow.Scale="0.72" w:FontScaleWindow.ResizeFont="True" Margin="10" Visibility="{Binding ConfirmationsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Confirmations}" SelectionChanged="Selector_OnSelectionChanged">
+                                <ItemsControl.ItemContainerStyle>
+                                    <Style BasedOn="{StaticResource MaterialDesignListBoxItem}" TargetType="{x:Type ListBoxItem}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    </Style>
+                                </ItemsControl.ItemContainerStyle>
+                            </ListBox>
+                            <Button Grid.Row="3" Margin="1,0,1,3" w:FontScaleWindow.Scale="0.8" w:FontScaleWindow.ResizeFont="True" Command="{Binding ConfirmLoginCommand}" Content="{Tr MainWindow.RightPart.ConfirmLogin}"/>
+                        </Grid>
+                    </md:Card>
+                </Grid>
+                <Border Grid.Row="2" BorderBrush="#FF696969">
+                    <Border.Background>
+                        <SolidColorBrush Opacity="0.5" Color="DimGray" />
+                    </Border.Background>
+                    <Grid>
+                        <ToolBarPanel Orientation="Horizontal" Margin="5" w:FontScaleWindow.Scale="0.73" w:FontScaleWindow.ResizeFont="True">
+                            <TextBlock FontWeight="Bold" Text="{Tr MainWindow.Footer.Account}" />
+                            <TextBlock Text="{Binding SelectedMafile.AccountName}" />
+                            <TextBlock Text="|" Margin="10,0,10,0" />
+                            <TextBlock FontWeight="Bold" Text="{Tr MainWindow.Footer.Group}" />
+                            <TextBlock FontWeight="Normal" Text="{Binding SelectedMafile.Group, TargetNullValue=' ', FallbackValue=' ', Mode=OneWay}" />
+                        </ToolBarPanel>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" w:FontScaleWindow.Scale="0.7" w:FontScaleWindow.ResizeFont="True" Margin="0,0,10,0">
+              <Hyperlink NavigateUri="https://zelenka.guru/achies/" Foreground="{DynamicResource PrimaryHueMidBrush}" RequestNavigate="Hyperlink_OnRequestNavigate">by achies</Hyperlink>
+                        </TextBlock>
+                    </Grid>
+                </Border>
+                <md:Snackbar Grid.Row="1" FontSize="20" MessageQueue="{Binding MessageQueue}" />
+            </Grid>
+        </md:DialogHost>
+    </Border>
+</w:FontScaleWindow>

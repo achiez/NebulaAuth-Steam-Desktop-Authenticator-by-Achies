@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
+    <LangVersion>latest</LangVersion>
+	  <SatelliteResourceLanguages>ru</SatelliteResourceLanguages>
+	  <ApplicationIcon>Theme\nebula lock.ico</ApplicationIcon>
+	  <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+	  <AssemblyVersion>1.4.0</AssemblyVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Theme\Background.jpg" />
+    <None Remove="Theme\nebula lock.ico" />
+    <None Remove="Theme\nebula.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
+    <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="NLog" Version="5.1.2" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Theme\Background.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Theme\nebula lock.ico" />
+    <Resource Include="Theme\nebula.ico" />
+  </ItemGroup>
+
+	<ItemGroup>
+    <Folder Include="Model\Utility\" />
+    <Folder Include="Model\Exceptions\" />
+    <Folder Include="Theme\Fonts\Новая папка\" />
+    <Folder Include="ViewModel\Other\" />
+    <Folder Include="Utility\" />
+  </ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\SteamLib\SteamLib\SteamLib.csproj" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
