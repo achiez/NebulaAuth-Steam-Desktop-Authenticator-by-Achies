@@ -99,14 +99,12 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <materialDesign:PackIcon VerticalAlignment="Center"   Width="20" Height="20"  Kind="ShoppingCart" Margin="0,0,10,0"></materialDesign:PackIcon>
-            <Image Grid.Column="1" VerticalAlignment="Center" DockPanel.Dock="Left" Width="32" Height="32" Source="{Binding ItemImageUri}" Margin="0,0,10,0"></Image>
+            <Border Grid.Column="1" Background="{DynamicResource MaterialDesignPaper}" MaxHeight="36" HorizontalAlignment="Center" BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="0.6" Margin="0,0,10,0">
+                 <Image  HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="32" MaxHeight="32" Source="{Binding ItemImageUri}" ></Image>
+            </Border>
             <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <TextBlock VerticalAlignment="Center" x:Name="ItemName" theme:FontScaleWindow.ResizeFont="True" TextWrapping="WrapWithOverflow"  Text="{Binding ItemName}" >
-                </TextBlock>
+                <TextBlock VerticalAlignment="Center" x:Name="ItemName" theme:FontScaleWindow.ResizeFont="True" TextWrapping="WrapWithOverflow"  Text="{Binding ItemName}"/> 
+           
                 <TextBlock Grid.Row="1" Foreground="LightGray" Text="{Binding PriceString}">
                     <TextBlock.FontSize>
                         <Binding ElementName="ItemName" Path="FontSize" ConverterParameter="0.7">
@@ -166,10 +164,9 @@
             </Grid.ColumnDefinitions>
             <materialDesign:PackIcon VerticalAlignment="Center"   Width="20" Height="20"  Kind="ShoppingCartPlus" Margin="0,0,10,0"></materialDesign:PackIcon>
             <TextBlock VerticalAlignment="Center" Grid.Column="1">
-                <Run Text="{Tr MainWindow.ConfirmationTemplates.Market}"/>
+                <Run Text="{Tr MainWindow.ConfirmationTemplates.Market, IsDynamic=False}"/>
                 <Run Text="{Binding Confirmations.Count, Mode=OneWay}"/>
-                <Run> </Run>
-                <Run Text="{Tr Common.Abbreviations.Count, IsDynamic=False}"/>
+                <Run Text="{Tr Common.Abbreviations.Count.Items, IsDynamic=False}"/>
             </TextBlock>
 
             <TextBlock VerticalAlignment="Center"  Grid.Column="2" HorizontalAlignment="Left" Margin="5,0,0,0" Text="{Binding Time, StringFormat=t}"/>

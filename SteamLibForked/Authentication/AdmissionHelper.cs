@@ -72,9 +72,43 @@ public static class AdmissionHelper
         foreach (var domain in SteamDomains.AllDomains)
         {
             var token = mobileSession.GetToken(domain);
-            if (token == null) continue;
+            if (token == null || token.Value.IsExpired) continue;
             AddTokenCookie(container, token.Value);
         }
+    }
+
+    /// <summary>
+    /// Clear and set new session. Not recommended. Uses <see cref="IMobileSessionData.GetMobileToken()"/> for domain <see cref="SteamDomain.Community"/> instead of its own cookie. It's okay to use it only for confirmations. But Market, Trading and other pages won't be authenticated
+    /// </summary>
+    public static void SetSteamMobileCookiesWithMobileToken(this CookieContainer container, IMobileSessionData mobileSession,
+        string setLanguage = "english")
+    {
+
+        container.ClearSteamCookies(setLanguage);
+        container.AddMinimalMobileCookies();
+
+        AddRefreshToken(container, mobileSession.RefreshToken);
+
+        var community = SteamDomains.GetDomainUri(SteamDomain.Community);
+        container.Add(community, new Cookie("steamid", mobileSession.SteamId.Steam64.ToString()));
+        container.Add(community, new Cookie("sessionid", mobileSession.SessionId));
+        container.Add(community, new Cookie("Steam_Language", setLanguage));
+        TransferCommunityCookies(container);
+
+        var domainCookieSet = false;
+        foreach (var domain in SteamDomains.AllDomains)
+        {
+            
+            var token = mobileSession.GetToken(domain);
+            if (token == null || token.Value.IsExpired) continue;
+            if(domain == SteamDomain.Community )
+                domainCookieSet = true;
+            AddTokenCookie(container, token.Value);
+        }
+
+        var mobileToken = mobileSession.GetMobileToken();
+        if (domainCookieSet == false && mobileToken is {IsExpired: false})
+            AddTokenCookie(container, SteamDomain.Community, mobileToken.Value);
     }
 
 
@@ -146,7 +180,7 @@ public static class AdmissionHelper
     }
     private static void AddTokenCookie(CookieContainer container, SteamDomain domain, SteamAuthToken token)
     {
-        var domainUri = SteamDomains.GetDomainUri(token.Domain);
+        var domainUri = SteamDomains.GetDomainUri(domain);
         container.Add(domainUri, new Cookie(ACCESS_COOKIE_NAME, token.SignedToken)
         {
             HttpOnly = true,

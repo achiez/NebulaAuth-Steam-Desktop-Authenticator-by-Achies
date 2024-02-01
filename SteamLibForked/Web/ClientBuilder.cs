@@ -29,7 +29,7 @@ public static class ClientBuilder
         }
         else
         {
-            container.SetSteamMobileCookies(sessionData);
+            container.SetSteamMobileCookiesWithMobileToken(sessionData);
         }
 
         ConfigureCommon(handler, client);

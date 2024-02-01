@@ -56,7 +56,7 @@ public static class MaClient
         {
             if (account.SessionData != null)
             {
-                ClientHandler.CookieContainer.SetSteamMobileCookies(account.SessionData);
+                ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(account.SessionData);
             }
             else
             {
@@ -116,7 +116,7 @@ public static class MaClient
         }
         
         Storage.UpdateMafile(mafile);
-        ClientHandler.CookieContainer.SetSteamMobileCookies(mafile.SessionData);
+        ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(mafile.SessionData);
     }
 
     public static Task<bool> SendConfirmation(Mafile mafile, Confirmation confirmation, bool confirm)

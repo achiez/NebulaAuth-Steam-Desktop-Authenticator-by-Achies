@@ -861,6 +861,13 @@
       }
 
     },
+    "SessionHandler": {
+      "SessionWasRefreshedAutomatically": {
+        "ru": "Сессия была обновлена автоматически",
+        "en": "Session was refreshed automatically",
+        "ua": "Сесія була оновлена автоматично"
+      }
+    },
     "ProxyManagerVM": {
       "WrongFormatSomeIdsMissing": {
         "ru": "Неверный формат. Некоторые прокси не имеют ID",

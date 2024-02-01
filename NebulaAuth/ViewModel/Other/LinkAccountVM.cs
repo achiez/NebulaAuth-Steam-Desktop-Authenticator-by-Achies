@@ -140,7 +140,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
                 IsFieldVisible = false;
                 HintText = string.Empty;
                 _sessionData = (MobileSessionData)await LoginV2Executor.DoLogin(_loginV2ExecutorOptions, userName, pass);
-                Handler.CookieContainer.SetSteamMobileCookies(_sessionData);
+                Handler.CookieContainer.SetSteamMobileCookiesWithMobileToken(_sessionData);
                 IsEmailCode = true;
             }
             catch (EResultException ex)

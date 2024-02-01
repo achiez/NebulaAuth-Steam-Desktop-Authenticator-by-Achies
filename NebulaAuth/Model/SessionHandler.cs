@@ -82,7 +82,7 @@ public static class SessionHandler
         try
         {
             await MaClient.RefreshSession(mafile);
-            SnackbarController.SendSnackbar("Сессия была обновлена автоматически");
+            SnackbarController.SendSnackbar(LocManager.GetCodeBehindOrDefault("SessionWasRefreshedAutomatically", "SessionHandler", "SessionWasRefreshedAutomatically"));
             return true;
         }
         catch (SessionInvalidException)
