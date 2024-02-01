@@ -200,7 +200,7 @@
                             <TextBlock FontWeight="Normal" Text="{Binding SelectedMafile.Group, TargetNullValue=' ', FallbackValue=' ', Mode=OneWay}" />
                         </ToolBarPanel>
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" w:FontScaleWindow.Scale="0.7" w:FontScaleWindow.ResizeFont="True" Margin="0,0,10,0">
-              <Hyperlink NavigateUri="https://zelenka.guru/achies/" Foreground="{DynamicResource PrimaryHueMidBrush}" RequestNavigate="Hyperlink_OnRequestNavigate">by achies</Hyperlink>
+              <Hyperlink NavigateUri="https://github.com/achiez" Foreground="{DynamicResource PrimaryHueMidBrush}" RequestNavigate="Hyperlink_OnRequestNavigate">by achies</Hyperlink>
                         </TextBlock>
                     </Grid>
                 </Border>
