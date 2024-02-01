@@ -19,16 +19,14 @@ NebulaAuth is an application for emulating actions from the Steam Mobile App. Wh
 
 ## Installation
 
-1. If the application does not start, you need to install [.net desktop runtime 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-aspnetcore-8.0.1-windows- x64-installer)
+1. If the application does not start, you need to install [.net desktop runtime 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-aspnetcore-8.0.1-windows-x64-installer)
 2. [Download the program from the releases of this repository on Github](https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/releases/latest)
      * *For the safety of your data, download the application only from here*
 4. Unpack the .zip file to any folder
 5. Run the file **NebulaAuth.exe**
 
 ## Usage
-
-   - *Main window*
-    
+   
 ![gh-main-window-eng](https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/assets/106531132/15c0e870-1766-43a5-9e8c-2f34d5436beb)
 
 1. Control panel.
@@ -45,6 +43,20 @@ NebulaAuth is an application for emulating actions from the Steam Mobile App. Wh
 5. Search by login or SteamID (7xxxxxxxxxxxxx)
 6. Confirm login from another device
 7. Hyperlink to the official application page with attribution
+
+## Settings
+![gh-settings-eng](https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/assets/106531132/cd704495-d2df-45a7-a73e-40c19410eb72)
+
+1. Background mode. Use it if you want to disable default or set custom background of application (put file 'Background.png' to your application folder)
+2. Localization language
+3. Disable timers when switching between accounts
+4. Hide to tray on minimize
+5. Indicator with color. Small ellipse on your task-bar icon with custom color. Useful when using multiple windows
+6. Custom background color of application
+7. Current encryption password. If set you can save encrypted passwords to mafile to help re-login on session troubles. (Not recommended)
+8. Legacy mafile mode. Mafile compability mode. If set application will save mafiles with old standart format (Default: checked)
+9. Allow auto-update without confirmation
+   
   
 
 ## [License](/LICENSE.md)
