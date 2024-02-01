@@ -7,9 +7,10 @@ namespace NebulaAuth.Core;
 
 public static class UpdateManager
 {
-    public static async Task CheckForUpdates()
+    private const string UPDATE_URL = "https://raw.githubusercontent.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/master/NebulaAuth/update.json";
+    public static void CheckForUpdates()
     {
-        AutoUpdater.Start("https://rbsoft.org/updates/AutoUpdaterTest.xml");
+        AutoUpdater.Start(UPDATE_URL);
 
     }
 }

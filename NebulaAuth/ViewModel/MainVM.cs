@@ -41,6 +41,7 @@ public partial class MainVM : ObservableObject
         QueryGroups();
         SessionHandler.LoginStarted += SessionHandlerOnLoginStarted;
         SessionHandler.LoginCompleted += SessionHandlerOnLoginCompleted;
+        UpdateManager.CheckForUpdates();
     }
  
 
