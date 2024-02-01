@@ -1,1 +1,52 @@
 # NebulaAuth
+
+## Description
+
+NebulaAuth is an application for emulating actions from the Steam Mobile App. Which replaces your smartphone when operating on Steam.
+
+## Main advantages
+
+- **Localization in three languages**: English, Russian and Ukrainian.
+- **Full functionality of Steam Desktop Authenticator** reimagining [old app](https://github.com/Jessecar96/SteamDesktopAuthenticator)
+- **Using a proxy**
+- **Mafile grouping** for improved management.
+- **Automatic confirmation of trades/trading platform** to save time.
+- **Bulk import of map files** via Drag'n'Drop or CTRL+V for convenience.
+- **Design customization** to personalize the interface.
+- **Ability to confirm account login without entering a code** for easier access.
+- **Auto-update** program to use the latest features.
+- **Automatic relogin in case of problems with the session** for continuous operation.
+
+## Installation
+
+1. If the application does not start, you need to install [.net desktop runtime 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-aspnetcore-8.0.1-windows- x64-installer)
+2. [Download the program from the releases of this repository on Github](https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/releases/latest)
+     * *For the safety of your data, download the application only from here*
+4. Unpack the .zip file to any folder
+5. Run the file **NebulaAuth.exe**
+
+## Usage
+
+   - *Main window*
+    
+![gh-main-window-eng](https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/assets/106531132/15c0e870-1766-43a5-9e8c-2f34d5436beb)
+
+1. Control panel.
+   - file management and settings
+   - account management (login, linking, unlinking)
+   - grouping
+   - proxy selection
+   - an indicator with a hint about the proxy used (lit either yellow or red, when hovered it will display additional information)
+   - timers for automatic confirmation of trade offers/sale offers on the marketplace
+   - how often to check confirmations when timers are enabled (in seconds)
+2. List of your accounts
+3. Login confirmation code (click to copy)
+4. Main confirmation window
+5. Search by login or SteamID (7xxxxxxxxxxxxx)
+6. Confirm login from another device
+7. Hyperlink to the official application page with attribution
+  
+
+## [License](/LICENSE.md)
+
+Commercial use prohibited. When redistributing modified code, you must indicate the original authorship.
