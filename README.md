@@ -5,7 +5,13 @@
 
 ## Description
 
-NebulaAuth is an application for emulating actions from the Steam Mobile App. Which replaces your smartphone when operating on Steam.
+<h3 align="center" style="margin-bottom:0">
+  <a href="https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/releases/latest">Latest release</a>
+</h3>
+
+<h3 align="center">NebulaAuth is an application for emulating actions from the Steam Mobile App. Which replaces your smartphone when operating on Steam. </h3>
+
+
 
 ## Main advantages
 
