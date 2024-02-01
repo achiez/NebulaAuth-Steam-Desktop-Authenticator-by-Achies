@@ -1,5 +1,8 @@
 # NebulaAuth
 
+   * [Русский](README-RU.md)
+   * [Українська](README-UA.md)
+
 ## Description
 
 NebulaAuth is an application for emulating actions from the Steam Mobile App. Which replaces your smartphone when operating on Steam.
