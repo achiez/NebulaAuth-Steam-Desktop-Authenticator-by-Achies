@@ -73,6 +73,7 @@ public partial class MainVM : ObservableObject
         {
             return;
         }
+     
         var password = loginAgainVm.Password;
         var waitDialog = new WaitLoginDialog();
         var wait = DialogHost.Show(waitDialog);

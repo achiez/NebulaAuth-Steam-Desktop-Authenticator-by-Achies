@@ -71,7 +71,7 @@
                         <ComboBox MinWidth="100" Margin="8,0,8,0" VerticalAlignment="Center" md:HintAssist.Hint="{Tr MainWindow.AppBar.GroupsHint}" md:TextFieldAssist.HasClearButton="True" IsEditable="True" ItemsSource="{Binding Groups}" SelectedValue="{Binding SelectedGroup}">
                             <FrameworkElement.Resources>
                                 <ResourceDictionary>
-                                    <Style TargetType="{x:Type md:PackIcon}">
+                                    <Style TargetType="md:PackIcon">
                                         <Setter Property="Width" Value="15" />
                                         <Setter Property="Height" Value="15" />
                                     </Style>
@@ -109,8 +109,8 @@
                             </UIElement.Visibility>
                         </md:PackIcon>
                         <md:PackIcon Kind="StopAlert" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFA500" Margin="3" ToolTip="{Tr MainWindow.AppBar.Proxy.ProxyAlert.DefaultInUse}" ToolTipService.InitialShowDelay="600" Visibility="{Binding IsDefaultProxy, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        <CheckBox FontSize="14" Style="{StaticResource MaterialDesignFilterChipAccentCheckBox}" IsChecked="{Binding TradeTimerEnabled}" Content="{Tr MainWindow.AppBar.TradeTimerHint}"/>
-                        <CheckBox FontSize="14" Style="{StaticResource MaterialDesignFilterChipAccentCheckBox}" IsChecked="{Binding MarketTimerEnabled}" Content="{Tr MainWindow.AppBar.MarketTimerHint}"/>
+                        <CheckBox FontSize="14" Style="{StaticResource MaterialDesignFilterChipSecondaryCheckBox}" IsChecked="{Binding TradeTimerEnabled}" Content="{Tr MainWindow.AppBar.TradeTimerHint}"/>
+                        <CheckBox FontSize="14" Style="{StaticResource MaterialDesignFilterChipSecondaryCheckBox}" IsChecked="{Binding MarketTimerEnabled}" Content="{Tr MainWindow.AppBar.MarketTimerHint}"/>
                         <TextBox w:FontScaleWindow.Scale="0.8" w:FontScaleWindow.ResizeFont="True" md:HintAssist.Hint="{Tr Common.Abbreviations.Time.Seconds}" Margin="10,0,0,0" MinWidth="30" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimerCheckSeconds, UpdateSourceTrigger=PropertyChanged, Delay=700}" PreviewTextInput="UIElement_OnPreviewTextInput" />
                     </ToolBar>
                 </ToolBarTray>

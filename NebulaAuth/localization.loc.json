@@ -35,6 +35,11 @@
       "ru": "Отменено",
       "ua": "Скасовано"
     },
+    "Proxy": {
+      "en": "Proxy",
+      "ru": "Прокси",
+      "ua": "Проксі"
+    },
     "Abbreviations": {
       "Time": {
         "Seconds": {
@@ -85,7 +90,7 @@
         "Caption": {
           "en": "Account",
           "ru": "Аккаунт",
-          "ua": "Аккаунт"
+          "ua": "Акаунт"
         },
         "Link": {
           "en": "Link",
@@ -174,7 +179,7 @@
       "Account": {
         "en": "Account: ",
         "ru": "Аккаунт: ",
-        "ua": "Аккаунт: "
+        "ua": "Акаунт: "
       },
       "Group": {
         "en": "Group: ",
@@ -267,7 +272,7 @@
     "DisableTimersOnSwitch": {
       "en": "Disable timers on account switch",
       "ru": "Отключать таймеры при смене аккаунта",
-      "ua": "Вимикати таймери при зміні аккаунта"
+      "ua": "Вимикати таймери при зміні акаунта"
     },
     "MinimizeToTray": {
       "en": "Minimize to tray",
@@ -342,6 +347,11 @@
       "en": "Save encrypted password to mafile",
       "ru": "Сохранить зашифрованный пароль в мафайл",
       "ua": "Зберегти зашифрований пароль в мафайлі"
+    },
+    "UseMafileProxy": {
+      "en": "Use mafile proxy",
+      "ru": "Использовать прокси из мафайла",
+      "ua": "Використовувати проксі з мафайла"
     }
   },
   "ProxyManagerDialog": {
@@ -626,7 +636,7 @@
         "AccountNotFound": {
           "ru": "Аккаунт не найден (18)",
           "en": "Account not found (18)",
-          "ua": "Аккаунт не знайдено (18)"
+          "ua": "Акаунт не знайдено (18)"
         },
         "InvalidSteamID": {
           "ru": "Неправильный SteamID (19)",
@@ -661,7 +671,7 @@
         "AccountDisabled": {
           "ru": "Аккаунт отключен (43)",
           "en": "Account disabled (43)",
-          "ua": "Аккаунт відключено (43)"
+          "ua": "Акаунт відключено (43)"
 
         },
         "Suspended": {
@@ -684,7 +694,7 @@
         "AccountLockedDown": {
           "ru": "Аккаунт заблокирован (КТ 73)",
           "en": "Account locked down (73)",
-          "ua": "Аккаунт заблоковано (КТ 73)"
+          "ua": "Акаунт заблоковано (КТ 73)"
 
         },
         "UnexpectedError": {
@@ -732,7 +742,7 @@
         "AccountLimitExceeded": {
           "ru": "Лимит аккаунта превышен (95)",
           "en": "Account limit exceeded (95)",
-          "ua": "Ліміт аккаунта перевищено (95)"
+          "ua": "Ліміт акаунта перевищено (95)"
 
         },
         "EmailSendFailure": {
@@ -756,12 +766,12 @@
         "LimitedUserAccount": {
           "ru": "Аккаунт с лимитом (112)",
           "en": "Limited user account (112)",
-          "ua": "Аккаунт з лімітом (112)"
+          "ua": "Акаунт з лімітом (112)"
         },
         "AccountDeleted": {
           "ru": "Аккаунт удален (114)",
           "en": "Account deleted (114)",
-          "ua": "Аккаунт видалено (114)"
+          "ua": "Акаунт видалено (114)"
 
         },
         "PhoneNumberIsVOIP": {

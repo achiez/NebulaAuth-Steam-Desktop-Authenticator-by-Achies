@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MaterialDesignThemes.Wpf;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;
 using NebulaAuth.ViewModel.Other;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace NebulaAuth.Core;
 
@@ -36,7 +38,23 @@ public static class DialogsController
         {
             UserName = username
         };
-        var content = new LoginAgainDialog()
+        var content = new LoginAgainDialog
+        {
+            DataContext = vm
+        };
+        var result = await DialogHost.Show(content);
+        if (result is true)
+        {
+            return vm;
+        }
+
+        return null;
+    }
+
+    public static async Task<LoginAgainOnImportVM?> ShowLoginAgainOnImportDialog(Mafile mafile, IEnumerable<MaProxy> proxies)
+    {
+        var vm = new LoginAgainOnImportVM(mafile, proxies);
+        var content = new LoginAgainOnImportDialog()
         {
             DataContext = vm
         };

@@ -15,6 +15,8 @@ using System.Windows;
 using AchiesUtilities.Extensions;
 using NebulaAuth.Model.Entities;
 using SteamLib.Exceptions;
+using NebulaAuth.Utility;
+using NebulaAuth.View.Dialogs;
 
 namespace NebulaAuth.ViewModel;
 
@@ -127,24 +129,47 @@ public partial class MainVM //File //TODO: Refactor
 
     private async Task<bool> HandleAddMafileWithoutSession(Mafile data)
     {
-        var oldMafile = SelectedMafile;
-        SelectedMafile = data;
-        await LoginAgain();
+        var loginAgainVm = await DialogsController.ShowLoginAgainOnImportDialog(data, Proxies);
+        if (loginAgainVm == null)
+        {
+            return false;
+        }
+
+        var password = loginAgainVm.Password;
+        if (!loginAgainVm.UseMafileProxy)
+        {
+            data.Proxy = loginAgainVm.SelectedProxy;
+        }
+        var waitDialog = new WaitLoginDialog();
+        var wait = DialogHost.Show(waitDialog);
+        try
+        {
+            await MaClient.LoginAgain(data, password, loginAgainVm.SavePassword, waitDialog);
+            SnackbarController.SendSnackbar(GetLocalizationOrDefault("SuccessfulLogin"));
+        }
+        catch (LoginException ex)
+        {
+            SnackbarController.SendSnackbar(ErrorTranslatorHelper.TranslateLoginError(ex.Error), TimeSpan.FromSeconds(1.5));
+        }
+        catch (Exception ex)
+            when (ExceptionHandler.Handle(ex))
+        {
+            Shell.Logger.Error(ex);
+        }
+        finally
+        {
+            DialogsController.CloseDialog();
+            await wait;
+        }
         var result = data.SessionData != null;
-        if (result)
+        if (!result) return result;
+        var existed = MaFiles.FirstOrDefault(m => m.AccountName == data.AccountName); //TODO: more elegant way to handle overwrite
+        if (existed != null)
         {
-            var existed = MaFiles.FirstOrDefault(m => m.AccountName == data.AccountName); //TODO: more elegant way to handle overwrite
-            if (existed != null)
-            {
-                MaFiles.Remove(existed);
-            }
-            MaFiles.Add(data);
-            SelectedMafile = data;
+            MaFiles.Remove(existed);
         }
-        else
-        {
-            SelectedMafile = oldMafile;
-        }
+        MaFiles.Add(data);
+        SelectedMafile = data;
         return result;
 
     }
