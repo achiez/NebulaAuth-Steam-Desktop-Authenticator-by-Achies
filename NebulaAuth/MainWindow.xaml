@@ -41,7 +41,7 @@
                 <Rectangle Grid.Row="0" Grid.RowSpan="2" Opacity="0.5" Fill="#FF1F1D1D" Visibility="{Binding Settings.BackgroundMode, Converter={StaticResource BackgroundImageVisibleConverter}}" />
                 <Rectangle Name="DragNDropOverlay" Grid.Row="0" Grid.RowSpan="3" Panel.ZIndex="1" Fill="#242123" Opacity="0.9" Visibility="Hidden" />
                 <StackPanel Name="DragNDropPanel" Grid.Row="0" ZIndex="2" w:FontScaleWindow.Scale="1" w:FontScaleWindow.ResizeFont="True" Grid.RowSpan="3" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock FontWeight="Bold" Foreground="#9a65b8">Отпустите, чтобы добавить mafile</TextBlock>
+                    <TextBlock FontWeight="Bold" Foreground="#9a65b8" Text="{Tr MainWindow.Global.DragNDropHint}"/>
                     <md:PackIcon Foreground="#9a65b8" HorizontalAlignment="Center" Width="36" Height="36" Kind="FileReplaceOutline" />
                 </StackPanel>
                 <ToolBarTray IsLocked="True" Grid.Row="0">
@@ -96,7 +96,13 @@
                                 <KeyBinding Key="Delete" Command="{Binding RemoveProxyCommand}" />
                             </UIElement.InputBindings>
                         </ComboBox>
-                        <md:PackIcon  Kind="StopAlert" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFF0000" Margin="3" ToolTip="{Tr MainWindow.AppBar.Proxy.ProxyAlert.MafileProxyInUse}" ToolTipService.InitialShowDelay="600">
+                        <md:PackIcon  Kind="StopAlert" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFF0000" Margin="3"  ToolTipService.InitialShowDelay="300">
+                            <md:PackIcon.ToolTip>
+                                <TextBlock>
+                                    <Run Text="{Tr MainWindow.AppBar.Proxy.ProxyAlert.MafileProxyInUse, IsDynamic=False}"/>
+                                    <Run Text="&#10;"/><Run Text="{Binding SelectedMafile.Proxy.Data, FallbackValue='', Mode=OneWay}"/>
+                                </TextBlock>
+                            </md:PackIcon.ToolTip>
                             <UIElement.Visibility>
                                 <Binding Path="ProxyExist">
                                     <Binding.Converter>
@@ -108,7 +114,7 @@
                                 </Binding>
                             </UIElement.Visibility>
                         </md:PackIcon>
-                        <md:PackIcon Kind="StopAlert" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFA500" Margin="3" ToolTip="{Tr MainWindow.AppBar.Proxy.ProxyAlert.DefaultInUse}" ToolTipService.InitialShowDelay="600" Visibility="{Binding IsDefaultProxy, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <md:PackIcon Kind="StopAlert" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFA500" Margin="3" ToolTip="{Tr MainWindow.AppBar.Proxy.ProxyAlert.DefaultInUse}" ToolTipService.InitialShowDelay="300" Visibility="{Binding IsDefaultProxy, Converter={StaticResource BooleanToVisibilityConverter}}" ></md:PackIcon>
                         <CheckBox FontSize="14" Style="{StaticResource MaterialDesignFilterChipSecondaryCheckBox}" IsChecked="{Binding TradeTimerEnabled}" Content="{Tr MainWindow.AppBar.TradeTimerHint}"/>
                         <CheckBox FontSize="14" Style="{StaticResource MaterialDesignFilterChipSecondaryCheckBox}" IsChecked="{Binding MarketTimerEnabled}" Content="{Tr MainWindow.AppBar.MarketTimerHint}"/>
                         <TextBox w:FontScaleWindow.Scale="0.8" w:FontScaleWindow.ResizeFont="True" md:HintAssist.Hint="{Tr Common.Abbreviations.Time.Seconds}" Margin="10,0,0,0" MinWidth="30" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimerCheckSeconds, UpdateSourceTrigger=PropertyChanged, Delay=700}" PreviewTextInput="UIElement_OnPreviewTextInput" />
@@ -119,12 +125,12 @@
                         <ColumnDefinition Width="0.4*" />
                         <ColumnDefinition Width="0.6*" />
                     </Grid.ColumnDefinitions>
-                    <Grid>
+                    <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <ListBox w:FontScaleWindow.Scale="0.8" w:FontScaleWindow.ResizeFont="True" Margin="10,15,10,15" DisplayMemberPath="AccountName" ItemsSource="{Binding MaFiles}" SelectedValue="{Binding SelectedMafile}">
+                        <ListBox Grid.Row="0" w:FontScaleWindow.Scale="0.8" w:FontScaleWindow.ResizeFont="True" Margin="10,15,10,15" DisplayMemberPath="AccountName" ItemsSource="{Binding MaFiles}" SelectedValue="{Binding SelectedMafile}">
                             <FrameworkElement.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.AddToGroup}" ItemsSource="{Binding Groups}">

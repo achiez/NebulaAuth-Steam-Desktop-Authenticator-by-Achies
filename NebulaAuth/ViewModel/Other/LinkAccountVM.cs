@@ -26,6 +26,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using NebulaAuth.Core;
+using SteamLib.Utility.MaFiles;
 
 namespace NebulaAuth.ViewModel.Other;
 
@@ -326,8 +327,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
         {
             Directory.CreateDirectory("mafiles_backup");
         }
-
-        var json = JsonConvert.SerializeObject(data, Formatting.Indented);
+        var json = Storage.SerializeMafile(data, null);
         File.WriteAllText(Path.Combine("mafiles_backup", data.AccountName + ".mafile"), json);
     }
 

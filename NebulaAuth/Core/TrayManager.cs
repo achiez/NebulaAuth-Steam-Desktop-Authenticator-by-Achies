@@ -20,7 +20,7 @@ public static class TrayManager
         _notifyIcon = new NotifyIcon();
         _notifyIcon.Text = "NebulaAuth";
 
-        Stream iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/Theme/nebula lock.ico"))!.Stream;
+        Stream iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/Theme/lock.ico"))!.Stream;
         _notifyIcon.Icon = new Icon(iconStream);
         
         _notifyIcon.MouseDoubleClick += NotifyIcon_MouseDoubleClick;

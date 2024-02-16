@@ -42,9 +42,15 @@ public partial class MainVM : ObservableObject
         SessionHandler.LoginStarted += SessionHandlerOnLoginStarted;
         SessionHandler.LoginCompleted += SessionHandlerOnLoginCompleted;
         UpdateManager.CheckForUpdates();
+        if (Storage.DuplicateFound > 0)
+        {
+            SnackbarController.SendSnackbar(
+                GetLocalizationOrDefault("DuplicateMafilesFound") + " " + Storage.DuplicateFound,
+                TimeSpan.FromSeconds(3));
+        }
     }
- 
 
+  
     private void SetMafile(Mafile? mafile)
     {
         if (mafile != SelectedMafile)
@@ -139,7 +145,7 @@ public partial class MainVM : ObservableObject
         {
             if (await DialogsController.ShowConfirmCancelDialog(GetLocalizationOrDefault("ConfirmRemovingAuthenticator")))
             {
-                var result = await SessionHandler.Handle(() => MaClient.RemoveAuthenticator(SelectedMafile), SelectedMafile);
+                var result = await SessionHandler.Handle(() => MaClient.RemoveAuthenticator(selectedMafile), selectedMafile);
                 SnackbarController.SendSnackbar(
                     result.Success ? GetLocalizationOrDefault("AuthenticatorRemoved") : GetLocalizationOrDefault("AuthenticatorNotRemoved"));
 

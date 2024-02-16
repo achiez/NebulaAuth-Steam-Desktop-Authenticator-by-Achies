@@ -22,7 +22,7 @@ public partial class Settings : ObservableObject
     [ObservableProperty] private LocalizationLanguage _language = LocalizationLanguage.English;
     [ObservableProperty] private bool _legacyMode = true;
     [ObservableProperty] private bool _allowAutoUpdate;
-
+    [ObservableProperty] private bool _useAccountNameAsMafileName;
     #endregion
 
     public static Settings Instance { get; }

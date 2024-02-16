@@ -27,19 +27,29 @@ public partial class MainVM //File //TODO: Refactor
 
     [RelayCommand]
     private void OpenMafileFolder()
-    { var mafile = SelectedMafile;
-     
+    {
+        var mafile = SelectedMafile;
+
         var path = Storage.MafileFolder;
-        if (mafile?.SessionData != null)
+        string? mafilePath = null;
+        if (mafile != null)
         {
-            var mafPath = Path.Combine(Storage.MafileFolder, mafile.SessionData.SteamId.Steam64 + ".maFile");
-            if (File.Exists(mafPath))
-            {
-                path = $"/e, /select, \"{mafPath}\""; ;
-            }
+            mafilePath = Storage.TryFindMafilePath(mafile);
+        }
+        if (mafilePath != null)
+        {
+            path = $"/select, \"{mafilePath}\""; ;
         }
 
-        Process.Start("explorer", path);
+        try
+        {
+            var processStartInfo = new ProcessStartInfo("explorer.exe", path);
+            Process.Start(processStartInfo);
+        }
+        catch (Exception ex)
+        {
+            SnackbarController.SendSnackbar(ex.Message);
+        }
     }
 
 
@@ -163,13 +173,12 @@ public partial class MainVM //File //TODO: Refactor
         }
         var result = data.SessionData != null;
         if (!result) return result;
-        var existed = MaFiles.FirstOrDefault(m => m.AccountName == data.AccountName); //TODO: more elegant way to handle overwrite
-        if (existed != null)
+        Storage.SaveMafile(data);
         {
-            MaFiles.Remove(existed);
-        }
-        MaFiles.Add(data);
-        SelectedMafile = data;
+            ResetQuery();
+            SearchText = data.AccountName ?? string.Empty;
+            SelectedMafile = data;
+        } //As this operation used only for 1 mafile at time, we can safely assume that we can select it for convenience
         return result;
 
     }

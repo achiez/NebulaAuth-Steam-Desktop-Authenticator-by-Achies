@@ -20,7 +20,7 @@ public partial class MainVM //Groups
         set
         {
             if (SetProperty(ref _selectedGroup, value))
-                PerformSearch();
+                PerformQuery();
         }
     }
 
@@ -32,7 +32,7 @@ public partial class MainVM //Groups
         set
         {
             if(SetProperty(ref _searchText, value))
-                PerformSearch();
+                PerformQuery();
         }
 
     }
@@ -67,7 +67,7 @@ public partial class MainVM //Groups
         mafile.Group = group;
         Storage.UpdateMafile(mafile);
         QueryGroups();
-        PerformSearch();
+        PerformQuery();
         OnPropertyChanged(nameof(SelectedMafile));
     }
 
@@ -84,7 +84,7 @@ public partial class MainVM //Groups
         {
             SelectedGroup = null;
         }
-        PerformSearch();
+        PerformQuery();
     }
 
 
@@ -99,7 +99,10 @@ public partial class MainVM //Groups
 
         Groups = new ObservableCollection<string>(groups!);
     }
-    private void PerformSearch()
+
+
+
+    private void PerformQuery()
     {
         if (string.IsNullOrWhiteSpace(SelectedGroup) && string.IsNullOrWhiteSpace(SearchText))
         {
@@ -126,6 +129,9 @@ public partial class MainVM //Groups
         {
             SelectedMafile = MaFiles.FirstOrDefault();
         }
+
+        return;
+
         bool SearchPredicate(Mafile mafile)
         {
             if (!mafile.AccountName.Contains(SearchText, StringComparison.CurrentCultureIgnoreCase))
@@ -135,5 +141,11 @@ public partial class MainVM //Groups
             return true;
         }
     }
-
+                    
+    private void ResetQuery()
+    {
+        _selectedGroup = null;
+        _searchText = string.Empty;
+        PerformQuery();
+    }
 }

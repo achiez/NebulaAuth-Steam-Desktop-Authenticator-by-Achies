@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Xml;
-using Formatting = Newtonsoft.Json.Formatting;
 
 namespace SteamLib.Utility.MaFiles;
 
@@ -47,7 +45,7 @@ public static partial class MafileSerializer //Write
 
     }
 
-    public static string SerializeLegacy(MobileData mobileData,  Formatting formatting, Dictionary<string, object?>? additionalProperties = null, bool sign = true, MafileCredits? credits = null)
+    public static string SerializeLegacy(MobileData mobileData, Formatting formatting, Dictionary<string, object?>? additionalProperties = null, bool sign = true, MafileCredits? credits = null)
     {
         var result = new LegacyMafile
         {

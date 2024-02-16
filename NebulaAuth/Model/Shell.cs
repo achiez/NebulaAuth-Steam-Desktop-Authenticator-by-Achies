@@ -32,6 +32,7 @@ public static class Shell
             throw new CantAlignTimeException("", ex);
         }
         ExtensionsLogger.LogDebug("Application started");
+        Logger.Info("Test");
     }
 
     private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)

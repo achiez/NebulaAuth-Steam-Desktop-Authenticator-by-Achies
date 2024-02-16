@@ -109,6 +109,12 @@ public partial class SettingsVM : ObservableObject
         set => Settings.AllowAutoUpdate = value;
     }
 
+    public bool UseAccountNameAsMafileName
+    {
+        get => Settings.UseAccountNameAsMafileName;
+        set => Settings.UseAccountNameAsMafileName = value;
+    }
+
     [ObservableProperty] private string _password;
 
 

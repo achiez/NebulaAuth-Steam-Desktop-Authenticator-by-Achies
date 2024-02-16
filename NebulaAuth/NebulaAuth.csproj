@@ -8,15 +8,14 @@
 	<UseWindowsForms>true</UseWindowsForms>
     <LangVersion>latest</LangVersion>
 	  <SatelliteResourceLanguages>en;ru;ua</SatelliteResourceLanguages>
-	  <ApplicationIcon>Theme\nebula lock.ico</ApplicationIcon>
+	  <ApplicationIcon>Theme\lock.ico</ApplicationIcon>
 	  <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-	  <AssemblyVersion>1.4.6</AssemblyVersion>
+	  <AssemblyVersion>1.4.7</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Theme\Background.jpg" />
-    <None Remove="Theme\nebula lock.ico" />
-    <None Remove="Theme\nebula.ico" />
+    <None Remove="Theme\lock.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,8 +36,7 @@
     <Resource Include="Theme\Background.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Theme\nebula lock.ico" />
-    <Resource Include="Theme\nebula.ico" />
+    <Resource Include="Theme\lock.ico" />
   </ItemGroup>
 
 	<ItemGroup>

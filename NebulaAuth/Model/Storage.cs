@@ -1,6 +1,9 @@
 ﻿using NebulaAuth.Model.Entities;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SteamLib;
+using SteamLib.Account;
+using SteamLib.Exceptions;
 using SteamLib.SteamMobile;
 using SteamLib.Utility.MaFiles;
 using System;
@@ -8,8 +11,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
-using SteamLib.Exceptions;
 
 namespace NebulaAuth.Model;
 
@@ -22,7 +23,7 @@ public static class Storage
     public static string RemovedMafileFolder { get; } = Path.GetFullPath(REMOVED_F);
 
     public static ObservableCollection<Mafile> MaFiles { get; } = new();
-
+    public static readonly int DuplicateFound;
     static Storage()
     {
         if (Directory.Exists(MafileFolder) == false)
@@ -36,12 +37,25 @@ public static class Storage
         }
 
         var files = Directory.GetFiles(MafileFolder);
-        foreach (var file in files)
+        var hashNames = new HashSet<string>();
+        var hashIds = new HashSet<SteamId>();
+        var comparer = new MafileNameComparer(Settings.Instance.UseAccountNameAsMafileName);
+        var ordered = files.Order(comparer).ToList();
+        foreach (var file in ordered)
         {
-            if (Path.GetExtension(file).Equals(".mafile", StringComparison.InvariantCultureIgnoreCase) == false) continue;
+            if (Path.GetExtension(file).Equals(".mafile", StringComparison.OrdinalIgnoreCase) == false) continue;
             try
             {
                 var data = ReadMafile(file);
+
+                if (hashNames.Contains(data.AccountName) ||  (data.SessionData != null && hashIds.Contains(data.SessionData.SteamId)))
+                {
+                    DuplicateFound++;
+                    Shell.Logger.Error("Duplicate mafile {file}", Path.GetFileName(file));
+                    continue;
+                }
+                hashNames.Add(data.AccountName);
+                if (data.SessionData != null) hashIds.Add(data.SessionData.SteamId);
                 MaFiles.Add(data);
             }
             catch (Exception ex)
@@ -85,14 +99,14 @@ public static class Storage
             {
                 Data = { { "mafile", data } }
             };
-    
 
-        if (overwrite == false && File.Exists(GetMafilePath(data)))
+
+        if (overwrite == false && File.Exists(CreatePathForMafile(data)))
         {
             throw new IOException("File already exist and overwrite is False");
         }
 
-      
+
         SaveMafile(data);
     }
 
@@ -114,20 +128,24 @@ public static class Storage
 
     public static string SerializeMafile(Mafile data)
     {
+        var props = new Dictionary<string, object?>
+        {
+            {nameof(Mafile.Proxy), data.Proxy},
+            {nameof(Mafile.Group), data.Group},
+            {nameof(Mafile.Password), data.Password}
+        };
+        return SerializeMafile(data, props);
+    }
+
+    public static string SerializeMafile(MobileDataExtended data, Dictionary<string, object?>? properties)
+    {
         if (Settings.Instance.LegacyMode)
         {
-            var props = new Dictionary<string, object?>
-            {
-                {nameof(Mafile.Proxy), data.Proxy},
-                {nameof(Mafile.Group), data.Group},
-                {nameof(Mafile.Password), data.Password}
-            };
-            return MafileSerializer.SerializeLegacy(data, Formatting.Indented, props);
-
+            return MafileSerializer.SerializeLegacy(data, Formatting.Indented, properties);
         }
         else
         {
-           return MafileSerializer.Serialize(data);
+            return MafileSerializer.Serialize(data);
         }
     }
 
@@ -149,8 +167,7 @@ public static class Storage
 
     public static void SaveMafile(Mafile data)
     {
-
-        var path = GetMafilePath(data);
+        var path = CreatePathForMafile(data);
         var str = SerializeMafile(data);
         File.WriteAllText(Path.GetFullPath(path), str);
 
@@ -168,14 +185,14 @@ public static class Storage
 
     public static void UpdateMafile(Mafile data)
     {
-        var path = GetMafilePath(data);
+        var path = CreatePathForMafile(data);
         var str = SerializeMafile(data);
         File.WriteAllText(Path.GetFullPath(path), str);
     }
 
     public static void RemoveMafile(Mafile data)
     {
-        var path = GetMafilePath(data);
+        var path = CreatePathForMafile(data);
         if (File.Exists(path))
         {
             File.Delete(path);
@@ -184,7 +201,7 @@ public static class Storage
     }
     public static void MoveToRemoved(Mafile data)
     {
-        var path = GetMafilePath(data);
+        var path = CreatePathForMafile(data);
         var copyPath = Path.Combine(REMOVED_F, data.SessionData!.SteamId + ".mafile");
         var copyPathCompleted = copyPath;
         var i = 0;
@@ -197,14 +214,85 @@ public static class Storage
         File.Delete(path);
         MaFiles.Remove(data);
     }
-    private static string GetMafilePath(Mafile data)
+
+    private static string CreatePathForMafile(Mafile data)
     {
         if (data.SessionData == null)
-            throw new NullReferenceException("SessionData was null can't retrieve SteamId");
-        var fileName = data.SessionData.SteamId + ".mafile";
+            throw new NullReferenceException("SessionData was null can't retrieve SteamId"); //TODO: handle with login
+
+        var useAccountName = Settings.Instance.UseAccountNameAsMafileName;
+        if (!useAccountName && (data.SessionData.SteamId.Steam64 == 0 || data.SessionData.SteamId.Steam64 == SteamId64.SEED))
+        {
+            useAccountName = true;
+        }
+
+        var fileName = useAccountName ? CreateFileNameWithAccountName(data.AccountName) : CreateFileNameWithSteamId(data.SessionData.SteamId);
+
         return Path.Combine(MafileFolder, fileName);
     }
 
+    private static string CreateFileNameWithAccountName(string accountName) => accountName + ".mafile";
+    private static string CreateFileNameWithSteamId(SteamId steamId) => steamId.Steam64.Id + ".mafile";
 
+    public static string? TryFindMafilePath(Mafile data)
+    //FIXME: write mode to mafile instead of searching it. Search sometimes represents not actual mafile (in case of duplicate steamId + accountName)
+    {
+        var pathFileName = Path.Combine(MafileFolder, CreateFileNameWithAccountName(data.AccountName));
+        string? pathSteamId = null;
+        if (data.SessionData != null)
+        {
+            pathSteamId = Path.Combine(MafileFolder, CreateFileNameWithSteamId(data.SessionData.SteamId));
+        }
+
+        var steamIdExist = pathSteamId != null && File.Exists(pathSteamId);
+        var accountNameExist = File.Exists(pathFileName);
+
+        if (steamIdExist && accountNameExist)
+        {
+            return Settings.Instance.UseAccountNameAsMafileName ? pathFileName : pathSteamId;
+        }
+        if (steamIdExist ^ accountNameExist)
+        {
+            return steamIdExist ? pathSteamId : pathFileName;
+        }
+        return null;
+    }
+}
+
+internal class MafileNameComparer : IComparer<string>
+{
+    public bool MafileNameMode { get; }
+    private const string MAF_64_START = "765";
+    private static readonly IComparer<string> _defaultComparer = Comparer<string>.Default;
+    public MafileNameComparer(bool mafileNameMode)
+    {
+        MafileNameMode = mafileNameMode;
+    }
+
+
+    public int Compare(string? x, string? y)
+    {
+        if (x == null && y == null) return 0;
+        if (x == null) return -1;
+        if (y == null) return 1;
+
+
+        bool xisSteamId = Path.GetFileName(x).StartsWith(MAF_64_START);
+        bool yisSteamId = Path.GetFileName(y).StartsWith(MAF_64_START);
+
+        if (xisSteamId ^ yisSteamId)
+        {
+            if (MafileNameMode)
+            {
+                return xisSteamId ? 1 : -1;
+            }
+            else
+            {
+                return yisSteamId ? 1 : -1;
+            }
+        }
+
+        return _defaultComparer.Compare(x, y);
+    }
 
 }

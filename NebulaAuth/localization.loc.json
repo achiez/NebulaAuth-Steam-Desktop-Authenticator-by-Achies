@@ -58,6 +58,18 @@
     }
   },
   "MainWindow": {
+    "Global": {
+      "DragNDropHint": {
+        "en": "Release to import mafiles",
+        "ru": "Отпустите для импорта мафайлов",
+        "ua": "Відпустіть для імпорту мафайлів"
+      },
+      "LoadingHint":{
+        "en": "Loading...",
+        "ru": "Загрузка...",
+        "ua": "Завантаження..."
+      }
+    },
     "Menu": {
       "File": {
         "Caption": {
@@ -297,8 +309,8 @@
       },
       "Hint": {
         "en": "Doesn't saved on disk",
-        "ru": "Не сохраняется в файл",
-        "ua": "Не зберігається у файлах"
+        "ru": "Не сохраняется в системе",
+        "ua": "Не зберігається у системі"
       }
     },
     "LegacyMafileMode": {
@@ -315,6 +327,11 @@
       "en": "Allow auto update",
       "ru": "Разрешить автообновление",
       "ua": "Дозволити автооновлення"
+    },
+    "UseAccountName": {
+      "en": "Use account name on mafiles",
+      "ru": "Использовать имя аккаунта на мафайлах",
+      "ua": "Використовувати ім'я акаунта на мафайлах"
     }
   },
   "LoginAgainDialog": {
@@ -574,6 +591,11 @@
         "ru": "Слишком быстрый таймер.",
         "en": "Too fast timer.",
         "ua": "Занадто швидкий таймер."
+      },
+      "DuplicateMafilesFound": {
+        "en": "Duplicate mafile(s) found and were not loaded. Check log to get lists of duplicate files.",
+        "ru": "Найдены дубликаты мафайлов, они не были загружены. Проверьте лог чтобы получить списки дубликатов.",
+        "ua": "Знайдено дублікати мафайлів, вони не були завантажені. Перевірте лог щоб отримати списки дублікатів."
       }
     },
     "ErrorTranslator": {

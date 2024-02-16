@@ -12,6 +12,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NebulaAuth.LegacyConverter"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamLibForked", "SteamLibForked\SteamLibForked.csproj", "{09F02072-F91D-4DAA-87BC-A34D3E150570}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "changelog", "changelog", "{161BFADE-FCF3-45D1-82EA-8A1B187529F7}"
+	ProjectSection(SolutionItems) = preProject
+		changelog\1.3.4.html = changelog\1.3.4.html
+		changelog\1.4.4.html = changelog\1.4.4.html
+		changelog\1.4.5.html = changelog\1.4.5.html
+		changelog\1.4.6.html = changelog\1.4.6.html
+		changelog\1.4.7.html = changelog\1.4.7.html
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
