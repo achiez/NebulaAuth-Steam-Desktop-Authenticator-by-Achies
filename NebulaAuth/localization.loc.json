@@ -132,6 +132,11 @@
         "ru": "Группы",
         "ua": "Групи"
       },
+      "GroupToolTip": {
+        "ru": "Введите новую группу и нажмите Enter. Управление группой - ПКМ на аккаунте",
+        "en": "Enter new group and press Enter. Group management - RMB on account",
+        "ua": "Введіть нову групу і натисніть Enter. Управління групою - ПКМ на акаунті"
+      },
       "Proxy": {
         "ProxyHint": {
           "en": "Proxy",
@@ -142,6 +147,11 @@
           "en": "Open proxy manager",
           "ru": "Открыть менеджер прокси",
           "ua": "Відкрити менеджер проксі"
+        },
+        "ProxyManipulateToolTip": {
+          "en": "Right-click to open menu. DEL to remove",
+          "ru": "Правый клик для открытия меню. DEL для удаления",
+          "ua": "Правий клік для відкриття меню. DEL для видалення"
         },
         "ProxyAlert": {
           "DefaultInUse": {
@@ -156,7 +166,6 @@
           }
         }
       },
-
       "TradeTimerHint": {
         "en": "Trade",
         "ru": "Трейд",
@@ -369,7 +378,12 @@
       "en": "Use mafile proxy",
       "ru": "Использовать прокси из мафайла",
       "ua": "Використовувати проксі з мафайла"
-    }
+    },
+    "ProxyToolTip": {
+      "en": "Press 'DEL' to remove",
+      "ru": "Нажмите 'DEL' для удаления",
+      "ua": "Натисніть 'DEL' для видалення"
+    } 
   },
   "ProxyManagerDialog": {
     "Title": {
@@ -381,8 +395,12 @@
       "en": "Default proxy:",
       "ru": "Прокси по умолчанию:",
       "ua": "Проксі за замовчуванням:"
+    },
+    "UseRandomDefaultProxy": {
+      "en": "Use random default proxy",
+      "ru": "Cлучайный прокси по умолчанию",
+      "ua": "Випадковий проксі за замовчуванням"
     }
-
   },
   "WaitLoginDialog": {
     "Text": {
@@ -596,7 +614,17 @@
         "en": "Duplicate mafile(s) found and were not loaded. Check log to get lists of duplicate files.",
         "ru": "Найдены дубликаты мафайлов, они не были загружены. Проверьте лог чтобы получить списки дубликатов.",
         "ua": "Знайдено дублікати мафайлів, вони не були завантажені. Перевірте лог щоб отримати списки дублікатів."
-      }
+      },
+      "TimerChanged": {
+        "en": "Timer changed",
+        "ru": "Таймер изменен",
+        "ua": "Таймер змінено"
+      },
+      "CantRetrieveSteamIDToUpdate": {
+        "ru": "Не удалось получить SteamID из мафайла и сохранить изменения. Необходимо сделать релогин. Отменено",
+        "en": "Can't retrieve SteamID from mafile to save changes. Need to relogin. Canceled",
+        "ua": "Не вдалося отримати SteamID з мафайла та зберегти зміни. Потрібно зробити релогін. Скасовано"
+      } 
     },
     "ErrorTranslator": {
       "Login": {

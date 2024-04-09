@@ -7,11 +7,8 @@ public class SnackbarController
 {
 
     public static SnackbarMessageQueue MessageQueue { get; } = new() { DiscardDuplicates = true};
-    private const int MIN_SNACKBAR_TIME = 1000;
-    public SnackbarController()
-    {
+    private const int MIN_SNACKBAR_TIME = 1200;
 
-    }
     /// <summary>
     /// 
     /// </summary>
@@ -46,10 +43,12 @@ public class SnackbarController
 
     private static TimeSpan GetSnackbarTime(string str)
     {
-        if (str.Length <= 100) return TimeSpan.FromMilliseconds(MIN_SNACKBAR_TIME);
-                
-        var length = str.Length / 0.07;
-        return TimeSpan.FromMilliseconds(length);
+        var duration = str.Length / 0.03;
+        if (duration < MIN_SNACKBAR_TIME)
+        {
+           duration = MIN_SNACKBAR_TIME;
+        }
+        return TimeSpan.FromMilliseconds(duration);
 
     }
 

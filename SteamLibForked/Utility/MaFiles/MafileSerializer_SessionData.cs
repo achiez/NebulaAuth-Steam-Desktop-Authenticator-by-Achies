@@ -36,11 +36,6 @@ public partial class MafileSerializer //SessionData
             return null;
         }
 
-        if (refreshToken.IsExpired || refreshToken.Type != SteamAccessTokenType.MobileRefresh)
-        {
-            result = DeserializedMafileSessionResult.Expired;
-            return null;
-        }
 
         var sessionId = GetString(j, "sessionid", "session_id", "session");
         var accessTokenToken = GetToken(j, "accesstoken", "access_token", "access");
@@ -75,7 +70,16 @@ public partial class MafileSerializer //SessionData
         sessionData.IsValid = SessionDataValidator.Validate(null, sessionData).Succeeded;
         if(sessionData.IsValid == false)
             return null;
-        result = DeserializedMafileSessionResult.Valid;
+
+        if (refreshToken.IsExpired || refreshToken.Type != SteamAccessTokenType.MobileRefresh)
+        {
+            result = DeserializedMafileSessionResult.Expired;
+        }
+        else
+        {
+            result = DeserializedMafileSessionResult.Valid;
+        }
+
         return sessionData;
     }
 }

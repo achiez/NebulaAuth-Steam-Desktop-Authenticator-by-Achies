@@ -98,7 +98,9 @@ public partial class MainVM
     [RelayCommand]
     private void RemoveProxy()
     {
+        if(SelectedProxy == null) return;
         if (SelectedMafile == null) return;
+        if (!ValidateCanSaveAndWarn(SelectedMafile)) return;
         SelectedMafile.Proxy = null;
         SelectedProxy = null;
         Storage.UpdateMafile(SelectedMafile);
@@ -114,8 +116,19 @@ public partial class MainVM
         }
 
         if (SelectedMafile == null) return;
+        if (!ValidateCanSaveAndWarn(SelectedMafile)) return;
         ProxyExist = true;
         SelectedMafile.Proxy = SelectedProxy;
         Storage.UpdateMafile(SelectedMafile);
+    }
+        
+    private bool ValidateCanSaveAndWarn(Mafile data)
+    {
+        var canSave = Storage.ValidateCanSave(data);
+        if (!canSave)
+        {
+            SnackbarController.SendSnackbar(GetLocalizationOrDefault("CantRetrieveSteamIDToUpdate"));
+        }
+        return canSave;
     }
 }

@@ -29,16 +29,19 @@
             <Run FontWeight="Bold" Text="{Binding UserName}"/>
         </TextBlock>
         <TextBox Text="{Binding Password}" Margin="10,10,10,0" Grid.Row="1" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="{Tr LoginAgainDialog.PasswordBox}"></TextBox>
-        <ComboBox Grid.Row="2" Margin="10,10,10,0" materialDesign:HintAssist.Hint="{Tr Common.Proxy}" ItemsSource="{Binding Proxies}" SelectedItem="{Binding SelectedProxy}" >
+        <ComboBox   ToolTip="{Tr LoginAgainDialog.ProxyToolTip}" Grid.Row="2" Margin="10,18,10,0" materialDesign:HintAssist.Hint="{Tr Common.Proxy}" ItemsSource="{Binding Proxies}" SelectedItem="{Binding SelectedProxy}" >
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type entities:MaProxy}">
                     <TextBlock Text="{Binding Converter={StaticResource ProxyTextConverter}, Mode=OneWay}" />
                 </DataTemplate>
-            </ItemsControl.ItemTemplate> 
+            </ItemsControl.ItemTemplate>
+            <UIElement.InputBindings>
+                <KeyBinding Key="Delete" Command="{Binding RemoveProxyCommand}" />
+            </UIElement.InputBindings>
         </ComboBox>
         <CheckBox Grid.Row="3"  Margin="10,10,10,0"  IsEnabled="{Binding Source={x:Static model:PHandler.IsPasswordSet}}" IsChecked="{Binding SavePassword}" Content="{Tr LoginAgainDialog.SaveEncryptedPassword}"/>
         <CheckBox Grid.Row="4" Margin="10,10,10,0" IsEnabled="{Binding  MafileHasProxy}" Content="{Tr LoginAgainDialog.UseMafileProxy}" IsChecked="{Binding UseMafileProxy}"/>
-        <Grid Grid.Row="5" Margin="10,0,10,0">
+        <Grid Grid.Row="5" Margin="10,10,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>

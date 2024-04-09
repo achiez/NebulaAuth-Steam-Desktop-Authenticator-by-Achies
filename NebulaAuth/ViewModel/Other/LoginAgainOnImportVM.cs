@@ -2,6 +2,8 @@
 using NebulaAuth.Model.Entities;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Forms;
+using CommunityToolkit.Mvvm.Input;
 
 namespace NebulaAuth.ViewModel.Other;
 
@@ -51,4 +53,10 @@ public partial class LoginAgainOnImportVM : ObservableObject
 
     public LoginAgainOnImportVM()
     { }
+
+    [RelayCommand]
+    private void RemoveProxy()
+    {
+        SelectedProxy = null;
+    }
 }

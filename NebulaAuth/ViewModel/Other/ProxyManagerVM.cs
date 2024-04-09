@@ -1,5 +1,7 @@
 ﻿using AchiesUtilities.Collections;
 using AchiesUtilities.Web.Proxy;
+using AutoUpdaterDotNET;
+using CodingSeb.Localization.WPF;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
@@ -56,9 +58,8 @@ public partial class ProxyManagerVM : ObservableObject
 
 
 
-                try
+                if (ProxyStorage.DefaultScheme.TryParse(str, out var proxy))
                 {
-                    var proxy = ProxyData.Parse(str, ProxyStorage.FORMAT);
                     if (id != null && proxies.Any(kvp => kvp.Key == id))
                     {
                         SnackbarController.SendSnackbar(string.Format(GetLocalizationOrDefault("DuplicateId"), id));
@@ -66,7 +67,7 @@ public partial class ProxyManagerVM : ObservableObject
                     }
                     proxies.Add(new KeyValuePair<int?, ProxyData>(id, proxy));
                 }
-                catch (FormatException)
+                else
                 {
                     SnackbarController.SendSnackbar(string.Format(GetLocalizationOrDefault("WrongFormatOnLine"), i));
                     return;
@@ -88,20 +89,15 @@ public partial class ProxyManagerVM : ObservableObject
                 input = IdRegex.Replace(input, "");
             }
 
-            ProxyData data;
-            try
+            if (ProxyStorage.DefaultScheme.TryParse(input, out var data))
             {
-                data = ProxyData.Parse(input, ProxyStorage.FORMAT);
+                ProxyStorage.SetProxy(id, data);
             }
-            catch (FormatException)
+            else
             {
                 SnackbarController.SendSnackbar(GetLocalizationOrDefault("WrongFormat"));
                 return;
             }
-
-            ProxyStorage.SetProxy(id, data);
-
-
         }
         AddProxyField = string.Empty;
         CheckIfDefaultProxyStay();
@@ -140,10 +136,18 @@ public partial class ProxyManagerVM : ObservableObject
     }
 
     [RelayCommand]
-    private void CopyProxy(ProxyData? obj)
+    private void CopyProxy(ProxyData? data)
     {
-        if (obj == null) return;
-        Clipboard.SetText(obj.ToString(ProxyStorage.FORMAT));
+        if (data == null) return;
+        try
+        {
+            Clipboard.SetText(ProxyStorage.GetProxyString(data));
+        }
+        catch (Exception ex)
+        {
+            Shell.Logger.Error(ex);
+        }
+       
     }
 
     [RelayCommand]

@@ -46,7 +46,7 @@ public partial class MainVM : ObservableObject
         {
             SnackbarController.SendSnackbar(
                 GetLocalizationOrDefault("DuplicateMafilesFound") + " " + Storage.DuplicateFound,
-                TimeSpan.FromSeconds(3));
+                TimeSpan.FromSeconds(4));
         }
     }
 

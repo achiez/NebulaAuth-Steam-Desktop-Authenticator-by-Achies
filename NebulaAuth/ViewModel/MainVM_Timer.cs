@@ -136,5 +136,6 @@ public partial class MainVM //Timer
         _timerCheckSeconds = value;
         OnPropertyChanged(nameof(TimerCheckSeconds));
         _confirmTimer.Change(value * 1000, value * 1000);
+        SnackbarController.SendSnackbar(GetLocalizationOrDefault("TimerChanged"));
     }
 }

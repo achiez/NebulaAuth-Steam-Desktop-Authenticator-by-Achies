@@ -9,6 +9,7 @@ using SteamLib.Utility.MaFiles;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.DirectoryServices.ActiveDirectory;
 using System.IO;
 using System.Linq;
 
@@ -23,6 +24,7 @@ public static class Storage
     public static string RemovedMafileFolder { get; } = Path.GetFullPath(REMOVED_F);
 
     public static ObservableCollection<Mafile> MaFiles { get; } = new();
+
     public static readonly int DuplicateFound;
     static Storage()
     {
@@ -48,7 +50,7 @@ public static class Storage
             {
                 var data = ReadMafile(file);
 
-                if (hashNames.Contains(data.AccountName) ||  (data.SessionData != null && hashIds.Contains(data.SessionData.SteamId)))
+                if (hashNames.Contains(data.AccountName) || (data.SessionData != null && hashIds.Contains(data.SessionData.SteamId)))
                 {
                     DuplicateFound++;
                     Shell.Logger.Error("Duplicate mafile {file}", Path.GetFileName(file));
@@ -217,16 +219,18 @@ public static class Storage
 
     private static string CreatePathForMafile(Mafile data)
     {
-        if (data.SessionData == null)
-            throw new NullReferenceException("SessionData was null can't retrieve SteamId"); //TODO: handle with login
-
-        var useAccountName = Settings.Instance.UseAccountNameAsMafileName;
-        if (!useAccountName && (data.SessionData.SteamId.Steam64 == 0 || data.SessionData.SteamId.Steam64 == SteamId64.SEED))
+        string fileName;
+        if (Settings.Instance.UseAccountNameAsMafileName)
         {
-            useAccountName = true;
+            fileName = CreateFileNameWithAccountName(data.AccountName);
         }
+        else
+        {
+            if(data.SessionData == null)
+                throw new NullReferenceException("SessionData was null can't retrieve SteamId"); //FIXME: think about better way to handle
 
-        var fileName = useAccountName ? CreateFileNameWithAccountName(data.AccountName) : CreateFileNameWithSteamId(data.SessionData.SteamId);
+            fileName = CreateFileNameWithSteamId(data.SessionData.SteamId);
+        }
 
         return Path.Combine(MafileFolder, fileName);
     }
@@ -256,6 +260,11 @@ public static class Storage
             return steamIdExist ? pathSteamId : pathFileName;
         }
         return null;
+    }
+
+    public static bool ValidateCanSave(Mafile data)
+    {
+       return Settings.Instance.UseAccountNameAsMafileName || data.SessionData != null;
     }
 }
 

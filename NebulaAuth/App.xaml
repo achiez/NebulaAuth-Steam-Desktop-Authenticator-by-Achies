@@ -18,6 +18,7 @@
             <converters:OnOffBoolTextConverter x:Key="OnOffBoolTextConverter"/>
             <converters:SelectedProxyTextConverter x:Key="SelectedProxyTextConverter"/>
             <converters:ProxyTextConverter x:Key="ProxyTextConverter"/>
+            <converters:ProxyDataTextConverter x:Key="ProxyDataTextConverter"/>
             <converters:MultiCommandParameterConverter x:Key="MultiCommandParameterConverter"/>
             <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
             <!-- Background converters-->

@@ -68,7 +68,7 @@
                             </MenuItem>
                         </Menu>
                         <Separator />
-                        <ComboBox MinWidth="100" Margin="8,0,8,0" VerticalAlignment="Center" md:HintAssist.Hint="{Tr MainWindow.AppBar.GroupsHint}" md:TextFieldAssist.HasClearButton="True" IsEditable="True" ItemsSource="{Binding Groups}" SelectedValue="{Binding SelectedGroup}">
+                        <ComboBox ToolTip="{Tr MainWindow.AppBar.GroupToolTip}" MinWidth="100" Margin="8,0,8,0" VerticalAlignment="Center" md:HintAssist.Hint="{Tr MainWindow.AppBar.GroupsHint}" md:TextFieldAssist.HasClearButton="True" IsEditable="True" ItemsSource="{Binding Groups}" SelectedValue="{Binding SelectedGroup}">
                             <FrameworkElement.Resources>
                                 <ResourceDictionary>
                                     <Style TargetType="md:PackIcon">
@@ -81,7 +81,7 @@
                                 <KeyBinding Key="Enter" Command="{Binding AddGroupCommand}" CommandParameter="{Binding Path=Text, RelativeSource={RelativeSource AncestorType=ComboBox}}" />
                             </UIElement.InputBindings>
                         </ComboBox>
-                        <ComboBox MinWidth="100" Margin="8,0,8,0" VerticalAlignment="Center" md:HintAssist.Hint="{Tr MainWindow.AppBar.Proxy.ProxyHint}" md:ComboBoxAssist.ShowSelectedItem="False" SelectedItem="{Binding SelectedProxy}" ItemsSource="{Binding Proxies}">
+                        <ComboBox ToolTip="{Tr MainWindow.AppBar.Proxy.ProxyManipulateToolTip}" MinWidth="100" Margin="8,0,8,0" VerticalAlignment="Center" md:HintAssist.Hint="{Tr MainWindow.AppBar.Proxy.ProxyHint}" md:ComboBoxAssist.ShowSelectedItem="False" SelectedItem="{Binding SelectedProxy}" ItemsSource="{Binding Proxies}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type entities:MaProxy}">
                                     <TextBlock Text="{Binding Converter={StaticResource ProxyTextConverter}, Mode=OneWay}" />

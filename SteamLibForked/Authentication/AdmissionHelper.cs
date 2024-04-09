@@ -14,6 +14,7 @@ public static class AdmissionHelper
     public const string ACCESS_COOKIE_NAME = "steamLoginSecure";
     public const string REFRESH_COOKIE_NAME = "steamRefresh_steam";
     public const string LANGUAGE_COOKIE_NAME = "Steam_Language";
+    public const string SESSION_ID_COOKIE_NAME = "sessionid";
 
     #region Main
 
@@ -28,8 +29,8 @@ public static class AdmissionHelper
         AddRefreshToken(container, sessionData.RefreshToken);
 
         var community = SteamDomains.GetDomainUri(SteamDomain.Community);
-        container.Add(community, new Cookie("sessionid", sessionData.SessionId, "/"));
-        container.Add(community, new Cookie("Steam_Language", setLanguage, "/"));
+        container.Add(community, new Cookie(SESSION_ID_COOKIE_NAME, sessionData.SessionId, "/"));
+        container.Add(community, new Cookie(LANGUAGE_COOKIE_NAME, setLanguage, "/"));
         TransferCommunityCookies(container);
         foreach (var domain in SteamDomains.AllDomains)
         {
@@ -65,8 +66,8 @@ public static class AdmissionHelper
 
         var community = SteamDomains.GetDomainUri(SteamDomain.Community);
         container.Add(community, new Cookie("steamid", mobileSession.SteamId.Steam64.ToString()));
-        container.Add(community, new Cookie("sessionid", mobileSession.SessionId));
-        container.Add(community, new Cookie("Steam_Language", setLanguage));
+        container.Add(community, new Cookie(SESSION_ID_COOKIE_NAME, mobileSession.SessionId));
+        container.Add(community, new Cookie(LANGUAGE_COOKIE_NAME, setLanguage));
         TransferCommunityCookies(container);
 
         foreach (var domain in SteamDomains.AllDomains)
@@ -91,8 +92,8 @@ public static class AdmissionHelper
 
         var community = SteamDomains.GetDomainUri(SteamDomain.Community);
         container.Add(community, new Cookie("steamid", mobileSession.SteamId.Steam64.ToString()));
-        container.Add(community, new Cookie("sessionid", mobileSession.SessionId));
-        container.Add(community, new Cookie("Steam_Language", setLanguage));
+        container.Add(community, new Cookie(SESSION_ID_COOKIE_NAME, mobileSession.SessionId));
+        container.Add(community, new Cookie(LANGUAGE_COOKIE_NAME, setLanguage));
         TransferCommunityCookies(container);
 
         var domainCookieSet = false;
@@ -154,10 +155,15 @@ public static class AdmissionHelper
             if (cookie.Domain.Contains("steamcommunity.com") == false || cookie.Expired || cookie.Name.EqualsIgnoreCase(ACCESS_COOKIE_NAME)) continue;
 
 
-            container.Add(SteamDomains.GetDomainUri(SteamDomain.Store), new Cookie(cookie.Name, cookie.Value, cookie.Path) { Expires = cookie.Expires, Secure = cookie.Secure, HttpOnly = cookie.HttpOnly });
-            container.Add(SteamDomains.GetDomainUri(SteamDomain.Help), new Cookie(cookie.Name, cookie.Value, cookie.Path) { Expires = cookie.Expires, Secure = cookie.Secure, HttpOnly = cookie.HttpOnly });
-            container.Add(SteamDomains.GetDomainUri(SteamDomain.TV), new Cookie(cookie.Name, cookie.Value, cookie.Path) { Expires = cookie.Expires, Secure = cookie.Secure, HttpOnly = cookie.HttpOnly });
+            container.Add(SteamDomains.GetDomainUri(SteamDomain.Store), CloneCookie(cookie));
+            container.Add(SteamDomains.GetDomainUri(SteamDomain.Help), CloneCookie(cookie));
+            container.Add(SteamDomains.GetDomainUri(SteamDomain.TV), CloneCookie(cookie));
         }
+
+        return;
+
+        static Cookie CloneCookie(Cookie cookie) 
+            => new(cookie.Name, cookie.Value, cookie.Path) { Expires = cookie.Expires, Secure = cookie.Secure, HttpOnly = cookie.HttpOnly };
     }
 
     public static void AddRefreshToken(CookieContainer container, SteamAuthToken token)
@@ -198,7 +204,7 @@ public static class AdmissionHelper
     {
         var cookies = container.GetAllCookies();
         return cookies
-            .FirstOrDefault(c => c.Name.Equals("sessionid", StringComparison.InvariantCultureIgnoreCase)
+            .FirstOrDefault(c => c.Name.Equals(SESSION_ID_COOKIE_NAME, StringComparison.InvariantCultureIgnoreCase)
                                  && c.Expired == false
                                  && c.Domain.Contains(domain, StringComparison.InvariantCultureIgnoreCase))?
             .Value;

@@ -21,7 +21,7 @@
         </Style>
     </d:DesignerProperties.DesignStyle>
 
-    <Grid Margin="15,10,15,15">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -34,8 +34,8 @@
                <ColumnDefinition/>
                <ColumnDefinition/>
            </Grid.ColumnDefinitions>
-            <TextBlock FontStyle="Normal" Foreground="DarkGray" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Text="{Tr ProxyManagerDialog.Title}"/>
-            <Button IsCancel="True" Grid.Column="1" Width="30" Height="30" Style="{StaticResource MaterialDesignIconForegroundButton}" HorizontalAlignment="Right" Command="{x:Static md:DialogHost.CloseDialogCommand}">
+            <TextBlock Margin="10" FontStyle="Normal" Foreground="DarkGray" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Text="{Tr ProxyManagerDialog.Title}"/>
+            <Button Margin="0,0,10,0" IsCancel="True" Grid.Column="1" Width="30" Height="30" Style="{StaticResource MaterialDesignIconForegroundButton}" HorizontalAlignment="Right" Command="{x:Static md:DialogHost.CloseDialogCommand}">
                <md:PackIcon Kind="Close" Width="24" Height="24" Foreground="IndianRed"></md:PackIcon>
            </Button>
            
@@ -51,8 +51,9 @@
                        Margin="15" FontSize="16">
                 <Run  Text="{Tr ProxyManagerDialog.DefaultProxy, IsDynamic=False}"/>
                 <Run Text="{Binding DefaultProxy.Key, StringFormat='&#x0a;0:', FallbackValue='X', Mode=OneWay}"/>
-                <Run Text="{Binding DefaultProxy.Value.Address, Mode=OneWay, FallbackValue=''}"/>
+                <Run Text="{Binding DefaultProxy.Value, Converter='{StaticResource ProxyDataTextConverter}', Mode=OneWay, FallbackValue=''}"/>
             </TextBlock>
+
             <Button Grid.Column="1"  Command="{Binding SetDefaultCommand}">
                 <md:PackIcon Kind="HeartBoxOutline" Width="20" Height="20"></md:PackIcon>
             </Button>
@@ -61,7 +62,7 @@
             </Button>
         </Grid>
         <md:Card Grid.Row="3" Margin="10">
-            <ListBox  SelectedValue="{Binding SelectedProxy}" ItemsSource="{Binding Proxies}">
+            <ListBox FontSize="14"  SelectedValue="{Binding SelectedProxy}" ItemsSource="{Binding Proxies}">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
                         <Setter Property="Tag" Value="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext}"/>
@@ -85,7 +86,7 @@
                     <DataTemplate>
                         <TextBlock>
                             <Run Text="{Binding Key, Mode=OneWay}"/><Run Text=": "/>
-                            <Run Text="{Binding Value.Address, Mode=OneWay}"/>
+                            <Run Text="{Binding Value, Mode=OneWay, Converter={StaticResource ProxyDataTextConverter}}"/>
 
                         </TextBlock>
                     </DataTemplate>
