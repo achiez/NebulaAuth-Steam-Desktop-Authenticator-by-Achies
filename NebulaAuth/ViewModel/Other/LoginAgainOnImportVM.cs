@@ -10,7 +10,9 @@ namespace NebulaAuth.ViewModel.Other;
 public partial class LoginAgainOnImportVM : ObservableObject
 {
     public ObservableCollection<MaProxy> Proxies { get; } = new();
-    [ObservableProperty] private string _password = null!;
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsFormValid))]
+    private string _password = null!;
     [ObservableProperty] private bool _savePassword;
     [ObservableProperty] private string _userName = null!;
     [ObservableProperty] private bool _mafileHasProxy;
@@ -38,7 +40,7 @@ public partial class LoginAgainOnImportVM : ObservableObject
         }
     }
 
-
+    public bool IsFormValid => !string.IsNullOrWhiteSpace(Password);
 
 
     private MaProxy? _selectedProxy;

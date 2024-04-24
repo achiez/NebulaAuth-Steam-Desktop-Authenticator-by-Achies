@@ -16,7 +16,7 @@
              d:DataContext="{d:DesignInstance other:ProxyManagerVM}"
              Background="{DynamicResource WindowBackground}">
     <d:DesignerProperties.DesignStyle>
-        <Style TargetType="UserControl">    
+        <Style TargetType="UserControl">
             <Setter Property="Background" Value="{DynamicResource WindowBackground}" />
         </Style>
     </d:DesignerProperties.DesignStyle>
@@ -29,40 +29,39 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-       <Grid>
-           <Grid.ColumnDefinitions>
-               <ColumnDefinition/>
-               <ColumnDefinition/>
-           </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <TextBlock Margin="10" FontStyle="Normal" Foreground="DarkGray" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Text="{Tr ProxyManagerDialog.Title}"/>
             <Button Margin="0,0,10,0" IsCancel="True" Grid.Column="1" Width="30" Height="30" Style="{StaticResource MaterialDesignIconForegroundButton}" HorizontalAlignment="Right" Command="{x:Static md:DialogHost.CloseDialogCommand}">
-               <md:PackIcon Kind="Close" Width="24" Height="24" Foreground="IndianRed"></md:PackIcon>
-           </Button>
-           
+                <md:PackIcon Kind="Close" Width="24" Height="24" Foreground="IndianRed"></md:PackIcon>
+            </Button>
+
         </Grid>
         <Separator Grid.Row="1"></Separator>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock HorizontalAlignment="Stretch" 
                        Margin="15" FontSize="16">
                 <Run  Text="{Tr ProxyManagerDialog.DefaultProxy, IsDynamic=False}"/>
-                <Run Text="{Binding DefaultProxy.Key, StringFormat='&#x0a;0:', FallbackValue='X', Mode=OneWay}"/>
+                <Run Text="{Binding DefaultProxy.Key, StringFormat='&#x0a;0:', FallbackValue='-', Mode=OneWay}"/>
                 <Run Text="{Binding DefaultProxy.Value, Converter='{StaticResource ProxyDataTextConverter}', Mode=OneWay, FallbackValue=''}"/>
             </TextBlock>
 
-            <Button Grid.Column="1"  Command="{Binding SetDefaultCommand}">
-                <md:PackIcon Kind="HeartBoxOutline" Width="20" Height="20"></md:PackIcon>
-            </Button>
-            <Button Grid.Column="2" Command="{Binding RemoveDefaultCommand}" Cursor="Hand">
+            <Button Grid.Column="1" Command="{Binding RemoveDefaultCommand}" Cursor="Hand">
                 <md:PackIcon Kind="ClearBox" Width="20" Height="20"></md:PackIcon>
             </Button>
         </Grid>
         <md:Card Grid.Row="3" Margin="10">
-            <ListBox FontSize="14"  SelectedValue="{Binding SelectedProxy}" ItemsSource="{Binding Proxies}">
+            <ListBox VirtualizingStackPanel.VirtualizationMode="Recycling"  FontSize="14"  SelectedValue="{Binding SelectedProxy}" ItemsSource="{Binding Proxies}">
+                <ListBox.InputBindings>
+                    <KeyBinding Key="Delete" Command="{Binding DataContext.RemoveProxyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                </ListBox.InputBindings>
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
                         <Setter Property="Tag" Value="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext}"/>
@@ -78,22 +77,37 @@
                                 </ContextMenu>
                             </Setter.Value>
                         </Setter>
-                      
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+
+
                     </Style>
                 </ListBox.ItemContainerStyle>
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock>
-                            <Run Text="{Binding Key, Mode=OneWay}"/><Run Text=": "/>
-                            <Run Text="{Binding Value, Mode=OneWay, Converter={StaticResource ProxyDataTextConverter}}"/>
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  VerticalAlignment="Center">
+                                <Run Text="{Binding Key, Mode=OneWay}"/><Run Text=": "/>
+                                <Run Text="{Binding Value, Mode=OneWay, Converter={StaticResource ProxyDataTextConverter}}"/>
 
-                        </TextBlock>
+                            </TextBlock>
+                            <Button Style="{StaticResource MaterialDesignIconButton}" Padding="0" Width="24" Height="24"  md:RippleAssist.IsDisabled="True" Grid.Column="1" HorizontalAlignment="Right"
+                                    Command="{Binding DataContext.SetDefaultCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                    CommandParameter="{Binding}">
+                                <md:PackIcon Height="16" Width="16" Kind="Heart"></md:PackIcon>
+                            </Button>
+                           
+                        </Grid>
+                      
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </md:Card>
-        <Grid Grid.Row="4">
+        <Grid Grid.Row="4" Margin="5,0,15,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>

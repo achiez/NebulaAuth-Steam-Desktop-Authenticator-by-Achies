@@ -68,6 +68,7 @@ public static class ProxyStorage
         }
 
         Proxies[id] = proxyData;
+
         Save();
     }
     public static void RemoveProxy(int id)

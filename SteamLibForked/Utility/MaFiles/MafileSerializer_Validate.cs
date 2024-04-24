@@ -38,7 +38,7 @@ public partial class MafileSerializer //Validate
         public static void IsValidBase64(string name, string base64)
         {
             var buffer = new Span<byte>(new byte[base64.Length]);
-            if(Convert.TryFromBase64String(base64, buffer, out _) == false)
+            if (Convert.TryFromBase64String(base64, buffer, out _) == false)
                 throw new ArgumentException($"{name} is not valid base64 string");
 
         }
@@ -63,7 +63,6 @@ public partial class MafileSerializer //Validate
                 if (d.SessionData.RefreshToken.IsExpired)
                 {
                     sessionResult = DeserializedMafileSessionResult.Expired;
-                    return null;
                 }
 
                 d.SessionData.IsValid = SessionDataValidator.Validate(null, d.SessionData).Succeeded;

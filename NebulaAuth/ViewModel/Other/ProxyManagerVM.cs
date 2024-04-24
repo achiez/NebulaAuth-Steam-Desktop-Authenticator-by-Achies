@@ -42,7 +42,7 @@ public partial class ProxyManagerVM : ObservableObject
             var idPresent = (bool?)null;
             var proxies = new List<KeyValuePair<int?, ProxyData>>();
             var i = 0;
-            foreach (var str in split)
+            foreach (var str in split.Where(s => string.IsNullOrWhiteSpace(s) == false))
             {
                 i++;
                 int? id = null;
@@ -113,17 +113,37 @@ public partial class ProxyManagerVM : ObservableObject
     [RelayCommand]
     private void RemoveProxy()
     {
-        if (SelectedProxy == null) return;
-        ProxyStorage.RemoveProxy(SelectedProxy.Value.Key);
+        var selected = SelectedProxy;
+        if (selected == null) return;
+        var s = selected.Value;
+
+
+        KeyValuePair<int, ProxyData>? nextNeighbor = null;
+        KeyValuePair<int, ProxyData>? prevNeighbor = null;
+        foreach (var id in Proxies.Keys.Order())
+        {
+            if (id < s.Key)
+            {
+                prevNeighbor = KeyValuePair.Create(id, Proxies[id]);
+            }
+            else if (id > s.Key)
+            {
+                nextNeighbor = KeyValuePair.Create(id, Proxies[id]);
+                break;
+            }
+        }
+        
+        ProxyStorage.RemoveProxy(s.Key);
+        SelectedProxy = nextNeighbor ?? prevNeighbor;
         CheckIfDefaultProxyStay();
     }
 
     [RelayCommand]
-    private void SetDefault()
+    private void SetDefault(object? arg)
     {
-        if (SelectedProxy == null) return;
-        DefaultProxy = SelectedProxy;
-        MaClient.DefaultProxy = SelectedProxy.Value.Value;
+        if (arg is not KeyValuePair<int, ProxyData> proxy) return;
+        DefaultProxy = proxy;
+        MaClient.DefaultProxy = proxy.Value;
         ProxyStorage.Save();
     }
 

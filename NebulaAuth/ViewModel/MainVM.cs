@@ -23,6 +23,8 @@ public partial class MainVM : ObservableObject
     private ObservableCollection<Mafile> _maFiles = Storage.MaFiles;
     public SnackbarMessageQueue MessageQueue => SnackbarController.MessageQueue;
 
+
+
     public Mafile? SelectedMafile
     {
         get => _selectedMafile;

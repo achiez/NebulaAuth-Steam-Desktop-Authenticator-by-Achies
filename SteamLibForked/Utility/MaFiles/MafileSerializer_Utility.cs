@@ -8,7 +8,7 @@ public partial class MafileSerializer //Utility
     {
         foreach (var name in aliases)
         {
-            if (j.TryGetValue(name, StringComparison.InvariantCultureIgnoreCase, out var token))
+            if (j.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out var token))
             {
                 return token;
             }
@@ -21,7 +21,7 @@ public partial class MafileSerializer //Utility
     {
         foreach (var name in aliases)
         {
-            if (!j.TryGetValue(name, StringComparison.InvariantCultureIgnoreCase, out var token)) continue;
+            if (!j.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out var token)) continue;
             var parent = token.Parent as JProperty;
             removeFrom.Remove(parent!.Name);
             return token;
@@ -34,7 +34,7 @@ public partial class MafileSerializer //Utility
     {
         foreach (var name in aliases)
         {
-            if (!j.TryGetValue(name, StringComparison.InvariantCultureIgnoreCase, out var token)) continue;
+            if (!j.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out var token)) continue;
             if (token.Type == JTokenType.Null)
             {
                 throw new ArgumentException($"Required property {propertyName} is null");

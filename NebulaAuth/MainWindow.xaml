@@ -68,7 +68,11 @@
                             </MenuItem>
                         </Menu>
                         <Separator />
-                        <ComboBox ToolTip="{Tr MainWindow.AppBar.GroupToolTip}" MinWidth="100" Margin="8,0,8,0" VerticalAlignment="Center" md:HintAssist.Hint="{Tr MainWindow.AppBar.GroupsHint}" md:TextFieldAssist.HasClearButton="True" IsEditable="True" ItemsSource="{Binding Groups}" SelectedValue="{Binding SelectedGroup}">
+                        <ComboBox ToolTip="{Tr MainWindow.AppBar.GroupToolTip}" md:HintAssist.Hint="{Tr MainWindow.AppBar.GroupsHint}" 
+                                  MinWidth="100" Margin="8,0,8,0" VerticalAlignment="Center"  IsEditable="True"
+                                  ItemsSource="{Binding Groups}"
+                                  SelectedValue="{Binding SelectedGroup}">
+
                             <FrameworkElement.Resources>
                                 <ResourceDictionary>
                                     <Style TargetType="md:PackIcon">
@@ -152,6 +156,11 @@
                                 </ContextMenu>
                             </FrameworkElement.ContextMenu>
                         </ListBox>
+                        <TextBlock Visibility="{Binding MaFiles.Count, Converter={StaticResource AnyMafilesToVisibilityConverter}, Mode=OneWay}" Margin="5" FontSize="16" Grid.Row="0" TextWrapping="WrapWithOverflow" Text="{Tr MainWindow.Global.StartTip}">
+                            <TextBlock.Background>
+                                <SolidColorBrush Color="DarkGray" Opacity="0.5"/>
+                            </TextBlock.Background>
+                        </TextBlock>
                         <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:TextFieldAssist.HasClearButton="True" w:FontScaleWindow.Scale="0.7" w:FontScaleWindow.ResizeFont="True" Grid.Row="1" Margin="10" md:HintAssist.Hint="{Tr MainWindow.LeftPart.SearchBoxHint}" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                     <md:Card Grid.Column="1" Margin="10,10,15,10" UniformCornerRadius="15">

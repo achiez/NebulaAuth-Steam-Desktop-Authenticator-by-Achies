@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using AchiesUtilities.Models;
+using Newtonsoft.Json.Linq;
 using SteamLib.Account;
 using SteamLib.Authentication;
 using SteamLib.Core.Enums;
@@ -14,7 +15,7 @@ public partial class MafileSerializer //SessionData
             "refresh", "OAuthToken");
 
 
-        SteamAuthToken refreshToken;
+        SteamAuthToken? refreshToken = null;
         if (refreshTokenToken == null || refreshTokenToken.Type == JTokenType.Null) return null;
         if (refreshTokenToken.Type == JTokenType.String && SteamTokenHelper.TryParse(refreshTokenToken.Value<string>()!, out var parsed))
         {
@@ -28,12 +29,8 @@ public partial class MafileSerializer //SessionData
             }
             catch
             {
-                return null;
+               //Ignored
             }
-        }
-        else
-        {
-            return null;
         }
 
 
@@ -66,12 +63,20 @@ public partial class MafileSerializer //SessionData
         }
    
 
-        var sessionData = new MobileSessionData(sessionId, refreshToken.SteamId, refreshToken, accessToken, new Dictionary<SteamDomain, SteamAuthToken>());
+        var steamId = refreshToken?.SteamId ?? GetSessionSteamId(j);
+        if (steamId == null)
+        {
+            result = DeserializedMafileSessionResult.Invalid;
+            return null;
+        }
+
+        refreshToken ??= CreateInvalid(steamId.Value);
+        var sessionData = new MobileSessionData(sessionId, steamId.Value, refreshToken.Value, accessToken, new Dictionary<SteamDomain, SteamAuthToken>());
         sessionData.IsValid = SessionDataValidator.Validate(null, sessionData).Succeeded;
         if(sessionData.IsValid == false)
             return null;
 
-        if (refreshToken.IsExpired || refreshToken.Type != SteamAccessTokenType.MobileRefresh)
+        if (refreshToken.Value.IsExpired || refreshToken.Value.Type != SteamAccessTokenType.MobileRefresh)
         {
             result = DeserializedMafileSessionResult.Expired;
         }
@@ -81,5 +86,35 @@ public partial class MafileSerializer //SessionData
         }
 
         return sessionData;
+    }
+
+    private static SteamId? GetSessionSteamId(JObject j)
+    {
+        var token = GetToken(j, "steamid");
+        if (token == null || token.Type == JTokenType.Null)
+            return null;
+
+        if(token.Type == JTokenType.Integer)
+            return SteamId.FromSteam64(token.Value<long>());
+
+        if (token.Type == JTokenType.String && long.TryParse(token.Value<string>()!, out var steamId))
+        {
+            return SteamId.FromSteam64(steamId);
+        }
+
+        return null;
+    }
+
+    //Workaround to avoid session being invalidated due to missing a valid token.
+    //The reason for this change is the inability to proxy/change group for old mafiles, which creates more problems than benefits.
+    //A temporary solution until I decide how to read the SteamID correctly without invalidating the entire session.
+    //It also makes the LoginAgainOnImport mechanism useless, which is good outcome.
+    //Most likely I need to reconsider the reaction to an “invalid” session and simply feed it to the software as “expired”.
+    //Also, when deciding not to validate RefreshToken, I need to reconsider the entire validation method in the Validator class and think through the consequences in the rest of the code.
+    //FIXME: Refactor code to avoid this workaround and make it more organic.
+    //TODO: after fixing the issue, reflect changes in the original library
+    private static SteamAuthToken CreateInvalid(SteamId steamId)
+    {
+       return new SteamAuthToken("invalid", steamId, UnixTimeStamp.FromDateTime(DateTime.Now - TimeSpan.FromSeconds(1)), SteamDomain.Community, SteamAccessTokenType.MobileRefresh);
     }
 }
