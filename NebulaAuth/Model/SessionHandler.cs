@@ -16,7 +16,7 @@ public static class SessionHandler
         string? password = null;
         try
         {
-            if (!string.IsNullOrWhiteSpace(mafile.Password))
+            if (PHandler.IsPasswordSet && !string.IsNullOrWhiteSpace(mafile.Password))
             {
                 password = PHandler.Decrypt(mafile.Password);
             }
@@ -31,8 +31,9 @@ public static class SessionHandler
         {
             return await func();
         }
-        catch (SessionExpiredException) when (mafile.SessionData is not { RefreshToken.IsExpired: true})
+        catch (SessionInvalidException) when (mafile.SessionData is { RefreshToken.IsExpired: false})
         {
+            Shell.Logger.Debug("Token on mafile {name} {steamid} expired. Trying to refresh", mafile.AccountName, mafile.SessionData?.SteamId);
             refreshed = await TryRefresh(mafile);
         }
         catch (SessionInvalidException)

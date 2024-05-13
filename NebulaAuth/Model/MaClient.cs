@@ -95,6 +95,7 @@ public static class MaClient
         Storage.UpdateMafile(mafile);
     }
 
+
     public static async Task RefreshSession(Mafile mafile)
     {
         ValidateMafile(mafile, true);
@@ -107,6 +108,7 @@ public static class MaClient
             mafile.SessionData.SetMobileToken(newToken);
         }
 
+        //RETHINK: Do we need this? Mobile token is enough
         var communityToken = mafile.SessionData!.GetToken(SteamDomain.Community);
         if (communityToken == null || communityToken.Value.IsExpired)
         {
@@ -114,7 +116,7 @@ public static class MaClient
             var newToken = SteamTokenHelper.Parse(communityTokenString);
             mafile.SessionData.SetToken(SteamDomain.Community, newToken);
         }
-        
+
         Storage.UpdateMafile(mafile);
         ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(mafile.SessionData);
     }
@@ -173,14 +175,10 @@ public static class MaClient
 
     public static async Task<LoginConfirmationResult> ConfirmLoginRequest(Mafile mafile)
     {
-        if (mafile.SessionData == null)
-        {
-            throw new SessionExpiredException();
-        }
-
         ValidateMafile(mafile);
-        var token = mafile.SessionData.GetMobileToken()!.Value;
         SetProxy(mafile);
+        var token = mafile.SessionData!.GetMobileToken()!.Value;
+        
 
         var uri = "https://api.steampowered.com/IAuthenticationService/GetAuthSessionsForAccount/v1?access_token=" + token.Token;
         GetAuthSessionsForAccount_Response getsess;
