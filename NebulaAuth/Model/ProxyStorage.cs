@@ -11,6 +11,7 @@ namespace NebulaAuth.Model;
 
 public static class ProxyStorage
 {
+   
     public const string FORMAT = ADDRESS_FORMAT + ":{USER}:{PASS}";
     public const string ADDRESS_FORMAT = "{IP}:{PORT}";
 
@@ -32,7 +33,7 @@ public static class ProxyStorage
         try
         {
             var json = File.ReadAllText("proxies.json");
-            var proxies = JsonConvert.DeserializeObject<Proxies>(json) ?? throw new NullReferenceException();
+            var proxies = JsonConvert.DeserializeObject<ProxiesSchema>(json) ?? throw new NullReferenceException();
             Proxies = proxies.ProxiesData;
             Proxies = new ObservableDictionary<int, ProxyData>(
                 Proxies.OrderBy(p => p.Key)
@@ -48,16 +49,13 @@ public static class ProxyStorage
             SnackbarController.SendSnackbar("Ошибка при загрузке прокси");
             SnackbarController.SendSnackbar(ex.Message);
         }
-
-
-
     }
 
     public static void SetProxy(int? id, ProxyData proxyData)
     {
         if (id == null)
         {
-            if (Proxies.Any() == false)
+            if (Proxies.Count == 0)
             {
                 id = 0;
             }
@@ -94,7 +92,7 @@ public static class ProxyStorage
         return proxyData.AuthEnabled ? proxyData.ToString(FORMAT) : proxyData.ToString(ADDRESS_FORMAT);
     }
 
-    private static Proxies Create()
+    private static ProxiesSchema Create()
     {
         int? def = null;
         if (MaClient.DefaultProxy != null)
@@ -106,18 +104,16 @@ public static class ProxyStorage
             }
         }
 
-        return new Proxies
+        return new ProxiesSchema
         {
             ProxiesData = Proxies,
             DefaultProxy = def
         };
     }
 
-
-}
-
-public class Proxies
-{
-    public ObservableDictionary<int, ProxyData> ProxiesData { get; set; }
-    public int? DefaultProxy { get; set; }
+    private class ProxiesSchema
+    {
+        public ObservableDictionary<int, ProxyData> ProxiesData = new();
+        public int? DefaultProxy;
+    }
 }

@@ -1,7 +1,5 @@
 ﻿using AchiesUtilities.Collections;
 using AchiesUtilities.Web.Proxy;
-using AutoUpdaterDotNET;
-using CodingSeb.Localization.WPF;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
@@ -42,14 +40,19 @@ public partial class ProxyManagerVM : ObservableObject
             var idPresent = (bool?)null;
             var proxies = new List<KeyValuePair<int?, ProxyData>>();
             var i = 0;
-            foreach (var str in split.Where(s => string.IsNullOrWhiteSpace(s) == false))
+            foreach (var s in split.Where(s => string.IsNullOrWhiteSpace(s) == false))
             {
                 i++;
+                var str = s;
                 int? id = null;
                 var match = IdRegex.Match(str);
-                if (match.Success) id = int.Parse(match.Groups[1].Value);
-                idPresent ??= match.Success;
+                if (match.Success)
+                {
+                    id = int.Parse(match.Groups[1].Value);
+                    str = IdRegex.Replace(str, "");
+                }
 
+                idPresent ??= match.Success;
                 if (idPresent.Value != match.Success)
                 {
                     SnackbarController.SendSnackbar(GetLocalizationOrDefault("WrongFormatSomeIdsMissing"));
@@ -132,7 +135,7 @@ public partial class ProxyManagerVM : ObservableObject
                 break;
             }
         }
-        
+
         ProxyStorage.RemoveProxy(s.Key);
         SelectedProxy = nextNeighbor ?? prevNeighbor;
         CheckIfDefaultProxyStay();
@@ -167,7 +170,7 @@ public partial class ProxyManagerVM : ObservableObject
         {
             Shell.Logger.Error(ex);
         }
-       
+
     }
 
     [RelayCommand]
