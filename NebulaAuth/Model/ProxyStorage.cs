@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using AchiesUtilities.Collections;
 using AchiesUtilities.Web.Proxy;
@@ -11,6 +12,7 @@ namespace NebulaAuth.Model;
 
 public static class ProxyStorage
 {
+
     public const string FORMAT = ADDRESS_FORMAT + ":{USER}:{PASS}";
     public const string ADDRESS_FORMAT = "{IP}:{PORT}";
 
@@ -32,7 +34,7 @@ public static class ProxyStorage
         try
         {
             var json = File.ReadAllText("proxies.json");
-            var proxies = JsonConvert.DeserializeObject<Proxies>(json) ?? throw new NullReferenceException();
+            var proxies = JsonConvert.DeserializeObject<ProxiesSchema>(json) ?? throw new NullReferenceException();
             Proxies = proxies.ProxiesData;
             Proxies = new ObservableDictionary<int, ProxyData>(
                 Proxies.OrderBy(p => p.Key)
@@ -48,16 +50,13 @@ public static class ProxyStorage
             SnackbarController.SendSnackbar("Ошибка при загрузке прокси");
             SnackbarController.SendSnackbar(ex.Message);
         }
-
-
-
     }
 
     public static void SetProxy(int? id, ProxyData proxyData)
     {
         if (id == null)
         {
-            if (Proxies.Any() == false)
+            if (Proxies.Count == 0)
             {
                 id = 0;
             }
@@ -71,6 +70,41 @@ public static class ProxyStorage
 
         Save();
     }
+
+    public static void SetProxies(IEnumerable<KeyValuePair<int?, ProxyData>> proxies)
+    {
+        foreach (var (key, proxyData) in proxies)
+        {
+            var id = key;
+            if (id == null)
+            {
+                if (Proxies.Count == 0)
+                {
+                    id = 0;
+                }
+                else
+                {
+                    id = Proxies.Keys.Max() + 1;
+                }
+            }
+
+            Proxies[id] = proxyData;
+        }
+
+        Save();
+    }
+
+    public static void OrderCollection() //RETHINK: maybe there is better way to handle it
+    {
+        var proxies = Proxies.OrderBy(p => p.Key)
+            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        Proxies.Clear();
+        foreach (var kvp in proxies)
+        {
+            Proxies.Add(kvp.Key, kvp.Value);
+        }
+    }
+
     public static void RemoveProxy(int id)
     {
         Proxies.Remove(id);
@@ -78,7 +112,7 @@ public static class ProxyStorage
     }
     public static bool CompareProxy(ProxyData proxyData1, ProxyData proxyData2)
     {
-        return proxyData1.Address == proxyData2.Address && proxyData1.Port == proxyData2.Port;
+        return proxyData1.Equals(proxyData2);
     }
 
 
@@ -94,7 +128,7 @@ public static class ProxyStorage
         return proxyData.AuthEnabled ? proxyData.ToString(FORMAT) : proxyData.ToString(ADDRESS_FORMAT);
     }
 
-    private static Proxies Create()
+    private static ProxiesSchema Create()
     {
         int? def = null;
         if (MaClient.DefaultProxy != null)
@@ -106,18 +140,16 @@ public static class ProxyStorage
             }
         }
 
-        return new Proxies
+        return new ProxiesSchema
         {
             ProxiesData = Proxies,
             DefaultProxy = def
         };
     }
 
-
-}
-
-public class Proxies
-{
-    public ObservableDictionary<int, ProxyData> ProxiesData { get; set; }
-    public int? DefaultProxy { get; set; }
+    private class ProxiesSchema
+    {
+        public ObservableDictionary<int, ProxyData> ProxiesData = new();
+        public int? DefaultProxy;
+    }
 }

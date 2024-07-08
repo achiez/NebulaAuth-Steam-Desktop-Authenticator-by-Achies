@@ -22,7 +22,7 @@ public partial class App : Application
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
+            var msg = ex.ToString();
             if (ex is CantAlignTimeException)
             {
                 msg = Loc.Tr(LocManager.GetCodeBehind("CantAlignTimeError"));

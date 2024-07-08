@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "changelog", "changelog", "{
 		changelog\1.4.8.html = changelog\1.4.8.html
 		changelog\1.4.9.html = changelog\1.4.9.html
 		changelog\1.5.0.html = changelog\1.5.0.html
+		changelog\1.5.1.html = changelog\1.5.1.html
 	EndProjectSection
 EndProject
 Global
