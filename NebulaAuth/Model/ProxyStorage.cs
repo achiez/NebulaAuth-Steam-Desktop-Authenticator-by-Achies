@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using AchiesUtilities.Collections;
 using AchiesUtilities.Web.Proxy;
@@ -11,7 +12,7 @@ namespace NebulaAuth.Model;
 
 public static class ProxyStorage
 {
-   
+
     public const string FORMAT = ADDRESS_FORMAT + ":{USER}:{PASS}";
     public const string ADDRESS_FORMAT = "{IP}:{PORT}";
 
@@ -69,6 +70,41 @@ public static class ProxyStorage
 
         Save();
     }
+
+    public static void SetProxies(IEnumerable<KeyValuePair<int?, ProxyData>> proxies)
+    {
+        foreach (var (key, proxyData) in proxies)
+        {
+            var id = key;
+            if (id == null)
+            {
+                if (Proxies.Count == 0)
+                {
+                    id = 0;
+                }
+                else
+                {
+                    id = Proxies.Keys.Max() + 1;
+                }
+            }
+
+            Proxies[id] = proxyData;
+        }
+
+        Save();
+    }
+
+    public static void OrderCollection() //RETHINK: maybe there is better way to handle it
+    {
+        var proxies = Proxies.OrderBy(p => p.Key)
+            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        Proxies.Clear();
+        foreach (var kvp in proxies)
+        {
+            Proxies.Add(kvp.Key, kvp.Value);
+        }
+    }
+
     public static void RemoveProxy(int id)
     {
         Proxies.Remove(id);
@@ -76,7 +112,7 @@ public static class ProxyStorage
     }
     public static bool CompareProxy(ProxyData proxyData1, ProxyData proxyData2)
     {
-        return proxyData1.Address == proxyData2.Address && proxyData1.Port == proxyData2.Port;
+        return proxyData1.Equals(proxyData2);
     }
 
 

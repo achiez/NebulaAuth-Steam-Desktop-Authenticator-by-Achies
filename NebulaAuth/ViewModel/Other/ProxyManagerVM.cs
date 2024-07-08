@@ -21,7 +21,7 @@ public partial class ProxyManagerVM : ObservableObject
     [ObservableProperty] private KeyValuePair<int, ProxyData>? _defaultProxy;
     public ObservableDictionary<int, ProxyData> Proxies => ProxyStorage.Proxies;
 
-    private static readonly Regex IdRegex = new(@"(?:\{(\d+)\})");
+    private static readonly Regex IdRegex = new(@"\{(\d+)\}$");
 
 
     public ProxyManagerVM()
@@ -33,78 +33,70 @@ public partial class ProxyManagerVM : ObservableObject
     [RelayCommand]
     private void AddProxy()
     {
-        if (string.IsNullOrEmpty(AddProxyField)) return;
-        if (AddProxyField.Contains(Environment.NewLine))
+        var input = AddProxyField;
+        if (string.IsNullOrEmpty(input)) return;
+
+
+        var split = input
+            .Split(Environment.NewLine)
+            .Where(s => string.IsNullOrWhiteSpace(s) == false)
+            .ToArray();
+
+        if (split.Length == 0) return;
+
+        bool? idPresent = null;
+        var proxies = new List<KeyValuePair<int?, ProxyData>>();
+        var i = 0;
+
+
+        foreach (var s in split.Where(s => string.IsNullOrWhiteSpace(s) == false))
         {
-            var split = AddProxyField.Split(Environment.NewLine);
-            var idPresent = (bool?)null;
-            var proxies = new List<KeyValuePair<int?, ProxyData>>();
-            var i = 0;
-            foreach (var s in split.Where(s => string.IsNullOrWhiteSpace(s) == false))
-            {
-                i++;
-                var str = s;
-                int? id = null;
-                var match = IdRegex.Match(str);
-                if (match.Success)
-                {
-                    id = int.Parse(match.Groups[1].Value);
-                    str = IdRegex.Replace(str, "");
-                }
-
-                idPresent ??= match.Success;
-                if (idPresent.Value != match.Success)
-                {
-                    SnackbarController.SendSnackbar(GetLocalizationOrDefault("WrongFormatSomeIdsMissing"));
-                    return;
-                }
-
-
-
-                if (ProxyStorage.DefaultScheme.TryParse(str, out var proxy))
-                {
-                    if (id != null && proxies.Any(kvp => kvp.Key == id))
-                    {
-                        SnackbarController.SendSnackbar(string.Format(GetLocalizationOrDefault("DuplicateId"), id));
-                        return;
-                    }
-                    proxies.Add(new KeyValuePair<int?, ProxyData>(id, proxy));
-                }
-                else
-                {
-                    SnackbarController.SendSnackbar(string.Format(GetLocalizationOrDefault("WrongFormatOnLine"), i));
-                    return;
-                }
-            }
-
-            foreach (var kvp in proxies)
-            {
-                ProxyStorage.SetProxy(kvp.Key, kvp.Value);
-            }
-        }
-        else
-        {
+            i++;
+            var str = s;
             int? id = null;
-            var input = AddProxyField;
-            if (IdRegex.IsMatch(AddProxyField))
+            var idMatch = IdRegex.Match(str);
+            if (idMatch.Success)
             {
-                id = int.Parse(IdRegex.Match(AddProxyField).Groups[1].Value);
-                input = IdRegex.Replace(input, "");
+                id = int.Parse(idMatch.Groups[1].Value);
+                str = IdRegex.Replace(str, "");
             }
 
-            if (ProxyStorage.DefaultScheme.TryParse(input, out var data))
+            idPresent ??= idMatch.Success;
+            if (idPresent.Value != idMatch.Success)
             {
-                ProxyStorage.SetProxy(id, data);
+                SnackbarController.SendSnackbar(GetLocalizationOrDefault("WrongFormatSomeIdsMissing"));
+                return;
+            }
+
+
+
+            if (ProxyStorage.DefaultScheme.TryParse(str, out var proxy))
+            {
+                if (id != null && proxies.Any(kvp => kvp.Key == id))
+                {
+                    SnackbarController.SendSnackbar(string.Format(GetLocalizationOrDefault("DuplicateId"), id));
+                    return;
+                }
+                proxies.Add(new KeyValuePair<int?, ProxyData>(id, proxy));
             }
             else
             {
-                SnackbarController.SendSnackbar(GetLocalizationOrDefault("WrongFormat"));
+                if (split.Length == 1)
+                {
+                    SnackbarController.SendSnackbar(GetLocalizationOrDefault("WrongFormat"));
+                    return;
+                }
+                SnackbarController.SendSnackbar(string.Format(GetLocalizationOrDefault("WrongFormatOnLine"), i));
                 return;
             }
         }
+
+        ProxyStorage.SetProxies(proxies);
+        ProxyStorage.OrderCollection();
         AddProxyField = string.Empty;
         CheckIfDefaultProxyStay();
     }
+
 
     private void CheckIfDefaultProxyStay()
     {

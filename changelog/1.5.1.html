@@ -63,16 +63,18 @@
 </head>
 <body>
 
-<div class="changelog-container">
-    <!-- Changelog entry -->
-    <div class="change">
-        <div class="version">Version 1.5.1</div>
-        <div class="date">DATE</div>
-        <div class="description">
-            - FIX: Fixed proxy problem when {id} was parsed as a part of password when using 'ip:port:username:password{id}' proxy format
+    <div class="changelog-container">
+        <!-- Changelog entry -->
+        <div class="change">
+            <div class="version">Version 1.5.1</div>
+            <div class="date">DATE</div>
+            <div class="description">
+                - FIX: Fixed proxy error (407) when {id} was parsed as a part of password when using 'ip:port:username:password{id}' proxy format <br />
+                - IMPROVEMENT: Now proxies always ordered by ID <br />
+                - FIX: Small fix in the proxy comparison method (sometimes proxy red indicator was not shown)
+            </div>
         </div>
     </div>
-</div>
 
 </body>
 </html>

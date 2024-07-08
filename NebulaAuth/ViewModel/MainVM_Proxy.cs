@@ -76,7 +76,7 @@ public partial class MainVM
 
         var selectedId = SelectedProxy.Id;
         ProxyExist = ProxyStorage.Proxies.TryGetValue(selectedId, out var existedProxy)
-                     && ProxyStorage.CompareProxy(SelectedProxy.Data, existedProxy);
+                     && SelectedProxy.Data.Equals(existedProxy); //Id is not important in 'Equals()' as we extract it from the dictionary
     }
 
     [RelayCommand]
@@ -98,7 +98,7 @@ public partial class MainVM
     [RelayCommand]
     private void RemoveProxy()
     {
-        if(SelectedProxy == null) return;
+        if (SelectedProxy == null) return;
         if (SelectedMafile == null) return;
         if (!ValidateCanSaveAndWarn(SelectedMafile)) return;
         SelectedMafile.Proxy = null;
@@ -121,7 +121,7 @@ public partial class MainVM
         SelectedMafile.Proxy = SelectedProxy;
         Storage.UpdateMafile(SelectedMafile);
     }
-        
+
     private bool ValidateCanSaveAndWarn(Mafile data)
     {
         var canSave = Storage.ValidateCanSave(data);
