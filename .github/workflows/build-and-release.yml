@@ -2,13 +2,12 @@ name: Build and Release
 
 on:
   push:
-    branches:
-      - master
     tags:
       - 'v*'
 
 jobs:
   build:
+    if: github.ref == 'refs/heads/master'
     runs-on: windows-latest
 
     steps:
@@ -28,41 +27,42 @@ jobs:
 
       - name: Get version from assembly
         id: get-version
+        shell: pwsh
         run: |
-          VERSION=$(grep -oP '(?<=<AssemblyVersion>)[^<]+' NebulaAuth/NebulaAuth.csproj)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          $content = Get-Content -Path "NebulaAuth/NebulaAuth.csproj" -Raw
+          $version = [regex]::Match($content, '<AssemblyVersion>(.*?)<\/AssemblyVersion>').Groups[1].Value
+          Write-Output "VERSION=$version" >> $env:GITHUB_ENV
 
       - name: Check if tag exists
         id: tag_exists
         run: |
-          if git tag -l | grep -q "^${{ env.VERSION }}$"; then
-            echo "Version ${{ env.VERSION }} already exists."
+          if (git tag -l | Select-String -Pattern "^${env:VERSION}$") {
+            Write-Output "Version $env:VERSION already exists."
             exit 1
-          fi
+          }
 
       - name: Check changelog
         run: |
-          if [ ! -f "changelog/${{ env.VERSION }}.html" ]; then
-            echo "Changelog file changelog/${{ env.VERSION }}.html does not exist."
+          if (-not (Test-Path "changelog/${env:VERSION}.html")) {
+            Write-Output "Changelog file changelog/${env:VERSION}.html does not exist."
             exit 1
-          fi
+          }
 
       - name: Insert date into changelog
         run: |
-          DATE=$(date +"%d.%m.%Y")
-          sed -i "s|<div class=\"date\">.*</div>|<div class=\"date\">$DATE</div>|" changelog/${{ env.VERSION }}.html
+          $date = Get-Date -Format "dd.MM.yyyy"
+          (Get-Content "changelog/${env:VERSION}.html") -replace '(?<=<div class="date">).*?(?=</div>)', $date | Set-Content "changelog/${env:VERSION}.html"
 
       - name: Extract changelog description
         id: extract_description
         run: |
-          DESCRIPTION=$(grep -oP '(?<=<div class="description">).*(?=</div>)' changelog/${{ env.VERSION }}.html | sed 's/<br\/>/\n/g')
-          echo "DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
-
+          $description = (Get-Content "changelog/${env:VERSION}.html" | Select-String -Pattern '(?<=<div class="description">).*?(?=</div>)' | ForEach-Object { $_.Matches.Value }) -replace '<br\/>', "`n"
+          Write-Output "DESCRIPTION=$description" >> $env:GITHUB_ENV
 
       - name: Create ZIP
         run: |
-          mkdir -p release
-          zip -r release/NebulaAuth.${{ env.VERSION }}.zip NebulaAuth/bin/Release
+          New-Item -ItemType Directory -Path release -Force
+          Compress-Archive -Path NebulaAuth/bin/Release -DestinationPath release/NebulaAuth.${env:VERSION}.zip
 
       - name: Create GitHub Release
         id: create_release
@@ -73,8 +73,7 @@ jobs:
           tag_name: ${{ env.VERSION }}
           release_name: NebulaAuth ${{ env.VERSION }}
           body: |
-            ${{ env.DESCRIPTION }}
-            [Download NebulaAuth.${{ env.VERSION }}.zip](https://github.com/${{ github.repository }}/releases/download/${{ env.VERSION }}/NebulaAuth.${{ env.VERSION }}.zip)
+            ${{ env.DESCRIPTION }}           
           draft: false
           prerelease: false
 
@@ -89,16 +88,21 @@ jobs:
           asset_content_type: application/zip
 
       - name: Update XML and Changelog html
+        shell: pwsh
         run: |
-          echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" > update.xml
-          echo "<item>" >> update.xml
-          echo "  <version>${{ env.VERSION }}.0</version>" >> update.xml
-          echo "  <url>https://github.com/${{ github.repository }}/releases/download/${{ env.VERSION }}/NebulaAuth.${{ env.VERSION }}.zip</url>" >> update.xml
-          echo "  <changelog>https://achiez.github.io/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/changelog/${{ env.VERSION }}.html</changelog>" >> update.xml
-          echo "  <mandatory>false</mandatory>" >> update.xml
-          echo "</item>" >> update.xml
+          $xmlContent = @"
+            <?xml version="1.0" encoding="UTF-8"?>
+            <item>
+              <version>${env:VERSION}.0</version>
+              <url>https://github.com/${env:GITHUB_REPOSITORY}/releases/download/${env:VERSION}/NebulaAuth.${env:VERSION}.zip</url>
+              <changelog>https://achiez.github.io/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/changelog/${env:VERSION}.html</changelog>
+              <mandatory>false</mandatory>
+            </item>
+          "@
+          $xmlContent | Out-File -FilePath update.xml -Encoding UTF8 -Force
+          
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git add changelog/${{ env.VERSION }}.html update.xml
-          git commit -m "Update version to ${{ env.VERSION }} and add changelog"
+          git add changelog/${env:VERSION}.html update.xml
+          git commit -m "Update version to ${env:VERSION} and add changelog"
           git push origin master
