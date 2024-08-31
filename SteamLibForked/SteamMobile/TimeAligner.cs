@@ -46,9 +46,8 @@ public static class TimeAligner
             var req = new HttpRequestMessage(HttpMethod.Post, SteamConstants.STEAM_API + TIME_ALIGN_ENDPOINT);
             var response = client.Send(req).EnsureSuccessStatusCode();
             sw.Stop();
-            var stream = new StreamReader(response.Content.ReadAsStream());
+            using var stream = new StreamReader(response.Content.ReadAsStream());
             var respStr = stream.ReadToEnd();
-            stream.Dispose();
             var j = JObject.Parse(respStr);
             var time = j["response"]!["server_time"]!.Value<long>();
             var now = UtcNow - sw.Elapsed;
@@ -80,7 +79,6 @@ public static class TimeAligner
         }
         finally
         {
-            sw.Stop();
             client.Dispose();
         }
     }

@@ -1,6 +1,5 @@
 ﻿using AutoUpdaterDotNET;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.VisualBasic.FileIO;
 
 namespace NebulaAuth.ViewModel.Other;
 

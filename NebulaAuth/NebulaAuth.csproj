@@ -19,17 +19,17 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="Autoupdater.NET.Official" Version="1.8.5" />
-	  <PackageReference Include="CodingSeb.Localization.JsonFileLoader" Version="1.3.0" />
-	  <PackageReference Include="CodingSeb.Localization.WPF" Version="1.3.0" />
-	  <PackageReference Include="CodingSebLocalization.Fody" Version="1.3.0" />
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+	  <PackageReference Include="Autoupdater.NET.Official" Version="1.9.2" />
+	  <PackageReference Include="CodingSeb.Localization.JsonFileLoader" Version="1.3.1" />
+	  <PackageReference Include="CodingSeb.Localization.WPF" Version="1.3.3" />
+	  <PackageReference Include="CodingSebLocalization.Fody" Version="1.3.1" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.0" />
     <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
     <PackageReference Include="MaterialDesignExtensions" Version="4.0.0-a02" />
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
-    <PackageReference Include="NLog" Version="5.2.8" />
-    <PackageReference Include="NLog.Extensions.Logging" Version="5.3.8" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.122" />
+    <PackageReference Include="NLog" Version="5.3.3" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.3.12" />
   </ItemGroup>
 
   <ItemGroup>
