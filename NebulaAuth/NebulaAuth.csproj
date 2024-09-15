@@ -10,12 +10,14 @@
 	  <SatelliteResourceLanguages>en;ru;ua</SatelliteResourceLanguages>
 	  <ApplicationIcon>Theme\lock.ico</ApplicationIcon>
 	  <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-	  <AssemblyVersion>1.5.1</AssemblyVersion>
+	  <AssemblyVersion>1.5.2</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Theme\1140x641.jpg" />
     <None Remove="Theme\Background.jpg" />
     <None Remove="Theme\lock.ico" />
+    <None Remove="Theme\SplashScreen.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +48,10 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\SteamLibForked\SteamLibForked.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <SplashScreen Include="Theme\SplashScreen.png" />
 	</ItemGroup>
 
 	<ItemGroup>

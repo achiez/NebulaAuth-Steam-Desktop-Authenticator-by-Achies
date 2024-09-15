@@ -45,7 +45,7 @@
                 <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,20,0,0"  FontSize="16" ItemsSource="{Binding Languages}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding  Language}" materialDesign:HintAssist.Hint="{Tr LanguageWord}" ></ComboBox>
                 <CheckBox Margin="0,20,0,0"  FontSize="16" IsChecked="{Binding DisableTimersOnChange}" Content="{Tr SettingsDialog.DisableTimersOnSwitch}"/>
                 <CheckBox Margin="0,10,0,0"  FontSize="16" IsChecked="{Binding HideToTray}" Content="{Tr SettingsDialog.MinimizeToTray}"/>
-                <CheckBox  Margin="0,10,0,0"  FontSize="16" IsChecked="{Binding UseIcon}" Content="{Tr SettingsDialog.UseIndicator}"/>
+                <CheckBox  Margin="0,10,0,0"  FontSize="16" IsChecked="{Binding UseIcon}" Content="{Tr SettingsDialog.UseIndicator}" ToolTip="{Tr SettingsDialog.UseIndicatorHint}"/>
                 <materialDesign:ColorPicker IsEnabled="{Binding UseIcon}" Color="{Binding IconColor, Delay=50}" />
                 <CheckBox  Margin="0,10,0,5"  FontSize="16" IsChecked="{Binding UseBackground}" Content="{Tr SettingsDialog.UseCustomColor}"/>
 
