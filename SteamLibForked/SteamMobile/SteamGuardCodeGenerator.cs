@@ -44,10 +44,8 @@ public class SteamGuardCodeGenerator : ISteamGuardProvider
             time >>= 8;
         }
 
-        HMACSHA1 hmacGenerator = new()
-        {
-            Key = sharedSecret
-        };
+        using HMACSHA1 hmacGenerator = new();
+        hmacGenerator.Key = sharedSecret;
         var hashedData = hmacGenerator.ComputeHash(timeArray);
         var codeArray = new byte[5];
 

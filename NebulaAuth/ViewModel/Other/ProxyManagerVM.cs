@@ -21,7 +21,7 @@ public partial class ProxyManagerVM : ObservableObject
     [ObservableProperty] private KeyValuePair<int, ProxyData>? _defaultProxy;
     public ObservableDictionary<int, ProxyData> Proxies => ProxyStorage.Proxies;
 
-    private static readonly Regex IdRegex = new(@"\{(\d+)\}$");
+    private static readonly Regex IdRegex = new(@"\{(\d+)\}$", RegexOptions.Compiled);
 
 
     public ProxyManagerVM()
@@ -77,7 +77,7 @@ public partial class ProxyManagerVM : ObservableObject
                     SnackbarController.SendSnackbar(string.Format(GetLocalizationOrDefault("DuplicateId"), id));
                     return;
                 }
-                proxies.Add(new KeyValuePair<int?, ProxyData>(id, proxy));
+                proxies.Add(KeyValuePair.Create(id, proxy));
             }
             else
             {

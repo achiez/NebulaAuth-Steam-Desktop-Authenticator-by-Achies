@@ -137,6 +137,7 @@
                         <ListBox Grid.Row="0" w:FontScaleWindow.Scale="0.8" w:FontScaleWindow.ResizeFont="True" Margin="10,15,10,15" DisplayMemberPath="AccountName" ItemsSource="{Binding MaFiles}" SelectedValue="{Binding SelectedMafile}">
                             <FrameworkElement.ContextMenu>
                                 <ContextMenu>
+                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.CopyLogin}" Command="{Binding CopyLoginCommand}" CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}"></MenuItem>
                                     <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.AddToGroup}" ItemsSource="{Binding Groups}">
                                         <ItemsControl.ItemContainerStyle>
                                             <Style BasedOn="{StaticResource MaterialDesignMenuItem}" TargetType="{x:Type MenuItem}">
@@ -156,11 +157,15 @@
                                 </ContextMenu>
                             </FrameworkElement.ContextMenu>
                         </ListBox>
-                        <TextBlock Visibility="{Binding MaFiles.Count, Converter={StaticResource AnyMafilesToVisibilityConverter}, Mode=OneWay}" Margin="5" FontSize="16" Grid.Row="0" TextWrapping="WrapWithOverflow" Text="{Tr MainWindow.Global.StartTip}">
-                            <TextBlock.Background>
+                        <Border Grid.Row="0" Margin="10" Padding="5" Visibility="{Binding MaFiles.Count, Converter={StaticResource AnyMafilesToVisibilityConverter}, Mode=OneWay}">
+                            <Border.Background>
                                 <SolidColorBrush Color="DarkGray" Opacity="0.5"/>
-                            </TextBlock.Background>
+                            </Border.Background>
+                            <TextBlock TextWrapping="WrapWithOverflow" FontSize="16"   Text="{Tr MainWindow.Global.StartTip}">
+                            
+                       
                         </TextBlock>
+                        </Border>
                         <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:TextFieldAssist.HasClearButton="True" w:FontScaleWindow.Scale="0.7" w:FontScaleWindow.ResizeFont="True" Grid.Row="1" Margin="10" md:HintAssist.Hint="{Tr MainWindow.LeftPart.SearchBoxHint}" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                     <md:Card Grid.Column="1" Margin="10,10,15,10" UniformCornerRadius="15">

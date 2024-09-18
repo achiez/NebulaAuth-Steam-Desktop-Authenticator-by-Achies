@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changelog</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eeeeee;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .changelog-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px auto;
+            max-width: 800px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .change {
+            margin-bottom: 20px;
+            padding: 0;
+            border-left: 4px solid #a50ec7;
+            background-color: #f9f9f9;
+        }
+
+        .version {
+            font-weight: 600;
+            font-size: 1.5em;
+            color: #a50ec7;
+            margin-left: 10px;
+        }
+
+        .date {
+            font-style: italic;
+            color: #888;
+            margin-bottom: 10px;
+            margin-left: 15px;
+        }
+
+        .description {
+            font-size: 1em;
+            padding: 0 15px;
+        }
+
+            .description ul {
+                list-style: inside square;
+                padding: 0;
+            }
+
+        @media only screen and (max-width: 600px) {
+            .changelog-container {
+                width: 90%;
+                margin: 25px auto;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="changelog-container">
+        <!-- Changelog entry -->
+        <div class="change">
+            <div class="version">Version 1.5.2</div>
+            <div class="date">18.09.2024</div>
+            <div class="description">
+               - HOTFIX: Resolved an issue introduced by the September 18, 2024, Steam update, where an error occurred during session refresh due to changes in Steam's response model.<br />
+               - FIX: Potentially resolved a memory leak issue on some devices (Windows 10, 11 Home/Professional).<br />
+               - FIX: Minor performance improvements.<br />
+               - UI: Added a splash screen on application startup.<br />
+               - UI: Added "Copy Login" option in the account context menu on right-click.<br />
+               - UI: Minor localization updates.<br />
+               - UI: Added a tooltip to the "Use Indicator" setting.<br />
+               - UI: Minor design improvements.<br />
+               - UPDATE: Most libraries have been updated to their latest versions.
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

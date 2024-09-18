@@ -5,7 +5,6 @@ using NebulaAuth.Model.Entities;
 using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;
 using NebulaAuth.ViewModel.Other;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace NebulaAuth.Core;
 

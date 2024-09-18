@@ -6,7 +6,6 @@ using MaterialDesignThemes.Wpf;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Utility;
-using Newtonsoft.Json;
 using NLog;
 using SteamLib;
 using SteamLib.Account;
@@ -26,7 +25,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using NebulaAuth.Core;
-using SteamLib.Utility.MaFiles;
 
 namespace NebulaAuth.ViewModel.Other;
 

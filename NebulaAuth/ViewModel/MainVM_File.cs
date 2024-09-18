@@ -17,6 +17,7 @@ using NebulaAuth.Model.Entities;
 using SteamLib.Exceptions;
 using NebulaAuth.Utility;
 using NebulaAuth.View.Dialogs;
+using AutoUpdaterDotNET;
 
 namespace NebulaAuth.ViewModel;
 
@@ -237,5 +238,31 @@ public partial class MainVM //File //TODO: Refactor
 
 
         await AddMafile(arr);
+    }
+
+    [RelayCommand]
+    private void CopyLogin(object? mafile)
+    {
+        if(mafile is not Mafile maf) return;
+        var i = 0;
+        while (i < 20)
+        {
+            try
+            {
+                Clipboard.SetText(maf.AccountName);
+                SnackbarController.SendSnackbar(GetLocalizationOrDefault("LoginCopied"));
+                return;
+            }
+            catch (Exception ex)
+            {
+                if (i == 19)
+                {
+                    Shell.Logger.Error(ex);
+                    SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
+                }
+
+            }
+            i++;
+        }
     }
 }

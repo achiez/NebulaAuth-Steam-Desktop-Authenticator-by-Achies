@@ -242,6 +242,11 @@
     },
     "ContextMenus": {
       "Mafile": {
+        "CopyLogin": {
+          "en": "Copy login",
+          "ru": "Скопировать логин",
+          "ua": "Скопіювати логін"
+        },
         "AddToGroup": {
           "en": "Add to group",
           "ru": "Добавить в группу",
@@ -256,13 +261,13 @@
       "Proxy": {
         "Copy": {
           "en": "Copy",
-          "ru": "Копировать",
-          "ua": "Копіювати"
+          "ru": "Скопировать",
+          "ua": "Скопіювати"
         },
         "CopyAddress": {
           "en": "Copy address",
-          "ru": "Копировать адрес",
-          "ua": "Копіювати адресу"
+          "ru": "Скопировать адрес",
+          "ua": "Скопіювати адресу"
         }
       }
     }
@@ -309,6 +314,11 @@
       "en": "Use indicator",
       "ru": "Использовать индикатор",
       "ua": "Використовувати індикатор"
+    },
+    "UseIndicatorHint": {
+      "en": "Small color indicator in windows toolbar to identify program instance",
+      "ru": "Маленький цветной индикатор в панели задач для идентификации экземпляра программы",
+      "ua": "Малий кольоровий індикатор в панелі завдань для ідентифікації екземпляра програми"
     },
     "UseCustomColor": {
       "en": "Custom window color",
@@ -576,9 +586,9 @@
         "ua": "помилки:"
       },
       "RemoveMafileConfirmation": {
-        "ru": "Удалить мафайл? Это действие переместит мафайл в mafiles_removed",
-        "en": "Remove mafile? This action will move mafile to mafiles_removed",
-        "ua": "Видалити мафайл? Ця дія перемістить мафайл в mafiles_removed"
+        "ru": "Удалить мафайл? Это действие переместит мафайл в папку 'mafiles_removed' (Это действие не удаляет Steam Guard с аккаунта)",
+        "en": "Remove mafile? This action will move mafile to 'mafiles_removed' (This action does not remove the Steam Guard from the account)",
+        "ua": "Видалити мафайл? Ця дія перемістить мафайл у каталог 'mafiles_removed' (Ця дія не видаляє автентифікатор з облікового запису)"
       },
       "CantRemoveAlreadyExist": {
         "ru": "Не удалось переместить мафайл, возможно в папке уже существует мафайл с таким именем.",
@@ -629,6 +639,11 @@
         "ru": "Не удалось получить SteamID из мафайла и сохранить изменения. Необходимо сделать релогин. Отменено",
         "en": "Can't retrieve SteamID from mafile to save changes. Need to relogin. Canceled",
         "ua": "Не вдалося отримати SteamID з мафайла та зберегти зміни. Потрібно зробити релогін. Скасовано"
+      },
+      "LoginCopied": {
+        "en": "Login copied",
+        "ru": "Логин скопирован",
+        "ua": "Логін скопійовано"
       } 
     },
     "ErrorTranslator": {
