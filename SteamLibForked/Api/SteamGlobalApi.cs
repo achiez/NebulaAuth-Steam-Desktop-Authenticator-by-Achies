@@ -1,9 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using AchiesUtilities.Models;
+using AchiesUtilities.Newtonsoft.JSON.Converters.Special;
+using Newtonsoft.Json;
 using SteamLib.Authentication;
 using SteamLib.Core;
 using SteamLib.Core.Enums;
 using SteamLib.Core.StatusCodes;
 using SteamLib.Exceptions;
+using SteamLib.Exceptions.General;
 
 namespace SteamLib.Api;
 
@@ -27,7 +30,17 @@ public static class SteamGlobalApi
         var cont = new FormUrlEncodedContent(data);
         var resp = await client.PostAsync("https://login.steampowered.com/jwt/ajaxrefresh", cont, cancellationToken);
         var respStr = await resp.EnsureSuccessStatusCode().Content.ReadAsStringAsync(cancellationToken);
-        var jwtRefresh = JsonConvert.DeserializeObject<JwtRefreshJson>(respStr);
+
+        JwtRefreshJson? jwtRefresh;
+        try
+        {
+            jwtRefresh = JsonConvert.DeserializeObject<JwtRefreshJson>(respStr);
+        }
+        catch (Exception ex)
+        {
+            throw new UnsupportedResponseException(respStr, ex);
+        }
+
         if (jwtRefresh?.Success != true)
         {
             Exception? inner = null;
@@ -52,14 +65,26 @@ public static class SteamGlobalApi
         cont = new FormUrlEncodedContent(data);
         var update = await client.PostAsync(jwtRefresh.LoginUrl, cont, cancellationToken);
         var updateResp = await update.Content.ReadAsStringAsync(cancellationToken);
-        if (updateResp != "{\"result\":1}")
+        JwtUpdateJson result;
+        try
+        {
+            result = JsonConvert.DeserializeObject<JwtUpdateJson>(updateResp) ?? throw new NullReferenceException();
+        }
+        catch (Exception ex)
+        {
+            throw new UnsupportedResponseException(updateResp, ex);
+        }
+
+        var resultStatus = SteamStatusCode.Translate<SteamStatusCode>(result.Result, out _);
+        if (resultStatus.Equals(SteamStatusCode.Ok) == false)
         {
             throw new SessionInvalidException(
                 "AjaxRefresh (set-token) response was not successful. Response string stored in Exception.Data")
             {
-                Data = {{"Response", updateResp}}
+                Data = { { "Response", updateResp } }
             };
         }
+
         return SteamTokenHelper.ExtractJwtFromSetCookiesHeader(update.Headers);
     }
 
@@ -73,6 +98,16 @@ public static class SteamGlobalApi
         [JsonProperty("redir")] public string Redir { get; set; } = string.Empty;
         [JsonProperty("auth")] public string Auth { get; set; } = string.Empty;
         [JsonProperty("error")] public int? Error { get; set; }
+    }
+
+    private class JwtUpdateJson
+    {
+        [JsonProperty("result")]
+        public int Result { get; set; }
+
+        [JsonProperty("rtExpiry")]
+        [JsonConverter(typeof(UnixTimeStampConverter))]
+        public UnixTimeStamp RtExpiry { get; set; }
     }
 }
 

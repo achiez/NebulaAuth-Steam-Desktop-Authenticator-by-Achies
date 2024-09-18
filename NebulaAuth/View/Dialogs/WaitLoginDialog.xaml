@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:theme="clr-namespace:NebulaAuth.Theme"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
              theme:FontScaleWindow.ResizeFont="True" theme:FontScaleWindow.Scale="1"
               Foreground="WhiteSmoke"
              Background="{DynamicResource WindowBackground}">
