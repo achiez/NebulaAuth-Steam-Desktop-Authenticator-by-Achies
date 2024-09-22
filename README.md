@@ -6,7 +6,7 @@
 ## Description
 
 <h3 align="center" style="margin-bottom:0">
-  <a href="https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/releases/latest">Latest release</a>
+  <a href="https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/releases/latest">Download latest version</a>
 </h3>
 
 <h3 align="center">NebulaAuth is an application for emulating actions from the Steam Mobile App. Which replaces your smartphone when operating on Steam. </h3>
@@ -17,14 +17,17 @@
 
 - **Localization in three languages**: English, Russian and Ukrainian.
 - **Full functionality of Steam Desktop Authenticator** reimagining [old app](https://github.com/Jessecar96/SteamDesktopAuthenticator)
-- **Using a proxy**
+- **Proxy support** in all account work processes.
 - **Mafile grouping** for improved management.
-- **Automatic confirmation of trades/trading platform** to save time.
+- **Automatic confirmations of trades/market actions** to save time.
 - **Bulk import of map files** via Drag'n'Drop or CTRL+V for convenience.
 - **Design customization** to personalize the interface.
 - **Ability to confirm account login without entering a code** for easier access.
 - **Auto-update** program to use the latest features.
 - **Automatic relogin in case of problems with the session** for continuous operation.
+- **Intuitive interface** with tips and conveniences
+- **Continious support** of application code and other features.
+
 
 ## Installation
 
@@ -50,7 +53,7 @@
 3. Login confirmation code (click to copy)
 4. Main confirmation window
 5. Search by login or SteamID (7xxxxxxxxxxxxx)
-6. Confirm login from another device
+6. Confirm login on another device
 7. Hyperlink to the official application page with attribution
 
 ## Settings
