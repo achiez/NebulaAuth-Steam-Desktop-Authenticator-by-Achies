@@ -20,7 +20,7 @@
 - **Proxy support** in all account work processes.
 - **Mafile grouping** for improved management.
 - **Automatic confirmations of trades/market actions** to save time.
-- **Bulk import of map files** via Drag'n'Drop or CTRL+V for convenience.
+- **Bulk import of .mafiles** via Drag'n'Drop or CTRL+V for convenience.
 - **Design customization** to personalize the interface.
 - **Ability to confirm account login without entering a code** for easier access.
 - **Auto-update** program to use the latest features.
@@ -48,7 +48,7 @@
    - proxy selection
    - an indicator with a hint about the proxy used (lit either yellow or red, when hovered it will display additional information)
    - timers for automatic confirmation of trade offers/sale offers on the marketplace
-   - how often to check confirmations when timers are enabled (in seconds)
+   - confirmation timer interval (in seconds)
 2. List of your accounts
 3. Login confirmation code (click to copy)
 4. Main confirmation window
@@ -66,7 +66,7 @@
 5. Indicator with color. Small ellipse on your task-bar icon with custom color. Useful when using multiple windows
 6. Custom background color of application
 7. Current encryption password. If set you can save encrypted passwords to mafile to help re-login on session troubles. (Not recommended)
-8. Legacy mafile mode. Mafile compability mode. If set application will save mafiles with old standart format (Default: checked)
+8. Legacy mafile mode. Mafile compability mode for another applications (SDA and etc). If checked application will save mafiles with old standart format (Default: checked)
 9. Allow auto-update without confirmation
    
   
