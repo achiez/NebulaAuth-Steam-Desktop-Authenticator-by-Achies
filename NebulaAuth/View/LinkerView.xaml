@@ -7,7 +7,6 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:other="clr-namespace:NebulaAuth.ViewModel.Other"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
              Foreground="WhiteSmoke"
              FontFamily="{materialDesign:MaterialDesignFont}"
              MinHeight="640"
@@ -63,7 +62,14 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock FontStyle="Normal" Foreground="DarkGray" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Text="{Tr LinkerDialog.Title}"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontStyle="Normal" Foreground="DarkGray" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Text="{Tr LinkerDialog.Title}"/>
+                <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" FontSize="12" >
+                     <Hyperlink Command="{Binding OpenTroubleshootingCommand}">
+                        <Run Text="{Tr LinkerDialog.GotErrorHyperlinkText, IsDynamic=False}"></Run>
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
             <Button Grid.Column="1" Width="30" Height="30" Style="{StaticResource MaterialDesignIconForegroundButton}" HorizontalAlignment="Right" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
                 <materialDesign:PackIcon Kind="Close" Width="24" Height="24" Foreground="IndianRed"></materialDesign:PackIcon>
             </Button>
@@ -86,38 +92,38 @@
             </ComboBox>
             <Button  Grid.Column="1" IsEnabled="{Binding IsPasswordFieldVisible}" Margin="5,0,0,0" Command="{Binding ResetProxyCommand}" Content="{materialDesign:PackIcon Trash}"/>
         </Grid>
-        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10" Tag="{Binding IsLogin}">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="7" Tag="{Binding IsLogin}">
             <materialDesign:PackIcon  Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-            <TextBlock Text="{Tr LinkerDialog.Authorization}"/>
+            <TextBlock FontSize="16" Text="{Tr LinkerDialog.Authorization}"/>
         </StackPanel>
-        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="10" Tag="{Binding IsEmailCode}">
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="7" Tag="{Binding IsEmailCode}">
             <materialDesign:PackIcon Width="20" Height="20" VerticalAlignment="Center"  Margin="0,0,5,0"/>
-            <TextBlock Text="{Tr LinkerDialog.EmailCode}"/>
+            <TextBlock FontSize="16" Text="{Tr LinkerDialog.EmailCode}"/>
         </StackPanel>
-        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="10" Tag="{Binding IsPhoneNumber}">
+        <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="7" Tag="{Binding IsPhoneNumber}">
             <materialDesign:PackIcon Width="20" Height="20" VerticalAlignment="Center"  Margin="0,0,5,0"/>
-            <TextBlock Text="{Tr LinkerDialog.PhoneNumber}"/>
+            <TextBlock FontSize="16" Text="{Tr LinkerDialog.PhoneNumber}"/>
         </StackPanel>
-        <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="10" Tag="{Binding IsEmailConfirmation}">
+        <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="7" Tag="{Binding IsEmailConfirmation}">
             <materialDesign:PackIcon Width="20" Height="20" VerticalAlignment="Center"  Margin="0,0,5,0"/>
-            <TextBlock Text="{Tr LinkerDialog.EmailLink}"/>
+            <TextBlock FontSize="16" Text="{Tr LinkerDialog.EmailLink}"/>
         </StackPanel>
-        <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="10" Tag="{Binding IsLinkCode}">
+        <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="7" Tag="{Binding IsLinkCode}">
             <materialDesign:PackIcon Width="20" Height="20" VerticalAlignment="Center"  Margin="0,0,5,0"/>
-            <TextBlock Text="{Tr LinkerDialog.SmsOrCode}"/>
+            <TextBlock FontSize="16" Text="{Tr LinkerDialog.SmsOrCode}"/>
         </StackPanel>
-        <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="10" Tag="{Binding IsCompleted}">
+        <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="7" Tag="{Binding IsCompleted}">
             <materialDesign:PackIcon Width="20" Height="20" VerticalAlignment="Center"  Margin="0,0,5,0"/>
-            <TextBlock Text="{Tr LinkerDialog.Completed}"/>
+            <TextBlock FontSize="16" Text="{Tr LinkerDialog.Completed}"/>
         </StackPanel>
-        <Grid  Grid.Row="9" Margin="10">
+        <Grid  Grid.Row="9" Margin="10,20,10,10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBox Padding="10" Text="{Binding FieldText}" Visibility="{Binding IsFieldVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  Style="{StaticResource MaterialDesignOutlinedTextBox}"  FontSize="16" Margin="0,0,0,10"></TextBox>
-            <TextBox Grid.Row="1" Padding="10" Text="{Binding PassFieldText}" Visibility="{Binding IsPasswordFieldVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontSize="16"/>
+            <TextBox  Padding="7" Text="{Binding FieldText}" Visibility="{Binding IsFieldVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  Style="{StaticResource MaterialDesignOutlinedTextBox}"  FontSize="16" Margin="0,0,0,10"></TextBox>
+            <TextBox Grid.Row="1" Padding="7" Text="{Binding PassFieldText}" Visibility="{Binding IsPasswordFieldVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontSize="16"/>
             <GroupBox  Grid.Row="2" MaxWidth="400" BorderBrush="{StaticResource PrimaryHueMidBrush}" VerticalAlignment="Bottom" BorderThickness="1" Margin="0,10,0,0" Padding="5">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
@@ -128,6 +134,6 @@
             </GroupBox>
         </Grid>
 
-        <Button Grid.Row="10" FontSize="18" Command="{Binding ProceedCommand}" Content="{Tr LinkerDialog.ProceedButton}"/>
+        <Button Grid.Row="10" Height="35" FontSize="17" Command="{Binding ProceedCommand}" Content="{Tr LinkerDialog.ProceedButton}"/>
     </Grid>
 </UserControl>

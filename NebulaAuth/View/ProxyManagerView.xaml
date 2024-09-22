@@ -53,7 +53,7 @@
                 <Run Text="{Binding DefaultProxy.Value, Converter='{StaticResource ProxyDataTextConverter}', Mode=OneWay, FallbackValue=''}"/>
             </TextBlock>
 
-            <Button Grid.Column="1" Command="{Binding RemoveDefaultCommand}" Cursor="Hand">
+            <Button Grid.Column="1" Command="{Binding RemoveDefaultCommand}">
                 <md:PackIcon Kind="ClearBox" Width="20" Height="20"></md:PackIcon>
             </Button>
         </Grid>

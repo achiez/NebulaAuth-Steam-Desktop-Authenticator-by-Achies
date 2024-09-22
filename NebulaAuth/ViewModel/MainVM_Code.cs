@@ -1,5 +1,4 @@
-﻿using System;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using SteamLib.SteamMobile;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;

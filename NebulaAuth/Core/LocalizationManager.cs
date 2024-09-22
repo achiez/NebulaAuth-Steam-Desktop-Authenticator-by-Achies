@@ -18,6 +18,10 @@ public static class LocManager
         //Thread.CurrentThread.CurrentCulture= CultureInfo.GetCultureInfo(GetLanguageCode(language));
     }
 
+    public static string GetCurrentLanguageCode()
+    {
+        return Loc.Instance.CurrentLanguage;
+    }
 
     public static string GetLanguageCode(LocalizationLanguage language)
     {

@@ -3,6 +3,7 @@ using AchiesUtilities.Web.Proxy;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MaterialDesignThemes.Wpf;
+using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Utility;
@@ -19,12 +20,12 @@ using SteamLib.SteamMobile.AuthenticatorLinker;
 using SteamLib.Web;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
-using NebulaAuth.Core;
 
 namespace NebulaAuth.ViewModel.Other;
 
@@ -194,7 +195,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
             Storage.SaveMafile(mafile);
             File.Delete(Path.Combine("mafiles_backup", mafile.AccountName + ".mafile"));
             HintText =
-                string.Format(GetLocalizationOrDefault("MafileLinked"), 
+                string.Format(GetLocalizationOrDefault("MafileLinked"),
                     mafile.RevocationCode,
                     mafile.SessionData?.SteamId.Steam64);
 
@@ -401,6 +402,18 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
 
     #endregion
 
+    [RelayCommand]
+    private void OpenTroubleshooting()
+    {
+        const string troubleshootingURI =
+            "https://achiez.github.io/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/docs/{0}/LinkingTroubleshooting";
+
+        var localized = string.Format(troubleshootingURI, LocManager.GetCurrentLanguageCode());
+        Process.Start(new ProcessStartInfo(new Uri(localized).ToString())
+        {
+            UseShellExecute = true
+        });
+    }
 
     private static string GetLocalizationOrDefault(string key)
     {

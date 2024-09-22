@@ -430,6 +430,11 @@
       "ru": "Привязка",
       "ua": "Прив'язка"
     },
+    "GotErrorHyperlinkText": {
+      "en": "(getting error?)",
+      "ru": "(возникает ошибка?)",
+      "ua": "(виникає помилка?)"
+    },
     "Proxy": {
       "en": "Proxy",
       "ru": "Прокси",
@@ -451,14 +456,14 @@
       "ua": "Номер телефону"
     },
     "EmailLink": {
-      "en": "Email link",
-      "ru": "Ссылка из письма",
-      "ua": "Посилання з листа"
+      "en": "EMail link",
+      "ru": "Ссылка из email",
+      "ua": "Посилання з email"
     },
     "SmsOrCode": {
-      "en": "Sms or code",
-      "ru": "Смс или код",
-      "ua": "Смс або код"
+      "en": "SMS or code",
+      "ru": "СМС или код",
+      "ua": "СМС або код"
     },
     "Completed": {
       "en": "Completed",

@@ -17,7 +17,6 @@ using NebulaAuth.Model.Entities;
 using SteamLib.Exceptions;
 using NebulaAuth.Utility;
 using NebulaAuth.View.Dialogs;
-using AutoUpdaterDotNET;
 
 namespace NebulaAuth.ViewModel;
 

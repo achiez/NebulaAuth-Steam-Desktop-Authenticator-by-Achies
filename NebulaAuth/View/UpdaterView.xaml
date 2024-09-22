@@ -8,8 +8,6 @@
              xmlns:other="clr-namespace:NebulaAuth.ViewModel.Other"
              xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="700" 
-             d:DesignWidth="500" 
              Foreground="WhiteSmoke"
              FontFamily="{materialDesign:MaterialDesignFont}"
              d:DataContext="{d:DesignInstance other:UpdaterVM}"

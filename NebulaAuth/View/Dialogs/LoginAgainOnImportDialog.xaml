@@ -9,9 +9,8 @@
              xmlns:model="clr-namespace:NebulaAuth.Model"
              xmlns:entities="clr-namespace:NebulaAuth.Model.Entities"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="800"
              theme:FontScaleWindow.Scale="0.9" theme:FontScaleWindow.ResizeFont="True"
-             Foreground="WhiteSmoke" Cursor="Hand"
+             Foreground="WhiteSmoke"
              d:DataContext="{d:DesignInstance other:LoginAgainOnImportVM}"
              Background="{DynamicResource WindowBackground}">
 

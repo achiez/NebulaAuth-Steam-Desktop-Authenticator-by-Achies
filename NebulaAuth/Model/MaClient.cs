@@ -173,7 +173,7 @@ public static class MaClient
         
     }
 
-    public static async Task<LoginConfirmationResult> ConfirmLoginRequest(Mafile mafile)
+    public static async Task<LoginConfirmationResult> ConfirmLoginRequest(Mafile mafile) //TODO: move into library
     {
         ValidateMafile(mafile);
         SetProxy(mafile);
