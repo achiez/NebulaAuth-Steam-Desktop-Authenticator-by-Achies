@@ -20,9 +20,9 @@ This error most often occurs when entering the code from an email, but sometimes
  6. From here, one of two things may happen: either an error (of any type) appears, or a request for SMS input:
       - If an error appears (e.g., "Could not confirm email," though it could be another error) – proceed to step 7.
       - If no error appears, and you proceed to the SMS input stage (see step 6.1 below).
-           
-    **6.1. Important!** Do not enter the SMS code sent to your phone. Close the linking window.
-    **6.2. Wait 20 minutes** to allow Steam to "forget" about the phone number in the linking process.
+        
+     6.1. **Important!** Do not enter the SMS code if you received it. Close the linking window. <br/>
+     6.2. **Wait 20 minutes** to allow Steam to "forget" about the phone number in the linking process.
      
     
    
