@@ -1,21 +1,18 @@
-﻿using System.Windows.Controls;
+﻿namespace NebulaAuth.View.Dialogs;
 
-namespace NebulaAuth.View.Dialogs
+/// <summary>
+/// Логика взаимодействия для ConfirmCancelDialog.xaml
+/// </summary>
+public partial class ConfirmCancelDialog
 {
-    /// <summary>
-    /// Логика взаимодействия для ConfirmCancelDialog.xaml
-    /// </summary>
-    public partial class ConfirmCancelDialog : UserControl
+    public ConfirmCancelDialog()
     {
-        public ConfirmCancelDialog()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        public ConfirmCancelDialog(string msg)
-        {
-            InitializeComponent();
-            ConfirmTextBlock.Text = msg;
-        }
+    public ConfirmCancelDialog(string msg)
+    {
+        InitializeComponent();
+        ConfirmTextBlock.Text = msg;
     }
 }

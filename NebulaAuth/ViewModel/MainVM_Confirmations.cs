@@ -40,17 +40,20 @@ public partial class MainVM //Confirmations
         _confirmationsLoadedForMafile = maf;
         OnPropertyChanged(nameof(ConfirmationsVisible));
         Confirmations.Clear();
-        var marketConfirmations = conf.Where(c => c.ConfType == ConfirmationType.MarketSellTransaction).ToList();
+        var marketConfirmations = conf
+            .Where(c => c.ConfType == ConfirmationType.MarketSellTransaction)
+            .Cast<MarketConfirmation>()
+            .ToList();
 
         if (marketConfirmations.Count > 1)
         {
-            var indexOfLast = conf.IndexOf(marketConfirmations.First());
+            var indexOfLast = conf.IndexOf(marketConfirmations.Last());
             foreach (var mCon in marketConfirmations)
             {
                 conf.Remove(mCon);
             }
 
-            var mConf = new MarketMultiConfirmation(marketConfirmations.Cast<MarketConfirmation>());
+            var mConf = new MarketMultiConfirmation(marketConfirmations);
             conf.Insert(indexOfLast, mConf);
         }
 
@@ -60,12 +63,25 @@ public partial class MainVM //Confirmations
         }
     }
 
+    [RelayCommand]
+    private Task Confirm(Confirmation? confirmation)
+    {
+        if (SelectedMafile == null || confirmation == null) return Task.CompletedTask;
+        return SendConfirmation(SelectedMafile, confirmation, true);
+    }
+    [RelayCommand]
+    private Task Cancel(Confirmation? confirmation)
+    {
+        if (SelectedMafile == null || confirmation == null) return Task.CompletedTask;
+        return SendConfirmation(SelectedMafile, confirmation, false);
+    }
+
     private async Task SendConfirmation(Mafile mafile, Confirmation confirmation, bool confirm)
     {
         bool result;
         try
         {
-            if (confirmation is MarketMultiConfirmation multi)
+            if (confirmation is MarketMultiConfirmation multi) 
             {
                 result = await MaClient.SendMultipleConfirmation(mafile, multi.Confirmations, confirm);
             }
@@ -86,20 +102,7 @@ public partial class MainVM //Confirmations
         }
         else
         {
-            SnackbarController.SendSnackbar(GetLocalizationOrDefault("ConfirmationError"));
+            SnackbarController.SendSnackbar(GetLocalization("ConfirmationError"));
         }
-    }
-
-    [RelayCommand]
-    private Task Confirm(Confirmation? confirmation)
-    {
-        if (SelectedMafile == null || confirmation == null) return Task.CompletedTask;
-        return SendConfirmation(SelectedMafile, confirmation, true);
-    }
-    [RelayCommand]
-    private Task Cancel(Confirmation? confirmation)
-    {
-        if (SelectedMafile == null || confirmation == null) return Task.CompletedTask;
-        return SendConfirmation(SelectedMafile, confirmation, false);
     }
 }

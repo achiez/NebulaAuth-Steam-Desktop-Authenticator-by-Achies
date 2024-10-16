@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
 
 namespace NebulaAuth.Theme.WindowStyle;
 
-public static class NativeMethods
+// ReSharper disable once PartialTypeWithSinglePart //Required
+public static partial class NativeMethods
 {
     public const int WM_NCCALCSIZE = 0x83;
     public const int WM_NCPAINT = 0x85;

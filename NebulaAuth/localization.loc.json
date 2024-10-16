@@ -172,14 +172,19 @@
         }
       },
       "TradeTimerHint": {
-        "en": "Trade",
-        "ru": "Трейд",
-        "ua": "Трейд"
+        "en": "Auto-confirm trades",
+        "ru": "Автоподтверждение трейдов",
+        "ua": "Автопідтвердження трейдів"
       },
       "MarketTimerHint": {
-        "en": "Market",
-        "ru": "Маркет",
-        "ua": "Маркет"
+        "en": "Auto-confirm market",
+        "ru": "Автоподтверждение маркета",
+        "ua": "Автопідтвердження маркету"
+      },
+      "ShowAutoConfirmAccountsHint": {
+        "en": "Show accounts with auto-confirmation enabled.",
+        "ru": "Показать аккаунты с включенным автоподтверждением.",
+        "ua": "Показати акаунти з включеним автопідтвердженням."
       }
     },
     "LeftPart": {
@@ -256,6 +261,11 @@
           "en": "Remove from group",
           "ru": "Удалить из группы",
           "ua": "Видалити з групи"
+        },
+        "RemoveFromMAAC": {
+          "en": "Turn off auto-confirm",
+          "ru": "Выкл. авто-подтверждение",
+          "ua": "Вимкнути авто-підтвердження"
         }
       },
       "Proxy": {
@@ -299,11 +309,6 @@
         "ru": "Без фона",
         "ua": "Без фону"
       }
-    },
-    "DisableTimersOnSwitch": {
-      "en": "Disable timers on account switch",
-      "ru": "Отключать таймеры при смене аккаунта",
-      "ua": "Вимикати таймери при зміні акаунта"
     },
     "MinimizeToTray": {
       "en": "Minimize to tray",
@@ -605,26 +610,6 @@
         "en": "Can't remove mafile:",
         "ua": "Не вдалося видалити (перемістити) мафайл:"
       },
-      "TimerConfirmed": {
-        "ru": "Авто: подтверждено ",
-        "en": "Auto: confirmed ",
-        "ua": "Авто: підтверджено "
-      },
-      "TimerNotConfirmed": {
-        "ru": "Авто: подтверждение не сработало",
-        "en": "Auto: confirmation was unsuccessful",
-        "ua": "Авто: підтвердження не спрацювало"
-      },
-      "TimerSessionError": {
-        "ru": "Авто: необходимо обновить сессию или перелогиниться",
-        "en": "Auto: need to refresh session or relogin",
-        "ua": "Авто: необхідно оновити сесію або перелогінитися"
-      },
-      "TimerPrefix": {
-        "ru": "Авто: ",
-        "en": "Auto: ",
-        "ua": "Авто: "
-      },
       "TimerTooFast": {
         "ru": "Слишком быстрый таймер.",
         "en": "Too fast timer.",
@@ -897,9 +882,9 @@
           "ua": "Не вдається згенерувати коди"
         },
         "InvalidStateWithStatus2": {
-          "ru": "Неверное состояние (InvalidState) со статусом 2. Попробуйте привязку с помощью СМС. Если СМС придет, но ошибка повторится. Нужно попробовать еще раз.",
-          "en": "Invalid state (InvalidState) with status 2. Try to attach with SMS. If SMS will come, but error will repeat. You need to try again.",
-          "ua": "Невірний стан (InvalidState) зі статусом 2. Спробуйте прив'язати з допомогою СМС. Якщо СМС прийде, але помилка повториться. Потрібно спробувати ще раз."
+          "ru": "Неверное состояние (InvalidState) со статусом 2. Откройте ссылку на руководство сверху этого окна.",
+          "en": "Invalid state (InvalidState) with status 2. Open link to the troubleshooting guide at the top of this window.",
+          "ua": "Невірний стан (InvalidState) зі статусом 2. Відкрийте посилання на посібник з усунення несправностей у верхній частині цього вікна."
         },
         "GeneralFailure": {
           "ru": "General Failure",
@@ -909,15 +894,15 @@
       }
     },
     "ExceptionHandler": {
-      "SessionExpiredException": {
-        "ru": "Сессия истекла. Попробуйте обновить ее через меню",
-        "en": "Session expired. Try to refresh it through menu",
-        "ua": "Сесія закінчилася. Спробуйте оновити її через меню"
-      },
       "SessionInvalidException": {
-        "ru": "Сессия невалидна. Нужно залогиниться заново",
-        "en": "Session invalid. Need to login again",
-        "ua": "Сесія невалідна. Потрібно залогінитися знову"
+        "ru": "Сессия истекла. Попробуйте обновить ее через меню или залогиниться заново",
+        "en": "Session expired. Try to refresh it through menu or login again",
+        "ua": "Сесія прострочена. Спробуйте оновити її через меню або залогінитися знову"
+      },
+      "SessionExpiredException": {
+        "ru": "Сессия полностью истекла. Нужно залогиниться заново",
+        "en": "Session fully expired. Need to login again",
+        "ua": "Сесія повніст'ю прострочена'. Потрібно залогінитися знову"
       },
       "TaskCanceledException": {
         "ru": "Произошла отмена операции",
@@ -1027,11 +1012,33 @@
         "ua": "На телефон {0} було відправлено СМС"
       },
       "EnterPhoneNumber": {
-        "ru": "Введите номер телефона (без знака '+' и др. символов)",
-        "en": "Enter phone number (without '+' and other symbols)",
-        "ua": "Введіть номер телефону (без знака '+' та ін. символів)"
+        "ru": "Введите номер телефона (без знака '+' и др. символов). По-желанию.",
+        "en": "Enter phone number (without '+' and other symbols). Optional",
+        "ua": "Введіть номер телефону (без знака '+' та ін. символів). За бажанням"
       }
-    }
+    },
+    "MAAC": {
+      "TimerConfirmed": {
+        "ru": "Авто: подтверждено ",
+        "en": "Auto: confirmed ",
+        "ua": "Авто: підтверджено "
+      },
+      "TimerNotConfirmed": {
+        "ru": "Авто: подтверждение не сработало",
+        "en": "Auto: confirmation was unsuccessful",
+        "ua": "Авто: підтвердження не спрацювало"
+      },
+      "TimerSessionError": {
+        "ru": "необходимо обновить сессию или перелогиниться",
+        "en": "need to refresh session or relogin",
+        "ua": "необхідно оновити сесію або перелогінитися"
+      },
+      "TimerPrefix": {
+        "ru": "Авто ",
+        "en": "Auto ",
+        "ua": "Авто "
+      }
+    } 
   },
   "CantAlignTimeError": {
     "ru": "Не удается синхронизировать время со Steam. Возможно отсутствует подключение к интернету или Steam недоступен. Подробная ошибка сохранена в log.log",

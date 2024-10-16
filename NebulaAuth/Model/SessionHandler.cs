@@ -11,7 +11,7 @@ public static class SessionHandler
     public static event EventHandler? LoginStarted;
     public static event EventHandler? LoginCompleted;
 
-    public static async Task<T> Handle<T>(Func<Task<T>> func, Mafile mafile)
+    public static async Task<T> Handle<T>(Func<Task<T>> func, Mafile mafile, string? snackbarPrefix = null)
     {
         string? password = null;
         try
@@ -51,7 +51,7 @@ public static class SessionHandler
                 return await func();
             }
             catch (Exception ex3)
-                when (password != null && ex3 is SessionExpiredException or SessionInvalidException)
+                when (password != null && ex3 is SessionPermanentlyExpiredException or SessionInvalidException)
             {
 
             }
@@ -78,12 +78,12 @@ public static class SessionHandler
         return await func();
     }
 
-    private static async Task<bool> TryRefresh(Mafile mafile)
+    private static async Task<bool> TryRefresh(Mafile mafile, string? snackbarPrefix = null)
     {
         try
         {
             await MaClient.RefreshSession(mafile);
-            SnackbarController.SendSnackbar(LocManager.GetCodeBehindOrDefault("SessionWasRefreshedAutomatically", "SessionHandler", "SessionWasRefreshedAutomatically"));
+            SnackbarController.SendSnackbar(snackbarPrefix + LocManager.GetCodeBehindOrDefault("SessionWasRefreshedAutomatically", "SessionHandler", "SessionWasRefreshedAutomatically"));
             return true;
         }
         catch (SessionInvalidException)

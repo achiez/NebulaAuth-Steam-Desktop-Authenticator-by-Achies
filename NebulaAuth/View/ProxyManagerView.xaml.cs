@@ -1,15 +1,12 @@
-﻿using System.Windows.Controls;
+﻿namespace NebulaAuth.View;
 
-namespace NebulaAuth.View
+/// <summary>
+/// Логика взаимодействия для ProxyManagerView.xaml
+/// </summary>
+public partial class ProxyManagerView
 {
-    /// <summary>
-    /// Логика взаимодействия для ProxyManagerView.xaml
-    /// </summary>
-    public partial class ProxyManagerView : UserControl
+    public ProxyManagerView()
     {
-        public ProxyManagerView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -12,7 +12,6 @@ public partial class Settings : ObservableObject
 {
     #region Properties
 
-    [ObservableProperty] private bool _disableTimersOnChange = true;
     [ObservableProperty] private BackgroundMode _backgroundMode = BackgroundMode.Default;
     [ObservableProperty] private bool _hideToTray;
     [ObservableProperty] private int _timerSeconds = 60;

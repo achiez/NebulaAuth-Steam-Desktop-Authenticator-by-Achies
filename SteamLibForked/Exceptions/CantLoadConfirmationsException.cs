@@ -7,9 +7,6 @@ public class CantLoadConfirmationsException : Exception
 	public CantLoadConfirmationsException() { }
 	public CantLoadConfirmationsException(string message) : base(message) { }
 	public CantLoadConfirmationsException(string message, Exception inner) : base(message, inner) { }
-	protected CantLoadConfirmationsException(
-	  System.Runtime.Serialization.SerializationInfo info,
-	  System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
 }
 
 

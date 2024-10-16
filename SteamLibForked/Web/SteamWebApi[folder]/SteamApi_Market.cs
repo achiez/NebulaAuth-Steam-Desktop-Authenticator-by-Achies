@@ -5,7 +5,7 @@ using SteamLib.Web.Scrappers.HTML;
 
 namespace SteamLib.Web;
 
-public static partial class SteamWebApi
+public static class SteamWebApi
 {
     /// <summary>
     /// Login is not required

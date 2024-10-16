@@ -2,11 +2,21 @@
 using System;
 using System.Windows;
 using NebulaAuth.View.Dialogs;
+using NebulaAuth.Core;
 
 namespace NebulaAuth.ViewModel;
 
 public partial class MainVM //Other
 {
+
+    private const string LOC_PATH = "MainVM";
+
+    private static string GetLocalization(string key)
+    {
+        return LocManager.GetCodeBehindOrDefault(key, LOC_PATH, key);
+    }
+
+
     private void SessionHandlerOnLoginCompleted(object? sender, EventArgs e)
     {
         var currentSession = DialogHost.GetDialogSession(null);

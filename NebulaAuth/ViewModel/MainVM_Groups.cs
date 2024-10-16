@@ -11,7 +11,7 @@ namespace NebulaAuth.ViewModel;
 public partial class MainVM //Groups
 {
     [ObservableProperty]
-    private ObservableCollection<string> _groups = new();
+    private ObservableCollection<string> _groups = [];
 
 
     public string? SelectedGroup
@@ -109,6 +109,7 @@ public partial class MainVM //Groups
 
     private void PerformQuery()
     {
+        MaacDisplay = false;
         if (string.IsNullOrWhiteSpace(SelectedGroup) && string.IsNullOrWhiteSpace(SearchText))
         {
             MaFiles = Storage.MaFiles;

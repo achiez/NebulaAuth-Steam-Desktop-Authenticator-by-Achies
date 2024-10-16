@@ -1,15 +1,12 @@
-﻿using System.Windows.Controls;
+﻿namespace NebulaAuth.View.Dialogs;
 
-namespace NebulaAuth.View.Dialogs
+/// <summary>
+/// Логика взаимодействия для LoginAgainDialog.xaml
+/// </summary>
+public partial class LoginAgainDialog
 {
-    /// <summary>
-    /// Логика взаимодействия для LoginAgainDialog.xaml
-    /// </summary>
-    public partial class LoginAgainDialog : UserControl
+    public LoginAgainDialog()
     {
-        public LoginAgainDialog()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

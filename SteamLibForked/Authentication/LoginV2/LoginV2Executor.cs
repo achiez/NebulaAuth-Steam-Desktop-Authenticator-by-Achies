@@ -42,8 +42,8 @@ public class LoginV2Executor
 
 
     /// <summary>
-    /// Do login on <see href="https://steamcommunity.com/">SteamCommunity</see>.<br/>
-    /// Some functions requires proper SessionId. But <see cref="SessionData"/> contains only SteamCommunity related SessionId and some functions on other services may not work
+    /// Do log in on <see href="https://steamcommunity.com/">SteamCommunity</see>.<br/>
+    /// Some functions require proper SessionId. But <see cref="SessionData"/> contains only SteamCommunity related SessionId and some functions on other services may not work
     /// </summary>
     /// <param name="options"></param>
     /// <param name="username"></param>
@@ -163,7 +163,7 @@ public class LoginV2Executor
         var finalizeContent = await finalize.EnsureSuccessStatusCode().Content.ReadAsStringAsync(cancellationToken);
 
         var finalizeResp =
-            HealthMonitor.LogOnException(finalizeContent, () => JsonConvert.DeserializeObject<FinalizeLoginJson>(finalizeContent)!);
+            SteamLibErrorMonitor.HandleResponse(finalizeContent, () => JsonConvert.DeserializeObject<FinalizeLoginJson>(finalizeContent)!);
 
 
         List<SteamAuthToken> tokens = new();

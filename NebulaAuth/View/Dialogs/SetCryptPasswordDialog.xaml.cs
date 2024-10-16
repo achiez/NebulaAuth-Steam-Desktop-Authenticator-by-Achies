@@ -1,15 +1,12 @@
-﻿using System.Windows.Controls;
+﻿namespace NebulaAuth.View.Dialogs;
 
-namespace NebulaAuth.View.Dialogs
+/// <summary>
+/// Логика взаимодействия для SetCryptPasswordDialog.xaml
+/// </summary>
+public partial class SetCryptPasswordDialog
 {
-    /// <summary>
-    /// Логика взаимодействия для SetCryptPasswordDialog.xaml
-    /// </summary>
-    public partial class SetCryptPasswordDialog : UserControl
+    public SetCryptPasswordDialog()
     {
-        public SetCryptPasswordDialog()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

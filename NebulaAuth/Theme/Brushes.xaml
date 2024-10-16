@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--Card-->
-    <SolidColorBrush x:Key="MaterialDesignCardBackground" Color="#26292E"></SolidColorBrush>
-    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FF9056B1"></SolidColorBrush>
-    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#FF9C70B5"></SolidColorBrush>
-    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FF851BC1"></SolidColorBrush>
+    <SolidColorBrush x:Key="MaterialDesignCardBackground" Color="#26292E" />
+    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FF9056B1" />
+    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#FF9C70B5" />
+    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FF851BC1" />
 </ResourceDictionary>

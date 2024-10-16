@@ -40,7 +40,7 @@ public class SteamAuthenticatorLinker
         if (data.RefreshToken.IsExpired)
         {
             Logger?.LogError("Session expired");
-            throw new SessionExpiredException(SessionExpiredException.SESSION_EXPIRED_MSG);
+            throw new SessionPermanentlyExpiredException(SessionPermanentlyExpiredException.SESSION_EXPIRED_MSG);
         }
 
         var accessToken = data.GetMobileToken();

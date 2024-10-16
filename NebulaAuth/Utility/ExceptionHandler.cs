@@ -18,7 +18,7 @@ public static class ExceptionHandler
         Shell.Logger.Error(ex);
         switch (ex)
         {
-            case SessionExpiredException:
+            case SessionPermanentlyExpiredException:
                 {
                     msg = "SessionExpiredException".GetCodeBehindLocalization();
                     break;

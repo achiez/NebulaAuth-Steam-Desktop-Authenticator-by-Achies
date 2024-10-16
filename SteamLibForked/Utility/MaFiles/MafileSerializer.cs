@@ -55,7 +55,7 @@ public static partial class MafileSerializer
         var sharedSecretToken = GetTokenOrThrow(j, nameof(MobileData.SharedSecret), unusedProperties, "sharedsecret", "shared_secret", "shared");
         var identitySecretToken = GetTokenOrThrow(j, nameof(MobileData.IdentitySecret), unusedProperties, "identitysecret", "identity_secret", "identity");
         var deviceIdToken = GetTokenOrThrow(j, nameof(MobileData.DeviceId), unusedProperties, "deviceid", "device_id", "device");
-
+        //TODO: see MobileData.DeviceId ToDo
 
         var sharedSecret = GetBase64(nameof(MobileData.SharedSecret), sharedSecretToken);
         var identitySecret = GetBase64(nameof(MobileData.IdentitySecret), identitySecretToken);

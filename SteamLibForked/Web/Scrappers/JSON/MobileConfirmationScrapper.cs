@@ -28,7 +28,7 @@ public static class MobileConfirmationScrapper
 
         if (conf.NeedAuth)
         {
-            throw new SessionExpiredException();
+            throw new SessionPermanentlyExpiredException();
         }
 
         if (conf is {Success: false, Message: not null})
@@ -80,6 +80,32 @@ public static class MobileConfirmationScrapper
         };
     }
 
+
+    //BUG: ArgumentOutOfRangeException
+    //{
+    //     "success": true,
+    //     "conf":
+    //     [
+    //         {
+    //             "type": 2,
+    //             "type_name": "Trade Offer",
+    //             "id": "16072406079",
+    //             "creator_id": "7458859849",
+    //             "nonce": "6768661787786520856",
+    //             "creation_time": 1728760256,
+    //             "cancel": "Revoke Offer",
+    //             "accept": "Confirm Offer",
+    //             "icon": null,
+    //             "multi": false,
+    //             "headline": "Error loading trade details",
+    //             "summary":
+    //             [
+    //                 ""
+    //             ],
+    //             "warn": null
+    //         }
+    //     ]
+    // }
     private static TradeConfirmation GetTradeConfirmation(ConfirmationJson json)
     {
 

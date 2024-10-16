@@ -61,7 +61,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
     private TaskCompletionSource _emailConfTcs = new();
     private TaskCompletionSource<string> _linkCodeTcs = new();
 
-    private bool isLinkStarted;
+    private bool _isLinkStarted;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(ProceedCommand))]
@@ -179,12 +179,12 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
 
         #endregion
 
-        if (isLinkStarted)
+        if (_isLinkStarted)
             goto linkStarted;
 
         try
         {
-            isLinkStarted = true;
+            _isLinkStarted = true;
             var linkOptions = new LinkOptions(Client, LoginV2Executor.NullConsumer, this,
                 null, this, this, backupHandler: Backup, Logger2);
             _linker = new SteamAuthenticatorLinker(linkOptions);
@@ -313,7 +313,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
         IsLogin = false;
         IsFieldVisible = true;
         IsEmailCode = false;
-        isLinkStarted = false;
+        _isLinkStarted = false;
         IsPhoneNumber = false;
         IsEmailConfirmation = false;
         CanProceed = true;

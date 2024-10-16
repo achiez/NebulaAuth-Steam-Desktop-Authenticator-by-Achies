@@ -38,7 +38,7 @@ public partial class MainVM //File //TODO: Refactor
         }
         if (mafilePath != null)
         {
-            path = $"/select, \"{mafilePath}\""; ;
+            path = $"/select, \"{mafilePath}\"";
         }
 
         try
@@ -65,7 +65,7 @@ public partial class MainVM //File //TODO: Refactor
         var fs = openFileDialog.ShowDialog();
         if (fs != true) return Task.CompletedTask;
         var path = openFileDialog.FileName;
-        return AddMafile(new[] { path });
+        return AddMafile([path]);
 
     }
     public async Task AddMafile(string[] path)
@@ -87,7 +87,7 @@ public partial class MainVM //File //TODO: Refactor
             }
             catch (IOException)
             {
-                confirmOverwrite ??= await DialogsController.ShowConfirmCancelDialog(GetLocalizationOrDefault("ConfirmMafileOverwrite"));
+                confirmOverwrite ??= await DialogsController.ShowConfirmCancelDialog(GetLocalization("ConfirmMafileOverwrite"));
 
                 if (confirmOverwrite == true)
                 {
@@ -115,24 +115,24 @@ public partial class MainVM //File //TODO: Refactor
                 }
                 else
                 {
-                    SnackbarController.SendSnackbar($"{GetLocalizationOrDefault("MafileImportError")} {Path.GetFileName(str)}{GetLocalizationOrDefault("MissingSessionInMafile")}", TimeSpan.FromSeconds(4));
+                    SnackbarController.SendSnackbar($"{GetLocalization("MafileImportError")} {Path.GetFileName(str)}{GetLocalization("MissingSessionInMafile")}", TimeSpan.FromSeconds(4));
                 }
             }
         }
 
-        var msg = GetLocalizationOrDefault("Import");
+        var msg = GetLocalization("Import");
         if (added > 0)
         {
-            msg += $" {GetLocalizationOrDefault("ImportAdded")} {added}.";
+            msg += $" {GetLocalization("ImportAdded")} {added}.";
         }
         if (notAdded > 0)
         {
-            msg += $" {GetLocalizationOrDefault("ImportSkipped")} {notAdded}.";
+            msg += $" {GetLocalization("ImportSkipped")} {notAdded}.";
         }
 
         if (errors > 0)
         {
-            msg += $" {GetLocalizationOrDefault("ImportErrors")} {errors}.";
+            msg += $" {GetLocalization("ImportErrors")} {errors}.";
         }
         SnackbarController.SendSnackbar(msg, TimeSpan.FromSeconds(2));
     }
@@ -155,7 +155,7 @@ public partial class MainVM //File //TODO: Refactor
         try
         {
             await MaClient.LoginAgain(data, password, loginAgainVm.SavePassword, waitDialog);
-            SnackbarController.SendSnackbar(GetLocalizationOrDefault("SuccessfulLogin"));
+            SnackbarController.SendSnackbar(GetLocalization("SuccessfulLogin"));
         }
         catch (LoginException ex)
         {
@@ -188,7 +188,7 @@ public partial class MainVM //File //TODO: Refactor
     {
         if (SelectedMafile == null) return;
         var confirm =
-            await DialogsController.ShowConfirmCancelDialog(GetLocalizationOrDefault("RemoveMafileConfirmation"));
+            await DialogsController.ShowConfirmCancelDialog(GetLocalization("RemoveMafileConfirmation"));
 
         if (!confirm) return;
         try
@@ -197,12 +197,12 @@ public partial class MainVM //File //TODO: Refactor
         }
         catch (UnauthorizedAccessException)
         {
-            SnackbarController.SendSnackbar(GetLocalizationOrDefault("CantRemoveAlreadyExist"));
+            SnackbarController.SendSnackbar(GetLocalization("CantRemoveAlreadyExist"));
         }
         catch (Exception ex)
         {
             SnackbarController.SendSnackbar(
-                $"{GetLocalizationOrDefault("CantRemoveMafile")} {ex.Message}");
+                $"{GetLocalization("CantRemoveMafile")} {ex.Message}");
         }
     }
 
@@ -218,7 +218,7 @@ public partial class MainVM //File //TODO: Refactor
     }
 
     [RelayCommand]
-    private async Task CopyMafileFromBuffer()
+    private async Task PasteMafilesFromClipboard()
     {
         StringCollection files;
         try
@@ -249,7 +249,7 @@ public partial class MainVM //File //TODO: Refactor
             try
             {
                 Clipboard.SetText(maf.AccountName);
-                SnackbarController.SendSnackbar(GetLocalizationOrDefault("LoginCopied"));
+                SnackbarController.SendSnackbar(GetLocalization("LoginCopied"));
                 return;
             }
             catch (Exception ex)

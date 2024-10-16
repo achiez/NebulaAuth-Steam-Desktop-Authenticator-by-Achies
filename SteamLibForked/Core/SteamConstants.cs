@@ -11,7 +11,6 @@ public static class SteamConstants
     public const string STEAM_TV = "https://steam.tv/";
     public const string STEAM_CHECKOUT = "https://checkout.steampowered.com/";
     public const string LOGIN_STEAM = "https://login.steampowered.com/";
-  
 
     #endregion
 
@@ -22,15 +21,9 @@ public static class SteamConstants
 
     #endregion
 
-
     #region Misc
 
     public const string ENGLISH = "english";
 
     #endregion
-
-
-
-
-
 }

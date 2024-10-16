@@ -16,10 +16,11 @@ public static class ProxyStorage
     public const string FORMAT = ADDRESS_FORMAT + ":{USER}:{PASS}";
     public const string ADDRESS_FORMAT = "{IP}:{PORT}";
 
-    public static readonly ProxyScheme DefaultScheme = new ProxyScheme(
-        ProxyDefaultFormats.UniversalHostFirstColonDelimiter, false, ProxyProtocol.HTTP,
-        ProxyPatternProtocol.HTTP | ProxyPatternProtocol.HTTPs,
-        ProxyPatternHostFormat.Domain | ProxyPatternHostFormat.IPv4, PatternRequirement.Optional,
+    public static readonly ProxyParser DefaultScheme = new(
+        ProxyDefaultFormats.UniversalColon, false, ProxyProtocol.HTTP,
+        ProxyPatternProtocol.All,
+        ProxyPatternHostFormat.Domain | ProxyPatternHostFormat.IPv4, 
+        PatternRequirement.Optional,
         PatternRequirement.Optional);
 
 

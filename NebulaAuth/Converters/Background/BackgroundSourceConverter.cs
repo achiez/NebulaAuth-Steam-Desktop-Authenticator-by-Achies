@@ -9,7 +9,7 @@ namespace NebulaAuth.Converters.Background;
 
 public class BackgroundSourceConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is BackgroundMode.Custom)
         {
@@ -21,7 +21,7 @@ public class BackgroundSourceConverter : IValueConverter
         return new BitmapImage(new Uri("pack://application:,,,/Theme/Background.jpg"));
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

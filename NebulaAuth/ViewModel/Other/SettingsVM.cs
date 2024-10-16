@@ -11,11 +11,6 @@ public partial class SettingsVM : ObservableObject
 {
     public Settings Settings => Settings.Instance;
 
-    public bool DisableTimersOnChange
-    {
-        get => Settings.DisableTimersOnChange;
-        set => Settings.DisableTimersOnChange = value;
-    }
     public BackgroundMode BackgroundMode
     {
         get => Settings.BackgroundMode;
@@ -119,10 +114,9 @@ public partial class SettingsVM : ObservableObject
 
 
     [RelayCommand]
-    public void SetPassword()
+    private void SetPassword()
     {
-        PHandler.SetPassword(Password);
-        Settings.IsPasswordSet = PHandler.IsPasswordSet;
+        Settings.IsPasswordSet = PHandler.SetPassword(Password);
     }
 
 }

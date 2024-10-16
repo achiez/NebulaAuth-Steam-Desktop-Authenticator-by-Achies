@@ -8,7 +8,7 @@ namespace NebulaAuth.Converters;
 
 public class ProxyTextConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not MaProxy p)
         {
@@ -18,15 +18,15 @@ public class ProxyTextConverter : IValueConverter
         return $"{p.Id}: {p.Data.Address}:{p.Data.Port}";
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 }
 
 public class ProxyDataTextConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not ProxyData p)
         {
@@ -36,8 +36,8 @@ public class ProxyDataTextConverter : IValueConverter
         return $"{p.Address}:{p.Port}";
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 }

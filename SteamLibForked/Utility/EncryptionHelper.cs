@@ -16,7 +16,7 @@ public static class EncryptionHelper
     public static string ToBase64EncryptedPassword(string keyExp, string keyMod, string password)
     {
         // RSA Encryption.
-        RSACryptoServiceProvider rsa = new();
+        using RSACryptoServiceProvider rsa = new();
         RSAParameters rsaParameters = new()
         {
             Exponent = HexStringToByteArray(keyExp),
@@ -34,8 +34,7 @@ public static class EncryptionHelper
     {
         var hashedBytes = GenerateConfirmationHashBytes(time, identitySecret, tag);
         var encodedData = Convert.ToBase64String(hashedBytes, Base64FormattingOptions.None);
-        var hash = encodedData;
-        return hash;
+        return encodedData;
     }
     public static byte[] GenerateConfirmationHashBytes(long time, string identitySecret, string tag = "conf")
     {
@@ -64,10 +63,8 @@ public static class EncryptionHelper
         }
         Array.Copy(Encoding.UTF8.GetBytes(tag), 0, array, 8, n2 - 8);
 
-        var hmacGenerator = new HMACSHA1
-        {
-            Key = decode
-        };
+        using var hmacGenerator = new HMACSHA1();
+        hmacGenerator.Key = decode;
         var hashedData = hmacGenerator.ComputeHash(array);
         return hashedData;
     }

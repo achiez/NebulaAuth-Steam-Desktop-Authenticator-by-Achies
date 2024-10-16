@@ -2,11 +2,14 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+
 namespace NebulaAuth.Theme.WindowStyle;
 
 public static class WindowChromeHelper
 {
-    public static Thickness LayoutOffsetThickness => new Thickness(0d, 0d, 0d, SystemParameters.WindowResizeBorderThickness.Bottom);
+    public static Thickness LayoutOffsetThickness => new(0d, 0d, 0d, SystemParameters.WindowResizeBorderThickness.Bottom);
 
     /// <summary>
     /// Gets the properly adjusted window resize border thickness from system parameters.

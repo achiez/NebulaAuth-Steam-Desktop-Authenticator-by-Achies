@@ -1,13 +1,12 @@
-﻿namespace NebulaAuth.View.Dialogs
+﻿namespace NebulaAuth.View.Dialogs;
+
+/// <summary>
+/// Логика взаимодействия для LoginAgainDialog.xaml
+/// </summary>
+public partial class LoginAgainOnImportDialog
 {
-    /// <summary>
-    /// Логика взаимодействия для LoginAgainDialog.xaml
-    /// </summary>
-    public partial class LoginAgainOnImportDialog
+    public LoginAgainOnImportDialog()
     {
-        public LoginAgainOnImportDialog()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

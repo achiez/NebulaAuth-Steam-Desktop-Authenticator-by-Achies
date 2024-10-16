@@ -1,11 +1,13 @@
 ﻿namespace SteamLib.Exceptions;
-public class SessionExpiredException : SessionInvalidException
+
+
+/// <summary>
+/// Unlike <see cref="SessionInvalidException"/>, this exception indicates a definite session expiration. Refreshing the JWT token will not help.
+/// </summary>
+public class SessionPermanentlyExpiredException : SessionInvalidException
 {
     public const string SESSION_EXPIRED_MSG = "Session expired and won't longer work. You must login to get new session";
-    public SessionExpiredException() { }
-    public SessionExpiredException(string message) : base(message) { }
-    public SessionExpiredException(string message, Exception inner) : base(message, inner) { }
-    protected SessionExpiredException(
-      System.Runtime.Serialization.SerializationInfo info,
-      System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    public SessionPermanentlyExpiredException() { }
+    public SessionPermanentlyExpiredException(string message) : base(message) { }
+    public SessionPermanentlyExpiredException(string message, Exception inner) : base(message, inner) { }
 }

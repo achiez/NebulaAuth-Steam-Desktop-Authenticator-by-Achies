@@ -210,6 +210,14 @@ public static class AdmissionHelper
             .Value;
     }
 
+    public static void ClearAllCookies(this CookieContainer container)
+    {
+        foreach (Cookie allCookie in container.GetAllCookies())
+        {
+            allCookie.Expired = true;
+        }
+    }
+
 
     #endregion
 
