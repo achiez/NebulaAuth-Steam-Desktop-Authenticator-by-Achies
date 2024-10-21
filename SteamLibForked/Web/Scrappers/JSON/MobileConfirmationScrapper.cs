@@ -31,24 +31,20 @@ public static class MobileConfirmationScrapper
             throw new SessionPermanentlyExpiredException();
         }
 
-        if (conf is {Success: false, Message: not null})
+        if (conf.Success == false)
         {
             var error = LoadConfirmationsError.Unknown;
-            if (ErrorMessages.TryGetValue(conf.Message, out var e))
+            if (conf.Message != null && ErrorMessages.TryGetValue(conf.Message, out var e))
             {
                 error = e;
             }
 
-            throw new CantLoadConfirmationsException(conf.Message)
+            throw new CantLoadConfirmationsException("Error while loading confirmations")
             {
-                Error = error
+                Error = error,
+                ErrorMessage = conf.Message,
+                ErrorDetails = conf.Detail
             };
-
-        }
-
-        if (conf.Success == false)
-        {
-            throw new UnsupportedResponseException(response);
         }
 
 

@@ -129,7 +129,17 @@
                         <TextBlock Text="{Tr LinkerDialog.Message}" FontSize="16" Foreground="GhostWhite"/>
                     </DataTemplate>
                 </GroupBox.HeaderTemplate>
-                <TextBlock Foreground="GhostWhite" FontSize="16" Text="{Binding HintText}"  HorizontalAlignment="Stretch" TextWrapping="Wrap"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Foreground="GhostWhite" FontSize="16" Text="{Binding HintText}"  HorizontalAlignment="Stretch" TextWrapping="Wrap"/>
+                    <Button Command="{Binding CopyCodeCommand}" Visibility="{Binding IsCompleted, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="1">
+                        <materialDesign:PackIcon Kind="ContentCopy" />
+                    </Button>
+                </Grid>
+               
             </GroupBox>
         </Grid>
 

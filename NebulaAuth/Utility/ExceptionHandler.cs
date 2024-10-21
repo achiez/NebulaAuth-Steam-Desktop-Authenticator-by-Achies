@@ -6,6 +6,7 @@ using SteamLib.ProtoCore.Exceptions;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace NebulaAuth.Utility;
 
@@ -60,7 +61,17 @@ public static class ExceptionHandler
                 }
             case CantLoadConfirmationsException e:
                 {
-                    msg = e.Message;
+                    msg = LocManager.GetCodeBehindOrDefault(nameof(CantLoadConfirmationsException), EXCEPTION_HANDLER_LOC_PATH, nameof(CantLoadConfirmationsException), "Common");
+                    if (e.Error == LoadConfirmationsError.Unknown)
+                    {
+                        msg += e.ErrorMessage;
+                        msg += ' ';
+                        msg += e.ErrorDetails;
+                    }
+                    else
+                    {
+                        msg += LocManager.GetCodeBehindOrDefault(e.Error.ToString(), EXCEPTION_HANDLER_LOC_PATH, nameof(CantLoadConfirmationsException),  e.Error.ToString());
+                    }
                     break;
                 }
             case EResultException e:

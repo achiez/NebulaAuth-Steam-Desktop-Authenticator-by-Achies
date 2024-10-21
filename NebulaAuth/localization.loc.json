@@ -73,7 +73,7 @@
         "ru": "Чтобы начать пользоваться программой вы можете привязать аккаунт через меню \"Аккаунт\", либо импортировать существующие мафайлы одним из способов:\n1. Скопировать их в папку mafiles и перезапустить приложение\n2. Перетянуть файлы прямо в окно программы\n3. Скопировать файлы и нажать CTRL+V в окне программы\n4. Через меню \"Файл\" - \"Импорт\"",
         "en": "To start using the program, you can link an account through the \"Account\" menu, or import existing mafiles in one of the following ways:\n1. Copy them to the mafiles folder and restart the application\n2. Drag files directly into the program window\n3. Copy files and press CTRL+V in the program window\n4. Through the \"File\" - \"Import\" menu",
         "ua": "Щоб почати користуватися програмою, ви можете прив'язати акаунт через меню \"Акаунт\", або імпортувати існуючі мафайли одним із способів:\n1. Скопіювати їх у папку mafiles та перезапустити програму\n2. Перетягнути файли безпосередньо в вікно програми\n3. Скопіювати файли та натиснути CTRL+V в вікні програми\n4. Через меню \"Файл\" - \"Імпорт\""
-      } 
+      }
     },
     "Menu": {
       "File": {
@@ -403,7 +403,7 @@
       "en": "Press 'DEL' to remove",
       "ru": "Нажмите 'DEL' для удаления",
       "ua": "Натисніть 'DEL' для видалення"
-    } 
+    }
   },
   "ProxyManagerDialog": {
     "Title": {
@@ -634,7 +634,7 @@
         "en": "Login copied",
         "ru": "Логин скопирован",
         "ua": "Логін скопійовано"
-      } 
+      }
     },
     "ErrorTranslator": {
       "Login": {
@@ -928,6 +928,23 @@
         "ru": "Неизвестная ошибка: ",
         "en": "Unknown error: ",
         "ua": "Невідома помилка: "
+      },
+      "CantLoadConfirmationsException": {
+        "Common": {
+          "ru": "Не удалось загрузить потверждения из-за ошибки Steam: ",
+          "en": "Can't load confirmations due to Steam error: ",
+          "ua": "Не вдалося завантажити підтвердження через помилку Steam: "
+        },
+        "TryAgainLater": {
+          "ru": "Попробуйте позже",
+          "en": "Try again later",
+          "ua": "Спробуйте пізніше"
+        },
+        "NotSetupToReceiveConfirmations": {
+          "ru": "Аккаунт не настроен на получение подтверждений",
+          "en": "Account is not set up to receive confirmations",
+          "ua": "Акаунт не налаштований на отримання підтверджень"
+        }
       }
 
     },
@@ -1038,7 +1055,7 @@
         "en": "Auto ",
         "ua": "Авто "
       }
-    } 
+    }
   },
   "CantAlignTimeError": {
     "ru": "Не удается синхронизировать время со Steam. Возможно отсутствует подключение к интернету или Steam недоступен. Подробная ошибка сохранена в log.log",

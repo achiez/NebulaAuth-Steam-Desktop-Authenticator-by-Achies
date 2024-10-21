@@ -127,10 +127,10 @@
                             </UIElement.Visibility>
                         </md:PackIcon>
                         <md:PackIcon Kind="StopAlert" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFA500" Margin="3" ToolTip="{Tr MainWindow.AppBar.Proxy.ProxyAlert.DefaultInUse}" ToolTipService.InitialShowDelay="300" Visibility="{Binding IsDefaultProxy, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        <ToggleButton ToolTip="{Tr MainWindow.AppBar.TradeTimerHint}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" IsEnabled="{Binding IsMafileSelected}" Margin="2" Style="{StaticResource MaterialDesignFlatToggleButton}" IsChecked="{Binding MarketTimerEnabled}" >
+                        <ToggleButton ToolTip="{Tr MainWindow.AppBar.MarketTimerHint}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" IsEnabled="{Binding IsMafileSelected}" Margin="2" Style="{StaticResource MaterialDesignFlatToggleButton}" IsChecked="{Binding MarketTimerEnabled}" >
                             <md:PackIcon Kind="ShoppingCart"/>
                         </ToggleButton>
-                        <ToggleButton ToolTip="{Tr MainWindow.AppBar.MarketTimerHint}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" IsEnabled="{Binding IsMafileSelected}" Margin="2" Style="{StaticResource MaterialDesignFlatToggleButton}" IsChecked="{Binding TradeTimerEnabled}" >
+                        <ToggleButton ToolTip="{Tr MainWindow.AppBar.TradeTimerHint}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" IsEnabled="{Binding IsMafileSelected}" Margin="2" Style="{StaticResource MaterialDesignFlatToggleButton}" IsChecked="{Binding TradeTimerEnabled}" >
                             <md:PackIcon Kind="AccountArrowRight" />
                         </ToggleButton>
                         <TextBox md:HintAssist.Hint="{Tr Common.Abbreviations.Time.Seconds}" Margin="10,0,0,0" MinWidth="30" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimerCheckSeconds, UpdateSourceTrigger=PropertyChanged, Delay=700}" PreviewTextInput="UIElement_OnPreviewTextInput" />

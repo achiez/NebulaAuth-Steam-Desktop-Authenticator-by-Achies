@@ -62,7 +62,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
     private TaskCompletionSource<string> _linkCodeTcs = new();
 
     private bool _isLinkStarted;
-
+    private string _rCode = string.Empty;
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(ProceedCommand))]
     private bool _canProceed = true;
@@ -199,6 +199,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
                     mafile.RevocationCode,
                     mafile.SessionData?.SteamId.Steam64);
 
+            _rCode = mafile.RevocationCode ?? string.Empty;
             CanProceed = true;
             return;
         }
@@ -318,6 +319,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
         IsEmailConfirmation = false;
         CanProceed = true;
         _emailCodeTcs = new TaskCompletionSource<string>();
+        _rCode = string.Empty;
     }
 
     private void Backup(MobileDataExtended data)
@@ -414,6 +416,21 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
             UseShellExecute = true
         });
     }
+
+    [RelayCommand]
+    private void CopyCode()
+    {
+        try
+        {
+            Clipboard.SetText(_rCode);
+        }
+        catch (Exception ex)
+        {
+            Shell.Logger.Error(ex, "Error whily copying RCode");
+            return;
+        }
+    }
+
 
     private static string GetLocalizationOrDefault(string key)
     {

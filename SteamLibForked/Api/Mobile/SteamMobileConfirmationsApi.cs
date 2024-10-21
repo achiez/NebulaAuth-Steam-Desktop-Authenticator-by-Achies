@@ -41,11 +41,10 @@ public static class SteamMobileConfirmationsApi
             return MobileConfirmationScrapper.Scrap(respStr);
         }
         catch (Exception ex)
-            when (ex is not SessionPermanentlyExpiredException)
+            when (ex is not (SessionPermanentlyExpiredException or CantLoadConfirmationsException))
         {
-            var e = new UnsupportedResponseException(respStr, ex);
-            SteamLibErrorMonitor.LogErrorResponse(respStr, e);
-            throw e;
+            SteamLibErrorMonitor.LogErrorResponse(respStr, ex);
+            throw;
 
         }
     }
