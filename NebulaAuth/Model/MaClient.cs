@@ -1,15 +1,11 @@
-﻿using AchiesUtilities.Web.Proxy;
+﻿using AchiesUtilities.Web.Models;
+using AchiesUtilities.Web.Proxy;
 using NebulaAuth.Model.Entities;
-using SteamLib.Account;
-using SteamLib.Api;
 using SteamLib.Api.Mobile;
 using SteamLib.Authentication;
-using SteamLib.Authentication.LoginV2;
-using SteamLib.Core.Enums;
 using SteamLib.Core.Interfaces;
 using SteamLib.Exceptions;
 using SteamLib.ProtoCore.Services;
-using SteamLib.SteamMobile;
 using SteamLib.SteamMobile.Confirmations;
 using SteamLib.Web;
 using System;
@@ -30,6 +26,7 @@ public static class MaClient
     private static DynamicProxy Proxy { get; }
 
     public static ProxyData? DefaultProxy { get; set; }
+    public static HttpClientHandlerPair Chp => new(Client, ClientHandler);
 
     static MaClient()
     {
@@ -66,50 +63,18 @@ public static class MaClient
         return SteamMobileConfirmationsApi.GetConfirmations(Client, mafile, mafile.SessionData!.SteamId);
     }
 
-    public static async Task LoginAgain(Mafile mafile, string password, bool savePassword, ICaptchaResolver? resolver)
+    public static Task LoginAgain(Mafile mafile, string password, bool savePassword, ICaptchaResolver? resolver)
     {
         SetProxy(mafile);
-        var sgGenerator = new SteamGuardCodeGenerator(mafile.SharedSecret);
-        var options = new LoginV2ExecutorOptions(LoginV2Executor.NullConsumer, Client)
-        {
-            Logger = Shell.ExtensionsLogger,
-            SteamGuardProvider = sgGenerator,
-            DeviceDetails = LoginV2ExecutorOptions.GetMobileDefaultDevice(),
-            WebsiteId = "Mobile"
-        };
-        ClientHandler.CookieContainer.ClearMobileSessionCookies();
-        var result = await LoginV2Executor.DoLogin(options, mafile.AccountName, password);
-        AdmissionHelper.TransferCommunityCookies(ClientHandler.CookieContainer);
-        mafile.SetSessionData((MobileSessionData)result);
-        if (PHandler.IsPasswordSet)
-            mafile.Password = (savePassword ? PHandler.Encrypt(password) : null);
-        Storage.UpdateMafile(mafile);
+        return SessionHandler.LoginAgain(Chp, mafile, password, savePassword);
     }
 
 
-    public static async Task RefreshSession(Mafile mafile)
+    public static Task RefreshSession(Mafile mafile)
     {
         ValidateMafile(mafile, true);
         SetProxy(mafile);
-        var token = mafile.SessionData!.GetMobileToken();
-        if (token == null || token.Value.IsExpired)
-        {
-            var sessionToken = await SteamMobileApi.RefreshJwt(Client, mafile.SessionData!.RefreshToken.Token, mafile.SessionData.SteamId.Steam64);
-            var newToken = SteamTokenHelper.Parse(sessionToken);
-            mafile.SessionData.SetMobileToken(newToken);
-        }
-
-        //RETHINK: Do we need this? Mobile token is enough
-        var communityToken = mafile.SessionData!.GetToken(SteamDomain.Community);
-        if (communityToken == null || communityToken.Value.IsExpired)
-        {
-            var communityTokenString = await SteamGlobalApi.RefreshJwt(Client, SteamDomain.Community);
-            var newToken = SteamTokenHelper.Parse(communityTokenString);
-            mafile.SessionData.SetToken(SteamDomain.Community, newToken);
-        }
-
-        Storage.UpdateMafile(mafile);
-        ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(mafile.SessionData);
+        return SessionHandler.RefreshMobileToken(Chp, mafile);
     }
 
     public static Task<bool> SendConfirmation(Mafile mafile, Confirmation confirmation, bool confirm)
@@ -122,7 +87,7 @@ public static class MaClient
     public static Task<bool> SendMultipleConfirmation(Mafile mafile, IEnumerable<Confirmation> confirmations, bool confirm)
     {
         var enumerable = confirmations.ToList();
-        if (!enumerable.Any())
+        if (enumerable.Count == 0)
         {
             return Task.FromResult(result: false);
         }

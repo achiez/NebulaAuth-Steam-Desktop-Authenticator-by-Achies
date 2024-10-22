@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using JetBrains.Annotations;
 using MaterialDesignThemes.Wpf;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
@@ -12,7 +13,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace NebulaAuth.ViewModel;
@@ -21,8 +21,9 @@ public partial class MainVM : ObservableObject
 {
     [ObservableProperty]
     private ObservableCollection<Mafile> _maFiles = Storage.MaFiles;
-    public SnackbarMessageQueue MessageQueue => SnackbarController.MessageQueue;
 
+    [UsedImplicitly]
+    public SnackbarMessageQueue MessageQueue => SnackbarController.MessageQueue;
 
 
     public Mafile? SelectedMafile
@@ -42,8 +43,6 @@ public partial class MainVM : ObservableObject
             new MaProxy(kvp.Key, kvp.Value)));
         Storage.MaFiles.CollectionChanged += MaFilesOnCollectionChanged;
         QueryGroups();
-        SessionHandler.LoginStarted += SessionHandlerOnLoginStarted;
-        SessionHandler.LoginCompleted += SessionHandlerOnLoginCompleted;
         UpdateManager.CheckForUpdates();
         if (Storage.DuplicateFound > 0)
         {
@@ -199,5 +198,12 @@ public partial class MainVM : ObservableObject
         {
             Shell.Logger.Error(ex);
         }
+    }
+
+
+    private static string GetLocalization(string key)
+    {
+        const string LOC_PATH = "MainVM";
+        return LocManager.GetCodeBehindOrDefault(key, LOC_PATH, key);
     }
 }

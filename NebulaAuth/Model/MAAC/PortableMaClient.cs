@@ -16,6 +16,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using AchiesUtilities.Web.Models;
 
 namespace NebulaAuth.Model.MAAC;
 
@@ -80,7 +81,7 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         }
         catch (ApplicationException ex)
         {
-            Shell.Logger.Warn(ex, "Error GetConf in timer.");
+            Shell.Logger.Warn(ex, "Timer {accountName}: Error GetConf in timer.", Mafile.AccountName);
             return 0;
         }
         var toConfirm = new List<Confirmation>();
@@ -98,13 +99,14 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         if (toConfirm.Count == 0) return 0;
         try
         {
-            Shell.Logger.Debug("Sending confirmations. Count: {count}", toConfirm.Count);
-            await HandleTimerRequest(() => SendConfirmations(toConfirm));
+            Shell.Logger.Debug("Timer {accountName}: Sending confirmations. Count: {count}", Mafile.AccountName, toConfirm.Count);
+            var success = await HandleTimerRequest(() => SendConfirmations(toConfirm));
+            Shell.Logger.Debug("Timer {accountName}: Confirmation sent: {confirmResult}", Mafile.AccountName, success);
             return toConfirm.Count;
         }
         catch (ApplicationException ex)
         {
-            Shell.Logger.Warn(ex, "MultiConf error in Timer.");
+            Shell.Logger.Warn(ex, "Timer {accountName}: MultiConf error in Timer.", Mafile.AccountName);
             return 0;
         }
     }
@@ -125,7 +127,7 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         Exception innerException;
         try
         {
-            return await SessionHandler.Handle(func, Mafile, GetTimerPrefix());
+            return await SessionHandler.Handle(func, Mafile, Chp(), GetTimerPrefix());
         }
         catch (OperationCanceledException ex)
         {
@@ -143,6 +145,8 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         }
         throw new ApplicationException("Swallowed", innerException);
     }
+
+    private HttpClientHandlerPair Chp() => new(Client, ClientHandler);
 
     private static string GetLocalization(string key)
     {

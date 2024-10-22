@@ -1,24 +1,122 @@
-﻿using NebulaAuth.Core;
+﻿using AchiesUtilities.Web.Models;
+using MaterialDesignThemes.Wpf;
+using NebulaAuth.Core;
 using NebulaAuth.Model.Entities;
 using SteamLib.Exceptions;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using NebulaAuth.View.Dialogs;
 
 namespace NebulaAuth.Model;
 
-public static class SessionHandler
+public static partial class SessionHandler
 {
-    public static event EventHandler? LoginStarted;
-    public static event EventHandler? LoginCompleted;
 
-    public static async Task<T> Handle<T>(Func<Task<T>> func, Mafile mafile, string? snackbarPrefix = null)
+    private static readonly SemaphoreSlim Semaphore = new(1, 1);
+
+    public static async Task<T> Handle<T>(Func<Task<T>> func, Mafile mafile,
+        HttpClientHandlerPair? chp = null, string? snackbarPrefix = null)
     {
-        string? password = null;
+        chp ??= MaClient.Chp;
+        await Semaphore.WaitAsync();
+        try
+        {
+            return await HandleInternal(func, chp.Value, mafile, snackbarPrefix);
+        }
+        finally
+        {
+            Semaphore.Release();
+        }
+    }
+
+    private static async Task<T> HandleInternal<T>(Func<Task<T>> func, HttpClientHandlerPair chp, Mafile mafile,
+        string? snackbarPrefix = null)
+    {
+        using var scope = Shell.Logger.PushScopeProperty("Scope", "SessionHandler");
+        var mobileTokenExpired = MobileTokenExpired(mafile);
+        var refreshTokenExpired = RefreshTokenExpired(mafile);
+        var password = GetPassword(mafile);
+
+        if (!mobileTokenExpired)
+        {
+            try
+            {
+                return await func();
+            }
+            catch (SessionInvalidException ex)
+                when (refreshTokenExpired == false || password != null)
+            {
+                if (ex is SessionPermanentlyExpiredException)
+                {
+                    Shell.Logger.Debug(ex, "RefreshToken on mafile {name} {steamid} is expired", mafile.AccountName, mafile.SessionData?.SteamId);
+                    refreshTokenExpired = true;
+                }
+                else
+                {
+                    Shell.Logger.Debug(ex, "MobileToken on mafile {name} {steamid} is expired", mafile.AccountName, mafile.SessionData?.SteamId);
+                }
+            }
+        }
+
+
+        //State: mobileToken invalid/expired, refreshToken maybe not expired
+        if (!refreshTokenExpired)
+        {
+            var refreshed = await RefreshInternal(chp, mafile);
+            if (refreshed)
+            {
+                SnackbarController.SendSnackbar(snackbarPrefix + LocManager.GetCodeBehindOrDefault("SessionWasRefreshedAutomatically", "SessionHandler", "SessionWasRefreshedAutomatically"));
+                try
+                {
+                    return await func();
+                }
+                catch (SessionInvalidException)
+                    when (password != null)
+                {
+
+                }
+            }
+        }
+
+        Shell.Logger.Debug("Session on mafile {name} {steamid} is invalid/expired", mafile.AccountName, mafile.SessionData?.SteamId);
+
+        //State: mobileToken invalid/expired, refreshToken invalid/expired
+        if (password != null)
+        {
+            var logged = await LoginAgainInternal(chp, mafile, password, true);
+            if (logged)
+            {
+                Shell.Logger.Debug("Mafile {name} {steamid} was succesfully auto-relogined", mafile.AccountName, mafile.SessionData?.SteamId);
+                return await func();
+            }
+        }
+
+        //Nothing to do more, everything is expired
+        throw new SessionPermanentlyExpiredException(SessionPermanentlyExpiredException.SESSION_EXPIRED_MSG);
+    }
+
+
+
+    private static bool MobileTokenExpired(Mafile mafile)
+    {
+        var mobileToken = mafile.SessionData?.GetMobileToken();
+        return mobileToken == null || mobileToken.Value.IsExpired;
+    }
+
+    private static bool RefreshTokenExpired(Mafile mafile)
+    {
+        return mafile.SessionData?.RefreshToken.IsExpired != false;
+    }
+
+    private static string? GetPassword(Mafile mafile)
+    {
         try
         {
             if (PHandler.IsPasswordSet && !string.IsNullOrWhiteSpace(mafile.Password))
             {
-                password = PHandler.Decrypt(mafile.Password);
+                return PHandler.Decrypt(mafile.Password);
             }
         }
         catch
@@ -26,70 +124,74 @@ public static class SessionHandler
             // ignored
         }
 
-        var refreshed = false;
-        try
-        {
-            return await func();
-        }
-        catch (SessionInvalidException) when (mafile.SessionData is { RefreshToken.IsExpired: false})
-        {
-            Shell.Logger.Debug("Token on mafile {name} {steamid} expired. Trying to refresh", mafile.AccountName, mafile.SessionData?.SteamId);
-            refreshed = await TryRefresh(mafile);
-        }
-        catch (SessionInvalidException)
-            when (password != null)
-        {
-        }
-
-
-        if (refreshed)
-        {
-            Shell.Logger.Debug("Token on mafile {name} {steamid} refreshed", mafile.AccountName,
-                mafile.SessionData?.SteamId);
-            try
-            {
-                return await func();
-            }
-            catch (Exception ex3)
-                when (password != null && ex3 is SessionPermanentlyExpiredException or SessionInvalidException)
-            {
-
-            }
-        }
-
-
-        if (password == null)
-        {
-            throw new SessionInvalidException();
-        }
-
-        try
-        {
-            LoginStarted?.Invoke(null, EventArgs.Empty);
-            await MaClient.LoginAgain(mafile, password, savePassword: true, null);
-            Shell.Logger.Debug("Mafile {name} {steamid} succesfully auto-relogined", mafile.AccountName,
-                mafile.SessionData?.SteamId);
-        }
-        finally
-        {
-            LoginCompleted?.Invoke(null, EventArgs.Empty);
-        }
-
-        return await func();
+        return null;
     }
 
-    private static async Task<bool> TryRefresh(Mafile mafile, string? snackbarPrefix = null)
+
+    private static async Task<bool> RefreshInternal(HttpClientHandlerPair chp, Mafile mafile)
     {
         try
         {
-            await MaClient.RefreshSession(mafile);
-            SnackbarController.SendSnackbar(snackbarPrefix + LocManager.GetCodeBehindOrDefault("SessionWasRefreshedAutomatically", "SessionHandler", "SessionWasRefreshedAutomatically"));
+            await RefreshMobileToken(chp, mafile);
             return true;
         }
-        catch (SessionInvalidException)
+        catch(Exception ex)
         {
-            Shell.Logger.Debug("Token on mafile {name} {steamid} not refreshed", mafile.AccountName, mafile.SessionData?.SteamId);
+            Shell.Logger.Debug(ex, "Failed to refresh session on mafile {name} {steamid}", mafile.AccountName, mafile.SessionData?.SteamId);
             return false;
         }
     }
+
+    private static async Task<bool> LoginAgainInternal(HttpClientHandlerPair chp, Mafile mafile, string password,
+        bool savePassword)
+    {
+        var t = Task.Run(OnLoginStarted);
+        try
+        {
+
+            await LoginAgain(chp, mafile, password, savePassword);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Shell.Logger.Debug(ex, "Failed to relogin mafile {name} {steamid}", mafile.AccountName,
+                mafile.SessionData?.SteamId);
+            return false;
+        }
+        finally
+        {
+            OnLoginCompleted();
+            await t;
+        }
+    }
+
+    private static async Task OnLoginStarted()
+    {
+        if (DialogHost.IsDialogOpen(null)) return;
+        await Application.Current.Dispatcher.BeginInvoke(async () =>
+        {
+            await DialogHost.Show(new WaitLoginDialog());
+        });
+    }
+
+    private static void OnLoginCompleted()
+    {
+        var currentSession = DialogHost.GetDialogSession(null);
+        Application.Current.Dispatcher.BeginInvoke(() =>
+        {
+            if (currentSession is { Content: WaitLoginDialog, IsEnded: false })
+            {
+                try
+                {
+                    currentSession.Close();
+                }
+                catch
+                {
+                    //Ignored
+                }
+            }
+        });
+    }
+
+
 }

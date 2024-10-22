@@ -14,6 +14,14 @@ public static class MobileConfirmationScrapper
         {"You are not set up to receive mobile confirmations", LoadConfirmationsError.NotSetupToReceiveConfirmations}
     };
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="response"></param>
+    /// <returns></returns>
+    /// <exception cref="UnsupportedResponseException"></exception>
+    /// <exception cref="SessionInvalidException"></exception>
+    /// <exception cref="CantLoadConfirmationsException"></exception>
     public static List<Confirmation> Scrap(string response)
     {
         ConfirmationsJson conf;
@@ -28,7 +36,7 @@ public static class MobileConfirmationScrapper
 
         if (conf.NeedAuth)
         {
-            throw new SessionPermanentlyExpiredException();
+            throw new SessionInvalidException();
         }
 
         if (conf.Success == false)

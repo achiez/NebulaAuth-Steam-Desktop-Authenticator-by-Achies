@@ -25,11 +25,12 @@ public partial class App
             var msg = ex.ToString();
             if (ex is CantAlignTimeException)
             {
-                msg = Loc.Tr(LocManager.GetCodeBehind("CantAlignTimeError"));
+                msg = LocManager.Get("CantAlignTimeError");
             }
 
-            MessageBox.Show(msg);
+            MessageBox.Show(msg, "Error", MessageBoxButton.OK,  MessageBoxImage.Stop, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             throw;
+
         }
     }
 }

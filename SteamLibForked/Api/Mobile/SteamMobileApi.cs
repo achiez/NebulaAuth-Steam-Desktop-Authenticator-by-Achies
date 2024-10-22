@@ -7,6 +7,7 @@ using SteamLib.ProtoCore.Enums;
 using SteamLib.ProtoCore.Exceptions;
 using SteamLib.ProtoCore.Services;
 using System.Net;
+using SteamLib.Account;
 
 namespace SteamLib.Api.Mobile;
 
@@ -28,12 +29,12 @@ public static class SteamMobileApi
     /// <param name="cancellationToken"></param>
     /// <returns>Refreshed AccessToken</returns>
     /// <exception cref="SessionInvalidException"></exception>
-    public static async Task<string> RefreshJwt(HttpClient client, string refreshToken, long steamId, CancellationToken cancellationToken = default)
+    public static async Task<string> RefreshJwt(HttpClient client, string refreshToken, SteamId steamId, CancellationToken cancellationToken = default)
     {
         var req = new GenerateAccessTokenForApp_Request
         {
             RefreshToken = refreshToken,
-            SteamId = steamId,
+            SteamId = steamId.Steam64,
             TokenRenewalType = true
         };
 

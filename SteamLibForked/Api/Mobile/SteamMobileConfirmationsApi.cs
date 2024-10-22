@@ -28,12 +28,12 @@ public static class SteamMobileConfirmationsApi
         var reqMsg = new HttpRequestMessage(HttpMethod.Get, req);
         var resp = await client.SendAsync(reqMsg, cancellationToken);
 
-        var respStr = await resp.Content.ReadAsStringAsync(cancellationToken);
+      
         if (resp.StatusCode == HttpStatusCode.Redirect)
         {
-            throw new SessionPermanentlyExpiredException("Mobile session expired");
+            throw new SessionInvalidException("Mobile session expired");
         }
-
+        var respStr = await resp.Content.ReadAsStringAsync(cancellationToken);
         resp.EnsureSuccessStatusCode();
 
         try
@@ -41,7 +41,7 @@ public static class SteamMobileConfirmationsApi
             return MobileConfirmationScrapper.Scrap(respStr);
         }
         catch (Exception ex)
-            when (ex is not (SessionPermanentlyExpiredException or CantLoadConfirmationsException))
+            when (ex is not (SessionInvalidException or CantLoadConfirmationsException))
         {
             SteamLibErrorMonitor.LogErrorResponse(respStr, ex);
             throw;

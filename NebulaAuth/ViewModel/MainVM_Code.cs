@@ -30,7 +30,7 @@ public partial class MainVM
     private void UpdateCode(object? state = null)
     {
         var currentTime = TimeAligner.GetSteamTime();
-        var untilChange = currentTime - currentTime / 30L * 30L;
+        var untilChange = currentTime % 30;
         var codeProgress = untilChange / 30D * 100;
 
         string? code = null;
@@ -41,12 +41,12 @@ public partial class MainVM
 
 
         if (Application.Current == null) return;
-        Application.Current.Dispatcher.Invoke((string? c) =>
+        Application.Current.Dispatcher.BeginInvoke((string? c) =>
         {
             if (Application.Current.MainWindow?.WindowState == WindowState.Minimized) return;
             CodeProgress = codeProgress;
             if (c != null) Code = c;
-        }, DispatcherPriority.Background, code);
+        }, DispatcherPriority.DataBind, code);
     }
 
     [RelayCommand(AllowConcurrentExecutions = false)]
