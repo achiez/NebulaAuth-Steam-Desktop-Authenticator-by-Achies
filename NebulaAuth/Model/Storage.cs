@@ -115,7 +115,7 @@ public static class Storage
     public static Mafile ReadMafile(string path)
     {
         var str = File.ReadAllText(path);
-        var mafile = MafileSerializer.Deserialize(str, out var mafileData);
+        var mafile = MafileSerializer.Deserialize(str, true, out var mafileData);
         if (mafileData.IsExtended == false)
             throw new FormatException("Mafile is not extended data");
 

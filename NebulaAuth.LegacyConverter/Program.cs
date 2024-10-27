@@ -8,15 +8,15 @@ try
     var currentPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
     if (currentPath != null)
         Environment.CurrentDirectory = currentPath;
-    const string TO_STORE_FOLDER = "ConvertedMafiles";
+    const string toStoreFolder = "ConvertedMafiles";
 
-    if (Directory.Exists(TO_STORE_FOLDER) == false)
+    if (Directory.Exists(toStoreFolder) == false)
     {
-        Directory.CreateDirectory(TO_STORE_FOLDER);
+        Directory.CreateDirectory(toStoreFolder);
     }
     else
     {
-        var isEmpty = Directory.GetFiles(TO_STORE_FOLDER).Length == 0;
+        var isEmpty = Directory.GetFiles(toStoreFolder).Length == 0;
         Console.ForegroundColor = ConsoleColor.Yellow;
         if (!isEmpty)
         {
@@ -120,7 +120,7 @@ try
                 }
             }
 
-            var maf = MafileSerializer.Deserialize(text, out _);
+            var maf = MafileSerializer.Deserialize(text, true, out _);
             var legacy = MafileSerializer.SerializeLegacy(maf, Formatting.Indented);
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
             Write(legacy, fileNameWithoutExtension);
@@ -145,7 +145,7 @@ try
     void Write(string maf, string name)
     {
 
-        var path = Path.Combine(TO_STORE_FOLDER, name + "_legacy.mafile");
+        var path = Path.Combine(toStoreFolder, name + "_legacy.mafile");
         File.WriteAllText(path, maf);
     }
 

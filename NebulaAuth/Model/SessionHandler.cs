@@ -72,10 +72,11 @@ public static partial class SessionHandler
                 {
                     return await func();
                 }
-                catch (SessionInvalidException)
-                    when (password != null)
+                catch (SessionInvalidException ex)
                 {
-
+                    Shell.Logger.Info(ex, "MobileToken on {name} {steamid} was refreshed but after it, error occured", mafile.AccountName, mafile.SessionData?.SteamId);
+                    if (password == null)
+                        throw;
                 }
             }
         }

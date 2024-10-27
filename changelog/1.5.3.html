@@ -67,22 +67,27 @@
         <!-- Changelog entry -->
         <div class="change">
             <div class="version">Version 1.5.3</div>
-            <div class="date">DATE</div>
+            <div class="date">28.10.2024</div>
             <div class="description">
-                - NEWS: Official telegram group created. Join us at <a href="https://t.me/nebulaauth">t.me/nebulaauth</a> <br />
-                - UPDATE: Auto-confirmation was reworked. Now every account has separate timer settings <br />
-                - UPDATE: Added hyperlink to troubleshooting guide in "Linking" window <br />
-                - UPDATE: Added socks4, socks5 proxy support (not tested) <br />
-                - FIX: Now errors in receiving confirmations are localized and displayed correctly. <br/>
-                - FIX: Fixed typo in "AccesToken" when serializing in legacy mode <br/> 
-                - FIX: Fixed application startup error was not shown correctly and had empty message when app wasn't able to align time <br/>
-                - UI: Added "Copy RCode" button after linking account <br />
-                - UI: Auto-confirm timers now use icons instead of text-chips <br />
-                - UI: Minor design and localization improvements <br />
-                - UI: Hyperlink "by achies" now leads to repository instead of "achiez/" user page<br />
-                - UI: Fixed code progress bar was "lagging" <br/>
-                - DEV: Big code clean-ups and refactoring <br />
-                - DEV: Updated dependency and SteamLib libraries <br />
+                - <b>NEWS:</b> Official Telegram group now available! Join us at <b><a href="https://t.me/nebulaauth">t.me/nebulaauth</a></b></b> <br />
+                - <b>UPDATE:</b> Auto-confirmation system reworked. Each account now has separate timer settings. <br />
+                - <b>UPDATE:</b> Added a hyperlink to the troubleshooting guide in the "Linking" window. <br />
+                - <b>UPDATE:</b> Added support for SOCKS4 and SOCKS5 proxies (untested). <br />
+                - <b>UPDATE:</b> Added an experimental option to ignore timer errors during "Patch Tuesday" (Steam maintenance period). <br />
+                - <b>UI:</b> Added "Copy maFile" button in the maFile context menu. <br />
+                - <b>UI:</b> Introduced additional hotkeys in the maFile context menu. <br />
+                - <b>UI:</b> Added "Copy RCode" button after account linking. <br />
+                - <b>UI:</b> Auto-confirmation timers now use icons instead of text chips. <br />
+                - <b>UI:</b> Temporarily removed the "Allow auto-update" (without confirmation) setting due to functionality issues in the AU library. <br />
+                - <b>UI:</b> Minor design and localization enhancements. <br />
+                - <b>UI-FIX:</b> Updated "by achies" hyperlink to direct to the repository instead of the user page "achiez/". <br />
+                - <b>UI-FIX:</b> Resolved lag issue in the code progress bar. <br />
+                - <b>FIX:</b> Mafiles missing a "SessionID" (e.g., from Steam Desktop Authenticator) can now be imported without re-login. If absent, SessionID is generated on the client side. <br />
+                - <b>FIX:</b> Errors during confirmation retrieval are now properly localized and displayed. <br />
+                - <b>FIX:</b> Corrected typo in "Acce<b>s</b>Token" when serializing in legacy mode. <br />
+                - <b>FIX:</b> Resolved issue where the startup error message was not displayed correctly, leaving it blank when the app couldn’t synchronize time. <br />
+                - <b>DEV:</b> Major code clean-up and refactoring. <br />
+                - <b>DEV:</b> Updated dependencies and SteamLib libraries. <br />
             </div>
         </div>
     </div>

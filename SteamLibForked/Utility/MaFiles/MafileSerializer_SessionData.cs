@@ -3,29 +3,31 @@ using Newtonsoft.Json.Linq;
 using SteamLib.Account;
 using SteamLib.Authentication;
 using SteamLib.Core.Enums;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace SteamLib.Utility.MaFiles;
 
 public partial class MafileSerializer //SessionData
 {
-    private static MobileSessionData? DeserializeMobileSessionData(JObject j, out DeserializedMafileSessionResult result)
+    private static MobileSessionData? DeserializeMobileSessionData(JObject j, bool allowSessionIdGeneration, out DeserializedMafileSessionResult result)
     {
         result = DeserializedMafileSessionResult.Invalid;
-        var refreshTokenToken = GetToken(j, nameof(MobileSessionData.RefreshToken), "refreshtoken", "refresh_token",
+        var jRefreshToken = GetToken(j, nameof(MobileSessionData.RefreshToken), "refreshtoken", "refresh_token",
             "refresh", "OAuthToken");
 
 
         SteamAuthToken? refreshToken = null;
-        if (refreshTokenToken == null || refreshTokenToken.Type == JTokenType.Null) return null;
-        if (refreshTokenToken.Type == JTokenType.String && SteamTokenHelper.TryParse(refreshTokenToken.Value<string>()!, out var parsed))
+        if (jRefreshToken == null || jRefreshToken.Type == JTokenType.Null) return null;
+        if (jRefreshToken.Type == JTokenType.String && SteamTokenHelper.TryParse(jRefreshToken.Value<string>()!, out var parsed))
         {
             refreshToken = parsed;
         }
-        else if (refreshTokenToken.Type == JTokenType.Object)
+        else if (jRefreshToken.Type == JTokenType.Object)
         {
             try
             {
-                refreshToken = refreshTokenToken.ToObject<SteamAuthToken>();
+                refreshToken = jRefreshToken.ToObject<SteamAuthToken>();
             }
             catch
             {
@@ -33,31 +35,44 @@ public partial class MafileSerializer //SessionData
             }
         }
 
+        //if (refreshToken == null)
+        //{
+        //    result = DeserializedMafileSessionResult.Invalid;
+        //    return null;
+        //}
+
 
         var sessionId = GetString(j, "sessionid", "session_id", "session");
-        var accessTokenToken = GetToken(j, "accesstoken", "access_token", "access");
-        accessTokenToken ??= GetToken(j, "steamLoginSecure");
+        var jAccessToken = GetToken(j, "accesstoken", "access_token", "access");
+        jAccessToken ??= GetToken(j, "steamLoginSecure");
 
-        if (string.IsNullOrWhiteSpace(sessionId)) return null;
+        if (sessionId == null && allowSessionIdGeneration)
+        {
+            sessionId = GenerateRandomHex(12);
+        }else if (sessionId == null)
+        {
+            return null;
+        }
 
         SteamAuthToken? accessToken = null;
-        if (accessTokenToken == null || accessTokenToken.Type == JTokenType.Null)
+
+        if (jAccessToken == null || jAccessToken.Type == JTokenType.Null)
         {
             accessToken = null;
         }
-        if (accessTokenToken is { Type: JTokenType.Object })
+        else if (jAccessToken is { Type: JTokenType.Object })
         {
             try
             {
-                accessToken = refreshTokenToken.ToObject<SteamAuthToken>();
+                accessToken = jRefreshToken.ToObject<SteamAuthToken>();
             }
             catch
             {
                 // ignored
             }
         }
-        else if (accessTokenToken is { Type: JTokenType.String } &&
-                 SteamTokenHelper.TryParse(accessTokenToken.Value<string>()!, out var token) && token.Type == SteamAccessTokenType.Mobile)
+        else if (jAccessToken is { Type: JTokenType.String } &&
+                 SteamTokenHelper.TryParse(jAccessToken.Value<string>()!, out var token) && token.Type == SteamAccessTokenType.Mobile)
         {
             accessToken = token;
         }
@@ -115,6 +130,21 @@ public partial class MafileSerializer //SessionData
     //TODO: after fixing the issue, reflect changes in the original library
     private static SteamAuthToken CreateInvalid(SteamId steamId)
     {
-       return new SteamAuthToken("invalid", steamId, UnixTimeStamp.FromDateTime(DateTime.Now - TimeSpan.FromSeconds(1)), SteamDomain.Community, SteamAccessTokenType.MobileRefresh);
+       return new SteamAuthToken("invalid", steamId, UnixTimeStamp.Zero, SteamDomain.Community, SteamAccessTokenType.MobileRefresh);
+    }
+
+    private static string GenerateRandomHex(int byteLength = 12)
+    {
+        byte[] randomBytes = new byte[byteLength];
+        using (var rng = RandomNumberGenerator.Create())
+        {
+            rng.GetBytes(randomBytes);
+        }
+
+        var hex = new StringBuilder(byteLength * 2);
+        foreach (var b in randomBytes)
+            hex.Append($"{b:x2}");
+
+        return hex.ToString();
     }
 }

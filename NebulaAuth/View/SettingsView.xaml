@@ -56,12 +56,13 @@
                     <Button Command="{Binding SetPasswordCommand}"  Margin="5,0,0,0" VerticalAlignment="Bottom" Grid.Column="1"> <materialDesign:PackIcon Kind="ContentSave"/></Button>
                 </Grid>
                 <CheckBox  Margin="0,20,0,0"  FontSize="16" IsChecked="{Binding LegacyMode}"  Content="{Tr SettingsDialog.LegacyMafileMode}" ToolTip="{Tr SettingsDialog.LegacyMafileModeHint}"/>
-                <CheckBox IsEnabled="False"  Margin="0,10,0,0"  FontSize="16" IsChecked="{Binding AllowAutoUpdate}" Content="{Tr SettingsDialog.AllowAutoUpdate}"/>
+                <!--<CheckBox IsEnabled="False"  Margin="0,10,0,0"  FontSize="16" IsChecked="{Binding AllowAutoUpdate}" Content="{Tr SettingsDialog.AllowAutoUpdate}"/>-->
                 <CheckBox  Margin="0,10,0,0"  FontSize="16" IsChecked="{Binding UseAccountNameAsMafileName}" >
                     <TextBlock TextWrapping="WrapWithOverflow" Text="{Tr SettingsDialog.UseAccountName}" />
                 </CheckBox>
-
-
+                <CheckBox Margin="0,10,0,0"  FontSize="16"  ToolTip="{Tr SettingsDialog.IgnorePatchTuesdayErrorsHint}">
+                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Tr SettingsDialog.IgnorePatchTuesdayErrors}" />
+                </CheckBox>
             </StackPanel>
             
 

@@ -17,7 +17,7 @@ public class PortableMaClientStatusToColorConverter : IValueConverter
 
     }
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotSupportedException();
     }

@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System.Collections.Generic;
+using System.Linq;
+using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
@@ -15,7 +17,7 @@ public partial class MainVM //MAAC
         {
             if (SetProperty(ref _maacDisplay, value))
             {
-                SwitchMAACDispaly(value);
+                SwitchMAACDisplay(value);
             }
         }
     }
@@ -97,14 +99,71 @@ public partial class MainVM //MAAC
     }
 
     [RelayCommand]
-    public void RemoveFromMAAC(object? maf)
+    private void SwitchMAAC(bool market)
     {
-        if (maf is not Mafile mafile) return;
-        MultiAccountAutoConfirmer.RemoveFromConfirm(mafile);
+        var maf = SelectedMafile;
+        if (maf == null) return;
+        SwitchMAACOn([maf], market);
     }
 
+    [RelayCommand]
+    private void SwitchMAACOnGroup(bool market)
+    {
+        var group = SelectedGroup;
+        if(group == null) return;
+        var mafilesInGroup = MaFiles.Where(m => group.Equals(m.Group));
+        SwitchMAACOn(mafilesInGroup, market);
+    }
 
-    private void SwitchMAACDispaly(bool newValue)
+    [RelayCommand]
+    private void SwitchMAACOnAll(bool market)
+    {
+        SwitchMAACOn(MaFiles, market);
+    }
+
+    private void SwitchMAACOn(IEnumerable<Mafile> mafiles, bool market)
+    {
+        mafiles = mafiles.ToArray();
+
+        var turnOn = mafiles.All(m => m.LinkedClient == null || GetCurrentMode(m.LinkedClient) == false);
+        if (turnOn)
+        {
+            foreach (var mafile in mafiles)
+            {
+                MultiAccountAutoConfirmer.TryAddToConfirm(mafile);
+                SetCurrentMode(mafile.LinkedClient, turnOn);
+            }
+            
+        }
+        else
+        {
+            foreach (var mafile in mafiles)
+            {
+                SetCurrentMode(mafile.LinkedClient, turnOn);
+                if(PretendsToRemove(mafile))
+                    MultiAccountAutoConfirmer.RemoveFromConfirm(mafile);
+            }
+        }
+
+        return;
+
+        bool PretendsToRemove(Mafile mafile) => mafile.LinkedClient is {AutoConfirmMarket: false, AutoConfirmTrades: false};
+        bool GetCurrentMode(PortableMaClient linkedClient) => market ? linkedClient.AutoConfirmMarket : linkedClient.AutoConfirmTrades;
+        void SetCurrentMode(PortableMaClient? linkedClient, bool value)
+        {
+            if (linkedClient == null) return;
+            if (market)
+            {
+                linkedClient.AutoConfirmMarket = value;
+            }
+            else
+            {
+                linkedClient.AutoConfirmTrades = value;
+            }
+        }
+    }
+
+    private void SwitchMAACDisplay(bool newValue)
     {
         if (newValue)
         {

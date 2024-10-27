@@ -12,7 +12,12 @@ public static partial class MafileSerializer
     private static readonly HashSet<string> ActualProperties = typeof(MobileDataExtended).GetProperties().Select(x => x.Name).ToHashSet();
 
 
-    public static MobileData Deserialize(string json, out DeserializedMafileData mafileData)
+    //TODO: Options with:
+    //allowSessionIdGeneration
+    //allowDeviceIdGeneration
+    //allowInvalidTokensGeneration 
+    //etc…
+    public static MobileData Deserialize(string json, bool allowSessionIdGeneration, out DeserializedMafileData mafileData)
     {
 
         var j = JObject.Parse(json);
@@ -108,7 +113,7 @@ public static partial class MafileSerializer
         var sResult = DeserializedMafileSessionResult.Missing;
         if (sessionDataToken is { Type: JTokenType.Object })
         {
-            sessionData = DeserializeMobileSessionData((JObject) sessionDataToken, out sResult);
+            sessionData = DeserializeMobileSessionData((JObject) sessionDataToken, allowSessionIdGeneration, out sResult);
         }
 
 
@@ -129,8 +134,4 @@ public static partial class MafileSerializer
         };
 
     }
-
-
-
-
 }

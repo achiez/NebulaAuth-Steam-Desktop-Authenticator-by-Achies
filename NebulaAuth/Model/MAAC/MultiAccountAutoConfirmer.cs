@@ -85,6 +85,7 @@ public static class MultiAccountAutoConfirmer
         }
     }
 
+    
     public static bool TryAddToConfirm(Mafile mafile)
     {
         return Lock.WriteLock(() =>

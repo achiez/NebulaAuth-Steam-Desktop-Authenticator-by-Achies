@@ -264,4 +264,37 @@ public partial class MainVM //File //TODO: Refactor
             i++;
         }
     }
+
+    [RelayCommand]
+    private void CopyMafile(object? mafile)
+    {
+        if (mafile is not Mafile maf) return;
+        var i = 0;
+        var path = Storage.TryFindMafilePath(maf);
+        if (path == null)
+        {
+            SnackbarController.SendSnackbar(GetLocalization("MafileNotCopied"));
+            return;
+        }
+
+        while (i < 20)
+        {
+            try
+            {
+                Clipboard.SetFileDropList([path]);
+                SnackbarController.SendSnackbar(GetLocalization("MafileCopied"));
+                return;
+            }
+            catch (Exception ex)
+            {
+                if (i == 19)
+                {
+                    Shell.Logger.Error(ex);
+                    SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
+                }
+
+            }
+            i++;
+        }
+    }
 }

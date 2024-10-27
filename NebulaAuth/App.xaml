@@ -13,7 +13,6 @@
             <FontFamily x:Key="RobotoSymbols">pack://application:,,,/Fonts/Roboto/#Roboto Symbols</FontFamily>
             <converters:CoefficientConverter x:Key="CoefficientConverter"/>
             <converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter"/>
-            <converters:SelectedProxyTextConverter x:Key="SelectedProxyTextConverter"/>
             <converters:ProxyTextConverter x:Key="ProxyTextConverter"/>
             <converters:ProxyDataTextConverter x:Key="ProxyDataTextConverter"/>
             <converters:MultiCommandParameterConverter x:Key="MultiCommandParameterConverter"/>

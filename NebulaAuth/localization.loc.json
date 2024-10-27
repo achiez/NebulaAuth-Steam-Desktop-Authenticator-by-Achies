@@ -172,14 +172,26 @@
         }
       },
       "TradeTimerHint": {
-        "en": "Auto-confirm trades",
-        "ru": "Автоподтверждение трейдов",
-        "ua": "Автопідтвердження трейдів"
+        "en": "Auto-confirm trades. RMC for mass control",
+        "ru": "Автоподтверждение трейдов. ПКМ для массового управления",
+        "ua": "Автопідтвердження трейдів. ПКМ для масового управління"
       },
       "MarketTimerHint": {
-        "en": "Auto-confirm market",
-        "ru": "Автоподтверждение маркета",
-        "ua": "Автопідтвердження маркету"
+        "en": "Auto-confirm market listings. RMC for mass control",
+        "ru": "Автоподтверждение лотов на маркете. ПКМ для массового управления",
+        "ua": "Автопідтвердження лотів на маркеті. ПКМ для масового управління"
+      },
+      "TimersContextMenu": {
+        "SwitchMAACGroup": {
+          "en": "Switch in group",
+          "ru": "Переключить в группе",
+          "ua": "Перемкнути в групі"
+        },
+        "SwitchMAACAll": {
+          "en": "Switch all",
+          "ru": "Переключить все",
+          "ua": "Перемкнути всі"
+        }
       },
       "ShowAutoConfirmAccountsHint": {
         "en": "Show accounts with auto-confirmation enabled.",
@@ -252,6 +264,11 @@
           "ru": "Скопировать логин",
           "ua": "Скопіювати логін"
         },
+        "CopyMafile": {
+          "en": "Copy mafile",
+          "ru": "Скопировать мафайл",
+          "ua": "Скопіювати мафайл"
+        },
         "AddToGroup": {
           "en": "Add to group",
           "ru": "Добавить в группу",
@@ -261,11 +278,6 @@
           "en": "Remove from group",
           "ru": "Удалить из группы",
           "ua": "Видалити з групи"
-        },
-        "RemoveFromMAAC": {
-          "en": "Turn off auto-confirm",
-          "ru": "Выкл. авто-подтверждение",
-          "ua": "Вимкнути авто-підтвердження"
         }
       },
       "Proxy": {
@@ -361,7 +373,19 @@
       "en": "Use account name on mafiles",
       "ru": "Использовать имя аккаунта на мафайлах",
       "ua": "Використовувати ім'я акаунта на мафайлах"
+    },
+    "IgnorePatchTuesdayErrors": {
+      "en": "Ignore Patch Tuesday errors in timer (exp.)",
+      "ru": "Игнорировать ошибки Patch Tuesday в таймере (эксп.)",
+      "ua": "Ігнорувати помилки Patch Tuesday у таймері (експ.)"
+    },
+    "IgnorePatchTuesdayErrorsHint": {
+      "en": "Ignore errors that occur every Tuesday (Wednesday night in GMT) when Steam doing technical works and auto-confirm timers turns off unnecessarily",
+      "ru": "Игнорировать ошибки, которые возникают каждый вторник (ночь среды по GMT) когда Steam проводит технические работы и автоподтверждения отключаются без надобности",
+      "ua": "Ігнорувати помилки, які виникають щосереди (ніч середи за GMT) коли Steam проводить технічні роботи і автопідтвердження вимикаються без потреби"
     }
+
+
   },
   "LoginAgainDialog": {
     "Title": {
@@ -634,6 +658,16 @@
         "en": "Login copied",
         "ru": "Логин скопирован",
         "ua": "Логін скопійовано"
+      },
+      "MafileCopied": {
+        "en": "Mafile copied",
+        "ru": "Мафайл скопирован",
+        "ua": "Мафайл скопійовано"
+      },
+      "MafileNotCopied": {
+        "en": "Mafile not copied",
+        "ru": "Мафайл не скопирован",
+        "ua": "Мафайл не скопійовано"
       }
     },
     "ErrorTranslator": {

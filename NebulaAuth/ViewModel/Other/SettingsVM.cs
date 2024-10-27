@@ -110,7 +110,13 @@ public partial class SettingsVM : ObservableObject
         set => Settings.UseAccountNameAsMafileName = value;
     }
 
-    [ObservableProperty] private string _password;
+    public bool IgnorePatchTuesdayErrors
+    {
+        get => Settings.IgnorePatchTuesdayErrors;
+        set => Settings.IgnorePatchTuesdayErrors = value;
+    }
+
+    [ObservableProperty] private string? _password;
 
 
     [RelayCommand]

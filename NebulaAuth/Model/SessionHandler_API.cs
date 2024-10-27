@@ -22,7 +22,10 @@ public partial class SessionHandler //API
 
         var newToken = SteamTokenHelper.Parse(mobileToken);
         mafile.SessionData.SetMobileToken(newToken);
-        mafile.SetSessionData(mafile.SessionData); //Trigger event
+
+        //Trigger PropertyChanged event for PortableMaClient handling session updated from MaClient
+        //RETHINK: it makes double operation when session handled from PortableMaClient (more often scenario) which is unwanted behaviour
+        mafile.SetSessionData(mafile.SessionData);
         Storage.UpdateMafile(mafile);
         chp.Handler.CookieContainer.SetSteamMobileCookiesWithMobileToken(mafile.SessionData);
     }
@@ -41,9 +44,12 @@ public partial class SessionHandler //API
         var result = await LoginV2Executor.DoLogin(options, mafile.AccountName, password);
         Shell.Logger.Info("Logged in again on {name} {steamid}", mafile.AccountName, result.SteamId);
         AdmissionHelper.TransferCommunityCookies(chp.Handler.CookieContainer);
+
+        //Triggers PropertyChanged event for PortableMaClient handling session updated from MaClient
+        //RETHINK: it makes double operation when session handled from PortableMaClient (more often scenario) which is unwanted behaviour
         mafile.SetSessionData((MobileSessionData)result);
         if (PHandler.IsPasswordSet)
-            mafile.Password = (savePassword ? PHandler.Encrypt(password) : null);
+            mafile.Password = savePassword ? PHandler.Encrypt(password) : null;
         Storage.UpdateMafile(mafile);
     }
 }

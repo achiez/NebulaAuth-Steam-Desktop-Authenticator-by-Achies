@@ -203,7 +203,7 @@ public partial class MainVM : ObservableObject
 
     private static string GetLocalization(string key)
     {
-        const string LOC_PATH = "MainVM";
-        return LocManager.GetCodeBehindOrDefault(key, LOC_PATH, key);
+        const string locPath = "MainVM";
+        return LocManager.GetCodeBehindOrDefault(key, locPath, key);
     }
 }

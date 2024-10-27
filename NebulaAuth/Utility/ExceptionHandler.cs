@@ -6,7 +6,6 @@ using SteamLib.ProtoCore.Exceptions;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace NebulaAuth.Utility;
 

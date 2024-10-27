@@ -129,9 +129,21 @@
                         <md:PackIcon Kind="StopAlert" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFA500" Margin="3" ToolTip="{Tr MainWindow.AppBar.Proxy.ProxyAlert.DefaultInUse}" ToolTipService.InitialShowDelay="300" Visibility="{Binding IsDefaultProxy, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         <ToggleButton ToolTip="{Tr MainWindow.AppBar.MarketTimerHint}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" IsEnabled="{Binding IsMafileSelected}" Margin="2" Style="{StaticResource MaterialDesignFlatToggleButton}" IsChecked="{Binding MarketTimerEnabled}" >
                             <md:PackIcon Kind="ShoppingCart"/>
+                            <FrameworkElement.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="{Tr MainWindow.AppBar.TimersContextMenu.SwitchMAACGroup}" Command="{Binding Path=SwitchMAACOnGroupCommand}" CommandParameter="{StaticResource True}"/>
+                                    <MenuItem Header="{Tr MainWindow.AppBar.TimersContextMenu.SwitchMAACAll}" Command="{Binding Path=SwitchMAACOnAllCommand}" CommandParameter="{StaticResource True}"/>
+                                </ContextMenu>
+                            </FrameworkElement.ContextMenu>
                         </ToggleButton>
                         <ToggleButton ToolTip="{Tr MainWindow.AppBar.TradeTimerHint}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" IsEnabled="{Binding IsMafileSelected}" Margin="2" Style="{StaticResource MaterialDesignFlatToggleButton}" IsChecked="{Binding TradeTimerEnabled}" >
                             <md:PackIcon Kind="AccountArrowRight" />
+                            <FrameworkElement.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="{Tr MainWindow.AppBar.TimersContextMenu.SwitchMAACGroup}" Command="{Binding Path=SwitchMAACOnGroupCommand}" CommandParameter="{StaticResource False}"/>
+                                    <MenuItem Header="{Tr MainWindow.AppBar.TimersContextMenu.SwitchMAACAll}" Command="{Binding Path=SwitchMAACOnAllCommand}" CommandParameter="{StaticResource False}"/>
+                                </ContextMenu>
+                            </FrameworkElement.ContextMenu>
                         </ToggleButton>
                         <TextBox md:HintAssist.Hint="{Tr Common.Abbreviations.Time.Seconds}" Margin="10,0,0,0" MinWidth="30" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimerCheckSeconds, UpdateSourceTrigger=PropertyChanged, Delay=700}" PreviewTextInput="UIElement_OnPreviewTextInput" />
                         <ToggleButton ToolTip="{Tr MainWindow.AppBar.ShowAutoConfirmAccountsHint}"  HorizontalAlignment="Right" IsChecked="{Binding MaacDisplay}"  Foreground="WhiteSmoke"  VerticalAlignment="Center" Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}" Margin="4">
@@ -149,29 +161,8 @@
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
+
                         <ListBox w:FontScaleWindow.Scale="0.8" w:FontScaleWindow.ResizeFont="True" Grid.Row="0" Margin="10,15,0,0" ItemsSource="{Binding MaFiles}" SelectedValue="{Binding SelectedMafile}">
-                            <FrameworkElement.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.CopyLogin}" Command="{Binding CopyLoginCommand}" CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
-                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.AddToGroup}" ItemsSource="{Binding Groups}">
-                                        <ItemsControl.ItemContainerStyle>
-                                            <Style BasedOn="{StaticResource MaterialDesignMenuItem}" TargetType="{x:Type MenuItem}">
-                                                <Setter Property="MenuItem.Command" Value="{Binding DataContext.AddToGroupCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
-                                                <Setter Property="MenuItem.CommandParameter">
-                                                    <Setter.Value>
-                                                        <MultiBinding Converter="{StaticResource MultiCommandParameterConverter}">
-                                                            <Binding />
-                                                            <Binding Path="PlacementTarget.SelectedValue" RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                                        </MultiBinding>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </ItemsControl.ItemContainerStyle>
-                                    </MenuItem>
-                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.RemoveFromGroup}" Command="{Binding Path=RemoveGroupCommand}" CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
-                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.RemoveFromMAAC}" Command="{Binding Path=RemoveFromMAACCommand}" CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
-                                </ContextMenu>
-                            </FrameworkElement.ContextMenu>
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
                                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -201,6 +192,35 @@
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
+                            <ListBox.InputBindings>
+                                <KeyBinding Key="C" Modifiers="Control"  Command="{Binding DataContext.CopyLoginCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                            CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}"/>
+                                <KeyBinding Key="X" Modifiers="Control"  Command="{Binding DataContext.CopyMafileCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
+                                            CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}"/>
+                            </ListBox.InputBindings>
+                            <FrameworkElement.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem InputGestureText="Ctrl+C" Header="{Tr MainWindow.ContextMenus.Mafile.CopyLogin}" Command="{Binding CopyLoginCommand}" CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                    <MenuItem InputGestureText="Ctrl+X" Header="{Tr MainWindow.ContextMenus.Mafile.CopyMafile}" Command="{Binding CopyMafileCommand}" CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.AddToGroup}" ItemsSource="{Binding Groups}">
+                                        <ItemsControl.ItemContainerStyle>
+                                            <Style BasedOn="{StaticResource MaterialDesignMenuItem}" TargetType="{x:Type MenuItem}">
+                                                <Setter Property="Command" Value="{Binding DataContext.AddToGroupCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                                <Setter Property="CommandParameter">
+                                                    <Setter.Value>
+                                                        <MultiBinding Converter="{StaticResource MultiCommandParameterConverter}">
+                                                            <Binding />
+                                                            <Binding Path="PlacementTarget.SelectedValue" RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
+                                                        </MultiBinding>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ItemsControl.ItemContainerStyle>
+                                    </MenuItem>
+                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.RemoveFromGroup}" Command="{Binding Path=RemoveGroupCommand}" CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                                </ContextMenu>
+                            </FrameworkElement.ContextMenu>
+                            
                         </ListBox>
                         <Border Grid.Row="0" Margin="10" Padding="5" Visibility="{Binding MaFiles.Count, Converter={StaticResource AnyMafilesToVisibilityConverter}, Mode=OneWay}">
                             <Border.Background>

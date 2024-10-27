@@ -3,7 +3,6 @@ using NebulaAuth.Model;
 using NebulaAuth.Model.Exceptions;
 using System;
 using System.Windows;
-using CodingSeb.Localization;
 
 namespace NebulaAuth;
 

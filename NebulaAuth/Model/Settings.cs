@@ -22,6 +22,7 @@ public partial class Settings : ObservableObject
     [ObservableProperty] private bool _legacyMode = true;
     [ObservableProperty] private bool _allowAutoUpdate;
     [ObservableProperty] private bool _useAccountNameAsMafileName;
+    [ObservableProperty] private bool _ignorePatchTuesdayErrors;
     #endregion
 
     public static Settings Instance { get; }

@@ -135,8 +135,16 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         }
         catch (SessionInvalidException ex)
         {
-            Shell.Logger.Warn("Timer {accountName}: Session error while requesting in timer. Timer disabled", Mafile.AccountName);
-            SetError();
+            if (IgnoreTimerErrors())
+            {
+                Shell.Logger.Warn("Timer {accountName}: Session error while requesting in timer. Ignored due to IgnorePatchTuesdayErrors setting", Mafile.AccountName);
+            }
+            else
+            {
+                Shell.Logger.Warn("Timer {accountName}: Session error while requesting in timer. Timer disabled", Mafile.AccountName);
+                SetError();
+            }
+
             innerException = ex;
         }
         catch (Exception ex) when (ExceptionHandler.Handle(ex, prefix: GetTimerPrefix()))
@@ -145,6 +153,21 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         }
         throw new ApplicationException("Swallowed", innerException);
     }
+
+
+    private bool IgnoreTimerErrors()
+    {
+        if (Settings.Instance.IgnorePatchTuesdayErrors == false) return false;
+
+        var pstZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+        var pstNow = TimeZoneInfo.ConvertTime(DateTime.UtcNow, pstZone);
+
+        var startTime = pstNow.Date.AddHours(15).AddMinutes(55); // 15:55 PST //22:55 GMT //00:55 GMT+2
+        var endTime = pstNow.Date.AddHours(17).AddMinutes(15);   // 17:15 PST //00:15 GMT //02:15 GMT+2
+
+        return pstNow.DayOfWeek == DayOfWeek.Tuesday && pstNow >= startTime && pstNow <= endTime;
+    }
+
 
     private HttpClientHandlerPair Chp() => new(Client, ClientHandler);
 

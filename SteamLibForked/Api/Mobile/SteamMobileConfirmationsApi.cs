@@ -4,7 +4,6 @@ using SteamLib.Account;
 using SteamLib.Core;
 using SteamLib.Core.StatusCodes;
 using SteamLib.Exceptions;
-using SteamLib.Exceptions.General;
 using SteamLib.SteamMobile;
 using SteamLib.SteamMobile.Confirmations;
 using SteamLib.Utility;
