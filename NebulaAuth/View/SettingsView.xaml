@@ -60,7 +60,7 @@
                 <CheckBox  Margin="0,10,0,0"  FontSize="16" IsChecked="{Binding UseAccountNameAsMafileName}" >
                     <TextBlock TextWrapping="WrapWithOverflow" Text="{Tr SettingsDialog.UseAccountName}" />
                 </CheckBox>
-                <CheckBox Margin="0,10,0,0"  FontSize="16"  ToolTip="{Tr SettingsDialog.IgnorePatchTuesdayErrorsHint}">
+                <CheckBox IsChecked="{Binding IgnorePatchTuesdayErrors}" Margin="0,10,0,0"  FontSize="16"  ToolTip="{Tr SettingsDialog.IgnorePatchTuesdayErrorsHint}">
                     <TextBlock TextWrapping="WrapWithOverflow" Text="{Tr SettingsDialog.IgnorePatchTuesdayErrors}" />
                 </CheckBox>
             </StackPanel>
