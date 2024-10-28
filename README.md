@@ -3,6 +3,8 @@
    * [Русский](README-RU.md)
    * [Українська](README-UA.md)
 
+
+
 ## Description
 
 <h3 align="center" style="margin-bottom:0">
@@ -10,7 +12,7 @@
 </h3>
 
 <h3 align="center">NebulaAuth is an application for emulating actions from the Steam Mobile App. Which replaces your smartphone when operating on Steam. </h3>
-
+<h4 align="center"><a href="https://t.me/nebulaauth">Official Telegram Group</a></h4>
 
 
 ## Main advantages
