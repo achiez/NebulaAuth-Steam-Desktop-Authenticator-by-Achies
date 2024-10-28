@@ -20,7 +20,7 @@ public partial class MainVM //Confirmations
     public bool ConfirmationsVisible => SelectedMafile == _confirmationsLoadedForMafile;
 
     [RelayCommand]
-    public async Task GetConfirmations()
+    private async Task GetConfirmations()
     {
         if (SelectedMafile == null) return;
         var maf = SelectedMafile;
@@ -47,7 +47,7 @@ public partial class MainVM //Confirmations
 
         if (marketConfirmations.Count > 1)
         {
-            var indexOfLast = conf.IndexOf(marketConfirmations.Last());
+            var indexOfLast = conf.IndexOf(marketConfirmations.First());
             foreach (var mCon in marketConfirmations)
             {
                 conf.Remove(mCon);
