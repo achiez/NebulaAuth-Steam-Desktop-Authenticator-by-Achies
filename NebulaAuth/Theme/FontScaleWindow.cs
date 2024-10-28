@@ -4,14 +4,14 @@ using System.Windows;
 
 namespace NebulaAuth.Theme;
 
-public partial class FontScaleWindow : Window
+public class FontScaleWindow : Window
 {
 
     private readonly Func<double, double, double> _diagonal = (h, w) => Math.Sqrt(h * h + w * w);
     private double _currentDiagonal;
     private double _defaultDiagonal = 1;
     private readonly HashSet<FrameworkElement> _cachedObjects = new();
-    private bool _loaded = false;
+    private bool _loaded;
 
     public FontScaleWindow()
     {

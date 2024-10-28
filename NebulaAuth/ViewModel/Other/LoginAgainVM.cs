@@ -16,7 +16,4 @@ public partial class LoginAgainVM : ObservableObject
 
 
     public bool IsFormValid => !string.IsNullOrWhiteSpace(Password);
-
-    public LoginAgainVM()
-    { }
 }

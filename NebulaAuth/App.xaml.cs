@@ -3,12 +3,11 @@ using NebulaAuth.Model;
 using NebulaAuth.Model.Exceptions;
 using System;
 using System.Windows;
-using CodingSeb.Localization;
 
 namespace NebulaAuth;
 
 
-public partial class App : Application
+public partial class App
 {
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -25,11 +24,12 @@ public partial class App : Application
             var msg = ex.ToString();
             if (ex is CantAlignTimeException)
             {
-                msg = Loc.Tr(LocManager.GetCodeBehind("CantAlignTimeError"));
+                msg = LocManager.Get("CantAlignTimeError");
             }
 
-            MessageBox.Show(msg);
+            MessageBox.Show(msg, "Error", MessageBoxButton.OK,  MessageBoxImage.Stop, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
             throw;
+
         }
     }
 }

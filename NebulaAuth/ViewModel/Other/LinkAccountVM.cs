@@ -3,6 +3,7 @@ using AchiesUtilities.Web.Proxy;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MaterialDesignThemes.Wpf;
+using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Utility;
@@ -19,12 +20,12 @@ using SteamLib.SteamMobile.AuthenticatorLinker;
 using SteamLib.Web;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
-using NebulaAuth.Core;
 
 namespace NebulaAuth.ViewModel.Other;
 
@@ -60,8 +61,8 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
     private TaskCompletionSource _emailConfTcs = new();
     private TaskCompletionSource<string> _linkCodeTcs = new();
 
-    private bool isLinkStarted;
-
+    private bool _isLinkStarted;
+    private string _rCode = string.Empty;
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(ProceedCommand))]
     private bool _canProceed = true;
@@ -178,12 +179,12 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
 
         #endregion
 
-        if (isLinkStarted)
+        if (_isLinkStarted)
             goto linkStarted;
 
         try
         {
-            isLinkStarted = true;
+            _isLinkStarted = true;
             var linkOptions = new LinkOptions(Client, LoginV2Executor.NullConsumer, this,
                 null, this, this, backupHandler: Backup, Logger2);
             _linker = new SteamAuthenticatorLinker(linkOptions);
@@ -194,10 +195,11 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
             Storage.SaveMafile(mafile);
             File.Delete(Path.Combine("mafiles_backup", mafile.AccountName + ".mafile"));
             HintText =
-                string.Format(GetLocalizationOrDefault("MafileLinked"), 
+                string.Format(GetLocalizationOrDefault("MafileLinked"),
                     mafile.RevocationCode,
                     mafile.SessionData?.SteamId.Steam64);
 
+            _rCode = mafile.RevocationCode ?? string.Empty;
             CanProceed = true;
             return;
         }
@@ -312,11 +314,12 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
         IsLogin = false;
         IsFieldVisible = true;
         IsEmailCode = false;
-        isLinkStarted = false;
+        _isLinkStarted = false;
         IsPhoneNumber = false;
         IsEmailConfirmation = false;
         CanProceed = true;
         _emailCodeTcs = new TaskCompletionSource<string>();
+        _rCode = string.Empty;
     }
 
     private void Backup(MobileDataExtended data)
@@ -400,6 +403,33 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
     }
 
     #endregion
+
+    [RelayCommand]
+    private void OpenTroubleshooting()
+    {
+        const string troubleshootingURI =
+            "https://achiez.github.io/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/docs/{0}/LinkingTroubleshooting";
+
+        var localized = string.Format(troubleshootingURI, LocManager.GetCurrentLanguageCode());
+        Process.Start(new ProcessStartInfo(new Uri(localized).ToString())
+        {
+            UseShellExecute = true
+        });
+    }
+
+    [RelayCommand]
+    private void CopyCode()
+    {
+        try
+        {
+            Clipboard.SetText(_rCode);
+        }
+        catch (Exception ex)
+        {
+            Shell.Logger.Error(ex, "Error whily copying RCode");
+            return;
+        }
+    }
 
 
     private static string GetLocalizationOrDefault(string key)

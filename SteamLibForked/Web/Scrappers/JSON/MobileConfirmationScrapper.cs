@@ -14,6 +14,14 @@ public static class MobileConfirmationScrapper
         {"You are not set up to receive mobile confirmations", LoadConfirmationsError.NotSetupToReceiveConfirmations}
     };
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="response"></param>
+    /// <returns></returns>
+    /// <exception cref="UnsupportedResponseException"></exception>
+    /// <exception cref="SessionInvalidException"></exception>
+    /// <exception cref="CantLoadConfirmationsException"></exception>
     public static List<Confirmation> Scrap(string response)
     {
         ConfirmationsJson conf;
@@ -28,27 +36,23 @@ public static class MobileConfirmationScrapper
 
         if (conf.NeedAuth)
         {
-            throw new SessionExpiredException();
-        }
-
-        if (conf is {Success: false, Message: not null})
-        {
-            var error = LoadConfirmationsError.Unknown;
-            if (ErrorMessages.TryGetValue(conf.Message, out var e))
-            {
-                error = e;
-            }
-
-            throw new CantLoadConfirmationsException(conf.Message)
-            {
-                Error = error
-            };
-
+            throw new SessionInvalidException();
         }
 
         if (conf.Success == false)
         {
-            throw new UnsupportedResponseException(response);
+            var error = LoadConfirmationsError.Unknown;
+            if (conf.Message != null && ErrorMessages.TryGetValue(conf.Message, out var e))
+            {
+                error = e;
+            }
+
+            throw new CantLoadConfirmationsException("Error while loading confirmations")
+            {
+                Error = error,
+                ErrorMessage = conf.Message,
+                ErrorDetails = conf.Detail
+            };
         }
 
 
@@ -80,6 +84,32 @@ public static class MobileConfirmationScrapper
         };
     }
 
+
+    //BUG: ArgumentOutOfRangeException
+    //{
+    //     "success": true,
+    //     "conf":
+    //     [
+    //         {
+    //             "type": 2,
+    //             "type_name": "Trade Offer",
+    //             "id": "16072406079",
+    //             "creator_id": "7458859849",
+    //             "nonce": "6768661787786520856",
+    //             "creation_time": 1728760256,
+    //             "cancel": "Revoke Offer",
+    //             "accept": "Confirm Offer",
+    //             "icon": null,
+    //             "multi": false,
+    //             "headline": "Error loading trade details",
+    //             "summary":
+    //             [
+    //                 ""
+    //             ],
+    //             "warn": null
+    //         }
+    //     ]
+    // }
     private static TradeConfirmation GetTradeConfirmation(ConfirmationJson json)
     {
 

@@ -1,24 +1,18 @@
-﻿using AchiesUtilities.Web.Proxy;
+﻿using AchiesUtilities.Web.Models;
+using AchiesUtilities.Web.Proxy;
 using NebulaAuth.Model.Entities;
-using SteamLib.Account;
 using SteamLib.Api.Mobile;
 using SteamLib.Authentication;
-using SteamLib.Authentication.LoginV2;
 using SteamLib.Core.Interfaces;
 using SteamLib.Exceptions;
-using SteamLib.ProtoCore;
 using SteamLib.ProtoCore.Services;
-using SteamLib.SteamMobile;
 using SteamLib.SteamMobile.Confirmations;
 using SteamLib.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using SteamLib.Api;
-using SteamLib.Core.Enums;
 
 namespace NebulaAuth.Model;
 
@@ -32,26 +26,20 @@ public static class MaClient
     private static DynamicProxy Proxy { get; }
 
     public static ProxyData? DefaultProxy { get; set; }
+    public static HttpClientHandlerPair Chp => new(Client, ClientHandler);
 
     static MaClient()
     {
-        Proxy = new DynamicProxy(null);
+        Proxy = new DynamicProxy();
         var pair = ClientBuilder.BuildMobileClient(Proxy, null);
         Client = pair.Client;
         ClientHandler = pair.Handler;
     }
 
-    public static void ClearCookies()
-    {
-        foreach (Cookie allCookie in ClientHandler.CookieContainer.GetAllCookies())
-        {
-            allCookie.Expired = true;
-        }
-    }
 
     public static void SetAccount(Mafile? account)
     {
-        ClearCookies();
+        ClientHandler.CookieContainer.ClearAllCookies();
         if (account != null)
         {
             if (account.SessionData != null)
@@ -72,73 +60,41 @@ public static class MaClient
     {
         ValidateMafile(mafile);
         SetProxy(mafile);
-        return SteamMobileConfirmationsApi.GetConfirmations(Client, mafile, mafile.SessionData!.SteamId.Steam64);
+        return SteamMobileConfirmationsApi.GetConfirmations(Client, mafile, mafile.SessionData!.SteamId);
     }
 
-    public static async Task LoginAgain(Mafile mafile, string password, bool savePassword, ICaptchaResolver? resolver)
+    public static Task LoginAgain(Mafile mafile, string password, bool savePassword, ICaptchaResolver? resolver)
     {
         SetProxy(mafile);
-        var sgGenerator = new SteamGuardCodeGenerator(mafile.SharedSecret);
-        var options = new LoginV2ExecutorOptions(LoginV2Executor.NullConsumer, Client)
-        {
-            Logger = Shell.ExtensionsLogger,
-            SteamGuardProvider = sgGenerator,
-            DeviceDetails = LoginV2ExecutorOptions.GetMobileDefaultDevice(),
-            WebsiteId = "Mobile"
-        };
-        ClientHandler.CookieContainer.ClearMobileSessionCookies();
-        var result = await LoginV2Executor.DoLogin(options, mafile.AccountName, password);
-        AdmissionHelper.TransferCommunityCookies(ClientHandler.CookieContainer);
-        mafile.SessionData = (MobileSessionData)result;
-        if(PHandler.IsPasswordSet)
-            mafile.Password = (savePassword ? PHandler.Encrypt(password) : null);
-        Storage.UpdateMafile(mafile);
+        return SessionHandler.LoginAgain(Chp, mafile, password, savePassword);
     }
 
 
-    public static async Task RefreshSession(Mafile mafile)
+    public static Task RefreshSession(Mafile mafile)
     {
         ValidateMafile(mafile, true);
         SetProxy(mafile);
-        var token = mafile.SessionData!.GetMobileToken();
-        if (token == null || token.Value.IsExpired)
-        {
-            var sessionToken = await SteamMobileApi.RefreshJwt(Client, mafile.SessionData!.RefreshToken.Token, mafile.SessionData.SteamId.Steam64);
-            var newToken = SteamTokenHelper.Parse(sessionToken);
-            mafile.SessionData.SetMobileToken(newToken);
-        }
-
-        //RETHINK: Do we need this? Mobile token is enough
-        var communityToken = mafile.SessionData!.GetToken(SteamDomain.Community);
-        if (communityToken == null || communityToken.Value.IsExpired)
-        {
-            var communityTokenString = await SteamGlobalApi.RefreshJwt(Client, SteamDomain.Community);
-            var newToken = SteamTokenHelper.Parse(communityTokenString);
-            mafile.SessionData.SetToken(SteamDomain.Community, newToken);
-        }
-
-        Storage.UpdateMafile(mafile);
-        ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(mafile.SessionData);
+        return SessionHandler.RefreshMobileToken(Chp, mafile);
     }
 
     public static Task<bool> SendConfirmation(Mafile mafile, Confirmation confirmation, bool confirm)
     {
         ValidateMafile(mafile);
         SetProxy(mafile);
-        return SteamMobileConfirmationsApi.SendConfirmation(Client, confirmation, mafile.SessionData!.SteamId.Steam64, mafile, confirm);
+        return SteamMobileConfirmationsApi.SendConfirmation(Client, confirmation, mafile.SessionData!.SteamId, mafile, confirm);
     }
 
     public static Task<bool> SendMultipleConfirmation(Mafile mafile, IEnumerable<Confirmation> confirmations, bool confirm)
     {
         var enumerable = confirmations.ToList();
-        if (!enumerable.Any())
+        if (enumerable.Count == 0)
         {
             return Task.FromResult(result: false);
         }
 
         ValidateMafile(mafile);
         SetProxy(mafile);
-        return SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, enumerable, mafile.SessionData!.SteamId.Steam64, mafile, confirm);
+        return SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, enumerable, mafile.SessionData!.SteamId, mafile, confirm);
     }
 
     public static Task<RemoveAuthenticator_Response> RemoveAuthenticator(Mafile mafile)
@@ -162,15 +118,15 @@ public static class MaClient
     {
         if (mafile.SessionData == null) throw new SessionInvalidException();
         if (mafile.SessionData.RefreshToken.IsExpired)
-            throw new SessionExpiredException();
+            throw new SessionPermanentlyExpiredException();
 
         if (ignoreAccessToken == false)
         {
             var access = mafile.SessionData.GetMobileToken();
             if (access == null || access.Value.IsExpired)
-                throw new SessionExpiredException();
+                throw new SessionPermanentlyExpiredException();
         }
-        
+
     }
 
     public static async Task<LoginConfirmationResult> ConfirmLoginRequest(Mafile mafile)
@@ -178,42 +134,25 @@ public static class MaClient
         ValidateMafile(mafile);
         SetProxy(mafile);
         var token = mafile.SessionData!.GetMobileToken()!.Value;
-        
+        var sessions = await SteamMobileAuthenticatorApi.GetAuthSessionsForAccount(Client, token.Token);
 
-        var uri = "https://api.steampowered.com/IAuthenticationService/GetAuthSessionsForAccount/v1?access_token=" + token.Token;
-        GetAuthSessionsForAccount_Response getsess;
-        try
-        {
-            getsess = await Client.GetProto<GetAuthSessionsForAccount_Response>(uri, new EmptyMessage());
-        }
-        catch (HttpRequestException ex)
-            when (ex.StatusCode == HttpStatusCode.Unauthorized)
-        {
-            throw new SessionExpiredException(string.Empty, ex);
-        }
-
-        if (getsess.ClientIds.Count == 0)
+        if (sessions.ClientIds.Count == 0)
         {
             return new LoginConfirmationResult
             {
                 Error = LoginConfirmationError.NoRequests
             };
         }
-        if (getsess.ClientIds.Count > 1)
+        if (sessions.ClientIds.Count > 1)
         {
             return new LoginConfirmationResult
             {
                 Error = LoginConfirmationError.MoreThanOneRequest
             };
         }
-        var clientId = getsess.ClientIds.Single();
-        var infoUri = "https://api.steampowered.com/IAuthenticationService/GetAuthSessionInfo/v1?access_token=" + token.Token;
-        var infoReq = new GetAuthSessionInfo_Request
-        {
-            ClientId = clientId
-        };
-        var infoResp = await Client.PostProto<GetAuthSessionInfo_Response>(infoUri, infoReq);
-        var updateUri = "https://api.steampowered.com/IAuthenticationService/UpdateAuthSessionWithMobileConfirmation/v1?access_token=" + token.Token;
+
+        var clientId = sessions.ClientIds.Single();
+        var clientInfo = await SteamMobileAuthenticatorApi.GetAuthSessionInfo(Client, token.Token, clientId);
         var updateReq = new UpdateAuthSessionWithMobileConfirmation_Request
         {
             ClientId = clientId,
@@ -222,12 +161,11 @@ public static class MaClient
             Steamid = mafile.SessionData.SteamId.Steam64.ToUlong(),
             Version = 1
         };
-        updateReq.ComputeSignature(mafile.SharedSecret);
-        await Client.PostProtoEnsureSuccess(updateUri, updateReq);
+        await SteamMobileAuthenticatorApi.UpdateAuthSessionStatus(Client, token.Token, mafile.SharedSecret, updateReq);
         return new LoginConfirmationResult
         {
-            Country = infoResp.Country,
-            IP = infoResp.IP,
+            Country = clientInfo.Country,
+            IP = clientInfo.IP,
             Success = true
         };
     }

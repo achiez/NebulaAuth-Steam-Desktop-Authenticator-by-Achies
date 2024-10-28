@@ -6,7 +6,6 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:theme="clr-namespace:NebulaAuth.Theme"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="400"
              Height="Auto" Width="Auto" MaxWidth="500"
              Background="{DynamicResource WindowBackground}">
     <Grid Margin="15">

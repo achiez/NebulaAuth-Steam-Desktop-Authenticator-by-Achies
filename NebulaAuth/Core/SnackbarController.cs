@@ -24,7 +24,9 @@ public class SnackbarController
     /// 
     /// </summary>
     /// <param name="text"></param>
+    /// <param name="action"></param>
     /// <param name="duration">Default duration is 1 second</param>
+    /// <param name="actionText">Default: 'OK'</param>
     public static void SendSnackbarWithButton(string text, string actionText = "OK", Action? action = null, TimeSpan? duration = null)
     {
         duration ??= GetSnackbarTime(text);

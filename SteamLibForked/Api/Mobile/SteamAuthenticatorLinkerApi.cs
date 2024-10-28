@@ -54,7 +54,7 @@ public static class SteamAuthenticatorLinkerApi
         };
 
         var resp = await client.PostProtoMsg<AddAuthenticator_Response>(reqUri, req);
-        if (resp is {Result: EResult.InvalidState, ResponseMsg.Status: 2})
+        if (resp is { Result: EResult.InvalidState, ResponseMsg.Status: 2 })
         {
             throw new AuthenticatorLinkerException(AuthenticatorLinkerError.InvalidStateWithStatus2);
         }
@@ -73,8 +73,8 @@ public static class SteamAuthenticatorLinkerApi
         {
             var validateSmsReq = new FinalizeAddAuthenticator_Request
             {
-                SteamId =  data.SteamId.Steam64.ToUlong(),
-                AuthenticatorTime = (ulong) time,
+                SteamId = data.SteamId.Steam64.ToUlong(),
+                AuthenticatorTime = (ulong)time,
                 ConfirmationCode = confirmationCode,
                 ValidateConfirmationCode = true
             };
@@ -182,7 +182,7 @@ public static class SteamAuthenticatorLinkerApi
         while (i < 5)
         {
             i++;
-            var resp = await client.PostProto<IsAccountWaitingForEmailConfirmation_Response>(reqUri, new EmptyMessage()); ;
+            var resp = await client.PostProto<IsAccountWaitingForEmailConfirmation_Response>(reqUri, new EmptyMessage());
 
             if (resp.IsWaiting == false) return true;
 

@@ -217,7 +217,7 @@ public class GenerateAccessTokenForApp_Request : IProtoMsg
     [ProtoMember(2, DataFormat = DataFormat.FixedSize)]
     public long SteamId { get; set; }
 
-    [ProtoMember(3)] public bool TokenRenewalType { get; set; } = true; //enum: ETokenRenewalType 
+    [ProtoMember(3)] public bool TokenRenewalType { get; set; } = true; //FIXME: enum: ETokenRenewalType 
 }
  
 [ProtoContract]

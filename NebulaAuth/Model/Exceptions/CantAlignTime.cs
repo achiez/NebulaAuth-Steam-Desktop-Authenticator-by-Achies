@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace NebulaAuth.Model.Exceptions;
 
@@ -15,12 +14,6 @@ public class CantAlignTimeException : Exception
     }
 
     public CantAlignTimeException(string message, Exception inner) : base(message, inner)
-    {
-    }
-
-    protected CantAlignTimeException(
-        SerializationInfo info,
-        StreamingContext context) : base(info, context)
     {
     }
 }

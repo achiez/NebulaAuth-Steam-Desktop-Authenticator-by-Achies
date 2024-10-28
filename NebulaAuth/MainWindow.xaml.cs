@@ -9,7 +9,6 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Windows.Threading;
@@ -18,17 +17,15 @@ namespace NebulaAuth;
 
 public partial class MainWindow
 {
-
-    private static string CodeCopiedString => LocManager.GetOrDefault("CodeCopied", "MainWindow", "CodeCopied");
     public MainWindow()
     {
         InitializeComponent();
-        base.DataContext = new MainVM();
+        DataContext = new MainVM();
         Application.Current.MainWindow = this;
         TrayManager.InitializeTray();
         ThemeManager.InitializeTheme();
-        base.Title = base.Title + " " + Assembly.GetExecutingAssembly().GetName().Version?.ToString(3);
-        this.Loaded += OnApplicationStarted;
+        Title = Title + " " + Assembly.GetExecutingAssembly().GetName().Version?.ToString(3);
+        Loaded += OnApplicationStarted;
     }
 
     private async void OnApplicationStarted(object? sender, EventArgs e)
@@ -49,35 +46,6 @@ public partial class MainWindow
         if (result is true && string.IsNullOrWhiteSpace(pass) == false)
         {
             PHandler.SetPassword(pass);
-        }
-    }
-    
-
-    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        var lb = (ListBox)sender;
-        lb.SelectedValue = null;
-    }
-
-    private async void SteamGuard_DoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        var tb = (TextBox)sender;
-        if (tb.Text == CodeCopiedString) return;
-        var code = tb.Text;
-        try
-        {
-            Clipboard.SetText(code);
-        }
-        catch (Exception ex)
-        {
-            Shell.Logger.Error(ex);
-            return;
-        }
-        tb.Text = CodeCopiedString;
-        await Task.Delay(200);
-        if (tb.Text == CodeCopiedString)
-        {
-            tb.Text = code;
         }
     }
 
@@ -106,7 +74,7 @@ public partial class MainWindow
         if (e.Data.GetDataPresent(DataFormats.FileDrop) == false) return;
         string[] filePaths = (string[])e.Data.GetData(DataFormats.FileDrop)!;
         if (filePaths.Length == 0) return;
-        if (this.DataContext is MainVM mainVm)
+        if (DataContext is MainVM mainVm)
         {
             await mainVm.AddMafile(filePaths);
         }

@@ -1,15 +1,9 @@
-﻿using System.Windows.Controls;
+﻿namespace LolzFucker.Theme;
 
-namespace LolzFucker.Theme
+public partial class Palette
 {
-    /// <summary>
-    /// Логика взаимодействия для Palette.xaml
-    /// </summary>
-    public partial class Palette : UserControl
+    public Palette()
     {
-        public Palette()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

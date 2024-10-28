@@ -5,22 +5,28 @@ using System.Text;
 
 namespace NebulaAuth.Model;
 
-public static class PHandler //RETHINK: Use SecureString?
+public static class PHandler
 {
     public static bool IsPasswordSet => _k.Length > 0;
-    private static byte[] _k = Array.Empty<byte>();
+    private static byte[] _k = [];
 
 
-    public static void SetPassword(string? password)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="password"></param>
+    /// <returns><see langword="true"/> if password was set and not empty. Otherwise - <see langword="false"/></returns>
+    public static bool SetPassword(string? password)
     {
         if (string.IsNullOrWhiteSpace(password))
         {
-            _k = Array.Empty<byte>();
-            return;
+            _k = [];
+            return false;
         }
 
         var keyBytes = Encoding.UTF8.GetBytes(password);
         _k = SHA256.HashData(keyBytes);
+        return _k.Length > 0;
     }
 
     public static string Encrypt(string plainText)
@@ -56,7 +62,6 @@ public static class PHandler //RETHINK: Use SecureString?
     {
         if (_k.Length == 0) throw new Exception("Password not set");
         var encryptedBytes = Convert.FromBase64String(encryptedText);
-        string decryptedText = null;
 
         using var aes = Aes.Create();
         var keyBytes = _k;
@@ -70,7 +75,7 @@ public static class PHandler //RETHINK: Use SecureString?
         using var ms = new MemoryStream(encryptedBytes);
         using var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read);
         using var reader = new StreamReader(cs);
-        decryptedText = reader.ReadToEnd();
+        var decryptedText = reader.ReadToEnd();
 
         return decryptedText;
     }

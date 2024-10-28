@@ -26,32 +26,32 @@ public class MarketWalletSchema
     public int WalletFeeMinimum { get; set; }
 
     [JsonProperty("wallet_fee_percent")]
-    [JsonConverter(typeof(StringToDoubleConverter))]
-    public double WalletFeePercent { get; set; }
+    [JsonConverter(typeof(DecimalToStringConverter))]
+    public decimal WalletFeePercent { get; set; }
 
     [JsonProperty("wallet_publisher_fee_percent_default")]
-    [JsonConverter(typeof(StringToDoubleConverter))]
-    public double WalletPublisherFeePercentDefault { get; set; }
+    [JsonConverter(typeof(DecimalToStringConverter))]
+    public decimal WalletPublisherFeePercentDefault { get; set; }
 
     [JsonProperty("wallet_fee_base")]
     [JsonConverter(typeof(IntToStringConverter))]
     public int WalletFeeBase { get; set; }
 
     [JsonProperty("wallet_balance")]
-    [JsonConverter(typeof(IntToStringConverter))]
-    public int WalletBalance { get; set; }
+    [JsonConverter(typeof(LongToStringConverter))]
+    public long WalletBalance { get; set; }
 
     [JsonProperty("wallet_delayed_balance")]
-    [JsonConverter(typeof(IntToStringConverter))]
-    public int WalletDelayedBalance { get; set; }
+    [JsonConverter(typeof(LongToStringConverter))]
+    public long WalletDelayedBalance { get; set; }
 
     [JsonProperty("wallet_max_balance")]
-    [JsonConverter(typeof(IntToStringConverter))]
-    public int WalletMaxBalance { get; set; }
+    [JsonConverter(typeof(LongToStringConverter))]
+    public long WalletMaxBalance { get; set; }
 
     [JsonProperty("wallet_trade_max_balance")]
-    [JsonConverter(typeof(IntToStringConverter))]
-    public int WalletTradeMaxBalance { get; set; }
+    [JsonConverter(typeof(LongToStringConverter))]
+    public long WalletTradeMaxBalance { get; set; }
 
     [JsonProperty("success")]
     public int Success { get; set; }

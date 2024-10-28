@@ -1,19 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using JetBrains.Annotations;
 using MaterialDesignThemes.Wpf;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Utility;
+using NebulaAuth.View.Dialogs;
 using SteamLib.Exceptions;
 using SteamLib.SteamMobile;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using NebulaAuth.View.Dialogs;
 
 namespace NebulaAuth.ViewModel;
 
@@ -21,8 +21,9 @@ public partial class MainVM : ObservableObject
 {
     [ObservableProperty]
     private ObservableCollection<Mafile> _maFiles = Storage.MaFiles;
-    public SnackbarMessageQueue MessageQueue => SnackbarController.MessageQueue;
 
+    [UsedImplicitly]
+    public SnackbarMessageQueue MessageQueue => SnackbarController.MessageQueue;
 
 
     public Mafile? SelectedMafile
@@ -32,39 +33,40 @@ public partial class MainVM : ObservableObject
     }
     private Mafile? _selectedMafile;
 
+    public bool IsMafileSelected => SelectedMafile != null;
+
 
     public MainVM()
     {
         CreateCodeTimer();
-        _confirmTimer = new Timer(ConfirmByTimer, null, TimeSpan.FromSeconds(_timerCheckSeconds), TimeSpan.FromSeconds(_timerCheckSeconds));
         Proxies = new ObservableCollection<MaProxy>(ProxyStorage.Proxies.Select(kvp =>
             new MaProxy(kvp.Key, kvp.Value)));
         Storage.MaFiles.CollectionChanged += MaFilesOnCollectionChanged;
         QueryGroups();
-        SessionHandler.LoginStarted += SessionHandlerOnLoginStarted;
-        SessionHandler.LoginCompleted += SessionHandlerOnLoginCompleted;
         UpdateManager.CheckForUpdates();
         if (Storage.DuplicateFound > 0)
         {
             SnackbarController.SendSnackbar(
-                GetLocalizationOrDefault("DuplicateMafilesFound") + " " + Storage.DuplicateFound,
+                GetLocalization("DuplicateMafilesFound") + " " + Storage.DuplicateFound,
                 TimeSpan.FromSeconds(4));
         }
     }
 
-  
+
     private void SetMafile(Mafile? mafile)
     {
         if (mafile != SelectedMafile)
         {
             _selectedMafile = mafile;
             OnPropertyChanged(nameof(SelectedMafile));
+            OnPropertyChanged(nameof(TradeTimerEnabled));
+            OnPropertyChanged(nameof(MarketTimerEnabled));
             MaClient.SetAccount(mafile);
             OnPropertyChanged(nameof(ConfirmationsVisible));
-            if (Settings.DisableTimersOnChange) OffTimer(dispatcher: false);
             SetCurrentProxy();
             OnPropertyChanged(nameof(IsDefaultProxy));
             if (mafile != null) Code = SteamGuardCodeGenerator.GenerateCode(mafile.SharedSecret);
+            OnPropertyChanged(nameof(IsMafileSelected));
         }
     }
 
@@ -81,14 +83,14 @@ public partial class MainVM : ObservableObject
         {
             return;
         }
-     
+
         var password = loginAgainVm.Password;
         var waitDialog = new WaitLoginDialog();
         var wait = DialogHost.Show(waitDialog);
         try
         {
             await MaClient.LoginAgain(SelectedMafile, password, loginAgainVm.SavePassword, waitDialog);
-            SnackbarController.SendSnackbar(GetLocalizationOrDefault("SuccessfulLogin"));
+            SnackbarController.SendSnackbar(GetLocalization("SuccessfulLogin"));
         }
         catch (LoginException ex)
         {
@@ -118,7 +120,7 @@ public partial class MainVM : ObservableObject
         try
         {
             await MaClient.RefreshSession(SelectedMafile);
-            SnackbarController.SendSnackbar(GetLocalizationOrDefault("SessionRefreshed"));
+            SnackbarController.SendSnackbar(GetLocalization("SessionRefreshed"));
         }
         catch (Exception ex) when (ExceptionHandler.Handle(ex))
         {
@@ -129,7 +131,6 @@ public partial class MainVM : ObservableObject
     [RelayCommand]
     public async Task LinkAccount()
     {
-        OffTimer(false);
         await DialogsController.ShowLinkerDialog();
     }
 
@@ -140,16 +141,16 @@ public partial class MainVM : ObservableObject
         if (selectedMafile == null) return;
         if (string.IsNullOrWhiteSpace(selectedMafile.RevocationCode))
         {
-            SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error") + ": " + GetLocalizationOrDefault("MissingRCode"));
+            SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error") + ": " + GetLocalization("MissingRCode"));
             return;
         }
         try
         {
-            if (await DialogsController.ShowConfirmCancelDialog(GetLocalizationOrDefault("ConfirmRemovingAuthenticator")))
+            if (await DialogsController.ShowConfirmCancelDialog(GetLocalization("ConfirmRemovingAuthenticator")))
             {
                 var result = await SessionHandler.Handle(() => MaClient.RemoveAuthenticator(selectedMafile), selectedMafile);
                 SnackbarController.SendSnackbar(
-                    result.Success ? GetLocalizationOrDefault("AuthenticatorRemoved") : GetLocalizationOrDefault("AuthenticatorNotRemoved"));
+                    result.Success ? GetLocalization("AuthenticatorRemoved") : GetLocalization("AuthenticatorNotRemoved"));
 
                 if (result.Success)
                 {
@@ -176,17 +177,17 @@ public partial class MainVM : ObservableObject
 
         try
         {
-            LoginConfirmationResult res = await SessionHandler.Handle(() => MaClient.ConfirmLoginRequest(SelectedMafile), SelectedMafile);
+            var res = await SessionHandler.Handle(() => MaClient.ConfirmLoginRequest(SelectedMafile), SelectedMafile);
             if (res.Success)
             {
-                SnackbarController.SendSnackbar($"{GetLocalizationOrDefault("ConfirmLoginSuccess")} {res.IP} ({res.Country})");
+                SnackbarController.SendSnackbar($"{GetLocalization("ConfirmLoginSuccess")} {res.IP} ({res.Country})");
             }
             else
             {
                 string msg = res.Error switch
                 {
-                    LoginConfirmationError.NoRequests => GetLocalizationOrDefault("ConfirmLoginFailedNoRequests"),
-                    LoginConfirmationError.MoreThanOneRequest => GetLocalizationOrDefault("ConfirmLoginFailedMoreThanOneRequest"), //TODO
+                    LoginConfirmationError.NoRequests => GetLocalization("ConfirmLoginFailedNoRequests"),
+                    LoginConfirmationError.MoreThanOneRequest => GetLocalization("ConfirmLoginFailedMoreThanOneRequest"), //TODO
                     _ => throw new ArgumentOutOfRangeException()
                 };
                 SnackbarController.SendSnackbar(msg);
@@ -197,5 +198,12 @@ public partial class MainVM : ObservableObject
         {
             Shell.Logger.Error(ex);
         }
+    }
+
+
+    private static string GetLocalization(string key)
+    {
+        const string locPath = "MainVM";
+        return LocManager.GetCodeBehindOrDefault(key, locPath, key);
     }
 }

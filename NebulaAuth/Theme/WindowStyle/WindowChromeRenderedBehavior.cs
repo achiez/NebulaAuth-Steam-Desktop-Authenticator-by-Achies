@@ -9,7 +9,8 @@ namespace NebulaAuth.Theme.WindowStyle;
 
 public class WindowChromeRenderedBehavior : Behavior<Window>
 {
-    private Window window;
+    private Window? _window;
+
 
     protected override void OnAttached()
     {
@@ -23,13 +24,13 @@ public class WindowChromeRenderedBehavior : Behavior<Window>
         AssociatedObject.ContentRendered -= OnContentRendered;
     }
 
-    private void OnContentRendered(object sender, EventArgs e)
+    private void OnContentRendered(object? sender, EventArgs e)
     {
-        window = Window.GetWindow(AssociatedObject);
+        _window = Window.GetWindow(AssociatedObject);
 
-        if (window == null) return;
+        if (_window == null) return;
 
-        var oldWindowChrome = WindowChrome.GetWindowChrome(window);
+        var oldWindowChrome = WindowChrome.GetWindowChrome(_window);
 
         if (oldWindowChrome == null) return;
 
@@ -43,9 +44,9 @@ public class WindowChromeRenderedBehavior : Behavior<Window>
             UseAeroCaptionButtons = oldWindowChrome.UseAeroCaptionButtons
         };
 
-        WindowChrome.SetWindowChrome(window, newWindowChrome);
+        WindowChrome.SetWindowChrome(_window, newWindowChrome);
 
-        var hWnd = new WindowInteropHelper(window).Handle;
+        var hWnd = new WindowInteropHelper(_window).Handle;
         HwndSource.FromHwnd(hWnd)?.AddHook(WndProc);
     }
 
@@ -86,7 +87,7 @@ public class WindowChromeRenderedBehavior : Behavior<Window>
                 margins.rightWidth = 0;
                 margins.topHeight = 0;
 
-                var helper = new WindowInteropHelper(window);
+                var helper = new WindowInteropHelper(_window);
 
                 NativeMethods.DwmExtendFrameIntoClientArea(helper.Handle, ref margins);
             }

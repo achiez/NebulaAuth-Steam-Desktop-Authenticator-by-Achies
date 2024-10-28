@@ -10,6 +10,7 @@ public class MobileData
     [JsonRequired] public string SharedSecret { get; set; } = null!;
     [JsonRequired] public string IdentitySecret { get; set; } = null!;
     [JsonRequired] public string DeviceId { get; set; } = null!;
+    //TODO: This property used only for tracing purposes in Steam, so if it's not provided, we can generate it manually
 
 }
 

@@ -95,7 +95,7 @@ public class IsAccountWaitingForEmailConfirmation_Response : IProtoMsg
 [ProtoContract]
 public class SendPhoneVerificationCode_Request : IProtoMsg
 {
-    [ProtoMember(1, IsRequired = true)] public int Language { get; set; } = 0;
+    [ProtoMember(1, IsRequired = true)] public int Language { get; set; }
 }
 
 

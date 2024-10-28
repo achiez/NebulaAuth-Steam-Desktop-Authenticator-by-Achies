@@ -17,7 +17,7 @@ public static class Shell
 
         var lp = new NLog.Extensions.Logging.NLogLoggerProvider();
         var logger = lp.CreateLogger("SteamLib");
-        HealthMonitor.FatalLogger = logger;
+        SteamLibErrorMonitor.MonitorLogger = logger;
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
         var loggerFactory = new NLog.Extensions.Logging.NLogLoggerFactory();

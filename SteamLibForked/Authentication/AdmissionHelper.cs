@@ -79,7 +79,7 @@ public static class AdmissionHelper
     }
 
     /// <summary>
-    /// Clear and set new session. Not recommended. Uses <see cref="IMobileSessionData.GetMobileToken()"/> for domain <see cref="SteamDomain.Community"/> instead of its own cookie. It's okay to use it only for confirmations. But Market, Trading and other pages won't be authenticated
+    /// Clear and set new session. Not recommended. Uses <see cref="IMobileSessionData.GetMobileToken()"/> for domain <see cref="SteamDomain.Community"/> instead of its own cookie. It's okay to use it only for confirmations. But Market, Trading and other pages won't be authorized
     /// </summary>
     public static void SetSteamMobileCookiesWithMobileToken(this CookieContainer container, IMobileSessionData mobileSession,
         string setLanguage = "english")
@@ -208,6 +208,14 @@ public static class AdmissionHelper
                                  && c.Expired == false
                                  && c.Domain.Contains(domain, StringComparison.InvariantCultureIgnoreCase))?
             .Value;
+    }
+
+    public static void ClearAllCookies(this CookieContainer container)
+    {
+        foreach (Cookie allCookie in container.GetAllCookies())
+        {
+            allCookie.Expired = true;
+        }
     }
 
 

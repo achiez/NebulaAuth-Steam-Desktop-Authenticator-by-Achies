@@ -73,7 +73,7 @@
         "ru": "Чтобы начать пользоваться программой вы можете привязать аккаунт через меню \"Аккаунт\", либо импортировать существующие мафайлы одним из способов:\n1. Скопировать их в папку mafiles и перезапустить приложение\n2. Перетянуть файлы прямо в окно программы\n3. Скопировать файлы и нажать CTRL+V в окне программы\n4. Через меню \"Файл\" - \"Импорт\"",
         "en": "To start using the program, you can link an account through the \"Account\" menu, or import existing mafiles in one of the following ways:\n1. Copy them to the mafiles folder and restart the application\n2. Drag files directly into the program window\n3. Copy files and press CTRL+V in the program window\n4. Through the \"File\" - \"Import\" menu",
         "ua": "Щоб почати користуватися програмою, ви можете прив'язати акаунт через меню \"Акаунт\", або імпортувати існуючі мафайли одним із способів:\n1. Скопіювати їх у папку mafiles та перезапустити програму\n2. Перетягнути файли безпосередньо в вікно програми\n3. Скопіювати файли та натиснути CTRL+V в вікні програми\n4. Через меню \"Файл\" - \"Імпорт\""
-      } 
+      }
     },
     "Menu": {
       "File": {
@@ -172,14 +172,31 @@
         }
       },
       "TradeTimerHint": {
-        "en": "Trade",
-        "ru": "Трейд",
-        "ua": "Трейд"
+        "en": "Auto-confirm trades. RMC for mass control",
+        "ru": "Автоподтверждение трейдов. ПКМ для массового управления",
+        "ua": "Автопідтвердження трейдів. ПКМ для масового управління"
       },
       "MarketTimerHint": {
-        "en": "Market",
-        "ru": "Маркет",
-        "ua": "Маркет"
+        "en": "Auto-confirm market listings. RMC for mass control",
+        "ru": "Автоподтверждение лотов на маркете. ПКМ для массового управления",
+        "ua": "Автопідтвердження лотів на маркеті. ПКМ для масового управління"
+      },
+      "TimersContextMenu": {
+        "SwitchMAACGroup": {
+          "en": "Switch in group",
+          "ru": "Переключить в группе",
+          "ua": "Перемкнути в групі"
+        },
+        "SwitchMAACAll": {
+          "en": "Switch all",
+          "ru": "Переключить все",
+          "ua": "Перемкнути всі"
+        }
+      },
+      "ShowAutoConfirmAccountsHint": {
+        "en": "Show accounts with auto-confirmation enabled.",
+        "ru": "Показать аккаунты с включенным автоподтверждением.",
+        "ua": "Показати акаунти з включеним автопідтвердженням."
       }
     },
     "LeftPart": {
@@ -247,6 +264,11 @@
           "ru": "Скопировать логин",
           "ua": "Скопіювати логін"
         },
+        "CopyMafile": {
+          "en": "Copy mafile",
+          "ru": "Скопировать мафайл",
+          "ua": "Скопіювати мафайл"
+        },
         "AddToGroup": {
           "en": "Add to group",
           "ru": "Добавить в группу",
@@ -300,11 +322,6 @@
         "ua": "Без фону"
       }
     },
-    "DisableTimersOnSwitch": {
-      "en": "Disable timers on account switch",
-      "ru": "Отключать таймеры при смене аккаунта",
-      "ua": "Вимикати таймери при зміні акаунта"
-    },
     "MinimizeToTray": {
       "en": "Minimize to tray",
       "ru": "Сворачивать в трей",
@@ -356,7 +373,19 @@
       "en": "Use account name on mafiles",
       "ru": "Использовать имя аккаунта на мафайлах",
       "ua": "Використовувати ім'я акаунта на мафайлах"
+    },
+    "IgnorePatchTuesdayErrors": {
+      "en": "Ignore Patch Tuesday errors in timer (exp.)",
+      "ru": "Игнорировать ошибки Patch Tuesday в таймере (эксп.)",
+      "ua": "Ігнорувати помилки Patch Tuesday у таймері (експ.)"
+    },
+    "IgnorePatchTuesdayErrorsHint": {
+      "en": "Ignore errors that occur every Tuesday (Wednesday night in GMT) when Steam doing technical works and auto-confirm timers turns off unnecessarily",
+      "ru": "Игнорировать ошибки, которые возникают каждый вторник (ночь среды по GMT) когда Steam проводит технические работы и автоподтверждения отключаются без надобности",
+      "ua": "Ігнорувати помилки, які виникають щосереди (ніч середи за GMT) коли Steam проводить технічні роботи і автопідтвердження вимикаються без потреби"
     }
+
+
   },
   "LoginAgainDialog": {
     "Title": {
@@ -398,7 +427,7 @@
       "en": "Press 'DEL' to remove",
       "ru": "Нажмите 'DEL' для удаления",
       "ua": "Натисніть 'DEL' для видалення"
-    } 
+    }
   },
   "ProxyManagerDialog": {
     "Title": {
@@ -430,6 +459,11 @@
       "ru": "Привязка",
       "ua": "Прив'язка"
     },
+    "GotErrorHyperlinkText": {
+      "en": "(getting error?)",
+      "ru": "(возникает ошибка?)",
+      "ua": "(виникає помилка?)"
+    },
     "Proxy": {
       "en": "Proxy",
       "ru": "Прокси",
@@ -451,14 +485,14 @@
       "ua": "Номер телефону"
     },
     "EmailLink": {
-      "en": "Email link",
-      "ru": "Ссылка из письма",
-      "ua": "Посилання з листа"
+      "en": "EMail link",
+      "ru": "Ссылка из email",
+      "ua": "Посилання з email"
     },
     "SmsOrCode": {
-      "en": "Sms or code",
-      "ru": "Смс или код",
-      "ua": "Смс або код"
+      "en": "SMS or code",
+      "ru": "СМС или код",
+      "ua": "СМС або код"
     },
     "Completed": {
       "en": "Completed",
@@ -600,26 +634,6 @@
         "en": "Can't remove mafile:",
         "ua": "Не вдалося видалити (перемістити) мафайл:"
       },
-      "TimerConfirmed": {
-        "ru": "Авто: подтверждено ",
-        "en": "Auto: confirmed ",
-        "ua": "Авто: підтверджено "
-      },
-      "TimerNotConfirmed": {
-        "ru": "Авто: подтверждение не сработало",
-        "en": "Auto: confirmation was unsuccessful",
-        "ua": "Авто: підтвердження не спрацювало"
-      },
-      "TimerSessionError": {
-        "ru": "Авто: необходимо обновить сессию или перелогиниться",
-        "en": "Auto: need to refresh session or relogin",
-        "ua": "Авто: необхідно оновити сесію або перелогінитися"
-      },
-      "TimerPrefix": {
-        "ru": "Авто: ",
-        "en": "Auto: ",
-        "ua": "Авто: "
-      },
       "TimerTooFast": {
         "ru": "Слишком быстрый таймер.",
         "en": "Too fast timer.",
@@ -644,7 +658,17 @@
         "en": "Login copied",
         "ru": "Логин скопирован",
         "ua": "Логін скопійовано"
-      } 
+      },
+      "MafileCopied": {
+        "en": "Mafile copied",
+        "ru": "Мафайл скопирован",
+        "ua": "Мафайл скопійовано"
+      },
+      "MafileNotCopied": {
+        "en": "Mafile not copied",
+        "ru": "Мафайл не скопирован",
+        "ua": "Мафайл не скопійовано"
+      }
     },
     "ErrorTranslator": {
       "Login": {
@@ -892,9 +916,9 @@
           "ua": "Не вдається згенерувати коди"
         },
         "InvalidStateWithStatus2": {
-          "ru": "Неверное состояние (InvalidState) со статусом 2. Попробуйте привязку с помощью СМС. Если СМС придет, но ошибка повторится. Нужно попробовать еще раз.",
-          "en": "Invalid state (InvalidState) with status 2. Try to attach with SMS. If SMS will come, but error will repeat. You need to try again.",
-          "ua": "Невірний стан (InvalidState) зі статусом 2. Спробуйте прив'язати з допомогою СМС. Якщо СМС прийде, але помилка повториться. Потрібно спробувати ще раз."
+          "ru": "Неверное состояние (InvalidState) со статусом 2. Откройте ссылку на руководство сверху этого окна.",
+          "en": "Invalid state (InvalidState) with status 2. Open link to the troubleshooting guide at the top of this window.",
+          "ua": "Невірний стан (InvalidState) зі статусом 2. Відкрийте посилання на посібник з усунення несправностей у верхній частині цього вікна."
         },
         "GeneralFailure": {
           "ru": "General Failure",
@@ -904,15 +928,15 @@
       }
     },
     "ExceptionHandler": {
-      "SessionExpiredException": {
-        "ru": "Сессия истекла. Попробуйте обновить ее через меню",
-        "en": "Session expired. Try to refresh it through menu",
-        "ua": "Сесія закінчилася. Спробуйте оновити її через меню"
-      },
       "SessionInvalidException": {
-        "ru": "Сессия невалидна. Нужно залогиниться заново",
-        "en": "Session invalid. Need to login again",
-        "ua": "Сесія невалідна. Потрібно залогінитися знову"
+        "ru": "Сессия истекла. Попробуйте обновить ее через меню или залогиниться заново",
+        "en": "Session expired. Try to refresh it through menu or login again",
+        "ua": "Сесія прострочена. Спробуйте оновити її через меню або залогінитися знову"
+      },
+      "SessionExpiredException": {
+        "ru": "Сессия полностью истекла. Нужно залогиниться заново",
+        "en": "Session fully expired. Need to login again",
+        "ua": "Сесія повніст'ю прострочена'. Потрібно залогінитися знову"
       },
       "TaskCanceledException": {
         "ru": "Произошла отмена операции",
@@ -938,6 +962,23 @@
         "ru": "Неизвестная ошибка: ",
         "en": "Unknown error: ",
         "ua": "Невідома помилка: "
+      },
+      "CantLoadConfirmationsException": {
+        "Common": {
+          "ru": "Не удалось загрузить потверждения из-за ошибки Steam: ",
+          "en": "Can't load confirmations due to Steam error: ",
+          "ua": "Не вдалося завантажити підтвердження через помилку Steam: "
+        },
+        "TryAgainLater": {
+          "ru": "Попробуйте позже",
+          "en": "Try again later",
+          "ua": "Спробуйте пізніше"
+        },
+        "NotSetupToReceiveConfirmations": {
+          "ru": "Аккаунт не настроен на получение подтверждений",
+          "en": "Account is not set up to receive confirmations",
+          "ua": "Акаунт не налаштований на отримання підтверджень"
+        }
       }
 
     },
@@ -1022,9 +1063,31 @@
         "ua": "На телефон {0} було відправлено СМС"
       },
       "EnterPhoneNumber": {
-        "ru": "Введите номер телефона (без знака '+' и др. символов)",
-        "en": "Enter phone number (without '+' and other symbols)",
-        "ua": "Введіть номер телефону (без знака '+' та ін. символів)"
+        "ru": "Введите номер телефона (без знака '+' и др. символов). По-желанию.",
+        "en": "Enter phone number (without '+' and other symbols). Optional",
+        "ua": "Введіть номер телефону (без знака '+' та ін. символів). За бажанням"
+      }
+    },
+    "MAAC": {
+      "TimerConfirmed": {
+        "ru": "Авто: подтверждено ",
+        "en": "Auto: confirmed ",
+        "ua": "Авто: підтверджено "
+      },
+      "TimerNotConfirmed": {
+        "ru": "Авто: подтверждение не сработало",
+        "en": "Auto: confirmation was unsuccessful",
+        "ua": "Авто: підтвердження не спрацювало"
+      },
+      "TimerSessionError": {
+        "ru": "необходимо обновить сессию или перелогиниться",
+        "en": "need to refresh session or relogin",
+        "ua": "необхідно оновити сесію або перелогінитися"
+      },
+      "TimerPrefix": {
+        "ru": "Авто ",
+        "en": "Auto ",
+        "ua": "Авто "
       }
     }
   },

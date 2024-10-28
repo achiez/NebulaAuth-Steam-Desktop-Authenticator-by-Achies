@@ -6,7 +6,6 @@ using NebulaAuth.Model.Entities;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using NebulaAuth.Model.Comparers;
 
 namespace NebulaAuth.ViewModel;
 
@@ -23,16 +22,17 @@ public partial class MainVM
             {
                 OnPropertyChanged(nameof(IsDefaultProxy));
                 OnProxyChanged();
-            };
+            }
         }
 
     }
     private MaProxy? _selectedProxy;
 
     [ObservableProperty] private bool _proxyExist = true;
-    public bool IsDefaultProxy => SelectedProxy == null && MaClient.DefaultProxy != null;
+    public bool IsDefaultProxy => SelectedProxy == null && MaClient.DefaultProxy != null && SelectedMafile != null;
     private bool _handleProxyChange;
 
+    //TODO: Refactor this method
     private void SetCurrentProxy()
     {
         if (ReferenceEquals(_selectedProxy, SelectedMafile?.Proxy) == false && _selectedProxy?.Equals(SelectedMafile?.Proxy) == false)
@@ -41,6 +41,7 @@ public partial class MainVM
         if (SelectedMafile == null)
         {
             SelectedProxy = null;
+            ProxyExist = true;
             return;
         }
         if (SelectedMafile.Proxy == null)
@@ -52,7 +53,7 @@ public partial class MainVM
             var existed = Proxies.FirstOrDefault(p => p.Id == SelectedMafile.Proxy.Id);
 
 
-            if (existed == null || ProxyDataComparer.Equal(existed.Data, SelectedMafile.Proxy.Data) == false)
+            if (existed == null || existed.Data.Equals(SelectedMafile.Proxy.Data) == false)
             {
                 SelectedProxy = SelectedMafile.Proxy;
             }
@@ -127,7 +128,7 @@ public partial class MainVM
         var canSave = Storage.ValidateCanSave(data);
         if (!canSave)
         {
-            SnackbarController.SendSnackbar(GetLocalizationOrDefault("CantRetrieveSteamIDToUpdate"));
+            SnackbarController.SendSnackbar(GetLocalization("CantRetrieveSteamIDToUpdate"));
         }
         return canSave;
     }

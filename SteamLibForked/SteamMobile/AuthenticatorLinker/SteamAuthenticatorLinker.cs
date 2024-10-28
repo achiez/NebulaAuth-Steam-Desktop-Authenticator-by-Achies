@@ -40,7 +40,7 @@ public class SteamAuthenticatorLinker
         if (data.RefreshToken.IsExpired)
         {
             Logger?.LogError("Session expired");
-            throw new SessionExpiredException(SessionExpiredException.SESSION_EXPIRED_MSG);
+            throw new SessionPermanentlyExpiredException(SessionPermanentlyExpiredException.SESSION_EXPIRED_MSG);
         }
 
         var accessToken = data.GetMobileToken();
@@ -52,7 +52,7 @@ public class SteamAuthenticatorLinker
             if (accessToken.Value.Type != SteamAccessTokenType.Mobile)
                 Logger?.LogWarning("Provided access token is not of type Mobile. Actual type: {actualType}", accessToken.Value.Type);
 
-            var refreshed = await SteamMobileApi.RefreshJwt(Options.HttpClient, data.RefreshToken.Token, data.RefreshToken.SteamId.Steam64);
+            var refreshed = await SteamMobileApi.RefreshJwt(Options.HttpClient, data.RefreshToken.Token, data.RefreshToken.SteamId);
             accessToken = SteamTokenHelper.Parse(refreshed);
             data.SetMobileToken(accessToken.Value);
         }

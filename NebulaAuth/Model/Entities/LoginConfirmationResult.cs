@@ -6,8 +6,8 @@ public class LoginConfirmationResult
 {
     [MemberNotNullWhen(false, nameof(Error))]
     public bool Success { get; set; }
-    public string IP { get; set; }
-    public string Country { get; set; }
+    public string IP { get; set; } = null!;
+    public string Country { get; set; } = null!;
     public LoginConfirmationError? Error { get; set; }
 
     

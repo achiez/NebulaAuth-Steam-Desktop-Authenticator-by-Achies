@@ -63,7 +63,7 @@ public static partial class MafileSerializer //Write
                 ? null
                 : new
                 {
-                    AccesToken = ext.SessionData?.MobileToken?.Token,
+                    AccessToken = ext.SessionData?.MobileToken?.Token,
                     steamLoginSecure = ext.SessionData?.MobileToken?.SignedToken,
                     RefreshToken = ext.SessionData?.RefreshToken.Token,
                     SteamID = ext.SessionData?.SteamId.Steam64.Id,

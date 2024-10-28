@@ -1,6 +1,6 @@
-﻿using SteamLib.Exceptions;
+﻿using AchiesUtilities.Models;
+using SteamLib.Exceptions;
 using SteamLib.Utility;
-using SteamLib.Utility.Models;
 using System.Collections.ObjectModel;
 
 namespace SteamLib.Core.StatusCodes;

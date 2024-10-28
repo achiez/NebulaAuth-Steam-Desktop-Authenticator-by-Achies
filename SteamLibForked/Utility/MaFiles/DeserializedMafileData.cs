@@ -16,7 +16,7 @@ public class DeserializedMafileData
     public int? Version { get; init; }
     public bool IsExtended { get; init; }
     public DeserializedMafileSessionResult SessionResult { get; init; }
-    public Dictionary<string, JProperty>? UnusedProperties { get; init; } = null;
+    public Dictionary<string, JProperty>? UnusedProperties { get; init; }
     public HashSet<string>? MissingProperties { get; init; } = new();
 
 

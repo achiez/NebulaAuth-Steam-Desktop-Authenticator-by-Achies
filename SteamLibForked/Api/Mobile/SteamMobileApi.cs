@@ -1,5 +1,4 @@
-﻿using System.Net;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Newtonsoft.Json.Linq;
 using SteamLib.Core;
 using SteamLib.Exceptions;
@@ -7,14 +6,14 @@ using SteamLib.ProtoCore;
 using SteamLib.ProtoCore.Enums;
 using SteamLib.ProtoCore.Exceptions;
 using SteamLib.ProtoCore.Services;
+using System.Net;
+using SteamLib.Account;
 
 namespace SteamLib.Api.Mobile;
 
 
 [PublicAPI]
 public static class SteamMobileApi
-//TODO: cancellation token
-//TODO: HealthMonitor
 {
 
     private const string GENERATE_ACCESS_TOKEN =
@@ -27,30 +26,31 @@ public static class SteamMobileApi
     /// <param name="client"></param>
     /// <param name="refreshToken"></param>
     /// <param name="steamId"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns>Refreshed AccessToken</returns>
     /// <exception cref="SessionInvalidException"></exception>
-    public static async Task<string> RefreshJwt(HttpClient client, string refreshToken, long steamId)
+    public static async Task<string> RefreshJwt(HttpClient client, string refreshToken, SteamId steamId, CancellationToken cancellationToken = default)
     {
         var req = new GenerateAccessTokenForApp_Request
         {
             RefreshToken = refreshToken,
-            SteamId = steamId,
+            SteamId = steamId.Steam64,
             TokenRenewalType = true
         };
 
         try
         {
-            var resp = await client.PostProto<GenerateAccessTokenForApp_Response>(GENERATE_ACCESS_TOKEN, req);
+            var resp = await client.PostProto<GenerateAccessTokenForApp_Response>(GENERATE_ACCESS_TOKEN, req, cancellationToken: cancellationToken);
             return resp.AccessToken;
         }
         catch (EResultException ex)
             when (ex.Result == EResult.AccessDenied)
         {
-            throw new SessionInvalidException("RefreshToken is not accepted by Steam. You must login again and use new token");
+            throw new SessionPermanentlyExpiredException("RefreshToken is not accepted by Steam. You must login again and use new token");
         }
     }
 
-    public static async Task<bool> HasPhoneAttached(HttpClient client, string sessionId)
+    public static async Task<bool> HasPhoneAttached(HttpClient client, string sessionId, CancellationToken cancellationToken = default)
     {
         var data = new Dictionary<string, string>
         {
@@ -60,14 +60,18 @@ public static class SteamMobileApi
 
         };
         var content = new FormUrlEncodedContent(data);
-        var resp = await client.PostAsync(SteamConstants.STEAM_COMMUNITY + "steamguard/phoneajax", content);
-        var respContent = await resp.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
-        var json = JObject.Parse(respContent);
-        return json["has_phone"]!.Value<bool>();
+        var resp = await client.PostAsync(SteamConstants.STEAM_COMMUNITY + "steamguard/phoneajax", content, cancellationToken);
+        var respContent = await resp.EnsureSuccessStatusCode().Content.ReadAsStringAsync(cancellationToken);
+
+        return SteamLibErrorMonitor.HandleResponse(respContent, () =>
+        {
+            var json = JObject.Parse(respContent);
+            return json["has_phone"]!.Value<bool>();
+        });
     }
 
 
-    public static async Task<RemoveAuthenticator_Response> RemoveAuthenticator(HttpClient client, string accessToken, string rCode)
+    public static async Task<RemoveAuthenticator_Response> RemoveAuthenticator(HttpClient client, string accessToken, string rCode, CancellationToken cancellationToken = default)
     {
         var req = SteamConstants.STEAM_API + "ITwoFactorService/RemoveAuthenticator/v1?access_token=" + accessToken;
         var reqData = new RemoveAuthenticator_Request
@@ -78,12 +82,15 @@ public static class SteamMobileApi
         };
         try
         {
-            return await client.PostProto<RemoveAuthenticator_Response>(req, reqData);
+            return await client.PostProto<RemoveAuthenticator_Response>(req, reqData, cancellationToken: cancellationToken);
         }
         catch (HttpRequestException ex)
             when (ex.StatusCode is HttpStatusCode.Unauthorized)
         {
-            throw new SessionExpiredException("Session expired");
+            throw new SessionInvalidException(SessionInvalidException.GOT_401_MSG);
         }
     }
+
+
+
 }

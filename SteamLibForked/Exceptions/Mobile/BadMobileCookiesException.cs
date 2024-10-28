@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace SteamLib.Exceptions.Mobile;
+﻿namespace SteamLib.Exceptions.Mobile;
 
 [Serializable]
 public class BadMobileCookiesException : Exception
@@ -12,7 +10,7 @@ public class BadMobileCookiesException : Exception
     //    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dncscol/html/csharp07192001.asp
     //
 
-    public BadMobileCookiesException() : base("You are using deafult HttpClient without mobile specific cookies. Login can't be proceeded with these cookies")
+    public BadMobileCookiesException() : base("You are using default HttpClient without mobile specific cookies. Login can't be proceeded with these cookies")
     {
     }
 
@@ -21,12 +19,6 @@ public class BadMobileCookiesException : Exception
     }
 
     public BadMobileCookiesException(string message, Exception inner) : base(message, inner)
-    {
-    }
-
-    protected BadMobileCookiesException(
-        SerializationInfo info,
-        StreamingContext context) : base(info, context)
     {
     }
 }

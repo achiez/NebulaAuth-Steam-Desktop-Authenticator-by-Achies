@@ -16,10 +16,11 @@ public static class ProxyStorage
     public const string FORMAT = ADDRESS_FORMAT + ":{USER}:{PASS}";
     public const string ADDRESS_FORMAT = "{IP}:{PORT}";
 
-    public static readonly ProxyScheme DefaultScheme = new ProxyScheme(
-        ProxyDefaultFormats.UniversalHostFirstColonDelimiter, false, ProxyProtocol.HTTP,
-        ProxyPatternProtocol.HTTP | ProxyPatternProtocol.HTTPs,
-        ProxyPatternHostFormat.Domain | ProxyPatternHostFormat.IPv4, PatternRequirement.Optional,
+    public static readonly ProxyParser DefaultScheme = new(
+        ProxyDefaultFormats.UniversalColon, false, ProxyProtocol.HTTP,
+        ProxyPatternProtocol.All,
+        ProxyPatternHostFormat.Domain | ProxyPatternHostFormat.IPv4, 
+        PatternRequirement.Optional,
         PatternRequirement.Optional);
 
 
@@ -94,7 +95,7 @@ public static class ProxyStorage
         Save();
     }
 
-    public static void OrderCollection() //RETHINK: maybe there is better way to handle it
+    public static void OrderCollection() //RETHINK: maybe there is a better way to handle it
     {
         var proxies = Proxies.OrderBy(p => p.Key)
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
@@ -110,11 +111,6 @@ public static class ProxyStorage
         Proxies.Remove(id);
         Save();
     }
-    public static bool CompareProxy(ProxyData proxyData1, ProxyData proxyData2)
-    {
-        return proxyData1.Equals(proxyData2);
-    }
-
 
     public static void Save()
     {
@@ -149,7 +145,7 @@ public static class ProxyStorage
 
     private class ProxiesSchema
     {
-        public ObservableDictionary<int, ProxyData> ProxiesData = new();
+        public ObservableDictionary<int, ProxyData> ProxiesData = [];
         public int? DefaultProxy;
     }
 }

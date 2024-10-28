@@ -1,5 +1,11 @@
-﻿namespace SteamLib.ProtoCore.Enums;
+﻿// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
 
+using JetBrains.Annotations;
+
+namespace SteamLib.ProtoCore.Enums;
+
+[PublicAPI]
 public enum EResult
 {
     Invalid = 0,

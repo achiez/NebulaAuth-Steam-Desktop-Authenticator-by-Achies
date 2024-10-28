@@ -12,7 +12,6 @@ public partial class Settings : ObservableObject
 {
     #region Properties
 
-    [ObservableProperty] private bool _disableTimersOnChange = true;
     [ObservableProperty] private BackgroundMode _backgroundMode = BackgroundMode.Default;
     [ObservableProperty] private bool _hideToTray;
     [ObservableProperty] private int _timerSeconds = 60;
@@ -23,6 +22,7 @@ public partial class Settings : ObservableObject
     [ObservableProperty] private bool _legacyMode = true;
     [ObservableProperty] private bool _allowAutoUpdate;
     [ObservableProperty] private bool _useAccountNameAsMafileName;
+    [ObservableProperty] private bool _ignorePatchTuesdayErrors;
     #endregion
 
     public static Settings Instance { get; }

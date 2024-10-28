@@ -18,8 +18,8 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ProgressBar  Style="{StaticResource MaterialDesignCircularProgressBar}" IsIndeterminate="True"></ProgressBar>
-            <TextBlock Margin="10,0,0,0" Grid.Column="1" Text="{Tr WaitLoginDialog.Text}" VerticalAlignment="Center"></TextBlock>
+            <ProgressBar  Style="{StaticResource MaterialDesignCircularProgressBar}" IsIndeterminate="True" />
+            <TextBlock Margin="10,0,0,0" Grid.Column="1" Text="{Tr WaitLoginDialog.Text}" VerticalAlignment="Center" />
         </Grid>
         <Grid x:Name="CaptchaGrid" Margin="0,25,0,0" Visibility="Collapsed" Grid.Row="1">
             <Grid.RowDefinitions>
@@ -27,7 +27,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Image x:Name="CaptchaImage" Stretch="Uniform"></Image>
+            <Image x:Name="CaptchaImage" Stretch="Uniform" />
             <TextBox Grid.Row="1" Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="CaptchaTB"/>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>

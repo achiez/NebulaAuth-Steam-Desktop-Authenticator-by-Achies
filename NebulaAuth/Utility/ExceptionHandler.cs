@@ -18,7 +18,7 @@ public static class ExceptionHandler
         Shell.Logger.Error(ex);
         switch (ex)
         {
-            case SessionExpiredException:
+            case SessionPermanentlyExpiredException:
                 {
                     msg = "SessionExpiredException".GetCodeBehindLocalization();
                     break;
@@ -60,7 +60,17 @@ public static class ExceptionHandler
                 }
             case CantLoadConfirmationsException e:
                 {
-                    msg = e.Message;
+                    msg = LocManager.GetCodeBehindOrDefault(nameof(CantLoadConfirmationsException), EXCEPTION_HANDLER_LOC_PATH, nameof(CantLoadConfirmationsException), "Common");
+                    if (e.Error == LoadConfirmationsError.Unknown)
+                    {
+                        msg += e.ErrorMessage;
+                        msg += ' ';
+                        msg += e.ErrorDetails;
+                    }
+                    else
+                    {
+                        msg += LocManager.GetCodeBehindOrDefault(e.Error.ToString(), EXCEPTION_HANDLER_LOC_PATH, nameof(CantLoadConfirmationsException),  e.Error.ToString());
+                    }
                     break;
                 }
             case EResultException e:

@@ -11,11 +11,6 @@ public partial class SettingsVM : ObservableObject
 {
     public Settings Settings => Settings.Instance;
 
-    public bool DisableTimersOnChange
-    {
-        get => Settings.DisableTimersOnChange;
-        set => Settings.DisableTimersOnChange = value;
-    }
     public BackgroundMode BackgroundMode
     {
         get => Settings.BackgroundMode;
@@ -115,14 +110,19 @@ public partial class SettingsVM : ObservableObject
         set => Settings.UseAccountNameAsMafileName = value;
     }
 
-    [ObservableProperty] private string _password;
+    public bool IgnorePatchTuesdayErrors
+    {
+        get => Settings.IgnorePatchTuesdayErrors;
+        set => Settings.IgnorePatchTuesdayErrors = value;
+    }
+
+    [ObservableProperty] private string? _password;
 
 
     [RelayCommand]
-    public void SetPassword()
+    private void SetPassword()
     {
-        PHandler.SetPassword(Password);
-        Settings.IsPasswordSet = PHandler.IsPasswordSet;
+        Settings.IsPasswordSet = PHandler.SetPassword(Password);
     }
 
 }

@@ -1,15 +1,12 @@
-﻿using System.Windows.Controls;
+﻿namespace NebulaAuth.View;
 
-namespace NebulaAuth.View
+/// <summary>
+/// Логика взаимодействия для UpdaterView.xaml
+/// </summary>
+public partial class UpdaterView
 {
-    /// <summary>
-    /// Логика взаимодействия для UpdaterView.xaml
-    /// </summary>
-    public partial class UpdaterView : UserControl
+    public UpdaterView()
     {
-        public UpdaterView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

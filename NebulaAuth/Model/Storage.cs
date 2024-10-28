@@ -87,7 +87,7 @@ public static class Storage
 
         try
         {
-            var code = SteamGuardCodeGenerator.GenerateCode(data.SharedSecret);
+            _ = SteamGuardCodeGenerator.GenerateCode(data.SharedSecret);
         }
         catch (Exception ex)
         {
@@ -115,7 +115,7 @@ public static class Storage
     public static Mafile ReadMafile(string path)
     {
         var str = File.ReadAllText(path);
-        var mafile = MafileSerializer.Deserialize(str, out var mafileData);
+        var mafile = MafileSerializer.Deserialize(str, true, out var mafileData);
         if (mafileData.IsExtended == false)
             throw new FormatException("Mafile is not extended data");
 
@@ -271,7 +271,7 @@ internal class MafileNameComparer : IComparer<string>
 {
     public bool MafileNameMode { get; }
     private const string MAF_64_START = "765";
-    private static readonly IComparer<string> _defaultComparer = Comparer<string>.Default;
+    private static readonly IComparer<string> DefaultComparer = Comparer<string>.Default;
     public MafileNameComparer(bool mafileNameMode)
     {
         MafileNameMode = mafileNameMode;
@@ -300,7 +300,7 @@ internal class MafileNameComparer : IComparer<string>
             }
         }
 
-        return _defaultComparer.Compare(x, y);
+        return DefaultComparer.Compare(x, y);
     }
 
 }

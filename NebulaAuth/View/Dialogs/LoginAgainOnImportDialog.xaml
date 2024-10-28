@@ -9,9 +9,8 @@
              xmlns:model="clr-namespace:NebulaAuth.Model"
              xmlns:entities="clr-namespace:NebulaAuth.Model.Entities"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="800"
              theme:FontScaleWindow.Scale="0.9" theme:FontScaleWindow.ResizeFont="True"
-             Foreground="WhiteSmoke" Cursor="Hand"
+             Foreground="WhiteSmoke"
              d:DataContext="{d:DesignInstance other:LoginAgainOnImportVM}"
              Background="{DynamicResource WindowBackground}">
 
@@ -28,7 +27,7 @@
             <Run Text="{Tr LoginAgainDialog.LoginFor, IsDynamic=False}"/>
             <Run FontWeight="Bold" Text="{Binding UserName}"/>
         </TextBlock>
-        <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,10,0" Grid.Row="1" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="{Tr LoginAgainDialog.PasswordBox}"></TextBox>
+        <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,10,0" Grid.Row="1" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="{Tr LoginAgainDialog.PasswordBox}" />
         <ComboBox   ToolTip="{Tr LoginAgainDialog.ProxyToolTip}" Grid.Row="2" Margin="10,18,10,0" materialDesign:HintAssist.Hint="{Tr Common.Proxy}" ItemsSource="{Binding Proxies}" SelectedItem="{Binding SelectedProxy}" >
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type entities:MaProxy}">
