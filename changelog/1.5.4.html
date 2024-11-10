@@ -47,10 +47,10 @@
             padding: 0 15px;
         }
 
-        .description ul {
+            .description ul {
                 list-style: inside square;
                 padding: 0;
-        }
+            }
 
         @media only screen and (max-width: 600px) {
             .changelog-container {
@@ -67,11 +67,22 @@
         <!-- Changelog entry -->
         <div class="change">
             <div class="version">Version 1.5.4</div>
-            <div class="date">DATE</div>
+            <div class="date">10.11.2024</div>
             <div class="description">
-                - <b>NEWS:</b> Official Telegram group now available! Join us at <b><a href="https://t.me/nebulaauth">t.me/nebulaauth</a></b> <br />
-                - <b>FIX:</b> TEMPORARY: Added workaround for old mafiles in MafileSerializer <br />
-
+                <ul>
+                    <li><b>NEWS:</b> Official Telegram group now available! Join us at <b><a href="https://t.me/nebulaauth">t.me/nebulaauth</a></b></li>
+                    <li>
+                        <b>Compatibility:</b> Improved mafiles compatibility:
+                        <ul style="margin-left: 15px">
+                            <li>Full: with SDA, MarketApp, SIH</li>
+                            <li>Re-login after import: LZT, TO SDA, old mafiles</li>
+                            <li>Re-login <b>on</b> import: Mafiles without "Session" data or "SteamId" property</li>
+                        </ul>
+                    </li>
+                    <li><b>UPDATE:</b> Proxy and password (if set) now automatically saved in mafile after linking guard</li>
+                    <li><b>UI:</b> Encryption password dialog on startup now supports "Enter" hot-key</li>
+                    <li><b>UI:</b> Added "Copy SteamId" button in the maFile context menu.</li>
+                </ul>
             </div>
         </div>
     </div>

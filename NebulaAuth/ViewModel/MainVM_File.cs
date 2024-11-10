@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using AchiesUtilities.Extensions;
 using NebulaAuth.Model.Entities;
+using NebulaAuth.Model.Exceptions;
 using SteamLib.Exceptions;
 using NebulaAuth.Utility;
 using NebulaAuth.View.Dialogs;
@@ -99,11 +100,11 @@ public partial class MainVM //File //TODO: Refactor
                     notAdded++;
                 }
             }
-            catch (SessionInvalidException ex)
+            catch (MafileNeedReloginException ex)
             {
-                if (path.Length == 1 && ex.Data.Contains("mafile"))
+                if (path.Length == 1 && ex.Mafile != null)
                 {
-                    var mafile = (Mafile)ex.Data["mafile"]!;
+                    var mafile = ex.Mafile;
                     if (await HandleAddMafileWithoutSession(mafile))
                     {
                         added++;
@@ -243,58 +244,25 @@ public partial class MainVM //File //TODO: Refactor
     private void CopyLogin(object? mafile)
     {
         if(mafile is not Mafile maf) return;
-        var i = 0;
-        while (i < 20)
-        {
-            try
-            {
-                Clipboard.SetText(maf.AccountName);
-                SnackbarController.SendSnackbar(GetLocalization("LoginCopied"));
-                return;
-            }
-            catch (Exception ex)
-            {
-                if (i == 19)
-                {
-                    Shell.Logger.Error(ex);
-                    SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
-                }
+        if(ClipboardHelper.Set(maf.AccountName))
+            SnackbarController.SendSnackbar(GetLocalization("LoginCopied"));
+    }
 
-            }
-            i++;
-        }
+    [RelayCommand]
+    private void CopySteamId(object? mafile)
+    {
+        if (mafile is not Mafile maf) return;
+
+        if(ClipboardHelper.Set(maf.SteamId.ToString())) 
+            SnackbarController.SendSnackbar(GetLocalization("SteamIdCopied"));
     }
 
     [RelayCommand]
     private void CopyMafile(object? mafile)
     {
         if (mafile is not Mafile maf) return;
-        var i = 0;
         var path = Storage.TryFindMafilePath(maf);
-        if (path == null)
-        {
-            SnackbarController.SendSnackbar(GetLocalization("MafileNotCopied"));
-            return;
-        }
-
-        while (i < 20)
-        {
-            try
-            {
-                Clipboard.SetFileDropList([path]);
-                SnackbarController.SendSnackbar(GetLocalization("MafileCopied"));
-                return;
-            }
-            catch (Exception ex)
-            {
-                if (i == 19)
-                {
-                    Shell.Logger.Error(ex);
-                    SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
-                }
-
-            }
-            i++;
-        }
+        if(ClipboardHelper.SetFiles([path]))
+            SnackbarController.SendSnackbar(GetLocalization("MafileCopied"));
     }
 }

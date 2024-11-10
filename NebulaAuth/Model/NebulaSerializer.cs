@@ -4,6 +4,7 @@ using SteamLib;
 using SteamLib.Utility.MafileSerialization;
 using System.Collections.Generic;
 using System;
+using NebulaAuth.Model.Exceptions;
 using Newtonsoft.Json;
 
 namespace NebulaAuth.Model;
@@ -20,7 +21,7 @@ public static class NebulaSerializer
             {
                 AllowDeviceIdGeneration = true,
                 AllowSessionIdGeneration = true,
-                ThrowIfInvalidSteamId = true
+                ThrowIfInvalidSteamId = false
             }
         });
     }
@@ -33,13 +34,19 @@ public static class NebulaSerializer
         var info = data.Info;
         if (info.IsExtended == false)
             throw new FormatException("Mafile is not extended data");
-
+      
 
         var props = info.UnusedProperties ?? new Dictionary<string, JProperty>();
         var proxy = GetPropertyValue<MaProxy>("Proxy", props);
         var group = GetPropertyValue<string>("Group", props);
         var password = GetPropertyValue<string>("Password", props);
-        return Mafile.FromMobileDataExtended((MobileDataExtended)mobileData, proxy, group, password);
+        var mafile = Mafile.FromMobileDataExtended((MobileDataExtended)mobileData, proxy, group, password);
+
+
+        if (!info.SteamIdValid)
+            throw new MafileNeedReloginException(mafile);
+
+        return mafile;
     }
 
     private static T? GetPropertyValue<T>(string name, Dictionary<string, JProperty> dictionary)

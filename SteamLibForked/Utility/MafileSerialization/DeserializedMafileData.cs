@@ -75,17 +75,20 @@ public class DeserializedMafileInfo
     public bool HasMissingImportantProperties => MissingImportantProperties is { Count: > 0 };
     public bool HasSession => SessionResult == DeserializedMafileSessionResult.Valid;
     public bool HasIdentificationProperty { get; init; }
+    public bool SteamIdValid { get; init; }
 
     internal static DeserializedMafileInfo Create(MobileData mobileData, int? version = null, Dictionary<string, JProperty>? unusedProperties = null, HashSet<string>? missingProperties = null,
         DeserializedMafileSessionResult sessionResult = DeserializedMafileSessionResult.Missing)
     {
         HashSet<string>? missingImportantProperties = null;
         var hasIdentificationProperty = false;
+        var steamIdValid = false;
         var isExtended = false;
         if (mobileData is MobileDataExtended ext)
         {
-            hasIdentificationProperty = !string.IsNullOrWhiteSpace(ext.AccountName) || ext.SteamId.Steam64.Id > SteamId64.SEED;
-            isExtended = true;
+            steamIdValid = ext.SteamId.Steam64.Id > SteamId64.SEED;
+            hasIdentificationProperty = !string.IsNullOrWhiteSpace(ext.AccountName) || steamIdValid;
+            isExtended = true;  
         }
 
         if (isExtended && missingProperties is { Count: > 0 })
@@ -104,7 +107,8 @@ public class DeserializedMafileInfo
             MissingProperties = missingProperties,
             UnusedProperties = unusedProperties,
             SessionResult = sessionResult,
-            HasIdentificationProperty = hasIdentificationProperty
+            HasIdentificationProperty = hasIdentificationProperty,
+            SteamIdValid = steamIdValid
         };
     }
 

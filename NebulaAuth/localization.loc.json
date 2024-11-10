@@ -269,6 +269,11 @@
           "ru": "Скопировать мафайл",
           "ua": "Скопіювати мафайл"
         },
+        "CopySteamId": {
+          "en": "Copy SteamID",
+          "ru": "Скопировать SteamID",
+          "ua": "Скопіювати SteamID"
+        },
         "AddToGroup": {
           "en": "Add to group",
           "ru": "Добавить в группу",
@@ -620,9 +625,9 @@
         "ua": "помилки:"
       },
       "RemoveMafileConfirmation": {
-        "ru": "Удалить мафайл? Это действие переместит мафайл в папку 'mafiles_removed' (Это действие не удаляет Steam Guard с аккаунта)",
-        "en": "Remove mafile? This action will move mafile to 'mafiles_removed' (This action does not remove the Steam Guard from the account)",
-        "ua": "Видалити мафайл? Ця дія перемістить мафайл у каталог 'mafiles_removed' (Ця дія не видаляє автентифікатор з облікового запису)"
+        "ru": "Удалить мафайл? Мафайл будет перемещен в папку 'mafiles_removed' (Это действие не удаляет Steam Guard с аккаунта)",
+        "en": "Remove mafile? Mafile will be moved to 'mafiles_removed' directory (This action does not remove the Steam Guard from the account)",
+        "ua": "Видалити мафайл? Мафайл буде переміщено у каталог 'mafiles_removed' (Ця дія не видаляє автентифікатор з облікового запису)"
       },
       "CantRemoveAlreadyExist": {
         "ru": "Не удалось переместить мафайл, возможно в папке уже существует мафайл с таким именем.",
@@ -658,6 +663,11 @@
         "en": "Login copied",
         "ru": "Логин скопирован",
         "ua": "Логін скопійовано"
+      },
+      "SteamIdCopied": {
+        "en": "SteamID copied",
+        "ru": "SteamID скопирован",
+        "ua": "SteamID скопійовано"
       },
       "MafileCopied": {
         "en": "Mafile copied",

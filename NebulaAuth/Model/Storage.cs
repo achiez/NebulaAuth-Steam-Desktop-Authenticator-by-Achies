@@ -8,6 +8,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using AchiesUtilities.Extensions;
+using NebulaAuth.Model.Exceptions;
+using NLog.Targets;
 using SteamLib;
 
 namespace NebulaAuth.Model;
@@ -66,7 +68,14 @@ public static class Storage
         MaFiles = new ObservableCollection<Mafile>(MaFiles.OrderBy(m => m.AccountName));
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="path"></param>
+    /// <param name="overwrite"></param>
+    /// <exception cref="FormatException"></exception>
+    /// <exception cref="SessionInvalidException"></exception>
+    /// <exception cref="IOException"></exception>
     public static void AddNewMafile(string path, bool overwrite)
     {
         Mafile data;
@@ -74,17 +83,12 @@ public static class Storage
         {
             data = ReadMafile(path);
         }
-        catch (ArgumentException ex)
-            when(ex.ParamName == nameof(MobileDataExtended.SteamId))
-        {
-            throw new SessionInvalidException(); //Allows to handle LoginOnImport
-        }
         catch (Exception ex)
+            when(ex is not MafileNeedReloginException)
         {
             Shell.Logger.Warn(ex, "Can't load mafile");
             throw new FormatException("File data is not valid", ex);
         }
-
         if (string.IsNullOrWhiteSpace(data.AccountName))
             throw new FormatException("File data is not valid. Missing AccountName");
 
@@ -156,8 +160,8 @@ public static class Storage
 
     private static string CreatePathForMafile(Mafile data)
     {
-        var fileName = Settings.Instance.UseAccountNameAsMafileName 
-            ? CreateFileNameWithAccountName(data.AccountName) 
+        var fileName = Settings.Instance.UseAccountNameAsMafileName
+            ? CreateFileNameWithAccountName(data.AccountName)
             : CreateFileNameWithSteamId(data.SteamId);
 
         return Path.Combine(MafileFolder, fileName);

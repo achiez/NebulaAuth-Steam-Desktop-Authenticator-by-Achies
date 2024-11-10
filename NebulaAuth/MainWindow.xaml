@@ -201,6 +201,7 @@
                             <FrameworkElement.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem InputGestureText="Ctrl+C" Header="{Tr MainWindow.ContextMenus.Mafile.CopyLogin}" Command="{Binding CopyLoginCommand}" CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.CopySteamId}" Command="{Binding CopySteamIdCommand}" CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                                     <MenuItem InputGestureText="Ctrl+X" Header="{Tr MainWindow.ContextMenus.Mafile.CopyMafile}" Command="{Binding CopyMafileCommand}" CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                                     <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.AddToGroup}" ItemsSource="{Binding Groups}">
                                         <ItemsControl.ItemContainerStyle>

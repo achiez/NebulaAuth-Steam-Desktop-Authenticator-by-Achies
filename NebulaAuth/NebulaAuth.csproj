@@ -10,7 +10,7 @@
 	  <SatelliteResourceLanguages>en;ru;ua</SatelliteResourceLanguages>
 	  <ApplicationIcon>Theme\lock.ico</ApplicationIcon>
 	  <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-	  <AssemblyVersion>1.5.3</AssemblyVersion>
+	  <AssemblyVersion>1.5.4</AssemblyVersion>
 	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -39,11 +39,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Theme\lock.ico" />
-  </ItemGroup>
-
-	<ItemGroup>
-    <Folder Include="Model\Exceptions\" />
-    <Folder Include="Utility\" />
   </ItemGroup>
 
 	<ItemGroup>
