@@ -63,6 +63,8 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
 
     private bool _isLinkStarted;
     private string _rCode = string.Empty;
+    private string _password = string.Empty;
+
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(ProceedCommand))]
     private bool _canProceed = true;
@@ -136,6 +138,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
                 IsLogin = true;
                 var userName = FieldText;
                 var pass = PassFieldText;
+                _password = pass;
                 FieldText = string.Empty;
                 IsFieldVisible = false;
                 HintText = string.Empty;
@@ -192,6 +195,18 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
             IsLinkCode = true;
             IsCompleted = true;
             var mafile = Mafile.FromMobileDataExtended(result);
+            try
+            {
+                if (SelectedProxy.HasValue)
+                    mafile.Proxy = new MaProxy(SelectedProxy.Value.Key, SelectedProxy.Value.Value);
+                if (Settings.Instance.IsPasswordSet)
+                    mafile.Password = PHandler.Encrypt(_password);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Error during saving Nebula data to mafile");
+            }
+
             Storage.SaveMafile(mafile);
             File.Delete(Path.Combine("mafiles_backup", mafile.AccountName + ".mafile"));
             HintText =
@@ -320,6 +335,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
         CanProceed = true;
         _emailCodeTcs = new TaskCompletionSource<string>();
         _rCode = string.Empty;
+        _password = string.Empty;
     }
 
     private void Backup(MobileDataExtended data)
@@ -328,8 +344,8 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
         {
             Directory.CreateDirectory("mafiles_backup");
         }
-        var json = Storage.SerializeMafile(data, null);
-        File.WriteAllText(Path.Combine("mafiles_backup", data.AccountName + ".mafile"), json);
+        var json = NebulaSerializer.SerializeMafile(data, null);
+        File.WriteAllText(Path.Combine("mafiles_backup", data.AccountName + ".mafile"), json); //TODO: Move logic to Storage
     }
 
     #region Providers

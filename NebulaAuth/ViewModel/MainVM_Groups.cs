@@ -2,9 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using AchiesUtilities.Extensions;
 
 namespace NebulaAuth.ViewModel;
 
@@ -47,7 +47,6 @@ public partial class MainVM //Groups
         var mafile = SelectedMafile;
         if (mafile == null) return;
         if (string.IsNullOrEmpty(value)) return;
-        if (!ValidateCanSaveAndWarn(mafile)) return;
 
         mafile.Group = value;
         Storage.UpdateMafile(mafile);
@@ -67,7 +66,6 @@ public partial class MainVM //Groups
         var mafile = (Mafile?)value[1];
 
         if (group == null || mafile == null) return;
-        if (!ValidateCanSaveAndWarn(mafile)) return;
         mafile.Group = group;
         Storage.UpdateMafile(mafile);
         QueryGroups();
@@ -79,7 +77,6 @@ public partial class MainVM //Groups
     private void RemoveGroup(Mafile? mafile)
     {
         if (mafile?.Group == null) return;
-        if (!ValidateCanSaveAndWarn(mafile)) return;
         var mafGroup = mafile.Group;
         mafile.Group = null;
         Storage.UpdateMafile(mafile);
@@ -136,11 +133,7 @@ public partial class MainVM //Groups
 
         bool SearchPredicate(Mafile mafile)
         {
-            if (!mafile.AccountName.Contains(SearchText, StringComparison.CurrentCultureIgnoreCase))
-            {
-                return mafile.SessionData != null && mafile.SessionData.SteamId.Steam64.Id.Equals(searchSteamId);
-            }
-            return true;
+            return mafile.AccountName.ContainsIgnoreCase(SearchText) || mafile.SteamId.Steam64.Id.Equals(searchSteamId);
         }
     }
                     

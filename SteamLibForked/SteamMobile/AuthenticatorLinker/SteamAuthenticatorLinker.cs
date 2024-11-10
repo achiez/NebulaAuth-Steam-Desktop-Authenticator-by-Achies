@@ -37,7 +37,7 @@ public class SteamAuthenticatorLinker
         SessionData = data;
 
         data.EnsureValidated();
-        if (data.RefreshToken.IsExpired)
+        if (data.IsExpired)
         {
             Logger?.LogError("Session expired");
             throw new SessionPermanentlyExpiredException(SessionPermanentlyExpiredException.SESSION_EXPIRED_MSG);

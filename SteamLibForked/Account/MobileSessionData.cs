@@ -2,6 +2,7 @@
 using SteamLib.Core.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
+using SteamLib.Core.Models;
 
 namespace SteamLib.Account;
 
@@ -35,8 +36,8 @@ public sealed class MobileSessionData : SessionData, IMobileSessionData
     }
 
     public MobileSessionData(string sessionId, SteamId steamId, SteamAuthToken refreshToken,
-        SteamAuthToken? mobileToken, IEnumerable<SteamAuthToken>? tokens)
-        : base(sessionId, steamId, refreshToken, tokens)
+        SteamAuthToken? mobileToken, IEnumerable<SteamAuthToken>? tokensCollection)
+        : base(sessionId, steamId, refreshToken, tokensCollection)
     {
         MobileToken = mobileToken;
     }
@@ -46,6 +47,4 @@ public sealed class MobileSessionData : SessionData, IMobileSessionData
     {
         return new MobileSessionData(SessionId, SteamId, RefreshToken, MobileToken, Tokens);
     }
-
-
 }

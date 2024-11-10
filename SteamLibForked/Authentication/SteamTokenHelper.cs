@@ -5,6 +5,7 @@ using SteamLib.Core.Enums;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
+using SteamLib.Core.Models;
 
 namespace SteamLib.Authentication;
 

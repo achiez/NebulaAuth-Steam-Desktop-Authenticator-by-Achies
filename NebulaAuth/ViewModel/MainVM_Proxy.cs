@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
@@ -101,7 +102,6 @@ public partial class MainVM
     {
         if (SelectedProxy == null) return;
         if (SelectedMafile == null) return;
-        if (!ValidateCanSaveAndWarn(SelectedMafile)) return;
         SelectedMafile.Proxy = null;
         SelectedProxy = null;
         Storage.UpdateMafile(SelectedMafile);
@@ -117,19 +117,9 @@ public partial class MainVM
         }
 
         if (SelectedMafile == null) return;
-        if (!ValidateCanSaveAndWarn(SelectedMafile)) return;
         ProxyExist = true;
         SelectedMafile.Proxy = SelectedProxy;
         Storage.UpdateMafile(SelectedMafile);
     }
-
-    private bool ValidateCanSaveAndWarn(Mafile data)
-    {
-        var canSave = Storage.ValidateCanSave(data);
-        if (!canSave)
-        {
-            SnackbarController.SendSnackbar(GetLocalization("CantRetrieveSteamIDToUpdate"));
-        }
-        return canSave;
-    }
+  
 }

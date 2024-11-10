@@ -3,6 +3,7 @@ using AchiesUtilities.Newtonsoft.JSON.Converters.Special;
 using Newtonsoft.Json;
 using SteamLib.Authentication;
 using SteamLib.Core.Enums;
+using SteamLib.Core.Models;
 using SteamLib.Web.Converters;
 
 namespace SteamLib.Account;

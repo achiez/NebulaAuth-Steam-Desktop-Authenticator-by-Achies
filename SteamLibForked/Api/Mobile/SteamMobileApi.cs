@@ -7,7 +7,7 @@ using SteamLib.ProtoCore.Enums;
 using SteamLib.ProtoCore.Exceptions;
 using SteamLib.ProtoCore.Services;
 using System.Net;
-using SteamLib.Account;
+using SteamLib.Core.Models;
 
 namespace SteamLib.Api.Mobile;
 

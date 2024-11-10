@@ -1,5 +1,6 @@
 ﻿using SteamLib.Account;
 using SteamLib.Core.Enums;
+using SteamLib.Core.Models;
 
 namespace SteamLib.Core.Interfaces;
 

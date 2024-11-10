@@ -6,6 +6,7 @@ using SteamLib.Account;
 using SteamLib.Core;
 using SteamLib.Core.Enums;
 using SteamLib.Core.Interfaces;
+using SteamLib.Core.Models;
 using SteamLib.Core.StatusCodes;
 using SteamLib.Exceptions;
 using SteamLib.Login.Default;
