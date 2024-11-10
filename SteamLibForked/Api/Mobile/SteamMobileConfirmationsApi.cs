@@ -1,6 +1,5 @@
 ﻿using AchiesUtilities.Web.Extensions;
 using JetBrains.Annotations;
-using SteamLib.Account;
 using SteamLib.Core;
 using SteamLib.Core.StatusCodes;
 using SteamLib.Exceptions;
@@ -9,6 +8,7 @@ using SteamLib.SteamMobile.Confirmations;
 using SteamLib.Utility;
 using SteamLib.Web.Scrappers.JSON;
 using System.Net;
+using SteamLib.Core.Models;
 
 namespace SteamLib.Api.Mobile;
 

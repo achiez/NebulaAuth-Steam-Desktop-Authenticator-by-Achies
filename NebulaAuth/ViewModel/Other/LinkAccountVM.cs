@@ -328,8 +328,8 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
         {
             Directory.CreateDirectory("mafiles_backup");
         }
-        var json = Storage.SerializeMafile(data, null);
-        File.WriteAllText(Path.Combine("mafiles_backup", data.AccountName + ".mafile"), json);
+        var json = NebulaSerializer.SerializeMafile(data, null);
+        File.WriteAllText(Path.Combine("mafiles_backup", data.AccountName + ".mafile"), json); //TODO: Move logic to Storage
     }
 
     #region Providers

@@ -45,6 +45,7 @@ public partial class Mafile : MobileDataExtended
             ServerTime = data.ServerTime,
             TokenGid = data.TokenGid,
             Uri = data.Uri,
+            SteamId = data.SteamId
         };
     }
     public static Mafile FromMobileDataExtended(MobileDataExtended data, MaProxy? proxy, string? group, string? password)

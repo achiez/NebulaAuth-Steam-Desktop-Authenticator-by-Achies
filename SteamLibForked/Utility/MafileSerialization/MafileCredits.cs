@@ -1,5 +1,8 @@
-﻿namespace SteamLib.Utility.MaFiles;
+﻿using JetBrains.Annotations;
 
+namespace SteamLib.Utility.MafileSerialization;
+
+[PublicAPI]
 public class MafileCredits : IMafileCredits
 {
     internal static readonly MafileCredits Instance = new();

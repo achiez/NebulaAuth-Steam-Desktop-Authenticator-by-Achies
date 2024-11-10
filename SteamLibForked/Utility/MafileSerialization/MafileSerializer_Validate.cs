@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using SteamLib.Account;
 using SteamLib.Authentication;
-using SteamLib.Core.Interfaces;
 
-namespace SteamLib.Utility.MaFiles;
+namespace SteamLib.Utility.MafileSerialization;
 
 public partial class MafileSerializer //Validate
 {
@@ -60,11 +59,6 @@ public partial class MafileSerializer //Validate
                 if (d.SessionData == null) return null;
 
                 sessionResult = DeserializedMafileSessionResult.Invalid;
-                if (d.SessionData.RefreshToken.IsExpired)
-                {
-                    sessionResult = DeserializedMafileSessionResult.Expired;
-                }
-
                 d.SessionData.IsValid = SessionDataValidator.Validate(null, d.SessionData).Succeeded;
                 if (d.SessionData.IsValid == false) return null;
 
@@ -72,20 +66,6 @@ public partial class MafileSerializer //Validate
                 return d.SessionData;
             }
             return null;
-        }
-
-        public static bool ValidateSessionData(ISessionData sessionData, out bool isOutdated)
-        {
-
-            if (sessionData.RefreshToken.IsExpired)
-            {
-                isOutdated = true;
-                return false;
-            }
-
-            isOutdated = false;
-            return SessionDataValidator.Validate(null, sessionData).Succeeded;
-
         }
     }
 }

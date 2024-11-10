@@ -1,5 +1,5 @@
 ﻿using System.Text.RegularExpressions;
-using SteamLib.Account;
+using SteamLib.Core.Models;
 
 namespace SteamLib.Utility;
 
@@ -37,17 +37,29 @@ public static class SteamIdParser
         return false;
     }
 
-    public static bool TryParse64(string input, out SteamId64 result)
+    public static bool TryParse64(string? input, out SteamId64 result)
     {
+        result = default;
+        if (input == null) return false;
         var match64 = Steam64Regex.Match(input);
         if (match64.Success)
         {
-            result = new SteamId64(long.Parse(match64.Value));
-            return true;
+            return TryParse64(long.Parse(match64.Value), out result);
         }
 
-        result = default;
         return false;
+    }
+
+    public static bool TryParse64(long input, out SteamId64 result)
+    {
+        result = default;
+        if (input < SteamId64.SEED)
+        {
+            return false;
+        }
+
+        result = new SteamId64(input);
+        return true;
     }
 
     public static bool TryParse2(string input, out SteamId2 result)
@@ -95,7 +107,7 @@ public static class SteamIdParser
         if (TryParse2(input, out var steam2))
         {
             return new SteamId(steam2);
-            
+
         }
 
         if (TryParse3(input, out var steam3))
@@ -144,7 +156,7 @@ public static class SteamIdParser
             var type = match3.Groups["type"].Value[0];
             var id = int.Parse(match3.Groups["id"].Value);
             return new SteamId3(id, type);
-            
+
         }
         else
         {

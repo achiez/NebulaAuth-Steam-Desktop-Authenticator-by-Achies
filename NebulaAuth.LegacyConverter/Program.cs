@@ -1,10 +1,20 @@
 ﻿using AchiesUtilities.Extensions;
 using NebulaAuth.LegacyConverter;
 using Newtonsoft.Json;
-using SteamLib.Utility.MaFiles;
+using SteamLib.Utility.MafileSerialization;
+
+
 
 try
 {
+    var mafileSerializer = new MafileSerializer(new MafileSerializerSettings
+    {
+        DeserializationOptions =
+        {
+            AllowDeviceIdGeneration = true,
+            AllowSessionIdGeneration = true,
+        }
+    });
     var currentPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
     if (currentPath != null)
         Environment.CurrentDirectory = currentPath;
@@ -29,7 +39,7 @@ try
             }
         }
     }
-    
+
     var decryptMode = false;
     while (true)
     {
@@ -120,7 +130,8 @@ try
                 }
             }
 
-            var maf = MafileSerializer.Deserialize(text, true, out _);
+            var data = mafileSerializer.Deserialize(text);
+            var maf = data.Data;
             var legacy = MafileSerializer.SerializeLegacy(maf, Formatting.Indented);
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
             Write(legacy, fileNameWithoutExtension);

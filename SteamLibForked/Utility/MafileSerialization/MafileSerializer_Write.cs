@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace SteamLib.Utility.MaFiles;
+namespace SteamLib.Utility.MafileSerialization;
 
-public static partial class MafileSerializer //Write
+public partial class MafileSerializer //Write
 {
     private const string CREDITS_PROPERTY_NAME = "Credits";
-    public static string Serialize(MobileData mobileData, Formatting formatting = Formatting.Indented, bool sign = true, MafileCredits? credits = null)
+    public static string Serialize(MobileDataExtended mobileData, Formatting formatting = Formatting.Indented, bool sign = true, MafileCredits? credits = null)
     {
         using var w = new StringWriter();
         using var write = new JsonTextWriter(w);
@@ -25,7 +25,7 @@ public static partial class MafileSerializer //Write
 
     }
 
-    public static async Task<string> SerializeAsync(MobileData mobileData, Formatting formatting = Formatting.Indented, bool sign = true, MafileCredits? credits = null)
+    public static async Task<string> SerializeAsync(MobileDataExtended mobileData, Formatting formatting = Formatting.Indented, bool sign = true, MafileCredits? credits = null)
     {
         await using var w = new StringWriter();
         await using var write = new JsonTextWriter(w);
@@ -52,7 +52,6 @@ public static partial class MafileSerializer //Write
             SharedSecret = mobileData.SharedSecret,
             IdentitySecret = mobileData.IdentitySecret,
             DeviceId = mobileData.DeviceId,
-
         };
 
         if (mobileData is MobileDataExtended ext)
@@ -62,18 +61,19 @@ public static partial class MafileSerializer //Write
             result.SessionData = ext.SessionData == null
                 ? null
                 : new
-                {
-                    AccessToken = ext.SessionData?.MobileToken?.Token,
-                    steamLoginSecure = ext.SessionData?.MobileToken?.SignedToken,
-                    RefreshToken = ext.SessionData?.RefreshToken.Token,
-                    SteamID = ext.SessionData?.SteamId.Steam64.Id,
-                    SessionID = ext.SessionData?.SessionId
-                };
+                    {
+                        AccessToken = ext.SessionData?.MobileToken?.Token,
+                        steamLoginSecure = ext.SessionData?.MobileToken?.SignedToken,
+                        RefreshToken = ext.SessionData?.RefreshToken.Token,
+                        SteamID = ext.SessionData?.SteamId.Steam64.Id,
+                        SessionID = ext.SessionData?.SessionId
+                    };
             result.ServerTime = ext.ServerTime;
             result.SerialNumber = ext.SerialNumber.ToString();
             result.Uri = ext.Uri;
             result.TokenGid = ext.TokenGid;
             result.Secret1 = ext.Secret1;
+            result.SteamId = ext.SteamId.Steam64.Id;
 
         }
 

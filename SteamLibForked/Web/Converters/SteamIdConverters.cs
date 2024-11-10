@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SteamLib.Account;
+using SteamLib.Core.Models;
 
 namespace SteamLib.Web.Converters;
 
@@ -18,7 +18,7 @@ public class SteamIdToSteam64Converter : JsonConverter<SteamId>
             return SteamId.FromSteam64(l);
         }
 
-        var str = (string) reader.Value!;
+        var str = (string)reader.Value!;
         return new SteamId(SteamId64.Parse(str));
     }
 }
@@ -85,8 +85,8 @@ public class SteamId2ToStringConverter : JsonConverter<SteamId2>
     public override SteamId2 ReadJson(JsonReader reader, Type objectType, SteamId2 existingValue, bool hasExistingValue,
         JsonSerializer serializer)
     {
-       var str = (string)reader.Value!;
-       return SteamId2.Parse(str);
+        var str = (string)reader.Value!;
+        return SteamId2.Parse(str);
     }
 }
 

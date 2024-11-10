@@ -1,8 +1,8 @@
 ﻿using JetBrains.Annotations;
 using Microsoft.Extensions.Options;
-using SteamLib.Account;
 using SteamLib.Core.Enums;
 using SteamLib.Core.Interfaces;
+using SteamLib.Core.Models;
 using SteamLib.Exceptions;
 
 namespace SteamLib.Authentication;
