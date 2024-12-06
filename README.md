@@ -33,7 +33,7 @@
 
 ## Installation
 
-1. If the application does not start, you need to install [.net desktop runtime 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.1-windows-x64-installer)
+1. If the application does not start, you need to install [.NET Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 2. [Download the program from the releases of this repository on Github](https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/releases/latest)
      * *For the safety of your data, download the application only from here*
 4. Unpack the .zip file to any folder
