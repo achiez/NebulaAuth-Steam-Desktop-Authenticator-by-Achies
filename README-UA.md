@@ -7,7 +7,7 @@
 </h3>
 
 <h3 align="center">NebulaAuth - це програма для емуляції дій з мобільного додатку Steam. Яка замінює ваш смартфон під час роботи в Steam.</h3>
-
+<h4 align="center"><a href="https://t.me/nebulaauth">Офіційна група в Telegram</a></h4>
 
 ## Основні переваги
 
