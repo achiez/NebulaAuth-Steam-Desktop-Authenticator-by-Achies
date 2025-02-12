@@ -46,6 +46,8 @@ public static class ClientBuilder
     private static void ConfigureCommonClient(HttpClient client)
     {
         client.Timeout = TimeSpan.FromSeconds(50);
+        client.DefaultRequestHeaders.Referrer = new Uri("https://steamcommunity.com");
+        client.DefaultRequestHeaders.Add("Origin", "https://steamcommunity.com");
         client.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue("en-US"));
     }
 }
