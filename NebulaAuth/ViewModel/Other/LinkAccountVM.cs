@@ -79,7 +79,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
     #region HttpClient
 
     private static HttpClient Client { get; }
-    private static HttpClientHandler Handler { get; }
+    private static SocketsHttpHandler Handler { get; }
     private static DynamicProxy Proxy { get; }
     public ObservableDictionary<int, ProxyData> Proxies => ProxyStorage.Proxies;
 

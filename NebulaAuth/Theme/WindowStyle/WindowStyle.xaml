@@ -17,7 +17,9 @@
                     Margin="{x:Static local:WindowChromeHelper.LayoutOffsetThickness}"
                     BorderBrush="Transparent"
                     BorderThickness="1"
-                    Background="{DynamicResource WindowBackground}">
+                    Background="{DynamicResource BackgroundBrush}"
+                    >
+           
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -26,10 +28,11 @@
                     <Grid x:Name="TitleBar"
                         Grid.Row="0"
                         Height="28"
-                        Background="{DynamicResource WindowBackground}">
+                        Background="{DynamicResource Base100Brush}">
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Foreground="{DynamicResource PrimaryHueMidBrush}" 
+                                   Foreground="{DynamicResource PrimaryBrush}" 
                                    Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Title}" FontSize="17"/>
+                        
                         <!--  Window Buttons  -->
                         <StackPanel
                             HorizontalAlignment="Right"
@@ -42,16 +45,20 @@
                             </StackPanel.Resources>
                             <Button x:Name="MinimizeButton"
                                     Click="OnMinimizeClick"
+                                   
                             >
                                 <materialDesign:PackIcon Kind="WindowMinimize"/>
                             </Button>
                             <Button x:Name="MaximizeRestoreButton"
                                     Click="OnMaximizeRestoreClick"
+                                  
                                      >
                                 <materialDesign:PackIcon Kind="WindowMaximize"/>
                             </Button>
                             <Button x:Name="CloseButton"
-                                    Click="OnCloseClick">
+                                    Click="OnCloseClick"
+                                   
+                                    >
                                 <materialDesign:PackIcon Kind="WindowClose"/>
                             </Button>
                         </StackPanel>

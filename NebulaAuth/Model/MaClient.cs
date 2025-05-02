@@ -13,20 +13,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using SteamLib.Utility;
 
 namespace NebulaAuth.Model;
 
 
+
 public static class MaClient
 {
-    private static HttpClientHandler ClientHandler { get; }
+    private static SocketsHttpHandler ClientHandler { get; }
 
     private static HttpClient Client { get; }
 
     private static DynamicProxy Proxy { get; }
 
     public static ProxyData? DefaultProxy { get; set; }
-    public static HttpClientHandlerPair Chp => new(Client, ClientHandler);
+    public static SocketsClientHandlerPair Chp => new(Client, ClientHandler);
 
     static MaClient()
     {

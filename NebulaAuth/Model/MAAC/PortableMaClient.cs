@@ -17,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using AchiesUtilities.Web.Models;
+using SteamLib.Utility;
 
 namespace NebulaAuth.Model.MAAC;
 
@@ -24,7 +25,7 @@ public partial class PortableMaClient : ObservableObject, IDisposable
 {
     public Mafile Mafile { get; }
     private HttpClient Client { get; }
-    private HttpClientHandler ClientHandler { get; }
+    private SocketsHttpHandler ClientHandler { get; }
     private DynamicProxy Proxy { get; }
 
     [ObservableProperty] private bool _autoConfirmTrades;
@@ -169,7 +170,7 @@ public partial class PortableMaClient : ObservableObject, IDisposable
     }
 
 
-    private HttpClientHandlerPair Chp() => new(Client, ClientHandler);
+    private SocketsClientHandlerPair Chp() => new(Client, ClientHandler);
 
     private static string GetLocalization(string key)
     {

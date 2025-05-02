@@ -4,10 +4,12 @@ using NebulaAuth.Core;
 using NebulaAuth.Model;
 using SteamLib.SteamMobile;
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace NebulaAuth.ViewModel;
@@ -22,6 +24,7 @@ public partial class MainVM
     [MemberNotNull(nameof(_codeTimer))]
     private void CreateCodeTimer()
     {
+        CodeProgress = CalculateCodeProgress();
         _codeTimer = new Timer(UpdateCode, null, 0, 1000);
     }
 
@@ -31,23 +34,29 @@ public partial class MainVM
     {
         var currentTime = TimeAligner.GetSteamTime();
         var untilChange = currentTime % 30;
-        var codeProgress = untilChange / 30D * 100;
-
-        string? code = null;
-        if (untilChange == 0 && SelectedMafile != null)
-        {
-            code = SteamGuardCodeGenerator.GenerateCode(SelectedMafile!.SharedSecret);
-        }
-
+        if (untilChange != 0) return;
 
         if (Application.Current == null) return;
-        Application.Current.Dispatcher.BeginInvoke((string? c) =>
+        Application.Current.Dispatcher.BeginInvoke(() =>
         {
+            CodeProgress = -1;
+            CodeProgress = 30;
             if (Application.Current.MainWindow?.WindowState == WindowState.Minimized) return;
-            CodeProgress = codeProgress;
-            if (c != null) Code = c;
-        }, DispatcherPriority.DataBind, code);
+            if (SelectedMafile == null) return;
+            Code = SteamGuardCodeGenerator.GenerateCode(SelectedMafile.SharedSecret);
+        }, DispatcherPriority.DataBind);
     }
+
+
+    private long CalculateCodeProgress()
+    {
+        var currentTime = TimeAligner.GetSteamTime();
+        var untilChange = currentTime % 30;
+        return 30 - untilChange;
+    }
+
+
+
 
     [RelayCommand(AllowConcurrentExecutions = false)]
     private async Task CopyCode()

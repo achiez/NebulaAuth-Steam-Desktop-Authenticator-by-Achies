@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -58,9 +59,25 @@ public static class ThemeManager
     private static void UpdateBackground()
     {
         var color = Settings.Instance.BackgroundColor ?? DefaultBackgroundColor;
-        Application.Current.Resources["WindowBackground"] = new SolidColorBrush(color);
-
+        Application.Current.Resources["Background"] = color;
+        ApplyTheme();
     }
+
+    private static void ApplyTheme()
+    {
+        var keysToGenerate = Application.Current.Resources.Keys
+            .OfType<string>()
+            .Where(k => Application.Current.Resources[k] is System.Windows.Media.Color); 
+
+        foreach (var key in keysToGenerate)
+        {
+            string brushKey = key + "Brush"; // Генерируем имя для Brush
+            var color = (System.Windows.Media.Color)Application.Current.Resources[key];
+            Application.Current.Resources[brushKey] = new SolidColorBrush(color);
+        }
+    }
+
+
 
     public static void InitializeTheme()
     {

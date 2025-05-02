@@ -3,15 +3,16 @@ using System.Net.Http.Headers;
 using AchiesUtilities.Web.Models;
 using SteamLib.Authentication;
 using SteamLib.Core.Interfaces;
+using SteamLib.Utility;
 
 namespace SteamLib.Web;
 
 public static class ClientBuilder
 {
-    public static HttpClientHandlerPair BuildMobileClient(IWebProxy? proxy, IMobileSessionData? sessionData, bool disposeHandler = true)
+    public static SocketsClientHandlerPair BuildMobileClient(IWebProxy? proxy, IMobileSessionData? sessionData, bool disposeHandler = true)
     {
         sessionData?.EnsureValidated();
-        var handler = new HttpClientHandler();
+        var handler = new SocketsHttpHandler();
         var client = new HttpClient(handler, disposeHandler);
 
         client.DefaultRequestHeaders.Accept.ParseAdd("application/json, text/javascript, text/html, application/xml, text/xml, */*");
@@ -33,12 +34,12 @@ public static class ClientBuilder
         }
 
         ConfigureCommon(handler, client);
-        return new HttpClientHandlerPair(client, handler);
+        return new SocketsClientHandlerPair(client, handler);
 
     }
 
 
-    private static void ConfigureCommon(HttpClientHandler handler, HttpClient client)
+    private static void ConfigureCommon(SocketsHttpHandler handler, HttpClient client)
     {
         ConfigureCommonClient(client);
         handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;

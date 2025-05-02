@@ -14,6 +14,8 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace NebulaAuth.ViewModel;
 
@@ -50,6 +52,20 @@ public partial class MainVM : ObservableObject
                 GetLocalization("DuplicateMafilesFound") + " " + Storage.DuplicateFound,
                 TimeSpan.FromSeconds(4));
         }
+    }
+
+    [RelayCommand]
+    public void Debug()
+    {
+        var ph = new PaletteHelper();
+        var t = new MaterialDesignThemes.Wpf.Theme();
+        var cur = ph.GetTheme();
+        t.SetDarkTheme();
+        ph.SetTheme(t);
+
+
+
+        return;
     }
 
 
