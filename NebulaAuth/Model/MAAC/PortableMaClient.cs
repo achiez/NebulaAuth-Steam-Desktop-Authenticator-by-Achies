@@ -1,4 +1,12 @@
-﻿using AchiesUtilities.Web.Proxy;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using AchiesUtilities.Web.Proxy;
 using CommunityToolkit.Mvvm.ComponentModel;
 using NebulaAuth.Core;
 using NebulaAuth.Model.Entities;
@@ -8,32 +16,25 @@ using SteamLib.Authentication;
 using SteamLib.Core.Interfaces;
 using SteamLib.Exceptions;
 using SteamLib.SteamMobile.Confirmations;
-using SteamLib.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using AchiesUtilities.Web.Models;
 using SteamLib.Utility;
+using SteamLib.Web;
 
 namespace NebulaAuth.Model.MAAC;
 
 public partial class PortableMaClient : ObservableObject, IDisposable
 {
+    private const string LOC_PATH = "MAAC";
     public Mafile Mafile { get; }
     private HttpClient Client { get; }
     private SocketsHttpHandler ClientHandler { get; }
     private DynamicProxy Proxy { get; }
 
-    [ObservableProperty] private bool _autoConfirmTrades;
-    [ObservableProperty] private bool _autoConfirmMarket;
-    [ObservableProperty] private bool _isError;
-    private const string LOC_PATH = "MAAC";
-
     private readonly CancellationTokenSource _cts = new();
+    [ObservableProperty] private bool _autoConfirmMarket;
+
+    [ObservableProperty] private bool _autoConfirmTrades;
+    [ObservableProperty] private bool _isError;
+
     public PortableMaClient(Mafile mafile)
     {
         Mafile = mafile;
@@ -46,7 +47,7 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         Mafile.PropertyChanged += Mafile_PropertyChanged;
     }
 
-    private void Mafile_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    private void Mafile_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(Mafile.SessionData))
         {
@@ -85,12 +86,14 @@ public partial class PortableMaClient : ObservableObject, IDisposable
             Shell.Logger.Warn(ex, "Timer {accountName}: Error GetConf in timer.", Mafile.AccountName);
             return 0;
         }
+
         var toConfirm = new List<Confirmation>();
         if (AutoConfirmMarket)
         {
             var market = conf.Where(c => c.ConfType == ConfirmationType.MarketSellTransaction);
             toConfirm.AddRange(market);
         }
+
         if (AutoConfirmTrades)
         {
             var trade = conf.Where(c => c.ConfType == ConfirmationType.Trade);
@@ -100,7 +103,8 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         if (toConfirm.Count == 0) return 0;
         try
         {
-            Shell.Logger.Debug("Timer {accountName}: Sending confirmations. Count: {count}", Mafile.AccountName, toConfirm.Count);
+            Shell.Logger.Debug("Timer {accountName}: Sending confirmations. Count: {count}", Mafile.AccountName,
+                toConfirm.Count);
             var success = await HandleTimerRequest(() => SendConfirmations(toConfirm));
             Shell.Logger.Debug("Timer {accountName}: Confirmation sent: {confirmResult}", Mafile.AccountName, success);
             return toConfirm.Count;
@@ -115,12 +119,14 @@ public partial class PortableMaClient : ObservableObject, IDisposable
 
     private async Task<IEnumerable<Confirmation>> GetConfirmations()
     {
-        return await SteamMobileConfirmationsApi.GetConfirmations(Client, Mafile, Mafile.SessionData!.SteamId, _cts.Token);
+        return await SteamMobileConfirmationsApi.GetConfirmations(Client, Mafile, Mafile.SessionData!.SteamId,
+            _cts.Token);
     }
 
     private async Task<bool> SendConfirmations(IEnumerable<Confirmation> confirmations)
     {
-        return await SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, confirmations, Mafile.SessionData!.SteamId, Mafile, true, _cts.Token);
+        return await SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, confirmations,
+            Mafile.SessionData!.SteamId, Mafile, true, _cts.Token);
     }
 
     private async Task<T> HandleTimerRequest<T>(Func<Task<T>> func)
@@ -132,26 +138,30 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         }
         catch (OperationCanceledException ex)
         {
-            innerException = ex;  //Ignored
+            innerException = ex; //Ignored
         }
         catch (SessionInvalidException ex)
         {
             if (IgnoreTimerErrors())
             {
-                Shell.Logger.Warn("Timer {accountName}: Session error while requesting in timer. Ignored due to IgnorePatchTuesdayErrors setting", Mafile.AccountName);
+                Shell.Logger.Warn(
+                    "Timer {accountName}: Session error while requesting in timer. Ignored due to IgnorePatchTuesdayErrors setting",
+                    Mafile.AccountName);
             }
             else
             {
-                Shell.Logger.Warn("Timer {accountName}: Session error while requesting in timer. Timer disabled", Mafile.AccountName);
+                Shell.Logger.Warn("Timer {accountName}: Session error while requesting in timer. Timer disabled",
+                    Mafile.AccountName);
                 SetError();
             }
 
             innerException = ex;
         }
-        catch (Exception ex) when (ExceptionHandler.Handle(ex, prefix: GetTimerPrefix()))
+        catch (Exception ex) when (ExceptionHandler.Handle(ex, GetTimerPrefix()))
         {
             innerException = ex;
         }
+
         throw new ApplicationException("Swallowed", innerException);
     }
 
@@ -164,13 +174,16 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         var pstNow = TimeZoneInfo.ConvertTime(DateTime.UtcNow, pstZone);
 
         var startTime = pstNow.Date.AddHours(15).AddMinutes(55); // 15:55 PST //22:55 GMT //00:55 GMT+2
-        var endTime = pstNow.Date.AddHours(17).AddMinutes(15);   // 17:15 PST //00:15 GMT //02:15 GMT+2
+        var endTime = pstNow.Date.AddHours(17).AddMinutes(15); // 17:15 PST //00:15 GMT //02:15 GMT+2
 
         return pstNow.DayOfWeek == DayOfWeek.Tuesday && pstNow >= startTime && pstNow <= endTime;
     }
 
 
-    private SocketsClientHandlerPair Chp() => new(Client, ClientHandler);
+    private SocketsClientHandlerPair Chp()
+    {
+        return new SocketsClientHandlerPair(Client, ClientHandler);
+    }
 
     private static string GetLocalization(string key)
     {

@@ -1,10 +1,4 @@
-﻿using MaterialDesignThemes.Wpf;
-using NebulaAuth.Core;
-using NebulaAuth.Model;
-using NebulaAuth.View.Dialogs;
-using NebulaAuth.ViewModel;
-using NebulaAuth.ViewModel.Other;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -12,6 +6,12 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Windows.Threading;
+using MaterialDesignThemes.Wpf;
+using NebulaAuth.Core;
+using NebulaAuth.Model;
+using NebulaAuth.View.Dialogs;
+using NebulaAuth.ViewModel;
+using NebulaAuth.ViewModel.Other;
 
 namespace NebulaAuth;
 
@@ -37,7 +37,7 @@ public partial class MainWindow
     private async Task ShowSetPasswordDialog()
     {
         var vm = new SetEncryptPasswordVM();
-        var dialog = new SetCryptPasswordDialog()
+        var dialog = new SetCryptPasswordDialog
         {
             DataContext = vm
         };
@@ -49,12 +49,20 @@ public partial class MainWindow
         }
     }
 
+    private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+    {
+        Process.Start(new ProcessStartInfo(e.Uri.ToString())
+        {
+            UseShellExecute = true
+        });
+    }
+
 
     #region Dran'n'Drop
+
     private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
     {
         if (int.TryParse(e.Text, out _) == false) e.Handled = true;
-
     }
 
     private void Rectangle_DragEnter(object sender, DragEventArgs e)
@@ -72,12 +80,13 @@ public partial class MainWindow
     private async void Rectangle_Drop(object sender, DragEventArgs e)
     {
         if (e.Data.GetDataPresent(DataFormats.FileDrop) == false) return;
-        string[] filePaths = (string[])e.Data.GetData(DataFormats.FileDrop)!;
+        var filePaths = (string[]) e.Data.GetData(DataFormats.FileDrop)!;
         if (filePaths.Length == 0) return;
         if (DataContext is MainVM mainVm)
         {
             await mainVm.AddMafile(filePaths);
         }
+
         DragNDropPanel.Visibility = Visibility.Hidden;
         DragNDropOverlay.Visibility = Visibility.Hidden;
     }
@@ -98,15 +107,6 @@ public partial class MainWindow
     {
         DragNDropBorder.AllowDrop = true;
     }
+
     #endregion
-
-    private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
-    {
-        Process.Start(new ProcessStartInfo(e.Uri.ToString())
-        {
-            UseShellExecute = true
-        });
-    }
-
-
 }

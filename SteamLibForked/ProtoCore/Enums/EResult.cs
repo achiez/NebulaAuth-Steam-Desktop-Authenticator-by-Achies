@@ -134,5 +134,5 @@ public enum EResult
     InsufficientBattery = 124,
     ChargerRequired = 125,
     CachedCredentialInvalid = 126,
-    PhoneNumberIsVOIP = 127,
+    PhoneNumberIsVOIP = 127
 }

@@ -1,4 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
+
 namespace SteamLib.Core.Enums;
 
 public enum Currency
@@ -44,57 +45,59 @@ public enum Currency
     CRC = 40,
     UYU = 41
 }
+
 public static class CurrencyInfo
 {
+    public static IReadOnlyDictionary<Currency, string> CurrencySymbols { get; } = new Dictionary<Currency, string>
+    {
+        {Currency.USD, "$"},
+        {Currency.GBP, "£"},
+        {Currency.EUR, "€"},
+        {Currency.CHF, "CHF"},
+        {Currency.RUB, "pуб."},
+        {Currency.PLN, "zł"},
+        {Currency.BRL, "R$"},
+        {Currency.JPY, "¥"},
+        {Currency.NOK, "kr"},
+        {Currency.IDR, "Rp"},
+        {Currency.MYR, "RM"},
+        {Currency.PHP, "P"},
+        {Currency.SGD, "S$"},
+        {Currency.THB, "฿"},
+        {Currency.VND, "₫"},
+        {Currency.KRW, "₩"},
+        {Currency.TRY, "TL"},
+        {Currency.UAH, "₴"},
+        {Currency.MXN, "Mex$"},
+        {Currency.CAD, "CDN$"},
+        {Currency.AUD, "A$"},
+        {Currency.NZD, "NZ$"},
+        {Currency.CNY, "¥"},
+        {Currency.INR, "₹"},
+        {Currency.CLP, "CLP$"},
+        {Currency.PEN, "S/."},
+        {Currency.COP, "COL$"},
+        {Currency.ZAR, "R"},
+        {Currency.HKD, "HK$"},
+        {Currency.TWD, "NT$"},
+        {Currency.SAR, "SR"},
+        {Currency.AED, "AED"},
+        {Currency.ARS, "ARS$"},
+        {Currency.ILS, "₪"},
+        {Currency.KZT, "₸"},
+        {Currency.KWD, "KD"},
+        {Currency.QAR, "QR"},
+        {Currency.CRC, "₡"},
+        {Currency.UYU, "$U"}
+    };
+
     public static int ToInt(this Currency currency)
     {
-        return (int)currency;
+        return (int) currency;
     }
 
     public static string ToIntString(this Currency currency)
     {
         return currency.ToInt().ToString();
     }
-    public static IReadOnlyDictionary<Currency, string> CurrencySymbols { get; } = new Dictionary<Currency, string>
-    {
-        { Currency.USD, "$" },
-        { Currency.GBP, "£" },
-        { Currency.EUR, "€" },
-        { Currency.CHF, "CHF" },
-        { Currency.RUB, "pуб." },
-        { Currency.PLN, "zł" },
-        { Currency.BRL, "R$" },
-        { Currency.JPY, "¥" },
-        { Currency.NOK, "kr" },
-        { Currency.IDR, "Rp" },
-        { Currency.MYR, "RM" },
-        { Currency.PHP, "P" },
-        { Currency.SGD, "S$" },
-        { Currency.THB, "฿" },
-        { Currency.VND, "₫" },
-        { Currency.KRW, "₩" },
-        { Currency.TRY, "TL" },
-        { Currency.UAH, "₴" },
-        { Currency.MXN, "Mex$" },
-        { Currency.CAD, "CDN$" },
-        { Currency.AUD, "A$" },
-        { Currency.NZD, "NZ$" },
-        { Currency.CNY, "¥" },
-        { Currency.INR, "₹" },
-        { Currency.CLP, "CLP$" },
-        { Currency.PEN, "S/." },
-        { Currency.COP, "COL$" },
-        { Currency.ZAR, "R" },
-        { Currency.HKD, "HK$" },
-        { Currency.TWD, "NT$" },
-        { Currency.SAR, "SR" },
-        { Currency.AED, "AED" },
-        { Currency.ARS, "ARS$" },
-        { Currency.ILS, "₪" },
-        { Currency.KZT, "₸" },
-        { Currency.KWD, "KD" },
-        { Currency.QAR, "QR" },
-        { Currency.CRC, "₡" },
-        { Currency.UYU, "$U" },
-    };
 }

@@ -7,6 +7,7 @@ public readonly struct SteamId : IEquatable<SteamId> //TODO: validation in parse
     public SteamId64 Steam64 { get; }
     public SteamId2 Steam2 { get; }
     public SteamId3 Steam3 { get; }
+
     public SteamId(SteamId64 steam64, char type = 'U', short universe = 0)
     {
         Steam64 = steam64;
@@ -28,15 +29,49 @@ public readonly struct SteamId : IEquatable<SteamId> //TODO: validation in parse
         Steam2 = steam3.ToSteam2(universe);
     }
 
-    public static SteamId FromSteam64(long steam64, char type = 'U', short universe = 0) => new(new SteamId64(steam64), type, universe);
-    public override string ToString() => Steam64.ToString();
-    public static bool TryParse(string input, out SteamId result) => SteamIdParser.TryParse(input, out result);
+    public static SteamId FromSteam64(long steam64, char type = 'U', short universe = 0)
+    {
+        return new SteamId(new SteamId64(steam64), type, universe);
+    }
+
+    public override string ToString()
+    {
+        return Steam64.ToString();
+    }
+
+    public static bool TryParse(string input, out SteamId result)
+    {
+        return SteamIdParser.TryParse(input, out result);
+    }
 
     /// <exception cref="FormatException"></exception>
-    public static SteamId Parse(string input) => SteamIdParser.Parse(input);
-    public static bool operator ==(SteamId left, SteamId right) => left.Equals(right);
-    public static bool operator !=(SteamId left, SteamId right) => !left.Equals(right);
-    public bool Equals(SteamId other) => Steam64.Equals(other.Steam64);
-    public override bool Equals(object? obj) => obj is SteamId other && Equals(other);
-    public override int GetHashCode() => Steam64.GetHashCode();
+    public static SteamId Parse(string input)
+    {
+        return SteamIdParser.Parse(input);
+    }
+
+    public static bool operator ==(SteamId left, SteamId right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(SteamId left, SteamId right)
+    {
+        return !left.Equals(right);
+    }
+
+    public bool Equals(SteamId other)
+    {
+        return Steam64.Equals(other.Steam64);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is SteamId other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return Steam64.GetHashCode();
+    }
 }

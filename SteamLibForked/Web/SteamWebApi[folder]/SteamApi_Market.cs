@@ -8,12 +8,13 @@ namespace SteamLib.Web;
 public static class SteamWebApi
 {
     /// <summary>
-    /// Login is not required
+    ///     Login is not required
     /// </summary>
     /// <param name="client"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public static async Task<GlobalInfoModel> GetMarketGlobalInfo(HttpClient client, CancellationToken cancellationToken = default)
+    public static async Task<GlobalInfoModel> GetMarketGlobalInfo(HttpClient client,
+        CancellationToken cancellationToken = default)
     {
         var resp = await client.GetStringAsync(SteamConstants.STEAM_MARKET, cancellationToken);
         try

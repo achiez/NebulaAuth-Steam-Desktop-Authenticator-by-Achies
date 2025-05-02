@@ -1,12 +1,11 @@
-﻿using System;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NebulaAuth.ViewModel;
 
@@ -25,18 +24,19 @@ public partial class MainVM
                 OnProxyChanged();
             }
         }
-
     }
-    private MaProxy? _selectedProxy;
 
-    [ObservableProperty] private bool _proxyExist = true;
     public bool IsDefaultProxy => SelectedProxy == null && MaClient.DefaultProxy != null && SelectedMafile != null;
     private bool _handleProxyChange;
+
+    [ObservableProperty] private bool _proxyExist = true;
+    private MaProxy? _selectedProxy;
 
     //TODO: Refactor this method
     private void SetCurrentProxy()
     {
-        if (ReferenceEquals(_selectedProxy, SelectedMafile?.Proxy) == false && _selectedProxy?.Equals(SelectedMafile?.Proxy) == false)
+        if (ReferenceEquals(_selectedProxy, SelectedMafile?.Proxy) == false &&
+            _selectedProxy?.Equals(SelectedMafile?.Proxy) == false)
             _handleProxyChange = true;
 
         if (SelectedMafile == null)
@@ -45,6 +45,7 @@ public partial class MainVM
             ProxyExist = true;
             return;
         }
+
         if (SelectedMafile.Proxy == null)
         {
             SelectedProxy = SelectedMafile.Proxy;
@@ -65,7 +66,6 @@ public partial class MainVM
         }
 
         CheckProxyExist();
-
     }
 
     private void CheckProxyExist()
@@ -78,7 +78,8 @@ public partial class MainVM
 
         var selectedId = SelectedProxy.Id;
         ProxyExist = ProxyStorage.Proxies.TryGetValue(selectedId, out var existedProxy)
-                     && SelectedProxy.Data.Equals(existedProxy); //Id is not important in 'Equals()' as we extract it from the dictionary
+                     && SelectedProxy.Data
+                         .Equals(existedProxy); //Id is not important in 'Equals()' as we extract it from the dictionary
     }
 
     [RelayCommand]
@@ -91,6 +92,7 @@ public partial class MainVM
         {
             Proxies.Add(new MaProxy(kvp.Key, kvp.Value));
         }
+
         SelectedProxy = oldSelection;
         SetCurrentProxy();
         OnPropertyChanged(nameof(IsDefaultProxy));
@@ -121,5 +123,4 @@ public partial class MainVM
         SelectedMafile.Proxy = SelectedProxy;
         Storage.UpdateMafile(SelectedMafile);
     }
-  
 }

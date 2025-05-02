@@ -8,12 +8,14 @@ namespace NebulaAuth.Converters;
 public class AnyMafilesToVisibilityConverter : IValueConverter
 {
     private static bool _everAnyMafiles;
+
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (_everAnyMafiles)
         {
             return Visibility.Collapsed;
         }
+
         if (value is 0)
         {
             return Visibility.Visible;

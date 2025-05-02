@@ -6,7 +6,11 @@ namespace SteamLib.ProtoCore.Exceptions;
 public class EResultException : Exception
 {
     public EResult Result { get; }
-    public EResultException() { }
+
+    public EResultException()
+    {
+    }
+
     public EResultException(EResult result) : base("EResult error: " + result)
     {
         Result = result;

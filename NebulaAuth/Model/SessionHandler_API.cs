@@ -1,4 +1,4 @@
-﻿using AchiesUtilities.Web.Models;
+﻿using System.Threading.Tasks;
 using NebulaAuth.Model.Entities;
 using SteamLib.Account;
 using SteamLib.Api.Mobile;
@@ -6,7 +6,6 @@ using SteamLib.Authentication;
 using SteamLib.Authentication.LoginV2;
 using SteamLib.Exceptions;
 using SteamLib.SteamMobile;
-using System.Threading.Tasks;
 using SteamLib.Utility;
 
 namespace NebulaAuth.Model;
@@ -15,11 +14,13 @@ public partial class SessionHandler //API
 {
     public static async Task RefreshMobileToken(SocketsClientHandlerPair chp, Mafile mafile)
     {
-        if (mafile.SessionData is not { RefreshToken.IsExpired: false })
+        if (mafile.SessionData is not {RefreshToken.IsExpired: false})
             throw new SessionPermanentlyExpiredException(SessionInvalidException.SESSION_NULL_MSG);
 
-        var mobileToken = await SteamMobileApi.RefreshJwt(chp.Client, mafile.SessionData.RefreshToken.Token, mafile.SessionData.SteamId);
-        Shell.Logger.Info("MobileToken on {name} {steamid} successfully refreshed", mafile.AccountName, mafile.SessionData.SteamId);
+        var mobileToken = await SteamMobileApi.RefreshJwt(chp.Client, mafile.SessionData.RefreshToken.Token,
+            mafile.SessionData.SteamId);
+        Shell.Logger.Info("MobileToken on {name} {steamid} successfully refreshed", mafile.AccountName,
+            mafile.SessionData.SteamId);
 
         var newToken = SteamTokenHelper.Parse(mobileToken);
         mafile.SessionData.SetMobileToken(newToken);
@@ -39,7 +40,7 @@ public partial class SessionHandler //API
             Logger = Shell.ExtensionsLogger,
             SteamGuardProvider = sgGenerator,
             DeviceDetails = LoginV2ExecutorOptions.GetMobileDefaultDevice(),
-            WebsiteId = "Mobile",
+            WebsiteId = "Mobile"
         };
         chp.Handler.CookieContainer.ClearMobileSessionCookies();
         var result = await LoginV2Executor.DoLogin(options, mafile.AccountName, password);
@@ -48,7 +49,7 @@ public partial class SessionHandler //API
 
         //Triggers PropertyChanged event for PortableMaClient handling session updated from MaClient
         //RETHINK: it makes double operation when session handled from PortableMaClient (more often scenario) which is unwanted behaviour
-        mafile.SetSessionData((MobileSessionData)result);
+        mafile.SetSessionData((MobileSessionData) result);
         if (PHandler.IsPasswordSet)
             mafile.Password = savePassword ? PHandler.Encrypt(password) : null;
         Storage.UpdateMafile(mafile);

@@ -5,7 +5,7 @@ using NebulaAuth.Model.Comparers;
 namespace NebulaAuth.Model.Entities;
 
 public class MaProxy
-{ 
+{
     public int Id { get; }
     public ProxyData Data { get; }
 

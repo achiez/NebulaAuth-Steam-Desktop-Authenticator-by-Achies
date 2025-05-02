@@ -7,6 +7,5 @@ public enum SteamDomain
     Store = 2,
     Help = 3,
     TV = 4,
-    Checkout = 5,
+    Checkout = 5
 }
-

@@ -1,9 +1,8 @@
-﻿using AchiesUtilities.Extensions;
+﻿using System.Reflection;
+using AchiesUtilities.Extensions;
 using NebulaAuth.LegacyConverter;
 using Newtonsoft.Json;
 using SteamLib.Utility.MafileSerialization;
-
-
 
 try
 {
@@ -12,10 +11,10 @@ try
         DeserializationOptions =
         {
             AllowDeviceIdGeneration = true,
-            AllowSessionIdGeneration = true,
+            AllowSessionIdGeneration = true
         }
     });
-    var currentPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+    var currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
     if (currentPath != null)
         Environment.CurrentDirectory = currentPath;
     const string toStoreFolder = "ConvertedMafiles";
@@ -108,7 +107,6 @@ try
 
     foreach (var path in args)
     {
-
         if (Path.Exists(path) == false)
         {
             Console.WriteLine($"NOT VALID PATH: '{path}'");
@@ -147,15 +145,12 @@ try
         {
             Console.WriteLine("-----------------------------------------");
         }
-
-
     }
 
     //Local Functions
 
     void Write(string maf, string name)
     {
-
         var path = Path.Combine(toStoreFolder, name + "_legacy.mafile");
         File.WriteAllText(path, maf);
     }
@@ -172,8 +167,6 @@ try
         var iv = entry.EncryptionIv;
         var salt = entry.EncryptionSalt;
         return SDAEncryptor.DecryptData(password, salt, iv, cipherText);
-
-
     }
 }
 finally

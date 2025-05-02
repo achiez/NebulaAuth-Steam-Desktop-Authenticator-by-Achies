@@ -1,22 +1,22 @@
-﻿using AchiesUtilities.Extensions;
-using NebulaAuth.Core;
-using NebulaAuth.Model.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AchiesUtilities.Extensions;
+using NebulaAuth.Core;
+using NebulaAuth.Model.Entities;
 
 namespace NebulaAuth.Model.MAAC;
 
 public static class MultiAccountAutoConfirmer
 {
+    private const string LOC_PATH = "MAAC";
+    private static readonly ReaderWriterLockSlim Lock = new();
     public static ObservableCollection<Mafile> Clients { get; }
     private static Timer Timer { get; }
-    private static readonly ReaderWriterLockSlim Lock = new();
-    private const string LOC_PATH = "MAAC";
 
     static MultiAccountAutoConfirmer()
     {
@@ -29,7 +29,7 @@ public static class MultiAccountAutoConfirmer
     private static async void TimerConfirm(object? state)
     {
         var clients = Lock.ReadLock(() => Clients.ToArray());
-        var enabledClients = clients.Where(x => x.LinkedClient is { IsError: false }).ToArray();
+        var enabledClients = clients.Where(x => x.LinkedClient is {IsError: false}).ToArray();
         enabledClients = DistributeEvenly(enabledClients).ToArray();
         var confirmed = 0;
         await Task.Run(async () =>
@@ -78,23 +78,22 @@ public static class MultiAccountAutoConfirmer
                         added = true;
                     }
                 }
-            }
-            while (added);
+            } while (added);
 
             return result;
         }
     }
 
-    
+
     public static bool TryAddToConfirm(Mafile mafile)
     {
         return Lock.WriteLock(() =>
-         {
-             if (Clients.Contains(mafile)) return false;
-             Clients.Add(mafile);
-             mafile.LinkedClient = new PortableMaClient(mafile);
-             return true;
-         });
+        {
+            if (Clients.Contains(mafile)) return false;
+            Clients.Add(mafile);
+            mafile.LinkedClient = new PortableMaClient(mafile);
+            return true;
+        });
     }
 
 

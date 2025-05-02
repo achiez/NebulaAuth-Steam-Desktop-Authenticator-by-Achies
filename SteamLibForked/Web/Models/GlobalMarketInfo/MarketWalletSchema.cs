@@ -8,14 +8,11 @@ namespace SteamLib.Web.Models.GlobalMarketInfo;
 
 public class MarketWalletSchema
 {
-    [JsonProperty("wallet_currency")]
-    public Currency WalletCurrency { get; set; }
+    [JsonProperty("wallet_currency")] public Currency WalletCurrency { get; set; }
 
-    [JsonProperty("wallet_country")]
-    public string WalletCountry { get; set; }
+    [JsonProperty("wallet_country")] public string WalletCountry { get; set; }
 
-    [JsonProperty("wallet_state")]
-    public string WalletState { get; set; }
+    [JsonProperty("wallet_state")] public string WalletState { get; set; }
 
     [JsonProperty("wallet_fee")]
     [JsonConverter(typeof(IntToStringConverter))]
@@ -53,9 +50,7 @@ public class MarketWalletSchema
     [JsonConverter(typeof(LongToStringConverter))]
     public long WalletTradeMaxBalance { get; set; }
 
-    [JsonProperty("success")]
-    public int Success { get; set; }
+    [JsonProperty("success")] public int Success { get; set; }
 
-    [JsonProperty("rwgrsn")]
-    public int Rwgrsn { get; set; }
+    [JsonProperty("rwgrsn")] public int Rwgrsn { get; set; }
 }

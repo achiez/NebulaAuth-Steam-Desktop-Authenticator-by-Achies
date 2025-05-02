@@ -1,8 +1,8 @@
-﻿using NebulaAuth.Core;
-using NebulaAuth.Model;
-using System;
+﻿using System;
 using System.Collections.Specialized;
 using System.Windows;
+using NebulaAuth.Core;
+using NebulaAuth.Model;
 
 namespace NebulaAuth.Utility;
 
@@ -25,8 +25,8 @@ public class ClipboardHelper
                     Shell.Logger.Error(ex);
                     SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
                 }
-
             }
+
             i++;
         }
 
@@ -50,8 +50,8 @@ public class ClipboardHelper
                     Shell.Logger.Error(ex);
                     SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
                 }
-
             }
+
             i++;
         }
 

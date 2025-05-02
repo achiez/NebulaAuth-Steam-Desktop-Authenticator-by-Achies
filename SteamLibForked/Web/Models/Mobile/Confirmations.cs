@@ -6,22 +6,17 @@ namespace SteamLib.Web.Models.Mobile;
 
 public class ConfirmationsJson
 {
-    [JsonProperty("success")]
-    public bool Success { get; set; }
+    [JsonProperty("success")] public bool Success { get; set; }
 
-    [JsonProperty("needauth")]
-    public bool NeedAuth { get; set; }
+    [JsonProperty("needauth")] public bool NeedAuth { get; set; }
 
-    [JsonProperty("message")]
-    public string? Message { get; set; }
+    [JsonProperty("message")] public string? Message { get; set; }
 
 
-    [JsonProperty("detail")]
-    public string? Detail { get; set; }
+    [JsonProperty("detail")] public string? Detail { get; set; }
+
     [JsonProperty("conf")] public List<ConfirmationJson> Conf { get; set; } = new();
-
 }
-
 
 public class ConfirmationJson
 {

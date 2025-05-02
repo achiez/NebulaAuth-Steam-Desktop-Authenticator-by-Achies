@@ -9,10 +9,10 @@ public class LinkResult
 
     public LinkError? Error { get; }
     public int? Code { get; }
+
     public LinkResult()
     {
         Success = true;
-     
     }
 
     public LinkResult(LinkError error)
@@ -27,12 +27,11 @@ public class LinkResult
         Code = code;
         Error = LinkError.GeneralFailure;
     }
-
 }
 
 public enum LinkError
 {
     GeneralFailure,
     BadConfirmationCode,
-    UnableToGenerateCorrectCodes,
+    UnableToGenerateCorrectCodes
 }

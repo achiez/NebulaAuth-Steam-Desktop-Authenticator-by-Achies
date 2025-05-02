@@ -70,9 +70,12 @@
         "ua": "Завантаження..."
       },
       "StartTip": {
-        "ru": "Чтобы начать пользоваться программой вы можете привязать аккаунт через меню \"Аккаунт\", либо импортировать существующие мафайлы одним из способов:\n1. Скопировать их в папку mafiles и перезапустить приложение\n2. Перетянуть файлы прямо в окно программы\n3. Скопировать файлы и нажать CTRL+V в окне программы\n4. Через меню \"Файл\" - \"Импорт\"",
-        "en": "To start using the program, you can link an account through the \"Account\" menu, or import existing mafiles in one of the following ways:\n1. Copy them to the mafiles folder and restart the application\n2. Drag files directly into the program window\n3. Copy files and press CTRL+V in the program window\n4. Through the \"File\" - \"Import\" menu",
-        "ua": "Щоб почати користуватися програмою, ви можете прив'язати акаунт через меню \"Акаунт\", або імпортувати існуючі мафайли одним із способів:\n1. Скопіювати їх у папку mafiles та перезапустити програму\n2. Перетягнути файли безпосередньо в вікно програми\n3. Скопіювати файли та натиснути CTRL+V в вікні програми\n4. Через меню \"Файл\" - \"Імпорт\""
+        "ru":
+          "Чтобы начать пользоваться программой вы можете привязать аккаунт через меню \"Аккаунт\", либо импортировать существующие мафайлы одним из способов:\n1. Скопировать их в папку mafiles и перезапустить приложение\n2. Перетянуть файлы прямо в окно программы\n3. Скопировать файлы и нажать CTRL+V в окне программы\n4. Через меню \"Файл\" - \"Импорт\"",
+        "en":
+          "To start using the program, you can link an account through the \"Account\" menu, or import existing mafiles in one of the following ways:\n1. Copy them to the mafiles folder and restart the application\n2. Drag files directly into the program window\n3. Copy files and press CTRL+V in the program window\n4. Through the \"File\" - \"Import\" menu",
+        "ua":
+          "Щоб почати користуватися програмою, ви можете прив'язати акаунт через меню \"Акаунт\", або імпортувати існуючі мафайли одним із способів:\n1. Скопіювати їх у папку mafiles та перезапустити програму\n2. Перетягнути файли безпосередньо в вікно програми\n3. Скопіювати файли та натиснути CTRL+V в вікні програми\n4. Через меню \"Файл\" - \"Імпорт\""
       }
     },
     "Menu": {
@@ -385,9 +388,12 @@
       "ua": "Ігнорувати помилки Patch Tuesday у таймері (експ.)"
     },
     "IgnorePatchTuesdayErrorsHint": {
-      "en": "Ignore errors that occur every Tuesday (Wednesday night in GMT) when Steam doing technical works and auto-confirm timers turns off unnecessarily",
-      "ru": "Игнорировать ошибки, которые возникают каждый вторник (ночь среды по GMT) когда Steam проводит технические работы и автоподтверждения отключаются без надобности",
-      "ua": "Ігнорувати помилки, які виникають щосереди (ніч середи за GMT) коли Steam проводить технічні роботи і автопідтвердження вимикаються без потреби"
+      "en":
+        "Ignore errors that occur every Tuesday (Wednesday night in GMT) when Steam doing technical works and auto-confirm timers turns off unnecessarily",
+      "ru":
+        "Игнорировать ошибки, которые возникают каждый вторник (ночь среды по GMT) когда Steam проводит технические работы и автоподтверждения отключаются без надобности",
+      "ua":
+        "Ігнорувати помилки, які виникають щосереди (ніч середи за GMT) коли Steam проводить технічні роботи і автопідтвердження вимикаються без потреби"
     }
 
 
@@ -517,9 +523,12 @@
   },
   "SetEncryptedPasswordDialog": {
     "DialogText": {
-      "en": "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session. (Optional)",
-      "ru": "Ранее вы устанавливали пароль шифрования для паролей в мафайлах, укажите его, чтобы приложение могло автоматически авторизоваться в случае проблем с сессией. (Не обязательно)",
-      "ua": "Раніше ви встановлювали пароль шифрування для паролів в мафайлах, вкажіть його, щоб додаток міг автоматично авторизуватися у випадку проблем з сесією. (Не обов'язково)"
+      "en":
+        "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session. (Optional)",
+      "ru":
+        "Ранее вы устанавливали пароль шифрования для паролей в мафайлах, укажите его, чтобы приложение могло автоматически авторизоваться в случае проблем с сессией. (Не обязательно)",
+      "ua":
+        "Раніше ви встановлювали пароль шифрування для паролів в мафайлах, вкажіть його, щоб додаток міг автоматично авторизуватися у випадку проблем з сесією. (Не обов'язково)"
     },
     "Ok": {
       "en": "Ok",
@@ -625,9 +634,12 @@
         "ua": "помилки:"
       },
       "RemoveMafileConfirmation": {
-        "ru": "Удалить мафайл? Мафайл будет перемещен в папку 'mafiles_removed' (Это действие не удаляет Steam Guard с аккаунта)",
-        "en": "Remove mafile? Mafile will be moved to 'mafiles_removed' directory (This action does not remove the Steam Guard from the account)",
-        "ua": "Видалити мафайл? Мафайл буде переміщено у каталог 'mafiles_removed' (Ця дія не видаляє автентифікатор з облікового запису)"
+        "ru":
+          "Удалить мафайл? Мафайл будет перемещен в папку 'mafiles_removed' (Это действие не удаляет Steam Guard с аккаунта)",
+        "en":
+          "Remove mafile? Mafile will be moved to 'mafiles_removed' directory (This action does not remove the Steam Guard from the account)",
+        "ua":
+          "Видалити мафайл? Мафайл буде переміщено у каталог 'mafiles_removed' (Ця дія не видаляє автентифікатор з облікового запису)"
       },
       "CantRemoveAlreadyExist": {
         "ru": "Не удалось переместить мафайл, возможно в папке уже существует мафайл с таким именем.",
@@ -927,8 +939,10 @@
         },
         "InvalidStateWithStatus2": {
           "ru": "Неверное состояние (InvalidState) со статусом 2. Откройте ссылку на руководство сверху этого окна.",
-          "en": "Invalid state (InvalidState) with status 2. Open link to the troubleshooting guide at the top of this window.",
-          "ua": "Невірний стан (InvalidState) зі статусом 2. Відкрийте посилання на посібник з усунення несправностей у верхній частині цього вікна."
+          "en":
+            "Invalid state (InvalidState) with status 2. Open link to the troubleshooting guide at the top of this window.",
+          "ua":
+            "Невірний стан (InvalidState) зі статусом 2. Відкрийте посилання на посібник з усунення несправностей у верхній частині цього вікна."
         },
         "GeneralFailure": {
           "ru": "General Failure",
@@ -1102,8 +1116,11 @@
     }
   },
   "CantAlignTimeError": {
-    "ru": "Не удается синхронизировать время со Steam. Возможно отсутствует подключение к интернету или Steam недоступен. Подробная ошибка сохранена в log.log",
-    "en": "Can't align time with Steam. Maybe no internet connection or Steam is unavailable. Detailed error saved in log.log",
-    "ua": "Не вдається синхронізувати час з Steam. Можливо відсутнє підключення до інтернету або Steam недоступний. Детальна помилка збережена в log.log"
+    "ru":
+      "Не удается синхронизировать время со Steam. Возможно отсутствует подключение к интернету или Steam недоступен. Подробная ошибка сохранена в log.log",
+    "en":
+      "Can't align time with Steam. Maybe no internet connection or Steam is unavailable. Detailed error saved in log.log",
+    "ua":
+      "Не вдається синхронізувати час з Steam. Можливо відсутнє підключення до інтернету або Steam недоступний. Детальна помилка збережена в log.log"
   }
 }

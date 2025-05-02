@@ -6,16 +6,14 @@ using SteamLib.Core;
 
 namespace SteamLib.SteamMobile;
 
-
 //TODO: Refactor
 [PublicAPI]
 public static class TimeAligner
 {
+    private const string TIME_ALIGN_ENDPOINT = "ITwoFactorService/QueryTime/v0001";
     private static bool _aligned;
     private static int _timeDifference;
     public static UnixTimeStamp UtcNow => UnixTimeStamp.FromDateTime(DateTime.UtcNow);
-
-    private const string TIME_ALIGN_ENDPOINT = "ITwoFactorService/QueryTime/v0001";
 
 
     public static async ValueTask<long> GetSteamTimeAsync()
@@ -24,6 +22,7 @@ public static class TimeAligner
         {
             await AlignTimeAsync();
         }
+
         return UtcNow.ToLong() + _timeDifference;
     }
 
@@ -33,6 +32,7 @@ public static class TimeAligner
         {
             AlignTime();
         }
+
         return UtcNow.ToLong() + _timeDifference;
     }
 
@@ -51,7 +51,7 @@ public static class TimeAligner
             var j = JObject.Parse(respStr);
             var time = j["response"]!["server_time"]!.Value<long>();
             var now = UtcNow - sw.Elapsed;
-            _timeDifference = (int)(time - now.ToLong());
+            _timeDifference = (int) (time - now.ToLong());
             _aligned = true;
         }
         finally
@@ -73,9 +73,8 @@ public static class TimeAligner
             var j = JObject.Parse(respStr);
             var time = j["response"]!["server_time"]!.Value<long>();
             var now = UtcNow - sw.Elapsed;
-            _timeDifference = (int)(time - now.ToLong());
+            _timeDifference = (int) (time - now.ToLong());
             _aligned = true;
-           
         }
         finally
         {

@@ -1,4 +1,12 @@
-﻿using AchiesUtilities.Collections;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Windows;
+using AchiesUtilities.Collections;
 using AchiesUtilities.Web.Proxy;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -18,14 +26,7 @@ using SteamLib.Exceptions.Mobile;
 using SteamLib.ProtoCore.Exceptions;
 using SteamLib.SteamMobile.AuthenticatorLinker;
 using SteamLib.Web;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Windows;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace NebulaAuth.ViewModel.Other;
 
@@ -33,69 +34,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
 {
     private const string LOCALIZATION_KEY = "LinkVM";
     private static Logger Logger => Shell.Logger;
-    private static Microsoft.Extensions.Logging.ILogger Logger2 => Shell.ExtensionsLogger;
-    #region Properties
-
-
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsPasswordFieldVisible))]
-    private bool _isLogin;
-
-
-    [ObservableProperty] private bool _isEmailCode;
-    [ObservableProperty] private bool _isPhoneNumber;
-    [ObservableProperty] private bool _isEmailConfirmation;
-    [ObservableProperty] private bool _isLinkCode;
-    [ObservableProperty] private bool _isCompleted;
-
-    [ObservableProperty] private bool _isFieldVisible = true;
-
-
-
-    [ObservableProperty] private string _fieldText;
-    [ObservableProperty] private string _passFieldText;
-    [ObservableProperty] private string _hintText = GetLocalizationOrDefault("EnterLoginAndPassword");
-
-    private TaskCompletionSource<string> _emailCodeTcs = new();
-    private TaskCompletionSource<long?> _phoneNumberTcs = new();
-    private TaskCompletionSource _emailConfTcs = new();
-    private TaskCompletionSource<string> _linkCodeTcs = new();
-
-    private bool _isLinkStarted;
-    private string _rCode = string.Empty;
-    private string _password = string.Empty;
-
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(ProceedCommand))]
-    private bool _canProceed = true;
-    public bool IsPasswordFieldVisible => !IsLogin;
-
-    private LoginV2ExecutorOptions _loginV2ExecutorOptions;
-    private SteamAuthenticatorLinker _linker;
-    private MobileSessionData _sessionData;
-
-    #endregion
-
-    #region HttpClient
-
-    private static HttpClient Client { get; }
-    private static SocketsHttpHandler Handler { get; }
-    private static DynamicProxy Proxy { get; }
-    public ObservableDictionary<int, ProxyData> Proxies => ProxyStorage.Proxies;
-
-    public KeyValuePair<int, ProxyData>? SelectedProxy
-    {
-        get => _selectedProxy;
-        set
-        {
-            SetProperty(ref _selectedProxy, value);
-            SetProxy();
-        }
-    }
-    private KeyValuePair<int, ProxyData>? _selectedProxy;
-
-
-    #endregion
+    private static ILogger Logger2 => Shell.ExtensionsLogger;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public LinkAccountVM()
@@ -142,7 +81,8 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
                 FieldText = string.Empty;
                 IsFieldVisible = false;
                 HintText = string.Empty;
-                _sessionData = (MobileSessionData)await LoginV2Executor.DoLogin(_loginV2ExecutorOptions, userName, pass);
+                _sessionData =
+                    (MobileSessionData) await LoginV2Executor.DoLogin(_loginV2ExecutorOptions, userName, pass);
                 Handler.CookieContainer.SetSteamMobileCookiesWithMobileToken(_sessionData);
                 IsEmailCode = true;
             }
@@ -167,7 +107,6 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
                 InvokeOnDispatcher(ResetState);
                 return;
             }
-
         }
 
         if (IsEmailCode == false)
@@ -189,7 +128,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
         {
             _isLinkStarted = true;
             var linkOptions = new LinkOptions(Client, LoginV2Executor.NullConsumer, this,
-                null, this, this, backupHandler: Backup, Logger2);
+                null, this, this, Backup, Logger2);
             _linker = new SteamAuthenticatorLinker(linkOptions);
             var result = await _linker.LinkAccount(_sessionData);
             IsLinkCode = true;
@@ -224,7 +163,6 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
             HintText = $"{GetLocalizationCommon("Error")}: {ErrorTranslatorHelper.TranslateLinkerError(ex.Error)}";
             InvokeOnDispatcher(ResetState);
             return;
-
         }
         catch (HttpRequestException ex)
         {
@@ -249,7 +187,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
         }
 
 
-    linkStarted:
+        linkStarted:
         if (IsPhoneNumber == false)
         {
             var phoneText = FieldText;
@@ -260,31 +198,30 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
                 HintText = string.Empty;
                 IsFieldVisible = false;
                 _phoneNumberTcs.SetResult(null);
-                _phoneNumberTcs = new();
+                _phoneNumberTcs = new TaskCompletionSource<long?>();
                 return;
             }
 
-            if (!string.IsNullOrWhiteSpace(phoneText) && phoneText.Length >= 4 && long.TryParse(phoneText, out var phone))
+            if (!string.IsNullOrWhiteSpace(phoneText) && phoneText.Length >= 4 &&
+                long.TryParse(phoneText, out var phone))
             {
                 HintText = string.Empty;
                 IsFieldVisible = false;
                 _phoneNumberTcs.SetResult(phone);
-                _phoneNumberTcs = new();
+                _phoneNumberTcs = new TaskCompletionSource<long?>();
                 return;
             }
-            else
-            {
-                HintText = GetLocalizationOrDefault("PleaseEnterCorrectPhone");
-                CanProceed = true;
-                return;
-            }
+
+            HintText = GetLocalizationOrDefault("PleaseEnterCorrectPhone");
+            CanProceed = true;
+            return;
         }
 
         if (IsEmailConfirmation == false)
         {
             HintText = string.Empty;
             _emailConfTcs.SetResult();
-            _emailConfTcs = new();
+            _emailConfTcs = new TaskCompletionSource();
             CanProceed = false;
             return;
         }
@@ -298,17 +235,14 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
                 HintText = string.Empty;
                 IsFieldVisible = false;
                 _linkCodeTcs.SetResult(linkCode);
-                _linkCodeTcs = new();
-                return;
+                _linkCodeTcs = new TaskCompletionSource<string>();
             }
             else
             {
                 HintText = GetLocalizationOrDefault("PleaseEnterCorrectCode");
                 CanProceed = true;
-                return;
             }
         }
-
     }
 
     [RelayCommand]
@@ -344,13 +278,113 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
         {
             Directory.CreateDirectory("mafiles_backup");
         }
+
         var json = NebulaSerializer.SerializeMafile(data, null);
-        File.WriteAllText(Path.Combine("mafiles_backup", data.AccountName + ".mafile"), json); //TODO: Move logic to Storage
+        File.WriteAllText(Path.Combine("mafiles_backup", data.AccountName + ".mafile"),
+            json); //TODO: Move logic to Storage
     }
+
+    [RelayCommand]
+    private void OpenTroubleshooting()
+    {
+        const string troubleshootingURI =
+            "https://achiez.github.io/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/docs/{0}/LinkingTroubleshooting";
+
+        var localized = string.Format(troubleshootingURI, LocManager.GetCurrentLanguageCode());
+        Process.Start(new ProcessStartInfo(new Uri(localized).ToString())
+        {
+            UseShellExecute = true
+        });
+    }
+
+    [RelayCommand]
+    private void CopyCode()
+    {
+        try
+        {
+            Clipboard.SetText(_rCode);
+        }
+        catch (Exception ex)
+        {
+            Shell.Logger.Error(ex, "Error whily copying RCode");
+        }
+    }
+
+
+    private static string GetLocalizationOrDefault(string key)
+    {
+        return LocManager.GetCodeBehindOrDefault(key, LOCALIZATION_KEY, key);
+    }
+
+    private static string GetLocalizationCommon(string key)
+    {
+        return LocManager.GetCommonOrDefault(key, key);
+    }
+
+    #region Properties
+
+    [ObservableProperty] [NotifyPropertyChangedFor(nameof(IsPasswordFieldVisible))]
+    private bool _isLogin;
+
+
+    [ObservableProperty] private bool _isEmailCode;
+    [ObservableProperty] private bool _isPhoneNumber;
+    [ObservableProperty] private bool _isEmailConfirmation;
+    [ObservableProperty] private bool _isLinkCode;
+    [ObservableProperty] private bool _isCompleted;
+
+    [ObservableProperty] private bool _isFieldVisible = true;
+
+
+    [ObservableProperty] private string _fieldText;
+    [ObservableProperty] private string _passFieldText;
+    [ObservableProperty] private string _hintText = GetLocalizationOrDefault("EnterLoginAndPassword");
+
+    private TaskCompletionSource<string> _emailCodeTcs = new();
+    private TaskCompletionSource<long?> _phoneNumberTcs = new();
+    private TaskCompletionSource _emailConfTcs = new();
+    private TaskCompletionSource<string> _linkCodeTcs = new();
+
+    private bool _isLinkStarted;
+    private string _rCode = string.Empty;
+    private string _password = string.Empty;
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ProceedCommand))]
+    private bool _canProceed = true;
+
+    public bool IsPasswordFieldVisible => !IsLogin;
+
+    private LoginV2ExecutorOptions _loginV2ExecutorOptions;
+    private SteamAuthenticatorLinker _linker;
+    private MobileSessionData _sessionData;
+
+    #endregion
+
+    #region HttpClient
+
+    private static HttpClient Client { get; }
+    private static SocketsHttpHandler Handler { get; }
+    private static DynamicProxy Proxy { get; }
+    public ObservableDictionary<int, ProxyData> Proxies => ProxyStorage.Proxies;
+
+    public KeyValuePair<int, ProxyData>? SelectedProxy
+    {
+        get => _selectedProxy;
+        set
+        {
+            SetProperty(ref _selectedProxy, value);
+            SetProxy();
+        }
+    }
+
+    private KeyValuePair<int, ProxyData>? _selectedProxy;
+
+    #endregion
 
     #region Providers
 
     public int MaxRetryCount { get; }
+
     public Task<string> GetEmailAuthCode(ILoginConsumer caller)
     {
         CanProceed = true;
@@ -384,6 +418,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
         IsFieldVisible = true;
         return _phoneNumberTcs.Task;
     }
+
     public async Task<int> GetSmsCode(ILoginConsumer caller, long? phoneNumber, string? hint)
     {
         IsPhoneNumber = true;
@@ -402,7 +437,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
 
     static LinkAccountVM()
     {
-        Proxy = new DynamicProxy(null);
+        Proxy = new DynamicProxy();
         var clientPair = ClientBuilder.BuildMobileClient(Proxy, null);
         Client = clientPair.Client;
         Handler = clientPair.Handler;
@@ -419,44 +454,4 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
     }
 
     #endregion
-
-    [RelayCommand]
-    private void OpenTroubleshooting()
-    {
-        const string troubleshootingURI =
-            "https://achiez.github.io/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/docs/{0}/LinkingTroubleshooting";
-
-        var localized = string.Format(troubleshootingURI, LocManager.GetCurrentLanguageCode());
-        Process.Start(new ProcessStartInfo(new Uri(localized).ToString())
-        {
-            UseShellExecute = true
-        });
-    }
-
-    [RelayCommand]
-    private void CopyCode()
-    {
-        try
-        {
-            Clipboard.SetText(_rCode);
-        }
-        catch (Exception ex)
-        {
-            Shell.Logger.Error(ex, "Error whily copying RCode");
-            return;
-        }
-    }
-
-
-    private static string GetLocalizationOrDefault(string key)
-    {
-        return LocManager.GetCodeBehindOrDefault(key, LOCALIZATION_KEY, key);
-    }
-
-    private static string GetLocalizationCommon(string key)
-    {
-        return LocManager.GetCommonOrDefault(key, key);
-    }
-
-
 }

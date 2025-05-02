@@ -12,25 +12,25 @@
                    xmlns:controls="clr-namespace:NebulaAuth.Theme.Controls"
                    WindowStartupLocation="CenterScreen"
                    MinHeight="500" MinWidth="500" DefaultFontSize="18" ScaleCoefficient="0.4"
-                   Title="NebulaAuth" Height="800" Width="730" 
-                   
+                   Title="NebulaAuth" Height="800" Width="730"
+
                    Style="{StaticResource MainWindow}"
                    RenderOptions.BitmapScalingMode="HighQuality" Foreground="#FFF5F5F5"
                    FontFamily="{md:MaterialDesignFont}"
                    TextElement.Foreground="{DynamicResource BaseContentBrush}"
-                   mc:Ignorable="d" 
-                   d:DataContext="{d:DesignInstance viewModel:MainVM}"
-                   >
+                   mc:Ignorable="d"
+                   d:DataContext="{d:DesignInstance viewModel:MainVM}">
     <b:Interaction.Behaviors>
         <windowStyle:WindowChromeRenderedBehavior />
     </b:Interaction.Behaviors>
 
     <Window.InputBindings>
-        <KeyBinding Command="{Binding Path=PasteMafilesFromClipboardCommand}" 
-                    Key="V" 
-                    Modifiers="Control"/>
+        <KeyBinding Command="{Binding Path=PasteMafilesFromClipboardCommand}"
+                    Key="V"
+                    Modifiers="Control" />
     </Window.InputBindings>
-    <Border Name="DragNDropBorder" Panel.ZIndex="3" Opacity="1" AllowDrop="True" DragDrop.DragEnter="Rectangle_DragEnter" DragLeave="Rectangle_DragLeave" Drop="Rectangle_Drop">
+    <Border Name="DragNDropBorder" Panel.ZIndex="3" Opacity="1" AllowDrop="True"
+            DragDrop.DragEnter="Rectangle_DragEnter" DragLeave="Rectangle_DragLeave" Drop="Rectangle_Drop">
         <md:DialogHost DialogOpened="DialogHost_DialogOpened" DialogClosed="DialogHost_DialogClosed">
             <Grid ZIndex="0">
                 <Grid.RowDefinitions>
@@ -38,40 +38,61 @@
                     <RowDefinition />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Image Grid.RowSpan="2" Opacity="0.6" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="LowQuality" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Settings.BackgroundMode, Converter={StaticResource BackgroundImageVisibleConverter}}" Source="{Binding Settings.BackgroundMode, Mode=OneWay, Converter={StaticResource BackgroundSourceConverter}}" />
+                <Image Grid.RowSpan="2" Opacity="0.6" Stretch="UniformToFill"
+                       RenderOptions.BitmapScalingMode="LowQuality" HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Visibility="{Binding Settings.BackgroundMode, Converter={StaticResource BackgroundImageVisibleConverter}}"
+                       Source="{Binding Settings.BackgroundMode, Mode=OneWay, Converter={StaticResource BackgroundSourceConverter}}" />
                 <!--<Rectangle Grid.Row="0" Grid.RowSpan="2" Opacity="0.5" Fill="#FF1F1D1D" Visibility="{Binding Settings.BackgroundMode, Converter={StaticResource BackgroundImageVisibleConverter}}" />-->
-                <Rectangle Name="DragNDropOverlay" Grid.Row="0" Grid.RowSpan="3" Panel.ZIndex="1" Fill="#242123" Opacity="0.9" Visibility="Hidden" />
-                <StackPanel Name="DragNDropPanel" Grid.Row="0" ZIndex="2" w:FontScaleWindow.Scale="1" w:FontScaleWindow.ResizeFont="True" Grid.RowSpan="3" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock FontWeight="Bold" Foreground="#9a65b8" Text="{Tr MainWindow.Global.DragNDropHint}"/>
-                    <md:PackIcon Foreground="#9a65b8" HorizontalAlignment="Center" Width="36" Height="36" Kind="FileReplaceOutline" />
+                <Rectangle Name="DragNDropOverlay" Grid.Row="0" Grid.RowSpan="3" Panel.ZIndex="1" Fill="#242123"
+                           Opacity="0.9" Visibility="Hidden" />
+                <StackPanel Name="DragNDropPanel" Grid.Row="0" ZIndex="2" w:FontScaleWindow.Scale="1"
+                            w:FontScaleWindow.ResizeFont="True" Grid.RowSpan="3" Visibility="Hidden"
+                            VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock FontWeight="Bold" Foreground="#9a65b8" Text="{Tr MainWindow.Global.DragNDropHint}" />
+                    <md:PackIcon Foreground="#9a65b8" HorizontalAlignment="Center" Width="36" Height="36"
+                                 Kind="FileReplaceOutline" />
                 </StackPanel>
-                <ToolBarTray IsLocked="True" Grid.Row="0" >
+                <ToolBarTray IsLocked="True" Grid.Row="0">
                     <ToolBarTray.Background>
                         <!--<SolidColorBrush Opacity="0.6" Color="{DynamicResource Base300Color}" />-->
                         <SolidColorBrush Opacity="1" Color="{DynamicResource Base300Color}" />
                     </ToolBarTray.Background>
-                    <ToolBar  ClipToBounds="False" Style="{StaticResource MaterialDesignToolBar}" w:FontScaleWindow.Scale="0.68" w:FontScaleWindow.ResizeFont="True">
+                    <ToolBar ClipToBounds="False" Style="{StaticResource MaterialDesignToolBar}"
+                             w:FontScaleWindow.Scale="0.68" w:FontScaleWindow.ResizeFont="True">
                         <Menu w:FontScaleWindow.Scale="0.68" w:FontScaleWindow.ResizeFont="True">
                             <MenuItem Header="{Tr MainWindow.Menu.File.Caption}">
-                                <MenuItem Header="{Tr MainWindow.Menu.File.Import}" Command="{Binding AddMafileCommand}" />
-                                <MenuItem IsEnabled="{Binding IsMafileSelected}" Header="{Tr MainWindow.Menu.File.Remove}" Command="{Binding RemoveMafileCommand}" />
-                                <MenuItem Header="{Tr MainWindow.Menu.File.OpenFolder}" Command="{Binding OpenMafileFolderCommand}" />
+                                <MenuItem Header="{Tr MainWindow.Menu.File.Import}"
+                                          Command="{Binding AddMafileCommand}" />
+                                <MenuItem IsEnabled="{Binding IsMafileSelected}"
+                                          Header="{Tr MainWindow.Menu.File.Remove}"
+                                          Command="{Binding RemoveMafileCommand}" />
+                                <MenuItem Header="{Tr MainWindow.Menu.File.OpenFolder}"
+                                          Command="{Binding OpenMafileFolderCommand}" />
                                 <MenuItem IsEnabled="False" Header="⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯" Height="15" />
-                                <MenuItem Header="{Tr MainWindow.Menu.File.Settings}" Command="{Binding OpenSettingsDialogCommand}" />
+                                <MenuItem Header="{Tr MainWindow.Menu.File.Settings}"
+                                          Command="{Binding OpenSettingsDialogCommand}" />
                             </MenuItem>
                         </Menu>
                         <Menu w:FontScaleWindow.Scale="0.68" w:FontScaleWindow.ResizeFont="True">
                             <MenuItem Header="{Tr MainWindow.Menu.Account.Caption}">
-                                <MenuItem Header="{Tr MainWindow.Menu.Account.Link}" Command="{Binding LinkAccountCommand}" />
-                                <MenuItem Header="{Tr MainWindow.Menu.Account.Unlink}" Command="{Binding RemoveAuthenticatorCommand}"/>
+                                <MenuItem Header="{Tr MainWindow.Menu.Account.Link}"
+                                          Command="{Binding LinkAccountCommand}" />
+                                <MenuItem Header="{Tr MainWindow.Menu.Account.Unlink}"
+                                          Command="{Binding RemoveAuthenticatorCommand}" />
                                 <MenuItem IsEnabled="False" Header="⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯" Height="15" />
-                                <MenuItem IsEnabled="{Binding IsMafileSelected}" Header="{Tr MainWindow.Menu.Account.RefreshSession}" Command="{Binding RefreshSessionCommand}" />
-                                <MenuItem IsEnabled="{Binding IsMafileSelected}" Header="{Tr MainWindow.Menu.Account.LoginAgain}" Command="{Binding LoginAgainCommand}" />
+                                <MenuItem IsEnabled="{Binding IsMafileSelected}"
+                                          Header="{Tr MainWindow.Menu.Account.RefreshSession}"
+                                          Command="{Binding RefreshSessionCommand}" />
+                                <MenuItem IsEnabled="{Binding IsMafileSelected}"
+                                          Header="{Tr MainWindow.Menu.Account.LoginAgain}"
+                                          Command="{Binding LoginAgainCommand}" />
                             </MenuItem>
                         </Menu>
                         <Separator />
-                        <ComboBox ToolTip="{Tr MainWindow.AppBar.GroupToolTip}" md:HintAssist.Hint="{Tr MainWindow.AppBar.GroupsHint}" 
-                                  MinWidth="100" Margin="8,0,8,0" VerticalAlignment="Center"  IsEditable="True"
+                        <ComboBox ToolTip="{Tr MainWindow.AppBar.GroupToolTip}"
+                                  md:HintAssist.Hint="{Tr MainWindow.AppBar.GroupsHint}"
+                                  MinWidth="100" Margin="8,0,8,0" VerticalAlignment="Center" IsEditable="True"
                                   ItemsSource="{Binding Groups}"
                                   SelectedValue="{Binding SelectedGroup}">
 
@@ -84,37 +105,43 @@
                                 </ResourceDictionary>
                             </FrameworkElement.Resources>
                             <UIElement.InputBindings>
-                                <KeyBinding Key="Enter" Command="{Binding AddGroupCommand}" CommandParameter="{Binding Path=Text, RelativeSource={RelativeSource AncestorType=ComboBox}}" />
+                                <KeyBinding Key="Enter" Command="{Binding AddGroupCommand}"
+                                            CommandParameter="{Binding Path=Text, RelativeSource={RelativeSource AncestorType=ComboBox}}" />
                             </UIElement.InputBindings>
                         </ComboBox>
                         <ComboBox ToolTip="{Tr MainWindow.AppBar.Proxy.ProxyManipulateToolTip}"
-                                 
+
                                   MinWidth="80"
-                                  Margin="8,0,8,0" 
+                                  Margin="8,0,8,0"
                                   VerticalAlignment="Center"
                                   md:HintAssist.Hint="{Tr MainWindow.AppBar.Proxy.ProxyHint}"
-                                  md:ComboBoxAssist.ShowSelectedItem="False" 
+                                  md:ComboBoxAssist.ShowSelectedItem="False"
                                   SelectedItem="{Binding SelectedProxy}"
                                   ItemsSource="{Binding Proxies}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type entities:MaProxy}">
-                                    <TextBlock Text="{Binding Converter={StaticResource ProxyTextConverter}, Mode=OneWay}" />
+                                    <TextBlock
+                                        Text="{Binding Converter={StaticResource ProxyTextConverter}, Mode=OneWay}" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                             <FrameworkElement.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="{Tr MainWindow.AppBar.Proxy.ProxyOpenManagerHint}" Command="{Binding OpenProxyManagerCommand}" />
+                                    <MenuItem Header="{Tr MainWindow.AppBar.Proxy.ProxyOpenManagerHint}"
+                                              Command="{Binding OpenProxyManagerCommand}" />
                                 </ContextMenu>
                             </FrameworkElement.ContextMenu>
                             <UIElement.InputBindings>
                                 <KeyBinding Key="Delete" Command="{Binding RemoveProxyCommand}" />
                             </UIElement.InputBindings>
                         </ComboBox>
-                        <md:PackIcon  Kind="StopAlert" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFF0000" Margin="3"  ToolTipService.InitialShowDelay="300">
+                        <md:PackIcon Kind="StopAlert" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                     Foreground="#FFFF0000" Margin="3" ToolTipService.InitialShowDelay="300">
                             <md:PackIcon.ToolTip>
                                 <TextBlock>
-                                    <Run Text="{Tr MainWindow.AppBar.Proxy.ProxyAlert.MafileProxyInUse, IsDynamic=False}"/>
-                                    <Run Text="&#10;"/><Run Text="{Binding SelectedMafile.Proxy.Data, FallbackValue='', Mode=OneWay}"/>
+                                    <Run
+                                        Text="{Tr MainWindow.AppBar.Proxy.ProxyAlert.MafileProxyInUse, IsDynamic=False}" />
+                                    <Run Text="&#10;" />
+                                    <Run Text="{Binding SelectedMafile.Proxy.Data, FallbackValue='', Mode=OneWay}" />
                                 </TextBlock>
                             </md:PackIcon.ToolTip>
                             <UIElement.Visibility>
@@ -128,27 +155,51 @@
                                 </Binding>
                             </UIElement.Visibility>
                         </md:PackIcon>
-                        <md:PackIcon Kind="StopAlert" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFA500" Margin="3" ToolTip="{Tr MainWindow.AppBar.Proxy.ProxyAlert.DefaultInUse}" ToolTipService.InitialShowDelay="300" Visibility="{Binding IsDefaultProxy, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        <ToggleButton ToolTip="{Tr MainWindow.AppBar.MarketTimerHint}" IsEnabled="{Binding IsMafileSelected}" Margin="2" Style="{StaticResource MaterialDesignFlatToggleButton}" IsChecked="{Binding MarketTimerEnabled}" >
-                            <md:PackIcon Kind="ShoppingCart"/>
+                        <md:PackIcon Kind="StopAlert" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                     Foreground="#FFFFA500" Margin="3"
+                                     ToolTip="{Tr MainWindow.AppBar.Proxy.ProxyAlert.DefaultInUse}"
+                                     ToolTipService.InitialShowDelay="300"
+                                     Visibility="{Binding IsDefaultProxy, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <ToggleButton ToolTip="{Tr MainWindow.AppBar.MarketTimerHint}"
+                                      IsEnabled="{Binding IsMafileSelected}" Margin="2"
+                                      Style="{StaticResource MaterialDesignFlatToggleButton}"
+                                      IsChecked="{Binding MarketTimerEnabled}">
+                            <md:PackIcon Kind="ShoppingCart" />
                             <FrameworkElement.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="{Tr MainWindow.AppBar.TimersContextMenu.SwitchMAACGroup}" Command="{Binding Path=SwitchMAACOnGroupCommand}" CommandParameter="{StaticResource True}"/>
-                                    <MenuItem Header="{Tr MainWindow.AppBar.TimersContextMenu.SwitchMAACAll}" Command="{Binding Path=SwitchMAACOnAllCommand}" CommandParameter="{StaticResource True}"/>
+                                    <MenuItem Header="{Tr MainWindow.AppBar.TimersContextMenu.SwitchMAACGroup}"
+                                              Command="{Binding Path=SwitchMAACOnGroupCommand}"
+                                              CommandParameter="{StaticResource True}" />
+                                    <MenuItem Header="{Tr MainWindow.AppBar.TimersContextMenu.SwitchMAACAll}"
+                                              Command="{Binding Path=SwitchMAACOnAllCommand}"
+                                              CommandParameter="{StaticResource True}" />
                                 </ContextMenu>
                             </FrameworkElement.ContextMenu>
                         </ToggleButton>
-                        <ToggleButton ToolTip="{Tr MainWindow.AppBar.TradeTimerHint}" IsEnabled="{Binding IsMafileSelected}" Margin="2" Style="{StaticResource MaterialDesignFlatToggleButton}" IsChecked="{Binding TradeTimerEnabled}" >
+                        <ToggleButton ToolTip="{Tr MainWindow.AppBar.TradeTimerHint}"
+                                      IsEnabled="{Binding IsMafileSelected}" Margin="2"
+                                      Style="{StaticResource MaterialDesignFlatToggleButton}"
+                                      IsChecked="{Binding TradeTimerEnabled}">
                             <md:PackIcon Kind="AccountArrowRight" />
                             <FrameworkElement.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="{Tr MainWindow.AppBar.TimersContextMenu.SwitchMAACGroup}" Command="{Binding Path=SwitchMAACOnGroupCommand}" CommandParameter="{StaticResource False}"/>
-                                    <MenuItem Header="{Tr MainWindow.AppBar.TimersContextMenu.SwitchMAACAll}" Command="{Binding Path=SwitchMAACOnAllCommand}" CommandParameter="{StaticResource False}"/>
+                                    <MenuItem Header="{Tr MainWindow.AppBar.TimersContextMenu.SwitchMAACGroup}"
+                                              Command="{Binding Path=SwitchMAACOnGroupCommand}"
+                                              CommandParameter="{StaticResource False}" />
+                                    <MenuItem Header="{Tr MainWindow.AppBar.TimersContextMenu.SwitchMAACAll}"
+                                              Command="{Binding Path=SwitchMAACOnAllCommand}"
+                                              CommandParameter="{StaticResource False}" />
                                 </ContextMenu>
                             </FrameworkElement.ContextMenu>
                         </ToggleButton>
-                        <TextBox md:HintAssist.Hint="{Tr Common.Abbreviations.Time.Seconds}" Margin="10,0,0,0" MinWidth="30" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimerCheckSeconds, UpdateSourceTrigger=PropertyChanged, Delay=700}" PreviewTextInput="UIElement_OnPreviewTextInput" />
-                        <ToggleButton ToolTip="{Tr MainWindow.AppBar.ShowAutoConfirmAccountsHint}"  HorizontalAlignment="Right" IsChecked="{Binding MaacDisplay}"  Foreground="WhiteSmoke"  VerticalAlignment="Center" Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}" Margin="4">
+                        <TextBox md:HintAssist.Hint="{Tr Common.Abbreviations.Time.Seconds}" Margin="10,0,0,0"
+                                 MinWidth="30" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding TimerCheckSeconds, UpdateSourceTrigger=PropertyChanged, Delay=700}"
+                                 PreviewTextInput="UIElement_OnPreviewTextInput" />
+                        <ToggleButton ToolTip="{Tr MainWindow.AppBar.ShowAutoConfirmAccountsHint}"
+                                      HorizontalAlignment="Right" IsChecked="{Binding MaacDisplay}"
+                                      Foreground="WhiteSmoke" VerticalAlignment="Center"
+                                      Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}" Margin="4">
                             <md:PackIcon Kind="Accounts" />
                         </ToggleButton>
                     </ToolBar>
@@ -164,80 +215,110 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <ListBox w:FontScaleWindow.Scale="0.8" w:FontScaleWindow.ResizeFont="True" Grid.Row="0" Margin="10,15,0,0" ItemsSource="{Binding MaFiles}" SelectedValue="{Binding SelectedMafile}">
+                        <ListBox w:FontScaleWindow.Scale="0.8" w:FontScaleWindow.ResizeFont="True" Grid.Row="0"
+                                 Margin="10,15,0,0" ItemsSource="{Binding MaFiles}"
+                                 SelectedValue="{Binding SelectedMafile}">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
-                                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                                 </Style>
                             </ListBox.ItemContainerStyle>
                             <ListBox.ItemTemplate>
-                                <DataTemplate >
+                                <DataTemplate>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock   HorizontalAlignment="Stretch"  Text="{Binding AccountName}">
+                                        <TextBlock HorizontalAlignment="Stretch" Text="{Binding AccountName}">
                                             <TextBlock.Foreground>
-                                                <Binding Mode="OneWay" Path="LinkedClient.IsError" Converter="{StaticResource PortableMaClientStatusToColorConverter}" FallbackValue="{StaticResource PrimaryContentBrush}">
-
-                                                </Binding>
+                                                <Binding Mode="OneWay" Path="LinkedClient.IsError"
+                                                         Converter="{StaticResource PortableMaClientStatusToColorConverter}"
+                                                         FallbackValue="{StaticResource PrimaryContentBrush}" />
                                             </TextBlock.Foreground>
                                         </TextBlock>
-                                        <StackPanel Visibility="{Binding LinkedClient, Converter={StaticResource NullableToVisibilityConverter}}" Grid.Column="1" Orientation="Horizontal">
-                                            <md:PackIcon  Kind="ShoppingCart" Visibility="{Binding LinkedClient.AutoConfirmMarket, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"/>
-                                            <md:PackIcon Kind="AccountArrowRight" Visibility="{Binding LinkedClient.AutoConfirmTrades, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                                        <StackPanel
+                                            Visibility="{Binding LinkedClient, Converter={StaticResource NullableToVisibilityConverter}}"
+                                            Grid.Column="1" Orientation="Horizontal">
+                                            <md:PackIcon Kind="ShoppingCart"
+                                                         Visibility="{Binding LinkedClient.AutoConfirmMarket, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
+                                            <md:PackIcon Kind="AccountArrowRight"
+                                                         Visibility="{Binding LinkedClient.AutoConfirmTrades, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" />
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                             <ListBox.InputBindings>
-                                <KeyBinding Key="C" Modifiers="Control"  Command="{Binding DataContext.CopyLoginCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
-                                            CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}"/>
-                                <KeyBinding Key="X" Modifiers="Control"  Command="{Binding DataContext.CopyMafileCommand, RelativeSource={RelativeSource AncestorType=Window}}" 
-                                            CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}"/>
+                                <KeyBinding Key="C" Modifiers="Control"
+                                            Command="{Binding DataContext.CopyLoginCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}" />
+                                <KeyBinding Key="X" Modifiers="Control"
+                                            Command="{Binding DataContext.CopyMafileCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}" />
                             </ListBox.InputBindings>
                             <FrameworkElement.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem InputGestureText="Ctrl+C" Header="{Tr MainWindow.ContextMenus.Mafile.CopyLogin}" Command="{Binding CopyLoginCommand}" CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
-                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.CopySteamId}" Command="{Binding CopySteamIdCommand}" CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
-                                    <MenuItem InputGestureText="Ctrl+X" Header="{Tr MainWindow.ContextMenus.Mafile.CopyMafile}" Command="{Binding CopyMafileCommand}" CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
-                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.AddToGroup}" ItemsSource="{Binding Groups}">
+                                    <MenuItem InputGestureText="Ctrl+C"
+                                              Header="{Tr MainWindow.ContextMenus.Mafile.CopyLogin}"
+                                              Command="{Binding CopyLoginCommand}"
+                                              CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.CopySteamId}"
+                                              Command="{Binding CopySteamIdCommand}"
+                                              CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                    <MenuItem InputGestureText="Ctrl+X"
+                                              Header="{Tr MainWindow.ContextMenus.Mafile.CopyMafile}"
+                                              Command="{Binding CopyMafileCommand}"
+                                              CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.AddToGroup}"
+                                              ItemsSource="{Binding Groups}">
                                         <ItemsControl.ItemContainerStyle>
-                                            <Style BasedOn="{StaticResource MaterialDesignMenuItem}" TargetType="{x:Type MenuItem}">
-                                                <Setter Property="Command" Value="{Binding DataContext.AddToGroupCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                            <Style BasedOn="{StaticResource MaterialDesignMenuItem}"
+                                                   TargetType="{x:Type MenuItem}">
+                                                <Setter Property="Command"
+                                                        Value="{Binding DataContext.AddToGroupCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                                                 <Setter Property="CommandParameter">
                                                     <Setter.Value>
-                                                        <MultiBinding Converter="{StaticResource MultiCommandParameterConverter}">
+                                                        <MultiBinding
+                                                            Converter="{StaticResource MultiCommandParameterConverter}">
                                                             <Binding />
-                                                            <Binding Path="PlacementTarget.SelectedValue" RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
+                                                            <Binding Path="PlacementTarget.SelectedValue"
+                                                                     RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
                                                         </MultiBinding>
                                                     </Setter.Value>
                                                 </Setter>
                                             </Style>
                                         </ItemsControl.ItemContainerStyle>
                                     </MenuItem>
-                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.RemoveFromGroup}" Command="{Binding Path=RemoveGroupCommand}" CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                                    <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.RemoveFromGroup}"
+                                              Command="{Binding Path=RemoveGroupCommand}"
+                                              CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
                                 </ContextMenu>
                             </FrameworkElement.ContextMenu>
 
                         </ListBox>
-                        <Border Grid.Row="0" Margin="10" Padding="5" Visibility="{Binding MaFiles.Count, Converter={StaticResource AnyMafilesToVisibilityConverter}, Mode=OneWay}">
+                        <Border Grid.Row="0" Margin="10" Padding="5"
+                                Visibility="{Binding MaFiles.Count, Converter={StaticResource AnyMafilesToVisibilityConverter}, Mode=OneWay}">
                             <Border.Background>
-                                <SolidColorBrush Color="DarkGray" Opacity="0.5"/>
+                                <SolidColorBrush Color="DarkGray" Opacity="0.5" />
                             </Border.Background>
-                            <TextBlock TextWrapping="WrapWithOverflow" FontSize="16"   Text="{Tr MainWindow.Global.StartTip}"/>
+                            <TextBlock TextWrapping="WrapWithOverflow" FontSize="16"
+                                       Text="{Tr MainWindow.Global.StartTip}" />
                         </Border>
-                        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:TextFieldAssist.HasClearButton="True" w:FontScaleWindow.Scale="0.7" w:FontScaleWindow.ResizeFont="True" Grid.Row="1" Margin="10,5,10,10" md:HintAssist.Hint="{Tr MainWindow.LeftPart.SearchBoxHint}" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 md:TextFieldAssist.HasClearButton="True" w:FontScaleWindow.Scale="0.7"
+                                 w:FontScaleWindow.ResizeFont="True" Grid.Row="1" Margin="10,5,10,10"
+                                 md:HintAssist.Hint="{Tr MainWindow.LeftPart.SearchBoxHint}"
+                                 Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
-                    <md:Card BorderThickness="1" Style="{StaticResource MaterialDesignOutlinedCard}"  Grid.Column="1" Margin="10,10,15,10" UniformCornerRadius="15">
+                    <md:Card BorderThickness="1" Style="{StaticResource MaterialDesignOutlinedCard}" Grid.Column="1"
+                             Margin="10,10,15,10" UniformCornerRadius="15">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="115*" />
-                                <RowDefinition Height="436*"/>
+                                <RowDefinition Height="436*" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid Row="0">
@@ -245,36 +326,63 @@
                                     <RowDefinition />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <TextBox  w:FontScaleWindow.Scale="1.1" w:FontScaleWindow.ResizeFont="True" IsReadOnly="True" HorizontalContentAlignment="Center" Background="#00FFFFFF" Style="{StaticResource MaterialDesignTextBox}" Text="{Binding Code, FallbackValue=Code}">
+                                <TextBox w:FontScaleWindow.Scale="1.1" w:FontScaleWindow.ResizeFont="True"
+                                         IsReadOnly="True" HorizontalContentAlignment="Center" Background="#00FFFFFF"
+                                         Style="{StaticResource MaterialDesignTextBox}"
+                                         Text="{Binding Code, FallbackValue=Code}">
                                     <TextBox.InputBindings>
                                         <MouseBinding Gesture="LeftClick" Command="{Binding CopyCodeCommand}" />
                                     </TextBox.InputBindings>
                                 </TextBox>
-                                <controls:CodeProgressBar Visibility="{Binding SelectedMafile, Converter={StaticResource NullableToVisibilityConverter}}" Grid.Row="1" Height="4" Style="{StaticResource MaterialDesignLinearProgressBar}" MaxTime="30" TimeRemaining="{Binding CodeProgress, Mode=OneWay}"/>
+                                <controls:CodeProgressBar
+                                    Visibility="{Binding SelectedMafile, Converter={StaticResource NullableToVisibilityConverter}}"
+                                    Grid.Row="1" Height="4" Style="{StaticResource MaterialDesignLinearProgressBar}"
+                                    MaxTime="30" TimeRemaining="{Binding CodeProgress, Mode=OneWay}" />
                             </Grid>
-                            <Button IsEnabled="{Binding IsMafileSelected}" w:FontScaleWindow.Scale="0.7" w:FontScaleWindow.ResizeFont="True" Grid.Row="1" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="82,10,82,10" Command="{Binding GetConfirmationsCommand}" Width="{Binding Path=ActualWidth, Converter={StaticResource CoefficientConverter}, ConverterParameter=0.6, RelativeSource={RelativeSource AncestorType=md:Card}}">
-                                <TextBlock TextWrapping="Wrap" TextTrimming="WordEllipsis" Text="{Tr MainWindow.RightPart.LoadConfirmations}"/>
+                            <Button IsEnabled="{Binding IsMafileSelected}" w:FontScaleWindow.Scale="0.7"
+                                    w:FontScaleWindow.ResizeFont="True" Grid.Row="1"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}" Margin="82,10,82,10"
+                                    Command="{Binding GetConfirmationsCommand}"
+                                    Width="{Binding Path=ActualWidth, Converter={StaticResource CoefficientConverter}, ConverterParameter=0.6, RelativeSource={RelativeSource AncestorType=md:Card}}">
+                                <TextBlock TextWrapping="Wrap" TextTrimming="WordEllipsis"
+                                           Text="{Tr MainWindow.RightPart.LoadConfirmations}" />
                             </Button>
-                            <ItemsControl  md:RippleAssist.IsDisabled="True" Focusable="False" Grid.Row="2" w:FontScaleWindow.Scale="0.72" w:FontScaleWindow.ResizeFont="True" Margin="10,10,10,10" Visibility="{Binding ConfirmationsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Confirmations}" Grid.RowSpan="2"/>
-                            <Button Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="4" Margin="1,0,1,3" w:FontScaleWindow.Scale="0.8" w:FontScaleWindow.ResizeFont="True" Command="{Binding ConfirmLoginCommand}" Content="{Tr MainWindow.RightPart.ConfirmLogin}"/>
+                            <ItemsControl md:RippleAssist.IsDisabled="True" Focusable="False" Grid.Row="2"
+                                          w:FontScaleWindow.Scale="0.72" w:FontScaleWindow.ResizeFont="True"
+                                          Margin="10,10,10,10"
+                                          Visibility="{Binding ConfirmationsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                          ItemsSource="{Binding Confirmations}" Grid.RowSpan="2" />
+                            <Button Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="4" Margin="1,0,1,3"
+                                    w:FontScaleWindow.Scale="0.8" w:FontScaleWindow.ResizeFont="True"
+                                    Command="{Binding ConfirmLoginCommand}"
+                                    Content="{Tr MainWindow.RightPart.ConfirmLogin}" />
                         </Grid>
                     </md:Card>
                 </Grid>
-                <Border Grid.Row="2" BorderBrush="{DynamicResource Base100Brush}" >
+                <Border Grid.Row="2" BorderBrush="{DynamicResource Base100Brush}">
                     <Border.Background>
                         <SolidColorBrush Opacity="0.5" Color="{DynamicResource Base300Color}" />
                     </Border.Background>
                     <Grid>
-                        <ToolBarPanel TextElement.Foreground="{DynamicResource BaseContentBrush}" Orientation="Horizontal" Margin="5" w:FontScaleWindow.Scale="0.73" w:FontScaleWindow.ResizeFont="True">
+                        <ToolBarPanel TextElement.Foreground="{DynamicResource BaseContentBrush}"
+                                      Orientation="Horizontal" Margin="5" w:FontScaleWindow.Scale="0.73"
+                                      w:FontScaleWindow.ResizeFont="True">
                             <TextBlock FontWeight="Bold" Text="{Tr MainWindow.Footer.Account}" />
                             <TextBlock Text="{Binding SelectedMafile.AccountName}" />
                             <TextBlock Text="|" Margin="10,0,10,0" />
                             <TextBlock FontWeight="Bold" Text="{Tr MainWindow.Footer.Group}" />
-                            <TextBlock FontWeight="Normal" Text="{Binding SelectedMafile.Group, TargetNullValue=' ', FallbackValue=' ', Mode=OneWay}" />
+                            <TextBlock FontWeight="Normal"
+                                       Text="{Binding SelectedMafile.Group, TargetNullValue=' ', FallbackValue=' ', Mode=OneWay}" />
                             <Button Command="{Binding DebugCommand}">Debug</Button>
                         </ToolBarPanel>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" w:FontScaleWindow.Scale="0.7" w:FontScaleWindow.ResizeFont="True" Margin="0,0,10,0">
-                        <Hyperlink NavigateUri="https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies" Foreground="{DynamicResource PrimaryBrush}" RequestNavigate="Hyperlink_OnRequestNavigate">by achies</Hyperlink>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" w:FontScaleWindow.Scale="0.7"
+                                   w:FontScaleWindow.ResizeFont="True" Margin="0,0,10,0">
+                            <Hyperlink
+                                NavigateUri="https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies"
+                                Foreground="{DynamicResource PrimaryBrush}"
+                                RequestNavigate="Hyperlink_OnRequestNavigate">
+                                by achies
+                            </Hyperlink>
                         </TextBlock>
                     </Grid>
                 </Border>

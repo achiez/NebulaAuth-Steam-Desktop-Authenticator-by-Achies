@@ -20,6 +20,7 @@ public class SteamAuthenticatorLinker
     internal HttpClient Client => Options.HttpClient;
     internal string? DeviceId { get; set; }
     private ILogger? Logger => Options.Logger;
+
     public SteamAuthenticatorLinker(LinkOptions options)
     {
         Options = options;
@@ -50,15 +51,18 @@ public class SteamAuthenticatorLinker
         if (accessToken.Value.IsExpired || accessToken.Value.Type != SteamAccessTokenType.Mobile)
         {
             if (accessToken.Value.Type != SteamAccessTokenType.Mobile)
-                Logger?.LogWarning("Provided access token is not of type Mobile. Actual type: {actualType}", accessToken.Value.Type);
+                Logger?.LogWarning("Provided access token is not of type Mobile. Actual type: {actualType}",
+                    accessToken.Value.Type);
 
-            var refreshed = await SteamMobileApi.RefreshJwt(Options.HttpClient, data.RefreshToken.Token, data.RefreshToken.SteamId);
+            var refreshed = await SteamMobileApi.RefreshJwt(Options.HttpClient, data.RefreshToken.Token,
+                data.RefreshToken.SteamId);
             accessToken = SteamTokenHelper.Parse(refreshed);
             data.SetMobileToken(accessToken.Value);
         }
 
         if (accessToken.Value.Type != SteamAccessTokenType.Mobile)
-            throw new SessionInvalidException("SessionData must provide AccessToken of type Mobile to access mobile endpoints");
+            throw new SessionInvalidException(
+                "SessionData must provide AccessToken of type Mobile to access mobile endpoints");
 
 
         var hasPhoneResp = await this.HasPhone();
@@ -93,7 +97,7 @@ public class SteamAuthenticatorLinker
 
             var sendSms = await this.SendSmsCode();
             if (sendSms != EResult.OK)
-                throw new AuthenticatorLinkerException($"Can't send SMS code: {sendSms} ({(int)sendSms})");
+                throw new AuthenticatorLinkerException($"Can't send SMS code: {sendSms} ({(int) sendSms})");
             Logger?.LogDebug("SMS code sent");
         }
 
@@ -144,19 +148,18 @@ public class SteamAuthenticatorLinker
         {
             var error = result.Error switch
             {
-                LinkError.GeneralFailure => throw new AuthenticatorLinkerException(result.Code!.Value) { OnFinalization = true },
+                LinkError.GeneralFailure => throw new AuthenticatorLinkerException(result.Code!.Value)
+                    {OnFinalization = true},
                 LinkError.BadConfirmationCode => AuthenticatorLinkerError.BadConfirmationCode,
                 LinkError.UnableToGenerateCorrectCodes => AuthenticatorLinkerError.UnableToGenerateCorrectCodes,
-                _ => throw new ArgumentOutOfRangeException(nameof(result.Error), result.Error, $"LinkError {result.Error} not supported")
+                _ => throw new ArgumentOutOfRangeException(nameof(result.Error), result.Error,
+                    $"LinkError {result.Error} not supported")
             };
 
-            throw new AuthenticatorLinkerException(error) { OnFinalization = true };
+            throw new AuthenticatorLinkerException(error) {OnFinalization = true};
         }
 
         Logger?.LogInformation("Linking completed");
         return mobileData;
     }
-
-
-
 }

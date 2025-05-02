@@ -1,7 +1,7 @@
-﻿using SteamLib.Core.Enums;
-using SteamLib.Core.Interfaces;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
+using SteamLib.Core.Enums;
+using SteamLib.Core.Interfaces;
 using SteamLib.Core.Models;
 
 namespace SteamLib.Account;
@@ -11,21 +11,6 @@ namespace SteamLib.Account;
 public sealed class MobileSessionData : SessionData, IMobileSessionData
 {
     public SteamAuthToken? MobileToken { get; private set; }
-
-    public SteamAuthToken? GetMobileToken() => MobileToken;
-
-
-    [MemberNotNull(nameof(MobileToken))]
-    public void SetMobileToken(SteamAuthToken token)
-    {
-        if (token.Type != SteamAccessTokenType.Mobile)
-            throw new ArgumentException("Token must be of type MobileAccess", nameof(token))
-            {
-                Data = { { "ActualType", token.Type } }
-            };
-
-        MobileToken = token;
-    }
 
     [JsonConstructor]
     public MobileSessionData(string sessionId, SteamId steamId, SteamAuthToken refreshToken,
@@ -42,7 +27,29 @@ public sealed class MobileSessionData : SessionData, IMobileSessionData
         MobileToken = mobileToken;
     }
 
-    public override MobileSessionData Clone() => (MobileSessionData)((ISessionData)this).Clone();
+    public SteamAuthToken? GetMobileToken()
+    {
+        return MobileToken;
+    }
+
+
+    [MemberNotNull(nameof(MobileToken))]
+    public void SetMobileToken(SteamAuthToken token)
+    {
+        if (token.Type != SteamAccessTokenType.Mobile)
+            throw new ArgumentException("Token must be of type MobileAccess", nameof(token))
+            {
+                Data = {{"ActualType", token.Type}}
+            };
+
+        MobileToken = token;
+    }
+
+    public override MobileSessionData Clone()
+    {
+        return (MobileSessionData) ((ISessionData) this).Clone();
+    }
+
     object ICloneable.Clone()
     {
         return new MobileSessionData(SessionId, SteamId, RefreshToken, MobileToken, Tokens);

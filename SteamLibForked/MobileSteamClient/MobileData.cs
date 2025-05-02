@@ -32,17 +32,19 @@ public class MobileDataExtended : MobileData
         }
     }
 
-    private MobileSessionData? _sessionData;
-
     [JsonConverter(typeof(SteamIdToSteam64Converter))]
     public SteamId SteamId { get; set; }
 
+    private MobileSessionData? _sessionData;
+
 
     #region Unused
+
     public long ServerTime { get; set; } //Unused
     public ulong SerialNumber { get; set; } //Unused //fixed64 greater than long must be ulong or string
-    public string Uri { get; set; } = null!;//Unused
-    public string TokenGid { get; set; } = null!;//Unused
+    public string Uri { get; set; } = null!; //Unused
+    public string TokenGid { get; set; } = null!; //Unused
     public string Secret1 { get; set; } = null!; //Unused
+
     #endregion
 }

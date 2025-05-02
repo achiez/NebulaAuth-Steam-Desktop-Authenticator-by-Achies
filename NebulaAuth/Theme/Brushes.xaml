@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
-
     <Color x:Key="PrimaryColor">#794DFF</Color>
     <Color x:Key="PrimaryContentColor">#eae7ff</Color>
     <Color x:Key="SecondaryColor">#76717f</Color>
@@ -28,33 +27,33 @@
 
     <Color x:Key="DummyColor">#d66d1c</Color>
     <!--Theme-->
-    
 
-    <SolidColorBrush x:Key="PrimaryBrush" Color="{DynamicResource PrimaryColor}"/>
-    <SolidColorBrush x:Key="PrimaryContentBrush" Color="{DynamicResource PrimaryContentColor}"/>
-    <SolidColorBrush x:Key="SecondaryBrush" Color="{DynamicResource SecondaryColor}"/>
-    <SolidColorBrush x:Key="SecondaryContentBrush" Color="{DynamicResource SecondaryContentColor}"/>
-    <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}"/>
-    <SolidColorBrush x:Key="AccentContentBrush" Color="{DynamicResource AccentContentColor}"/>
-    <SolidColorBrush x:Key="NeutralBrush" Color="{DynamicResource NeutralColor}"/>
-    <SolidColorBrush x:Key="NeutralContentBrush" Color="{DynamicResource NeutralContentColor}"/>
-    <SolidColorBrush x:Key="Base100Brush" Color="{DynamicResource Base100Color}"/>
-    <SolidColorBrush x:Key="Base200Brush" Color="{DynamicResource Base200Color}"/>
-    <SolidColorBrush x:Key="Base300Brush" Color="{DynamicResource Base300Color}"/>
-    <SolidColorBrush x:Key="BackgroundBrush" Color="{DynamicResource BackgroundColor}"/>
+
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{DynamicResource PrimaryColor}" />
+    <SolidColorBrush x:Key="PrimaryContentBrush" Color="{DynamicResource PrimaryContentColor}" />
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{DynamicResource SecondaryColor}" />
+    <SolidColorBrush x:Key="SecondaryContentBrush" Color="{DynamicResource SecondaryContentColor}" />
+    <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}" />
+    <SolidColorBrush x:Key="AccentContentBrush" Color="{DynamicResource AccentContentColor}" />
+    <SolidColorBrush x:Key="NeutralBrush" Color="{DynamicResource NeutralColor}" />
+    <SolidColorBrush x:Key="NeutralContentBrush" Color="{DynamicResource NeutralContentColor}" />
+    <SolidColorBrush x:Key="Base100Brush" Color="{DynamicResource Base100Color}" />
+    <SolidColorBrush x:Key="Base200Brush" Color="{DynamicResource Base200Color}" />
+    <SolidColorBrush x:Key="Base300Brush" Color="{DynamicResource Base300Color}" />
+    <SolidColorBrush x:Key="BackgroundBrush" Color="{DynamicResource BackgroundColor}" />
     <!--BackgroundBrush conflict-->
-    <SolidColorBrush x:Key="BaseContentBrush" Color="{DynamicResource BaseContentColor}"/>
-    <SolidColorBrush x:Key="BaseShadowBrush" Color="{DynamicResource BaseShadowColor}"/>
-    <SolidColorBrush x:Key="InfoBrush" Color="{DynamicResource InfoColor}"/>
-    <SolidColorBrush x:Key="InfoContentBrush" Color="{DynamicResource InfoContentColor}"/>
-    <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}"/>
-    <SolidColorBrush x:Key="SuccessContentBrush" Color="{DynamicResource SuccessContentColor}"/>
-    <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource WarningColor}"/>
-    <SolidColorBrush x:Key="WarningContentBrush" Color="{DynamicResource WarningContentColor}"/>
-    <SolidColorBrush x:Key="ErrorBrush" Color="{DynamicResource ErrorColor}"/>
-    <SolidColorBrush x:Key="ErrorContentBrush" Color="{DynamicResource ErrorContentColor}"/>
+    <SolidColorBrush x:Key="BaseContentBrush" Color="{DynamicResource BaseContentColor}" />
+    <SolidColorBrush x:Key="BaseShadowBrush" Color="{DynamicResource BaseShadowColor}" />
+    <SolidColorBrush x:Key="InfoBrush" Color="{DynamicResource InfoColor}" />
+    <SolidColorBrush x:Key="InfoContentBrush" Color="{DynamicResource InfoContentColor}" />
+    <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}" />
+    <SolidColorBrush x:Key="SuccessContentBrush" Color="{DynamicResource SuccessContentColor}" />
+    <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource WarningColor}" />
+    <SolidColorBrush x:Key="WarningContentBrush" Color="{DynamicResource WarningContentColor}" />
+    <SolidColorBrush x:Key="ErrorBrush" Color="{DynamicResource ErrorColor}" />
+    <SolidColorBrush x:Key="ErrorContentBrush" Color="{DynamicResource ErrorContentColor}" />
 
-    <SolidColorBrush x:Key="DummyBrush" Color="{DynamicResource DummyColor}"></SolidColorBrush>
+    <SolidColorBrush x:Key="DummyBrush" Color="{DynamicResource DummyColor}" />
 
     <!--Card-->
     <!--<SolidColorBrush x:Key="MaterialDesignCardBackground" Color="#26292E" />-->

@@ -9,7 +9,8 @@ public class TradeConfirmation : Confirmation
 
     public long TradeId => CreatorId;
 
-    public TradeConfirmation(long id, ulong nonce, long creator, string typeName) : base(id, nonce, 1, creator, ConfirmationType.Trade, typeName)
+    public TradeConfirmation(long id, ulong nonce, long creator, string typeName) : base(id, nonce, 1, creator,
+        ConfirmationType.Trade, typeName)
     {
     }
 }

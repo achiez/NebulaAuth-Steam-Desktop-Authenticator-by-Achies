@@ -1,11 +1,11 @@
-﻿using NebulaAuth.Model.Entities;
+﻿using System;
+using System.Collections.Generic;
+using NebulaAuth.Model.Entities;
+using NebulaAuth.Model.Exceptions;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SteamLib;
 using SteamLib.Utility.MafileSerialization;
-using System.Collections.Generic;
-using System;
-using NebulaAuth.Model.Exceptions;
-using Newtonsoft.Json;
 
 namespace NebulaAuth.Model;
 
@@ -34,13 +34,13 @@ public static class NebulaSerializer
         var info = data.Info;
         if (info.IsExtended == false)
             throw new FormatException("Mafile is not extended data");
-      
+
 
         var props = info.UnusedProperties ?? new Dictionary<string, JProperty>();
         var proxy = GetPropertyValue<MaProxy>("Proxy", props);
         var group = GetPropertyValue<string>("Group", props);
         var password = GetPropertyValue<string>("Password", props);
-        var mafile = Mafile.FromMobileDataExtended((MobileDataExtended)mobileData, proxy, group, password);
+        var mafile = Mafile.FromMobileDataExtended((MobileDataExtended) mobileData, proxy, group, password);
 
 
         if (!info.SteamIdValid)
@@ -82,9 +82,7 @@ public static class NebulaSerializer
         {
             return MafileSerializer.SerializeLegacy(data, Formatting.Indented, properties);
         }
-        else
-        {
-            return MafileSerializer.Serialize(data);
-        }
+
+        return MafileSerializer.Serialize(data);
     }
 }

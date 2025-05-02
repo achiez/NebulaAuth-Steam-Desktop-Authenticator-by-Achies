@@ -5,19 +5,16 @@
 
 
 namespace NebulaAuth.LegacyConverter;
+
 public class Manifest
 {
-    [JsonProperty("encrypted")]
-    public bool Encrypted { get; set; }
+    [JsonProperty("encrypted")] public bool Encrypted { get; set; }
 
-    [JsonProperty("first_run")]
-    public bool FirstRun { get; set; }
+    [JsonProperty("first_run")] public bool FirstRun { get; set; }
 
-    [JsonProperty("entries")]
-    public Entry[] Entries { get; set; }
+    [JsonProperty("entries")] public Entry[] Entries { get; set; }
 
-    [JsonProperty("periodic_checking")]
-    public bool PeriodicChecking { get; set; }
+    [JsonProperty("periodic_checking")] public bool PeriodicChecking { get; set; }
 
     [JsonProperty("periodic_checking_interval")]
     public long PeriodicCheckingInterval { get; set; }
@@ -28,21 +25,16 @@ public class Manifest
     [JsonProperty("auto_confirm_market_transactions")]
     public bool AutoConfirmMarketTransactions { get; set; }
 
-    [JsonProperty("auto_confirm_trades")]
-    public bool AutoConfirmTrades { get; set; }
+    [JsonProperty("auto_confirm_trades")] public bool AutoConfirmTrades { get; set; }
 }
 
 public class Entry
 {
-    [JsonProperty("encryption_iv")]
-    public string EncryptionIv { get; set; }
+    [JsonProperty("encryption_iv")] public string EncryptionIv { get; set; }
 
-    [JsonProperty("encryption_salt")]
-    public string EncryptionSalt { get; set; }
+    [JsonProperty("encryption_salt")] public string EncryptionSalt { get; set; }
 
-    [JsonProperty("filename")]
-    public string Filename { get; set; }
+    [JsonProperty("filename")] public string Filename { get; set; }
 
-    [JsonProperty("steamid")]
-    public ulong SteamId { get; set; }
+    [JsonProperty("steamid")] public ulong SteamId { get; set; }
 }

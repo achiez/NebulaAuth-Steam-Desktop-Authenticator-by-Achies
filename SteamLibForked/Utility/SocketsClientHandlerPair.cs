@@ -10,6 +10,7 @@ public readonly struct SocketsClientHandlerPair
         Handler = handler;
         Client = client;
     }
+
     public (SocketsHttpHandler, HttpClient) Deconstruct()
     {
         return (Handler, Client);

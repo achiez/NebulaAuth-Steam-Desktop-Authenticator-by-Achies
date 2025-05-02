@@ -7,15 +7,14 @@ namespace NebulaAuth.Model;
 
 public static class PHandler
 {
-    public static bool IsPasswordSet => _k.Length > 0;
     private static byte[] _k = [];
+    public static bool IsPasswordSet => _k.Length > 0;
 
 
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="password"></param>
-    /// <returns><see langword="true"/> if password was set and not empty. Otherwise - <see langword="false"/></returns>
+    /// <returns><see langword="true" /> if password was set and not empty. Otherwise - <see langword="false" /></returns>
     public static bool SetPassword(string? password)
     {
         if (string.IsNullOrWhiteSpace(password))
@@ -79,6 +78,4 @@ public static class PHandler
 
         return decryptedText;
     }
-
-
 }

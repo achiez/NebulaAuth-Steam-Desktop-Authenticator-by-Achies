@@ -21,13 +21,13 @@ public partial class MainVM //MAAC
             }
         }
     }
-    private bool _maacDisplay;
 
     public bool MarketTimerEnabled
     {
         get => SelectedMafile?.LinkedClient?.AutoConfirmMarket ?? false;
         set => SetMarketTimer(value);
     }
+
     public bool TradeTimerEnabled
     {
         get => SelectedMafile?.LinkedClient?.AutoConfirmTrades ?? false;
@@ -40,6 +40,8 @@ public partial class MainVM //MAAC
         set => SetTimer(value);
     }
 
+    private bool _maacDisplay;
+
     private void SetMarketTimer(bool value)
     {
         var selectedMafile = SelectedMafile;
@@ -48,7 +50,8 @@ public partial class MainVM //MAAC
         {
             MultiAccountAutoConfirmer.TryAddToConfirm(selectedMafile);
         }
-        if (!value && selectedMafile is { LinkedClient.AutoConfirmTrades: false })
+
+        if (!value && selectedMafile is {LinkedClient.AutoConfirmTrades: false})
         {
             MultiAccountAutoConfirmer.RemoveFromConfirm(selectedMafile);
         }
@@ -68,7 +71,7 @@ public partial class MainVM //MAAC
             MultiAccountAutoConfirmer.TryAddToConfirm(selectedMafile);
         }
 
-        if (!value && selectedMafile is { LinkedClient.AutoConfirmMarket: false })
+        if (!value && selectedMafile is {LinkedClient.AutoConfirmMarket: false})
         {
             MultiAccountAutoConfirmer.RemoveFromConfirm(selectedMafile);
         }
@@ -87,11 +90,13 @@ public partial class MainVM //MAAC
         {
             timerCheckSeconds = 10; //Guard
         }
+
         if (value < 10)
         {
             value = timerCheckSeconds;
             SnackbarController.SendSnackbar(GetLocalization("TimerTooFast"));
         }
+
         Settings.TimerSeconds = value;
         OnPropertyChanged(nameof(TimerCheckSeconds));
         if (timerCheckSeconds != TimerCheckSeconds)
@@ -110,7 +115,7 @@ public partial class MainVM //MAAC
     private void SwitchMAACOnGroup(bool market)
     {
         var group = SelectedGroup;
-        if(group == null) return;
+        if (group == null) return;
         var mafilesInGroup = MaFiles.Where(m => group.Equals(m.Group));
         SwitchMAACOn(mafilesInGroup, market);
     }
@@ -133,22 +138,29 @@ public partial class MainVM //MAAC
                 MultiAccountAutoConfirmer.TryAddToConfirm(mafile);
                 SetCurrentMode(mafile.LinkedClient, turnOn);
             }
-            
         }
         else
         {
             foreach (var mafile in mafiles)
             {
                 SetCurrentMode(mafile.LinkedClient, turnOn);
-                if(PretendsToRemove(mafile))
+                if (PretendsToRemove(mafile))
                     MultiAccountAutoConfirmer.RemoveFromConfirm(mafile);
             }
         }
 
         return;
 
-        bool PretendsToRemove(Mafile mafile) => mafile.LinkedClient is {AutoConfirmMarket: false, AutoConfirmTrades: false};
-        bool GetCurrentMode(PortableMaClient linkedClient) => market ? linkedClient.AutoConfirmMarket : linkedClient.AutoConfirmTrades;
+        bool PretendsToRemove(Mafile mafile)
+        {
+            return mafile.LinkedClient is {AutoConfirmMarket: false, AutoConfirmTrades: false};
+        }
+
+        bool GetCurrentMode(PortableMaClient linkedClient)
+        {
+            return market ? linkedClient.AutoConfirmMarket : linkedClient.AutoConfirmTrades;
+        }
+
         void SetCurrentMode(PortableMaClient? linkedClient, bool value)
         {
             if (linkedClient == null) return;

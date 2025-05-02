@@ -1,10 +1,10 @@
-﻿using AchiesUtilities.Models;
+﻿using System.Collections.ObjectModel;
+using System.Net.Http.Headers;
+using System.Text.RegularExpressions;
+using AchiesUtilities.Models;
 using Microsoft.IdentityModel.JsonWebTokens;
 using SteamLib.Account;
 using SteamLib.Core.Enums;
-using System.Collections.ObjectModel;
-using System.Net.Http.Headers;
-using System.Text.RegularExpressions;
 using SteamLib.Core.Models;
 
 namespace SteamLib.Authentication;
@@ -21,7 +21,7 @@ public static class SteamTokenHelper
             {"web:store", SteamDomain.Store},
             {"web:help", SteamDomain.Help},
             {"web:steamtv", SteamDomain.TV},
-            {"web:checkout", SteamDomain.Checkout},
+            {"web:checkout", SteamDomain.Checkout}
         });
 
 
@@ -36,10 +36,8 @@ public static class SteamTokenHelper
         {
             return result;
         }
-        else
-        {
-            throw new ArgumentException("Provided Token is not valid JWT token", nameof(input));
-        }
+
+        throw new ArgumentException("Provided Token is not valid JWT token", nameof(input));
     }
 
     private static bool Parse(string input, out SteamAuthToken result, bool trying)
@@ -113,12 +111,11 @@ public static class SteamTokenHelper
 
                 throw new ArgumentException($"Provided Token has invalid 'aud' claim. Value: {aud}", nameof(input));
             }
+
             tokenType = SteamAccessTokenType.AccessToken;
 
             if (aud == "web")
             {
-               
-
                 var isMobile = audiences.Any(a => a.Equals("mobile"));
                 var isRefresh = audiences.Any(a => a.Equals("renew"));
                 if (isMobile ^ isRefresh)
@@ -140,14 +137,15 @@ public static class SteamTokenHelper
                         result = new SteamAuthToken(jwtStr, id, expires, domain, SteamAccessTokenType.Unknown);
                         return false;
                     }
-                    var auds = string.Join(", ", audiences);
-                    throw new ArgumentException($"Provided Token has invalid 'aud' claim combination. Values: {auds}", nameof(input));
-                }
 
+                    var auds = string.Join(", ", audiences);
+                    throw new ArgumentException($"Provided Token has invalid 'aud' claim combination. Values: {auds}",
+                        nameof(input));
+                }
             }
         }
 
-       
+
         result = new SteamAuthToken(jwtStr, id, expires, domain, tokenType);
         return true;
     }
@@ -156,7 +154,8 @@ public static class SteamTokenHelper
     {
         var setCookies = headers.GetValues("Set-Cookie");
         var steamLoginSecureHeader = setCookies.FirstOrDefault(x => x.StartsWith("steamLoginSecure="));
-        if (steamLoginSecureHeader == null) throw new ArgumentException("Can't find steamLoginSecure cookie in Set-Cookie header");
+        if (steamLoginSecureHeader == null)
+            throw new ArgumentException("Can't find steamLoginSecure cookie in Set-Cookie header");
 
         var firstCookiePart = steamLoginSecureHeader
             .ToCharArray()
@@ -169,8 +168,16 @@ public static class SteamTokenHelper
         return ExtractJwtToken(steamLoginSecure);
     }
 
-    public static string CombineJwtWithSteamId(long steamId, string loginValue) => steamId + "%7C%7C" + loginValue;
-    internal static bool CheckIfProperLoginValue(string value) => value.Contains("%7C%7C");
+    public static string CombineJwtWithSteamId(long steamId, string loginValue)
+    {
+        return steamId + "%7C%7C" + loginValue;
+    }
+
+    internal static bool CheckIfProperLoginValue(string value)
+    {
+        return value.Contains("%7C%7C");
+    }
+
     internal static string CombineLoginValueIfNeeded(long steamId, string loginValue)
     {
         return CheckIfProperLoginValue(loginValue) == false ? CombineJwtWithSteamId(steamId, loginValue) : loginValue;

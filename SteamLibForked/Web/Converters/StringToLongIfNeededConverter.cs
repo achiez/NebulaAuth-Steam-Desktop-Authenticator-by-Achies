@@ -9,7 +9,8 @@ public class StringToLongIfNeededConverter : JsonConverter<string>
         writer.WriteValue(value);
     }
 
-    public override string ReadJson(JsonReader reader, Type objectType, string? existingValue, bool hasExistingValue, JsonSerializer serializer)
+    public override string ReadJson(JsonReader reader, Type objectType, string? existingValue, bool hasExistingValue,
+        JsonSerializer serializer)
     {
         return reader.Value?.ToString() ?? "null";
     }

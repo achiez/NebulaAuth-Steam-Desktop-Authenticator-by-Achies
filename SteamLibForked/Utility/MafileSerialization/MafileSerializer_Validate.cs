@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json.Linq;
 using SteamLib.Account;
 using SteamLib.Authentication;
 
@@ -8,14 +9,15 @@ public partial class MafileSerializer //Validate
 {
     private static class Validate
     {
-        public static void NotNull(string name, [System.Diagnostics.CodeAnalysis.NotNull] object? o)
+        public static void NotNull(string name, [NotNull] object? o)
         {
             if (o == null)
             {
                 throw new ArgumentNullException(name, $"{name} is null");
             }
         }
-        public static void NotNull(string name, [System.Diagnostics.CodeAnalysis.NotNull] JToken? o)
+
+        public static void NotNull(string name, [NotNull] JToken? o)
         {
             if (o == null || o.Type == JTokenType.Null)
             {
@@ -24,7 +26,7 @@ public partial class MafileSerializer //Validate
         }
 
 
-        public static void NotNullOrEmpty(string name, [System.Diagnostics.CodeAnalysis.NotNull] string? s)
+        public static void NotNullOrEmpty(string name, [NotNull] string? s)
         {
             if (string.IsNullOrWhiteSpace(s))
             {
@@ -33,18 +35,16 @@ public partial class MafileSerializer //Validate
         }
 
 
-
         public static void IsValidBase64(string name, string base64)
         {
             var buffer = new Span<byte>(new byte[base64.Length]);
             if (Convert.TryFromBase64String(base64, buffer, out _) == false)
                 throw new ArgumentException($"{name} is not valid base64 string");
-
         }
 
-        public static MobileSessionData? ValidateMobileData(MobileData data, out DeserializedMafileSessionResult sessionResult)
+        public static MobileSessionData? ValidateMobileData(MobileData data,
+            out DeserializedMafileSessionResult sessionResult)
         {
-
             NotNullOrEmpty(nameof(data.SharedSecret), data.SharedSecret);
             NotNullOrEmpty(nameof(data.IdentitySecret), data.IdentitySecret);
             NotNullOrEmpty(nameof(data.DeviceId), data.DeviceId);
@@ -65,6 +65,7 @@ public partial class MafileSerializer //Validate
                 sessionResult = DeserializedMafileSessionResult.Valid;
                 return d.SessionData;
             }
+
             return null;
         }
     }

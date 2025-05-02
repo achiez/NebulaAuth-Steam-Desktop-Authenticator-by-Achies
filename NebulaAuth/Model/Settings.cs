@@ -1,36 +1,22 @@
-﻿using NebulaAuth.Core;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
+using NebulaAuth.Core;
+using Newtonsoft.Json;
 
 namespace NebulaAuth.Model;
 
 public partial class Settings : ObservableObject
 {
-    #region Properties
-
-    [ObservableProperty] private BackgroundMode _backgroundMode = BackgroundMode.Default;
-    [ObservableProperty] private bool _hideToTray;
-    [ObservableProperty] private int _timerSeconds = 60;
-    [ObservableProperty] private Color? _backgroundColor;
-    [ObservableProperty] private Color? _iconColor;
-    [ObservableProperty] private bool _isPasswordSet;
-    [ObservableProperty] private LocalizationLanguage _language = LocalizationLanguage.English;
-    [ObservableProperty] private bool _legacyMode = true;
-    [ObservableProperty] private bool _allowAutoUpdate;
-    [ObservableProperty] private bool _useAccountNameAsMafileName;
-    [ObservableProperty] private bool _ignorePatchTuesdayErrors;
-    #endregion
-
     public static Settings Instance { get; }
+
     static Settings()
     {
         if (File.Exists("settings.json") == false)
         {
-            Instance = new();
+            Instance = new Settings();
             Instance.PropertyChanged += SettingsOnPropertyChanged;
             return;
         }
@@ -45,8 +31,9 @@ public partial class Settings : ObservableObject
         {
             SnackbarController.SendSnackbar("Ошибка при загрузке настроек. Настройки были сброшены");
             SnackbarController.SendSnackbar(ex.Message);
-            Instance = new();
+            Instance = new Settings();
         }
+
         Instance.PropertyChanged += SettingsOnPropertyChanged;
     }
 
@@ -61,10 +48,26 @@ public partial class Settings : ObservableObject
         File.WriteAllText("settings.json", json);
     }
 
-}
+    #region Properties
 
+    [ObservableProperty] private BackgroundMode _backgroundMode = BackgroundMode.Default;
+    [ObservableProperty] private bool _hideToTray;
+    [ObservableProperty] private int _timerSeconds = 60;
+    [ObservableProperty] private Color? _backgroundColor;
+    [ObservableProperty] private Color? _iconColor;
+    [ObservableProperty] private bool _isPasswordSet;
+    [ObservableProperty] private LocalizationLanguage _language = LocalizationLanguage.English;
+    [ObservableProperty] private bool _legacyMode = true;
+    [ObservableProperty] private bool _allowAutoUpdate;
+    [ObservableProperty] private bool _useAccountNameAsMafileName;
+    [ObservableProperty] private bool _ignorePatchTuesdayErrors;
+
+    #endregion
+}
 
 public enum BackgroundMode
 {
-    Default, Custom, Color
+    Default,
+    Custom,
+    Color
 }

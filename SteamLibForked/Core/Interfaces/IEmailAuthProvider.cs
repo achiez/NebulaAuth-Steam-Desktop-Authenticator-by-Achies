@@ -4,6 +4,7 @@ public enum EmailConfirmationType
 {
     AttachPhoneAuthenticator
 }
+
 public interface IEmailProvider
 {
     public int MaxRetryCount { get; }
@@ -11,5 +12,4 @@ public interface IEmailProvider
     public Task<string> GetAddAuthenticatorCode(ILoginConsumer caller);
 
     public Task ConfirmEmailLink(ILoginConsumer caller, EmailConfirmationType confirmationType);
-
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+
 // ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
 
@@ -8,18 +9,6 @@ namespace NebulaAuth.Theme.WindowStyle;
 // ReSharper disable once PartialTypeWithSinglePart //Required
 public static partial class NativeMethods
 {
-    public const int WM_NCCALCSIZE = 0x83;
-    public const int WM_NCPAINT = 0x85;
-
-    [DllImport("kernel32", SetLastError = true)]
-    private static extern IntPtr LoadLibrary(string lpFileName);
-
-    [DllImport("dwmapi.dll", PreserveSig = false)]
-    public static extern bool DwmIsCompositionEnabled();
-
-    [DllImport("kernel32", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
-    private static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
-
     public enum DWMWINDOWATTRIBUTE : uint
     {
         NCRenderingEnabled = 1,
@@ -39,16 +28,17 @@ public static partial class NativeMethods
         FreezeRepresentation
     }
 
-    [StructLayout(LayoutKind.Sequential)]
-    public struct MARGINS
-    {
-        public int leftWidth;
-        public int rightWidth;
-        public int topHeight;
-        public int bottomHeight;
-    }
+    public const int WM_NCCALCSIZE = 0x83;
+    public const int WM_NCPAINT = 0x85;
 
-    private delegate int DwmExtendFrameIntoClientAreaDelegate(IntPtr hwnd, ref MARGINS margins);
+    [DllImport("kernel32", SetLastError = true)]
+    private static extern IntPtr LoadLibrary(string lpFileName);
+
+    [DllImport("dwmapi.dll", PreserveSig = false)]
+    public static extern bool DwmIsCompositionEnabled();
+
+    [DllImport("kernel32", CharSet = CharSet.Ansi, SetLastError = true, ExactSpelling = true)]
+    private static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
 
     public static int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS margins)
     {
@@ -66,7 +56,9 @@ public static partial class NativeMethods
             return 0;
         }
 
-        var delegateForFunctionPointer = (DwmExtendFrameIntoClientAreaDelegate)Marshal.GetDelegateForFunctionPointer(procAddress, typeof(DwmExtendFrameIntoClientAreaDelegate));
+        var delegateForFunctionPointer =
+            (DwmExtendFrameIntoClientAreaDelegate) Marshal.GetDelegateForFunctionPointer(procAddress,
+                typeof(DwmExtendFrameIntoClientAreaDelegate));
 
         return delegateForFunctionPointer(hwnd, ref margins);
     }
@@ -77,8 +69,24 @@ public static partial class NativeMethods
         {
             return false;
         }
+
         return true;
     }
+
+    [DllImport("user32.dll", SetLastError = true)]
+    public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy,
+        int uFlags);
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MARGINS
+    {
+        public int leftWidth;
+        public int rightWidth;
+        public int topHeight;
+        public int bottomHeight;
+    }
+
+    private delegate int DwmExtendFrameIntoClientAreaDelegate(IntPtr hwnd, ref MARGINS margins);
 
     internal enum WVR
     {
@@ -91,7 +99,4 @@ public static partial class NativeMethods
         VALIDRECTS = 0x0400,
         REDRAW = HREDRAW | VREDRAW
     }
-
-    [DllImport("user32.dll", SetLastError = true)]
-    public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
 }

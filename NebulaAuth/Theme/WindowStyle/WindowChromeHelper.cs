@@ -9,10 +9,11 @@ namespace NebulaAuth.Theme.WindowStyle;
 
 public static class WindowChromeHelper
 {
-    public static Thickness LayoutOffsetThickness => new(0d, 0d, 0d, SystemParameters.WindowResizeBorderThickness.Bottom);
+    public static Thickness LayoutOffsetThickness =>
+        new(0d, 0d, 0d, SystemParameters.WindowResizeBorderThickness.Bottom);
 
     /// <summary>
-    /// Gets the properly adjusted window resize border thickness from system parameters.
+    ///     Gets the properly adjusted window resize border thickness from system parameters.
     /// </summary>
     public static Thickness WindowResizeBorderThickness
     {
@@ -52,23 +53,24 @@ public static class WindowChromeHelper
         float dpi;
         try
         {
-            dpi = GetDeviceCaps(dc, (int)index);
+            dpi = GetDeviceCaps(dc, (int) index);
         }
         finally
         {
             ReleaseDC(desktopWnd, dc);
         }
+
         return dpi / 96f;
     }
+
+    [DllImport("user32.dll")]
+    private static extern int GetSystemMetrics(GetSystemMetricsIndex nIndex);
 
     private enum GetDeviceCapsIndex
     {
         LOGPIXELSX = 88,
         LOGPIXELSY = 90
     }
-
-    [DllImport("user32.dll")]
-    private static extern int GetSystemMetrics(GetSystemMetricsIndex nIndex);
 
     private enum GetSystemMetricsIndex
     {

@@ -1,11 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using MaterialDesignThemes.Wpf;
-using Microsoft.Win32;
-using NebulaAuth.Core;
-using NebulaAuth.Model;
-using NebulaAuth.View;
-using NebulaAuth.ViewModel.Other;
-using System;
+﻿using System;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
@@ -13,17 +6,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using AchiesUtilities.Extensions;
+using CommunityToolkit.Mvvm.Input;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
+using NebulaAuth.Core;
+using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Model.Exceptions;
-using SteamLib.Exceptions;
 using NebulaAuth.Utility;
+using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;
+using NebulaAuth.ViewModel.Other;
+using SteamLib.Exceptions;
 
 namespace NebulaAuth.ViewModel;
 
 public partial class MainVM //File //TODO: Refactor
 {
-
     public Settings Settings => Settings.Instance;
 
     [RelayCommand]
@@ -37,6 +36,7 @@ public partial class MainVM //File //TODO: Refactor
         {
             mafilePath = Storage.TryFindMafilePath(mafile);
         }
+
         if (mafilePath != null)
         {
             path = $"/select, \"{mafilePath}\"";
@@ -60,15 +60,14 @@ public partial class MainVM //File //TODO: Refactor
         var openFileDialog = new OpenFileDialog
         {
             Filter = "Mafile|*.mafile;*.maFile",
-            Multiselect = false,
-
+            Multiselect = false
         };
         var fs = openFileDialog.ShowDialog();
         if (fs != true) return Task.CompletedTask;
         var path = openFileDialog.FileName;
         return AddMafile([path]);
-
     }
+
     public async Task AddMafile(string[] path)
     {
         bool? confirmOverwrite = null;
@@ -88,7 +87,8 @@ public partial class MainVM //File //TODO: Refactor
             }
             catch (IOException)
             {
-                confirmOverwrite ??= await DialogsController.ShowConfirmCancelDialog(GetLocalization("ConfirmMafileOverwrite"));
+                confirmOverwrite ??=
+                    await DialogsController.ShowConfirmCancelDialog(GetLocalization("ConfirmMafileOverwrite"));
 
                 if (confirmOverwrite == true)
                 {
@@ -116,7 +116,9 @@ public partial class MainVM //File //TODO: Refactor
                 }
                 else
                 {
-                    SnackbarController.SendSnackbar($"{GetLocalization("MafileImportError")} {Path.GetFileName(str)}{GetLocalization("MissingSessionInMafile")}", TimeSpan.FromSeconds(4));
+                    SnackbarController.SendSnackbar(
+                        $"{GetLocalization("MafileImportError")} {Path.GetFileName(str)}{GetLocalization("MissingSessionInMafile")}",
+                        TimeSpan.FromSeconds(4));
                 }
             }
         }
@@ -126,6 +128,7 @@ public partial class MainVM //File //TODO: Refactor
         {
             msg += $" {GetLocalization("ImportAdded")} {added}.";
         }
+
         if (notAdded > 0)
         {
             msg += $" {GetLocalization("ImportSkipped")} {notAdded}.";
@@ -135,6 +138,7 @@ public partial class MainVM //File //TODO: Refactor
         {
             msg += $" {GetLocalization("ImportErrors")} {errors}.";
         }
+
         SnackbarController.SendSnackbar(msg, TimeSpan.FromSeconds(2));
     }
 
@@ -151,6 +155,7 @@ public partial class MainVM //File //TODO: Refactor
         {
             data.Proxy = loginAgainVm.SelectedProxy;
         }
+
         var waitDialog = new WaitLoginDialog();
         var wait = DialogHost.Show(waitDialog);
         try
@@ -160,7 +165,8 @@ public partial class MainVM //File //TODO: Refactor
         }
         catch (LoginException ex)
         {
-            SnackbarController.SendSnackbar(ErrorTranslatorHelper.TranslateLoginError(ex.Error), TimeSpan.FromSeconds(1.5));
+            SnackbarController.SendSnackbar(ErrorTranslatorHelper.TranslateLoginError(ex.Error),
+                TimeSpan.FromSeconds(1.5));
         }
         catch (Exception ex)
             when (ExceptionHandler.Handle(ex))
@@ -172,6 +178,7 @@ public partial class MainVM //File //TODO: Refactor
             DialogsController.CloseDialog();
             await wait;
         }
+
         var result = data.SessionData != null;
         if (!result) return result;
         Storage.SaveMafile(data);
@@ -181,7 +188,6 @@ public partial class MainVM //File //TODO: Refactor
             SelectedMafile = data;
         } //As this operation used only for 1 mafile at time, we can safely assume that we can select it for convenience
         return result;
-
     }
 
     [RelayCommand]
@@ -211,7 +217,7 @@ public partial class MainVM //File //TODO: Refactor
     private async Task OpenSettingsDialog()
     {
         var vm = new SettingsVM();
-        var view = new SettingsView()
+        var view = new SettingsView
         {
             DataContext = vm
         };
@@ -236,15 +242,14 @@ public partial class MainVM //File //TODO: Refactor
         if (arr.All(p => p.ContainsIgnoreCase("mafile") == false)) return;
 
 
-
         await AddMafile(arr);
     }
 
     [RelayCommand]
     private void CopyLogin(object? mafile)
     {
-        if(mafile is not Mafile maf) return;
-        if(ClipboardHelper.Set(maf.AccountName))
+        if (mafile is not Mafile maf) return;
+        if (ClipboardHelper.Set(maf.AccountName))
             SnackbarController.SendSnackbar(GetLocalization("LoginCopied"));
     }
 
@@ -253,7 +258,7 @@ public partial class MainVM //File //TODO: Refactor
     {
         if (mafile is not Mafile maf) return;
 
-        if(ClipboardHelper.Set(maf.SteamId.ToString())) 
+        if (ClipboardHelper.Set(maf.SteamId.ToString()))
             SnackbarController.SendSnackbar(GetLocalization("SteamIdCopied"));
     }
 
@@ -262,7 +267,7 @@ public partial class MainVM //File //TODO: Refactor
     {
         if (mafile is not Mafile maf) return;
         var path = Storage.TryFindMafilePath(maf);
-        if(ClipboardHelper.SetFiles([path]))
+        if (ClipboardHelper.SetFiles([path]))
             SnackbarController.SendSnackbar(GetLocalization("MafileCopied"));
     }
 }

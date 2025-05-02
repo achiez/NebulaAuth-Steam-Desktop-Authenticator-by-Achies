@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Concurrent;
+using Newtonsoft.Json;
 using SteamLib.Core.Enums;
 using SteamLib.Core.Interfaces;
 using SteamLib.Core.Models;
 using SteamLib.Web.Converters;
-using System.Collections.Concurrent;
 
 namespace SteamLib.Account;
 
@@ -16,25 +16,30 @@ public class SessionData : ISessionData
 
     [JsonConverter(typeof(SteamIdToSteam64Converter))]
     public SteamId SteamId { get; }
+
     public SteamAuthToken RefreshToken { get; }
     public ConcurrentDictionary<SteamDomain, SteamAuthToken> Tokens { get; }
 
     [JsonConstructor]
-    public SessionData(string sessionId, SteamId steamId, SteamAuthToken refreshToken, IDictionary<SteamDomain, SteamAuthToken>? tokens)
+    public SessionData(string sessionId, SteamId steamId, SteamAuthToken refreshToken,
+        IDictionary<SteamDomain, SteamAuthToken>? tokens)
     {
         SessionId = sessionId;
         SteamId = steamId;
         RefreshToken = refreshToken;
-        Tokens = new ConcurrentDictionary<SteamDomain, SteamAuthToken>(tokens ?? new Dictionary<SteamDomain, SteamAuthToken>());
+        Tokens = new ConcurrentDictionary<SteamDomain, SteamAuthToken>(tokens ??
+                                                                       new Dictionary<SteamDomain, SteamAuthToken>());
     }
 
-    public SessionData(string sessionId, SteamId steamId, SteamAuthToken refreshToken, IEnumerable<SteamAuthToken>? tokensCollection)
+    public SessionData(string sessionId, SteamId steamId, SteamAuthToken refreshToken,
+        IEnumerable<SteamAuthToken>? tokensCollection)
     {
         SessionId = sessionId;
         SteamId = steamId;
         RefreshToken = refreshToken;
         tokensCollection ??= Array.Empty<SteamAuthToken>();
-        Tokens = new ConcurrentDictionary<SteamDomain, SteamAuthToken>(tokensCollection.ToDictionary(t => t.Domain, t => t));
+        Tokens = new ConcurrentDictionary<SteamDomain, SteamAuthToken>(
+            tokensCollection.ToDictionary(t => t.Domain, t => t));
     }
 
     public virtual SteamAuthToken? GetToken(SteamDomain domain)
@@ -44,7 +49,6 @@ public class SessionData : ISessionData
         if (Tokens.TryGetValue(domain, out var token))
             return token;
         return null;
-
     }
 
     public void SetToken(SteamDomain domain, SteamAuthToken token)
@@ -53,12 +57,13 @@ public class SessionData : ISessionData
     }
 
 
+    public virtual SessionData Clone()
+    {
+        return (SessionData) ((ICloneable) this).Clone();
+    }
 
-    public virtual SessionData Clone() => (SessionData)((ICloneable)this).Clone();
     object ICloneable.Clone()
     {
         return new SessionData(SessionId, SteamId, RefreshToken, Tokens);
     }
-
-
 }

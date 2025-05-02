@@ -15,8 +15,6 @@ public class ProtoResponse
         Result = result;
         ProtoObject = protoObject;
     }
-
-
 }
 
 public class ProtoResponse<TProtoResponse> : ProtoResponse
@@ -24,24 +22,25 @@ public class ProtoResponse<TProtoResponse> : ProtoResponse
 {
     public TProtoResponse? ResponseMsg
     {
-        get => ProtoObject == null ? default : (TProtoResponse)ProtoObject;
+        get => ProtoObject == null ? default : (TProtoResponse) ProtoObject;
         set => ProtoObject = value;
     }
 
     public ProtoResponse(EResult result, TProtoResponse? protoObject) : base(result, protoObject)
-    { }
+    {
+    }
 
     public static ProtoResponse<TProtoResponse> FromHttpResponse(HttpResponseMessage response)
     {
         response.EnsureSuccessStatusCode();
-        EResult eResult = EResult.Invalid;
+        var eResult = EResult.Invalid;
         if (response.Headers.TryGetValues("x-eresult", out var val))
         {
             var eResultInt = Convert.ToInt32(val.Single());
-            eResult = (EResult)eResultInt;
+            eResult = (EResult) eResultInt;
         }
 
-        TProtoResponse? msg = default(TProtoResponse);
+        var msg = default(TProtoResponse);
         Stream? stream = null;
         try
         {
@@ -56,20 +55,22 @@ public class ProtoResponse<TProtoResponse> : ProtoResponse
         {
             stream?.Dispose();
         }
+
         return new ProtoResponse<TProtoResponse>(eResult, msg);
     }
 
-    public static async Task<ProtoResponse<TProtoResponse>> FromHttpResponseAsync(HttpResponseMessage response, CancellationToken cancellationToken = default)
+    public static async Task<ProtoResponse<TProtoResponse>> FromHttpResponseAsync(HttpResponseMessage response,
+        CancellationToken cancellationToken = default)
     {
         response.EnsureSuccessStatusCode();
-        EResult eResult = EResult.Invalid;
+        var eResult = EResult.Invalid;
         if (response.Headers.TryGetValues("x-eresult", out var val))
         {
             var eResultInt = Convert.ToInt32(val.Single());
-            eResult = (EResult)eResultInt;
+            eResult = (EResult) eResultInt;
         }
 
-        TProtoResponse? msg = default(TProtoResponse);
+        var msg = default(TProtoResponse);
         Stream? stream = null;
         try
         {
@@ -80,16 +81,18 @@ public class ProtoResponse<TProtoResponse> : ProtoResponse
         {
             //Ignored
         }
-        finally { if (stream != null) await stream.DisposeAsync(); }
-
-
+        finally
+        {
+            if (stream != null) await stream.DisposeAsync();
+        }
 
 
         return new ProtoResponse<TProtoResponse>(eResult, msg);
     }
 
     /// <summary>
-    /// Ensures that <see cref="ResponseMsg"/> is not <see langword="null"/> and returns it otherwise throws <see cref="NullReferenceException"/>. 
+    ///     Ensures that <see cref="ResponseMsg" /> is not <see langword="null" /> and returns it otherwise throws
+    ///     <see cref="NullReferenceException" />.
     /// </summary>
     /// <returns></returns>
     /// <exception cref="NullReferenceException"></exception>

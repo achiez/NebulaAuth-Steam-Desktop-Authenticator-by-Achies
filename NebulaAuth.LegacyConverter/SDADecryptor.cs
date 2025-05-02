@@ -1,9 +1,7 @@
-﻿#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-namespace NebulaAuth.LegacyConverter;
+﻿using System.Security.Cryptography;
 
-using System;
-using System.IO;
-using System.Security.Cryptography;
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+namespace NebulaAuth.LegacyConverter;
 
 #pragma warning disable all
 #pragma warning disable SYSLIB0023
@@ -13,24 +11,23 @@ using System.Security.Cryptography;
 //Resharper disable all
 //Pragma is disabled because it's legacy code from SDA
 
-
-
 /// <summary>
-/// This class provides the controls that will encrypt and decrypt the *.maFile files
-/// 
-/// Passwords entered will be passed into 100k rounds of PBKDF2 (RFC2898) with a cryptographically random salt.
-/// The generated key will then be passed into AES-256 (RijndalManaged) which will encrypt the data
-/// in cypher block chaining (CBC) mode, and then write both the PBKDF2 salt and encrypted data onto the disk.
+///     This class provides the controls that will encrypt and decrypt the *.maFile files
+///     Passwords entered will be passed into 100k rounds of PBKDF2 (RFC2898) with a cryptographically random salt.
+///     The generated key will then be passed into AES-256 (RijndalManaged) which will encrypt the data
+///     in cypher block chaining (CBC) mode, and then write both the PBKDF2 salt and encrypted data onto the disk.
 /// </summary>
 public static class SDAEncryptor
 {
-    private const int PBKDF2_ITERATIONS = 50000; //Set to 50k to make program not unbearably slow. May increase in future.
+    private const int
+        PBKDF2_ITERATIONS = 50000; //Set to 50k to make program not unbearably slow. May increase in future.
+
     private const int SALT_LENGTH = 8;
     private const int KEY_SIZE_BYTES = 32;
     private const int IV_LENGTH = 16;
 
     /// <summary>
-    /// Returns an 8-byte cryptographically random salt in base64 encoding
+    ///     Returns an 8-byte cryptographically random salt in base64 encoding
     /// </summary>
     /// <returns></returns>
     public static string GetRandomSalt()
@@ -40,11 +37,12 @@ public static class SDAEncryptor
         {
             rng.GetBytes(salt);
         }
+
         return Convert.ToBase64String(salt);
     }
 
     /// <summary>
-    /// Returns a 16-byte cryptographically random initialization vector (IV) in base64 encoding
+    ///     Returns a 16-byte cryptographically random initialization vector (IV) in base64 encoding
     /// </summary>
     /// <returns></returns>
     public static string GetInitializationVector()
@@ -54,14 +52,14 @@ public static class SDAEncryptor
         {
             rng.GetBytes(IV);
         }
+
         return Convert.ToBase64String(IV);
     }
 
 
     /// <summary>
-    /// Generates an encryption key derived using a password, a random salt, and specified number of rounds of PBKDF2
-    /// 
-    /// TODO: pass in password via SecureString?
+    ///     Generates an encryption key derived using a password, a random salt, and specified number of rounds of PBKDF2
+    ///     TODO: pass in password via SecureString?
     /// </summary>
     /// <param name="password"></param>
     /// <param name="salt"></param>
@@ -72,19 +70,22 @@ public static class SDAEncryptor
         {
             throw new ArgumentException("Password is empty");
         }
+
         if (string.IsNullOrEmpty(salt))
         {
             throw new ArgumentException("Salt is empty");
         }
-        using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, Convert.FromBase64String(salt), PBKDF2_ITERATIONS))
+
+        using (Rfc2898DeriveBytes pbkdf2 =
+               new Rfc2898DeriveBytes(password, Convert.FromBase64String(salt), PBKDF2_ITERATIONS))
         {
             return pbkdf2.GetBytes(KEY_SIZE_BYTES);
         }
     }
 
     /// <summary>
-    /// Tries to decrypt and return data given an encrypted base64 encoded string. Must use the same
-    /// password, salt, IV, and ciphertext that was used during the original encryption of the data.
+    ///     Tries to decrypt and return data given an encrypted base64 encoded string. Must use the same
+    ///     password, salt, IV, and ciphertext that was used during the original encryption of the data.
     /// </summary>
     /// <param name="password"></param>
     /// <param name="passwordSalt"></param>
@@ -97,14 +98,17 @@ public static class SDAEncryptor
         {
             throw new ArgumentException("Password is empty");
         }
+
         if (string.IsNullOrEmpty(passwordSalt))
         {
             throw new ArgumentException("Salt is empty");
         }
+
         if (string.IsNullOrEmpty(IV))
         {
             throw new ArgumentException("Initialization Vector is empty");
         }
+
         if (string.IsNullOrEmpty(encryptedData))
         {
             throw new ArgumentException("Encrypted data is empty");
@@ -143,13 +147,14 @@ public static class SDAEncryptor
                 plaintext = null;
             }
         }
+
         return plaintext;
     }
 
     /// <summary>
-    /// Encrypts a string given a password, salt, and initialization vector, then returns result in base64 encoded string.
-    /// 
-    /// To retrieve this data, you must decrypt with the same password, salt, IV, and cyphertext that was used during encryption
+    ///     Encrypts a string given a password, salt, and initialization vector, then returns result in base64 encoded string.
+    ///     To retrieve this data, you must decrypt with the same password, salt, IV, and cyphertext that was used during
+    ///     encryption
     /// </summary>
     /// <param name="password"></param>
     /// <param name="passwordSalt"></param>
@@ -162,18 +167,22 @@ public static class SDAEncryptor
         {
             throw new ArgumentException("Password is empty");
         }
+
         if (string.IsNullOrEmpty(passwordSalt))
         {
             throw new ArgumentException("Salt is empty");
         }
+
         if (string.IsNullOrEmpty(IV))
         {
             throw new ArgumentException("Initialization Vector is empty");
         }
+
         if (string.IsNullOrEmpty(plaintext))
         {
             throw new ArgumentException("Plaintext data is empty");
         }
+
         byte[] key = GetEncryptionKey(password, passwordSalt);
         byte[] ciphertext;
 
@@ -194,10 +203,12 @@ public static class SDAEncryptor
                     {
                         swEncypt.Write(plaintext);
                     }
+
                     ciphertext = msEncrypt.ToArray();
                 }
             }
         }
+
         return Convert.ToBase64String(ciphertext);
     }
 }

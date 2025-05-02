@@ -11,22 +11,22 @@ namespace SteamLib.Account;
 public readonly struct SteamAuthToken
 {
     public string Token { get; }
-    
+
     [JsonConverter(typeof(SteamIdToSteam64Converter))]
     public SteamId SteamId { get; }
 
     [JsonConverter(typeof(UnixTimeStampConverter))]
     public UnixTimeStamp Expires { get; }
+
     public SteamDomain Domain { get; init; }
     public SteamAccessTokenType Type { get; }
 
-    [JsonIgnore]
-    public bool IsExpired => Expires.Time < DateTime.UtcNow;
+    [JsonIgnore] public bool IsExpired => Expires.Time < DateTime.UtcNow;
 
-    [JsonIgnore]
-    public string SignedToken { get; }
+    [JsonIgnore] public string SignedToken { get; }
 
-    public SteamAuthToken(string token, long steamId, UnixTimeStamp expires, SteamDomain domain, SteamAccessTokenType type)
+    public SteamAuthToken(string token, long steamId, UnixTimeStamp expires, SteamDomain domain,
+        SteamAccessTokenType type)
     {
         Token = token;
         Expires = expires;
@@ -37,7 +37,8 @@ public readonly struct SteamAuthToken
     }
 
     [JsonConstructor]
-    public SteamAuthToken(string token, SteamId steamId, UnixTimeStamp expires, SteamDomain domain, SteamAccessTokenType type)
+    public SteamAuthToken(string token, SteamId steamId, UnixTimeStamp expires, SteamDomain domain,
+        SteamAccessTokenType type)
     {
         Token = token;
         SteamId = steamId;
@@ -46,5 +47,4 @@ public readonly struct SteamAuthToken
         Type = type;
         SignedToken = SteamTokenHelper.CombineJwtWithSteamId(SteamId.Steam64.Id, Token);
     }
-    
 }

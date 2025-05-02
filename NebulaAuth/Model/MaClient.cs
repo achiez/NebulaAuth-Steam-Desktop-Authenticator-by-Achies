@@ -1,4 +1,8 @@
-﻿using AchiesUtilities.Web.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using AchiesUtilities.Web.Proxy;
 using NebulaAuth.Model.Entities;
 using SteamLib.Api.Mobile;
@@ -7,17 +11,10 @@ using SteamLib.Core.Interfaces;
 using SteamLib.Exceptions;
 using SteamLib.ProtoCore.Services;
 using SteamLib.SteamMobile.Confirmations;
-using SteamLib.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using SteamLib.Utility;
+using SteamLib.Web;
 
 namespace NebulaAuth.Model;
-
-
 
 public static class MaClient
 {
@@ -54,6 +51,7 @@ public static class MaClient
                 ClientHandler.CookieContainer.AddMinimalMobileCookies();
                 AdmissionHelper.TransferCommunityCookies(ClientHandler.CookieContainer);
             }
+
             Proxy.SetData(account.Proxy?.Data);
         }
     }
@@ -83,20 +81,23 @@ public static class MaClient
     {
         ValidateMafile(mafile);
         SetProxy(mafile);
-        return SteamMobileConfirmationsApi.SendConfirmation(Client, confirmation, mafile.SessionData!.SteamId, mafile, confirm);
+        return SteamMobileConfirmationsApi.SendConfirmation(Client, confirmation, mafile.SessionData!.SteamId, mafile,
+            confirm);
     }
 
-    public static Task<bool> SendMultipleConfirmation(Mafile mafile, IEnumerable<Confirmation> confirmations, bool confirm)
+    public static Task<bool> SendMultipleConfirmation(Mafile mafile, IEnumerable<Confirmation> confirmations,
+        bool confirm)
     {
         var enumerable = confirmations.ToList();
         if (enumerable.Count == 0)
         {
-            return Task.FromResult(result: false);
+            return Task.FromResult(false);
         }
 
         ValidateMafile(mafile);
         SetProxy(mafile);
-        return SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, enumerable, mafile.SessionData!.SteamId, mafile, confirm);
+        return SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, enumerable, mafile.SessionData!.SteamId,
+            mafile, confirm);
     }
 
     public static Task<RemoveAuthenticator_Response> RemoveAuthenticator(Mafile mafile)
@@ -107,6 +108,7 @@ public static class MaClient
         {
             throw new InvalidOperationException("This mafile does not have R-Code");
         }
+
         var token = mafile.SessionData!.GetMobileToken()!;
         return SteamMobileApi.RemoveAuthenticator(Client, token.Value.Token, mafile.RevocationCode);
     }
@@ -128,7 +130,6 @@ public static class MaClient
             if (access == null || access.Value.IsExpired)
                 throw new SessionPermanentlyExpiredException();
         }
-
     }
 
     public static async Task<LoginConfirmationResult> ConfirmLoginRequest(Mafile mafile)
@@ -145,6 +146,7 @@ public static class MaClient
                 Error = LoginConfirmationError.NoRequests
             };
         }
+
         if (sessions.ClientIds.Count > 1)
         {
             return new LoginConfirmationResult

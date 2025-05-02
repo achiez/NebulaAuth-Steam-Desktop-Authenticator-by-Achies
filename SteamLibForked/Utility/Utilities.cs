@@ -6,6 +6,7 @@ public static class Utilities //TODO: refactor
 {
     private static readonly Regex RegexInt = new("\"success\":\\s?(\\d*)", RegexOptions.Compiled);
     private static readonly Regex RegexBool = new("\"success\":\\s?(\\w*)", RegexOptions.Compiled);
+
     public static int GetSuccessCode(string response)
     {
         var length = Math.Min(response.Length, 100);

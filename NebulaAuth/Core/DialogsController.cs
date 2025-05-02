@@ -10,12 +10,10 @@ namespace NebulaAuth.Core;
 
 public static class DialogsController
 {
-
     #region CommonDialogs
 
     public static async Task<bool> ShowConfirmCancelDialog(string? msg = null)
     {
-        
         var content = msg == null ? new ConfirmCancelDialog() : new ConfirmCancelDialog(msg);
 
         var result = await DialogHost.Show(content);
@@ -50,10 +48,11 @@ public static class DialogsController
         return null;
     }
 
-    public static async Task<LoginAgainOnImportVM?> ShowLoginAgainOnImportDialog(Mafile mafile, IEnumerable<MaProxy> proxies)
+    public static async Task<LoginAgainOnImportVM?> ShowLoginAgainOnImportDialog(Mafile mafile,
+        IEnumerable<MaProxy> proxies)
     {
         var vm = new LoginAgainOnImportVM(mafile, proxies);
-        var content = new LoginAgainOnImportDialog()
+        var content = new LoginAgainOnImportDialog
         {
             DataContext = vm
         };
@@ -75,19 +74,19 @@ public static class DialogsController
         };
         await DialogHost.Show(view);
     }
+
     public static void CloseDialog()
     {
         DialogHost.Close(null);
     }
+
     public static async Task ShowLinkerDialog()
     {
         var vm = new LinkAccountVM();
-        var view = new LinkerView()
+        var view = new LinkerView
         {
             DataContext = vm
         };
         await DialogHost.Show(view);
     }
-
-
 }

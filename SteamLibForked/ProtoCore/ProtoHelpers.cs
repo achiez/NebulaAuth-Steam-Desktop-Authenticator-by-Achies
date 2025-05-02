@@ -30,7 +30,7 @@ public static class ProtoHelpers
             if (Enum.IsDefined(typeof(EResult), eResultInt) == false)
                 throw new UnknownEResultException(eResultInt);
 
-            return (EResult)eResultInt;
+            return (EResult) eResultInt;
         }
 
         return EResult.Invalid;

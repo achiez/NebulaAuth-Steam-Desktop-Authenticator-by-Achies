@@ -10,11 +10,12 @@ using SteamLib.Exceptions;
 namespace NebulaAuth.View.Dialogs;
 
 /// <summary>
-/// Логика взаимодействия для WaitLoginDialog.xaml
+///     Логика взаимодействия для WaitLoginDialog.xaml
 /// </summary>
 public partial class WaitLoginDialog : ICaptchaResolver
 {
     private TaskCompletionSource<string> _tcs = new();
+
     public WaitLoginDialog()
     {
         InitializeComponent();
@@ -22,7 +23,6 @@ public partial class WaitLoginDialog : ICaptchaResolver
 
     public async Task<string> Resolve(Uri imageUrl, HttpClient client)
     {
-
         CaptchaGrid.Visibility = Visibility.Visible;
         var stream = await client.GetStreamAsync(imageUrl);
         return await Application.Current.Dispatcher.Invoke(async () =>
