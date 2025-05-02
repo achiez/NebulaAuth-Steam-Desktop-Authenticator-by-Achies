@@ -8,6 +8,8 @@ using NebulaAuth.Core;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.View.Dialogs;
 using SteamLib.Exceptions;
+using SteamLib.Utility;
+
 
 namespace NebulaAuth.Model;
 
@@ -16,7 +18,7 @@ public static partial class SessionHandler
     private static readonly SemaphoreSlim Semaphore = new(1, 1);
 
     public static async Task<T> Handle<T>(Func<Task<T>> func, Mafile mafile,
-        HttpClientHandlerPair? chp = null, string? snackbarPrefix = null)
+        SocketsClientHandlerPair? chp = null, string? snackbarPrefix = null)
     {
         chp ??= MaClient.GetHttpClientHandlerPair(mafile);
         await Semaphore.WaitAsync();
@@ -30,7 +32,7 @@ public static partial class SessionHandler
         }
     }
 
-    private static async Task<T> HandleInternal<T>(Func<Task<T>> func, HttpClientHandlerPair chp, Mafile mafile,
+    private static async Task<T> HandleInternal<T>(Func<Task<T>> func, SocketsClientHandlerPair chp, Mafile mafile,
         string? snackbarPrefix = null)
     {
         using var scope = Shell.Logger.PushScopeProperty("Scope", "SessionHandler");
@@ -135,7 +137,7 @@ public static partial class SessionHandler
     }
 
 
-    private static async Task<bool> RefreshInternal(HttpClientHandlerPair chp, Mafile mafile)
+    private static async Task<bool> RefreshInternal(SocketsClientHandlerPair chp, Mafile mafile)
     {
         try
         {
@@ -150,7 +152,7 @@ public static partial class SessionHandler
         }
     }
 
-    private static async Task<bool> LoginAgainInternal(HttpClientHandlerPair chp, Mafile mafile, string password,
+    private static async Task<bool> LoginAgainInternal(SocketsClientHandlerPair chp, Mafile mafile, string password,
         bool savePassword)
     {
         var t = Task.Run(OnLoginStarted);

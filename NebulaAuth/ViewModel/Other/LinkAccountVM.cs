@@ -364,6 +364,7 @@ public partial class LinkAccountVM : ObservableObject, IEmailProvider, IPhoneNum
 
     private static HttpClient Client { get; }
     private static HttpClientHandler Handler { get; }
+
     private static DynamicProxy Proxy { get; }
     public ObservableDictionary<int, ProxyData> Proxies => ProxyStorage.Proxies;
 

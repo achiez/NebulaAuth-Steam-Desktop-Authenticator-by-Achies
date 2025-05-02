@@ -12,19 +12,21 @@ using SteamLib.Core.Interfaces;
 using SteamLib.Exceptions;
 using SteamLib.ProtoCore.Services;
 using SteamLib.SteamMobile.Confirmations;
+using SteamLib.Utility;
 using SteamLib.Web;
 
 namespace NebulaAuth.Model;
 
 public static class MaClient
 {
-    private static HttpClientHandler ClientHandler { get; }
+    private static SocketsHttpHandler ClientHandler { get; }
 
     private static HttpClient Client { get; }
 
     private static DynamicProxy Proxy { get; }
 
     public static ProxyData? DefaultProxy { get; set; }
+
 
     static MaClient()
     {

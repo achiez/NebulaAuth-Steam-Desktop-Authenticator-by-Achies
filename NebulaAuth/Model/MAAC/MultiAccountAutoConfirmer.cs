@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using AchiesUtilities.Extensions;
 using NebulaAuth.Core;
 using NebulaAuth.Model.Entities;
-using NLog;
 
 namespace NebulaAuth.Model.MAAC;
 
@@ -60,7 +59,7 @@ public static class MultiAccountAutoConfirmer
     private static async Task TimerConfirmInternal()
     {
         var clients = Lock.ReadLock(() => Clients.ToArray());
-        var enabledClients = clients.Where(x => x.LinkedClient is { IsError: false }).ToArray();
+        var enabledClients = clients.Where(x => x.LinkedClient is {IsError: false}).ToArray();
         enabledClients = DistributeEvenly(enabledClients).ToArray();
         var confirmed = 0;
         await Task.Run(async () =>

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+
 using AchiesUtilities.Web.Models;
 using NebulaAuth.Model.Entities;
 using SteamLib.Account;
@@ -7,12 +8,14 @@ using SteamLib.Authentication;
 using SteamLib.Authentication.LoginV2;
 using SteamLib.Exceptions;
 using SteamLib.SteamMobile;
+using SteamLib.Utility;
+
 
 namespace NebulaAuth.Model;
 
 public partial class SessionHandler //API
 {
-    public static async Task RefreshMobileToken(HttpClientHandlerPair chp, Mafile mafile)
+    public static async Task RefreshMobileToken(SocketsClientHandlerPair chp, Mafile mafile)
     {
         if (mafile.SessionData is not {RefreshToken.IsExpired: false})
             throw new SessionPermanentlyExpiredException(SessionInvalidException.SESSION_NULL_MSG);
@@ -32,7 +35,7 @@ public partial class SessionHandler //API
         chp.Handler.CookieContainer.SetSteamMobileCookiesWithMobileToken(mafile.SessionData);
     }
 
-    public static async Task LoginAgain(HttpClientHandlerPair chp, Mafile mafile, string password, bool savePassword)
+    public static async Task LoginAgain(SocketsClientHandlerPair chp, Mafile mafile, string password, bool savePassword)
     {
         var sgGenerator = new SteamGuardCodeGenerator(mafile.SharedSecret);
         var options = new LoginV2ExecutorOptions(LoginV2Executor.NullConsumer, chp.Client)

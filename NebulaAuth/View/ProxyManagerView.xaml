@@ -7,13 +7,12 @@
              xmlns:other="clr-namespace:NebulaAuth.ViewModel.Other"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="400"
-             Foreground="WhiteSmoke"
              FontFamily="{md:MaterialDesignFont}"
              MinHeight="500"
              MinWidth="400"
              MaxHeight="550"
              d:DataContext="{d:DesignInstance other:ProxyManagerVM}"
-             Background="{DynamicResource WindowBackground}">
+             Background="{DynamicResource BackgroundBrush1}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

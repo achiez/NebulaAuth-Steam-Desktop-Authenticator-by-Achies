@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
-using AchiesUtilities.Web.Models;
 using SteamLib.Authentication;
 using SteamLib.Core.Interfaces;
+using SteamLib.Utility;
 
 namespace SteamLib.Web;
 
@@ -12,7 +12,7 @@ public static class ClientBuilder
         bool disposeHandler = true)
     {
         sessionData?.EnsureValidated();
-        var handler = new HttpClientHandler();
+        var handler = new SocketsHttpHandler();
         var client = new HttpClient(handler, disposeHandler);
 
         client.DefaultRequestHeaders.Accept.ParseAdd(
@@ -39,7 +39,7 @@ public static class ClientBuilder
     }
 
 
-    private static void ConfigureCommon(HttpClientHandler handler, HttpClient client)
+    private static void ConfigureCommon(SocketsHttpHandler handler, HttpClient client)
     {
         ConfigureCommonClient(client);
         handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;

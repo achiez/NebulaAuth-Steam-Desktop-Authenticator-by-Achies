@@ -17,6 +17,7 @@ using SteamLib.Authentication;
 using SteamLib.Core.Interfaces;
 using SteamLib.Exceptions;
 using SteamLib.SteamMobile.Confirmations;
+using SteamLib.Utility;
 using SteamLib.Web;
 
 namespace NebulaAuth.Model.MAAC;
@@ -26,7 +27,7 @@ public partial class PortableMaClient : ObservableObject, IDisposable
     private const string LOC_PATH = "MAAC";
     public Mafile Mafile { get; }
     private HttpClient Client { get; }
-    private HttpClientHandler ClientHandler { get; }
+    private SocketsHttpHandler ClientHandler { get; }
     private DynamicProxy Proxy { get; }
 
     private readonly CancellationTokenSource _cts = new();

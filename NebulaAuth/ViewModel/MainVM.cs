@@ -51,6 +51,16 @@ public partial class MainVM : ObservableObject
         }
     }
 
+    [RelayCommand]
+    public void Debug()
+    {
+        var ph = new PaletteHelper();
+        var t = new MaterialDesignThemes.Wpf.Theme();
+        var cur = ph.GetTheme();
+        t.SetDarkTheme();
+        ph.SetTheme(t);
+    }
+
 
     private void SetMafile(Mafile? mafile)
     {

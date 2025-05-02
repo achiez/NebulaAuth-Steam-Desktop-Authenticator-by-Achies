@@ -37,12 +37,13 @@ public partial class MainVM
         }
 
         if (!system && SelectedMafile != null)
+
         {
             SelectedMafile.Proxy = SelectedProxy;
             Storage.UpdateMafile(SelectedMafile);
         }
-
         CheckProxyExist();
+
     }
 
     [RelayCommand]
