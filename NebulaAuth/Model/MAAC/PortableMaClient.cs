@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using AchiesUtilities.Web.Models;
 using AchiesUtilities.Web.Proxy;
 using CommunityToolkit.Mvvm.ComponentModel;
 using NebulaAuth.Core;
@@ -180,9 +181,9 @@ public partial class PortableMaClient : ObservableObject, IDisposable
     }
 
 
-    private SocketsClientHandlerPair Chp()
+    private HttpClientHandlerPair Chp()
     {
-        return new SocketsClientHandlerPair(Client, ClientHandler);
+        return new HttpClientHandlerPair(Client, ClientHandler);
     }
 
     private static string GetLocalization(string key)

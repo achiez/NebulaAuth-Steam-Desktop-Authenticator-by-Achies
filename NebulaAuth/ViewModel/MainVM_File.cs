@@ -270,4 +270,27 @@ public partial class MainVM //File //TODO: Refactor
         if (ClipboardHelper.SetFiles([path]))
             SnackbarController.SendSnackbar(GetLocalization("MafileCopied"));
     }
+
+    [RelayCommand(CanExecute = nameof(CanCopyPassword))]
+    private void CopyPassword(object? mafile)
+    {
+        if (mafile is not Mafile maf) return;
+        if (maf.Password == null) return;
+        try
+        {
+            var pass = PHandler.Decrypt(maf.Password);
+            if (ClipboardHelper.Set(pass))
+                SnackbarController.SendSnackbar(GetLocalization("PasswordCopied"));
+        }
+        catch
+        {
+            SnackbarController.SendSnackbar(GetLocalization("CantDecryptPassword"));
+        }
+    }
+
+    private bool CanCopyPassword(object? mafile)
+    {
+        if (mafile is not Mafile maf) return false;
+        return maf.Password != null && PHandler.IsPasswordSet;
+    }
 }

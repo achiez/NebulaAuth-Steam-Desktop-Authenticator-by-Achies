@@ -72,7 +72,7 @@ public partial class MainVM : ObservableObject
             OnPropertyChanged(nameof(MarketTimerEnabled));
             MaClient.SetAccount(mafile);
             OnPropertyChanged(nameof(ConfirmationsVisible));
-            SetCurrentProxy();
+            SetProxy(mafile?.Proxy, true);
             OnPropertyChanged(nameof(IsDefaultProxy));
             if (mafile != null) Code = SteamGuardCodeGenerator.GenerateCode(mafile.SharedSecret);
             OnPropertyChanged(nameof(IsMafileSelected));
@@ -88,7 +88,8 @@ public partial class MainVM : ObservableObject
             return;
         }
 
-        var loginAgainVm = await DialogsController.ShowLoginAgainDialog(SelectedMafile.AccountName);
+        var currentPassword = PHandler.DecryptPassword(SelectedMafile.Password);
+        var loginAgainVm = await DialogsController.ShowLoginAgainDialog(SelectedMafile.AccountName, currentPassword);
         if (loginAgainVm == null)
         {
             return;

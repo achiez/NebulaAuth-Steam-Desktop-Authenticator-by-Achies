@@ -2,7 +2,9 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+
 using System.Linq;
+
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -62,6 +64,7 @@ public static class ThemeManager
     private static void UpdateBackground()
     {
         var color = Settings.Instance.BackgroundColor ?? DefaultBackgroundColor;
+
         Application.Current.Resources["Background"] = color;
         ApplyTheme();
     }
@@ -78,6 +81,7 @@ public static class ThemeManager
             var color = (System.Windows.Media.Color) Application.Current.Resources[key];
             Application.Current.Resources[brushKey] = new SolidColorBrush(color);
         }
+
     }
 
 

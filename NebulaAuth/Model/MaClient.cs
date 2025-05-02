@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using AchiesUtilities.Web.Models;
 using AchiesUtilities.Web.Proxy;
 using NebulaAuth.Model.Entities;
 using SteamLib.Api.Mobile;
@@ -25,7 +26,7 @@ public static class MaClient
     private static DynamicProxy Proxy { get; }
 
     public static ProxyData? DefaultProxy { get; set; }
-    public static SocketsClientHandlerPair Chp => new(Client, ClientHandler);
+
 
     static MaClient()
     {
@@ -66,7 +67,8 @@ public static class MaClient
     public static Task LoginAgain(Mafile mafile, string password, bool savePassword, ICaptchaResolver? resolver)
     {
         SetProxy(mafile);
-        return SessionHandler.LoginAgain(Chp, mafile, password, savePassword);
+        return SessionHandler.LoginAgain(new HttpClientHandlerPair(Client, ClientHandler), mafile, password,
+            savePassword);
     }
 
 
@@ -74,7 +76,7 @@ public static class MaClient
     {
         ValidateMafile(mafile, true);
         SetProxy(mafile);
-        return SessionHandler.RefreshMobileToken(Chp, mafile);
+        return SessionHandler.RefreshMobileToken(new HttpClientHandlerPair(Client, ClientHandler), mafile);
     }
 
     public static Task<bool> SendConfirmation(Mafile mafile, Confirmation confirmation, bool confirm)
@@ -172,5 +174,11 @@ public static class MaClient
             IP = clientInfo.IP,
             Success = true
         };
+    }
+
+    public static HttpClientHandlerPair GetHttpClientHandlerPair(Mafile mafile)
+    {
+        SetProxy(mafile);
+        return new HttpClientHandlerPair(Client, ClientHandler);
     }
 }

@@ -286,6 +286,11 @@
           "en": "Remove from group",
           "ru": "Удалить из группы",
           "ua": "Видалити з групи"
+        },
+        "CopyPassword": {
+          "en": "Copy password",
+          "ru": "Скопировать пароль",
+          "ua": "Скопіювати пароль"
         }
       },
       "Proxy": {
@@ -690,6 +695,17 @@
         "en": "Mafile not copied",
         "ru": "Мафайл не скопирован",
         "ua": "Мафайл не скопійовано"
+      },
+      "PasswordCopied": {
+        "en": "Password copied",
+        "ru": "Пароль скопирован",
+        "ua": "Пароль скопійовано"
+      },
+      "CantDecryptPassword": {
+        "en": "Can't decrypt password. Maybe password from this mafile was encrypted with another encryption password",
+        "ru":
+          "Не удалось расшифровать пароль. Возможно пароль из этого мафайла был зашифрован другим паролем шифрования",
+        "ua": "Не вдалося розшифрувати пароль. Можливо пароль з цього мафайла був зашифрований іншим паролем шифрування"
       }
     },
     "ErrorTranslator": {
@@ -1112,6 +1128,11 @@
         "ru": "Авто ",
         "en": "Auto ",
         "ua": "Авто "
+      },
+      "TimerPreventedOverlap": {
+        "ru": "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
+        "en": "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
+        "ua": "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку"
       }
     }
   },

@@ -2,12 +2,14 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using AchiesUtilities.Web.Models;
 using MaterialDesignThemes.Wpf;
 using NebulaAuth.Core;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.View.Dialogs;
 using SteamLib.Exceptions;
 using SteamLib.Utility;
+
 
 namespace NebulaAuth.Model;
 
@@ -18,7 +20,7 @@ public static partial class SessionHandler
     public static async Task<T> Handle<T>(Func<Task<T>> func, Mafile mafile,
         SocketsClientHandlerPair? chp = null, string? snackbarPrefix = null)
     {
-        chp ??= MaClient.Chp;
+        chp ??= MaClient.GetHttpClientHandlerPair(mafile);
         await Semaphore.WaitAsync();
         try
         {
@@ -113,7 +115,8 @@ public static partial class SessionHandler
 
     private static bool RefreshTokenExpired(Mafile mafile)
     {
-        return mafile.SessionData?.RefreshToken.IsExpired != false;
+        var refreshToken = mafile.SessionData?.RefreshToken;
+        return refreshToken == null || refreshToken.Value.IsExpired;
     }
 
     private static string? GetPassword(Mafile mafile)
@@ -141,7 +144,7 @@ public static partial class SessionHandler
             await RefreshMobileToken(chp, mafile);
             return true;
         }
-        catch (Exception ex)
+        catch (SessionInvalidException ex)
         {
             Shell.Logger.Debug(ex, "Failed to refresh session on mafile {name} {steamid}", mafile.AccountName,
                 mafile.SessionData?.SteamId);
@@ -158,7 +161,7 @@ public static partial class SessionHandler
             await LoginAgain(chp, mafile, password, savePassword);
             return true;
         }
-        catch (Exception ex)
+        catch (Exception ex) //TODO: this will catch any error, even Proxy/Http/Socket errors.
         {
             Shell.Logger.Debug(ex, "Failed to relogin mafile {name} {steamid}", mafile.AccountName,
                 mafile.SessionData?.SteamId);

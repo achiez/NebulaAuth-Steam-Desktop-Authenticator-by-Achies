@@ -8,7 +8,7 @@ namespace SteamLib.Web;
 
 public static class ClientBuilder
 {
-    public static SocketsClientHandlerPair BuildMobileClient(IWebProxy? proxy, IMobileSessionData? sessionData,
+    public static HttpClientHandlerPair BuildMobileClient(IWebProxy? proxy, IMobileSessionData? sessionData,
         bool disposeHandler = true)
     {
         sessionData?.EnsureValidated();
@@ -35,7 +35,7 @@ public static class ClientBuilder
         }
 
         ConfigureCommon(handler, client);
-        return new SocketsClientHandlerPair(client, handler);
+        return new HttpClientHandlerPair(client, handler);
     }
 
 

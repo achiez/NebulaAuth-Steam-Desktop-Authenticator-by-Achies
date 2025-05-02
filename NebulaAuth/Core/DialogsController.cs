@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MaterialDesignThemes.Wpf;
+using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;
@@ -29,11 +30,13 @@ public static class DialogsController
 
     #endregion
 
-    public static async Task<LoginAgainVM?> ShowLoginAgainDialog(string username)
+    public static async Task<LoginAgainVM?> ShowLoginAgainDialog(string username, string? currentPassword = null)
     {
         var vm = new LoginAgainVM
         {
-            UserName = username
+            UserName = username,
+            Password = currentPassword ?? string.Empty,
+            SavePassword = PHandler.IsPasswordSet
         };
         var content = new LoginAgainDialog
         {
@@ -65,7 +68,7 @@ public static class DialogsController
         return null;
     }
 
-    public static async Task ShowProxyManager(MaProxy? currentProxy)
+    public static async Task<bool> ShowProxyManager()
     {
         var vm = new ProxyManagerVM();
         var view = new ProxyManagerView
@@ -73,6 +76,7 @@ public static class DialogsController
             DataContext = vm
         };
         await DialogHost.Show(view);
+        return vm.AnyChanges;
     }
 
     public static void CloseDialog()

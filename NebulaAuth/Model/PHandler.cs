@@ -78,4 +78,17 @@ public static class PHandler
 
         return decryptedText;
     }
+
+  public static string? DecryptPassword(string? encryptedPassword)
+    {
+        if (string.IsNullOrWhiteSpace(encryptedPassword)) return null;
+        try
+        {
+            return Decrypt(encryptedPassword);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
 }

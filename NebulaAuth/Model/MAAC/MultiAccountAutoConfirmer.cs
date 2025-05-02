@@ -26,7 +26,37 @@ public static class MultiAccountAutoConfirmer
         UpdateTimer();
     }
 
+    private static readonly SemaphoreSlim ExecutionLock = new(1, 1);
+
+    // ReSharper disable once AsyncVoidMethod //Already safe
     private static async void TimerConfirm(object? state)
+    {
+        bool isHeld = false;
+        try
+        {
+            isHeld = await ExecutionLock.WaitAsync(0);
+            if (!isHeld)
+            {
+                SnackbarController.SendSnackbar(GetLocalization("TimerPreventedOverlap"));
+                return;
+            }
+            await TimerConfirmInternal();
+
+        }
+        catch (Exception e)
+        {
+            Shell.Logger.Error(e, "Error in MAAC timer");
+        }
+        finally
+        {
+            if (isHeld)
+            {
+                ExecutionLock.Release();
+            }
+        }
+    }
+
+    private static async Task TimerConfirmInternal()
     {
         var clients = Lock.ReadLock(() => Clients.ToArray());
         var enabledClients = clients.Where(x => x.LinkedClient is {IsError: false}).ToArray();

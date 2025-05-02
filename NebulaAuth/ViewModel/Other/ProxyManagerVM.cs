@@ -18,11 +18,12 @@ public partial class ProxyManagerVM : ObservableObject
 
     private static readonly Regex IdRegex = new(@"\{(\d+)\}$", RegexOptions.Compiled);
     public ObservableDictionary<int, ProxyData> Proxies => ProxyStorage.Proxies;
+
+    public bool AnyChanges { get; private set; }
     [ObservableProperty] private string _addProxyField = string.Empty;
     [ObservableProperty] private KeyValuePair<int, ProxyData>? _defaultProxy;
 
     [ObservableProperty] private KeyValuePair<int, ProxyData>? _selectedProxy;
-
 
     public ProxyManagerVM()
     {
@@ -33,6 +34,7 @@ public partial class ProxyManagerVM : ObservableObject
     [RelayCommand]
     private void AddProxy()
     {
+        AnyChanges = true;
         var input = AddProxyField;
         if (string.IsNullOrEmpty(input)) return;
 
@@ -109,6 +111,7 @@ public partial class ProxyManagerVM : ObservableObject
     [RelayCommand]
     private void RemoveProxy()
     {
+        AnyChanges = true;
         var selected = SelectedProxy;
         if (selected == null) return;
         var s = selected.Value;
@@ -138,6 +141,7 @@ public partial class ProxyManagerVM : ObservableObject
     private void SetDefault(object? arg)
     {
         if (arg is not KeyValuePair<int, ProxyData> proxy) return;
+        AnyChanges = true;
         DefaultProxy = proxy;
         MaClient.DefaultProxy = proxy.Value;
         ProxyStorage.Save();
@@ -146,6 +150,7 @@ public partial class ProxyManagerVM : ObservableObject
     [RelayCommand]
     private void RemoveDefault()
     {
+        AnyChanges = true;
         DefaultProxy = null;
         MaClient.DefaultProxy = null;
         ProxyStorage.Save();
