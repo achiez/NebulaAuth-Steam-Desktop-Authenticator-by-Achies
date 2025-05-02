@@ -8,7 +8,7 @@
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
     </Style>
 
-    <ControlTemplate x:Key="WindowTemplate" TargetType="{x:Type Window}" >
+    <ControlTemplate x:Key="WindowTemplate" TargetType="{x:Type Window}">
         <!--<i:Interaction.Behaviors>
             <local:WindowChromeLoadedBehavior />
         </i:Interaction.Behaviors>-->
@@ -24,43 +24,42 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid x:Name="TitleBar"
-                        Grid.Row="0"
-                        Height="28"
-                        Background="{DynamicResource WindowBackground}">
+                          Grid.Row="0"
+                          Height="28"
+                          Background="{DynamicResource WindowBackground}">
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Foreground="{DynamicResource PrimaryHueMidBrush}" 
-                                   Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Title}" FontSize="17"/>
+                                   Foreground="{DynamicResource PrimaryHueMidBrush}"
+                                   Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Title}"
+                                   FontSize="17" />
                         <!--  Window Buttons  -->
                         <StackPanel
                             HorizontalAlignment="Right"
                             Orientation="Horizontal">
                             <StackPanel.Resources>
                                 <Style TargetType="materialDesign:PackIcon">
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
                                 </Style>
                             </StackPanel.Resources>
                             <Button x:Name="MinimizeButton"
-                                    Click="OnMinimizeClick"
-                            >
-                                <materialDesign:PackIcon Kind="WindowMinimize"/>
+                                    Click="OnMinimizeClick">
+                                <materialDesign:PackIcon Kind="WindowMinimize" />
                             </Button>
                             <Button x:Name="MaximizeRestoreButton"
-                                    Click="OnMaximizeRestoreClick"
-                                     >
-                                <materialDesign:PackIcon Kind="WindowMaximize"/>
+                                    Click="OnMaximizeRestoreClick">
+                                <materialDesign:PackIcon Kind="WindowMaximize" />
                             </Button>
                             <Button x:Name="CloseButton"
                                     Click="OnCloseClick">
-                                <materialDesign:PackIcon Kind="WindowClose"/>
+                                <materialDesign:PackIcon Kind="WindowClose" />
                             </Button>
                         </StackPanel>
                     </Grid>
 
                     <!--  Main Window Content  -->
                     <Grid x:Name="MainGrid"
-                        Grid.Row="1"
-                        Background="{DynamicResource MainBackgroundBrush}">
+                          Grid.Row="1"
+                          Background="{DynamicResource MainBackgroundBrush}">
                         <AdornerDecorator>
                             <ContentPresenter />
                         </AdornerDecorator>
@@ -74,11 +73,12 @@
 
             </Trigger>
             <Trigger Property="WindowState" Value="Maximized">
-                <Setter TargetName="RootBorder" Property="BorderThickness" Value="{Binding Source={x:Static local:WindowChromeHelper.WindowResizeBorderThickness}}" />
+                <Setter TargetName="RootBorder" Property="BorderThickness"
+                        Value="{Binding Source={x:Static local:WindowChromeHelper.WindowResizeBorderThickness}}" />
                 <Setter TargetName="RootBorder" Property="BorderBrush" Value="Transparent" />
-                <Setter TargetName="MaximizeRestoreButton" Property="Content" >
+                <Setter TargetName="MaximizeRestoreButton" Property="Content">
                     <Setter.Value>
-                        <materialDesign:PackIcon Kind="WindowRestore"/>
+                        <materialDesign:PackIcon Kind="WindowRestore" />
                     </Setter.Value>
                 </Setter>
             </Trigger>

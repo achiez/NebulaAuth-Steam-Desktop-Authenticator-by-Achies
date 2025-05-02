@@ -3,6 +3,7 @@
 public class UnknownSteamDomainException : Exception
 {
     public string? Domain { get; }
+
     public UnknownSteamDomainException(string? domain)
     {
         Domain = domain;
@@ -20,6 +21,6 @@ public class UnknownSteamDomainException : Exception
 
     public static UnknownSteamDomainException Create(string? domain, Exception? inner = null)
     {
-        return new(domain, $"Unknown Steam domain: {domain}", inner);
-    }   
+        return new UnknownSteamDomainException(domain, $"Unknown Steam domain: {domain}", inner);
+    }
 }

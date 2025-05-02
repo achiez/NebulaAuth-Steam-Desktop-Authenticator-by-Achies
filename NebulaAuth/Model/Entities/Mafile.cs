@@ -20,8 +20,7 @@ public partial class Mafile : MobileDataExtended
         set => SetProperty(ref _linkedClient, value);
     }
 
-    [JsonIgnore]
-    private PortableMaClient? _linkedClient;
+    [JsonIgnore] private PortableMaClient? _linkedClient;
 
 
     public void SetSessionData(MobileSessionData? sessionData)
@@ -48,7 +47,9 @@ public partial class Mafile : MobileDataExtended
             SteamId = data.SteamId
         };
     }
-    public static Mafile FromMobileDataExtended(MobileDataExtended data, MaProxy? proxy, string? group, string? password)
+
+    public static Mafile FromMobileDataExtended(MobileDataExtended data, MaProxy? proxy, string? group,
+        string? password)
     {
         var result = FromMobileDataExtended(data);
         result.Proxy = proxy;

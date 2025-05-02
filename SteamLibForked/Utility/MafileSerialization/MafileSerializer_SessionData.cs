@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Security.Cryptography;
+using System.Text;
+using Newtonsoft.Json.Linq;
 using SteamLib.Account;
 using SteamLib.Authentication;
 using SteamLib.Core.Enums;
 using SteamLib.Core.Models;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace SteamLib.Utility.MafileSerialization;
 
@@ -18,14 +18,14 @@ public partial class MafileSerializer //SessionData
         var refreshToken = GetAuthToken(j, nameof(MobileSessionData.RefreshToken), "refreshtoken", "refresh_token",
             "refresh", "OAuthToken");
 
-        if (refreshToken is not { Type:  SteamAccessTokenType.MobileRefresh })
+        if (refreshToken is not {Type: SteamAccessTokenType.MobileRefresh})
         {
             result = DeserializedMafileSessionResult.Invalid;
             return null;
         }
 
         var accessToken = GetAuthToken(j, "accesstoken", "access_token", "access", "steamLoginSecure");
-        if (accessToken is not { Type: SteamAccessTokenType.Mobile })
+        if (accessToken is not {Type: SteamAccessTokenType.Mobile})
         {
             accessToken = null;
         }
@@ -40,7 +40,8 @@ public partial class MafileSerializer //SessionData
             return null;
         }
 
-        var sessionData = new MobileSessionData(sessionId, steamId.Value, refreshToken.Value, accessToken, tokens: null);
+        var sessionData =
+            new MobileSessionData(sessionId, steamId.Value, refreshToken.Value, accessToken, tokens: null);
         sessionData.IsValid = SessionDataValidator.Validate(null, sessionData).Succeeded;
         if (sessionData.IsValid == false)
             return null;
@@ -99,11 +100,12 @@ public partial class MafileSerializer //SessionData
         {
             return GenerateRandomHex();
         }
+
         return sessionId;
 
         static string GenerateRandomHex(int byteLength = 12)
         {
-            byte[] randomBytes = new byte[byteLength];
+            var randomBytes = new byte[byteLength];
             using (var rng = RandomNumberGenerator.Create())
             {
                 rng.GetBytes(randomBytes);
@@ -116,6 +118,4 @@ public partial class MafileSerializer //SessionData
             return hex.ToString();
         }
     }
-
 }
-

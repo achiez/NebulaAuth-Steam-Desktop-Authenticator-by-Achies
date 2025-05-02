@@ -9,12 +9,14 @@ public class UnsupportedResponseException : Exception
         Response = response;
     }
 
-    public UnsupportedResponseException(string response, Exception? inner) : base("Request failed with unsupported response", inner)
+    public UnsupportedResponseException(string response, Exception? inner) : base(
+        "Request failed with unsupported response", inner)
     {
         Response = response;
     }
 
-    public UnsupportedResponseException(string response, string? message, Exception? inner = null) : base(message, inner)
+    public UnsupportedResponseException(string response, string? message, Exception? inner = null) : base(message,
+        inner)
     {
         Response = response;
     }

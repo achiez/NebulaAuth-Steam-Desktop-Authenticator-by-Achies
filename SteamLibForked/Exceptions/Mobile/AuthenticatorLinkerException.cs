@@ -1,6 +1,5 @@
 ﻿namespace SteamLib.Exceptions.Mobile;
 
-
 public enum AuthenticatorLinkerError
 {
     NoEmailProvider,
@@ -14,13 +13,14 @@ public enum AuthenticatorLinkerError
     BadConfirmationCode,
     UnableToGenerateCorrectCodes,
     InvalidStateWithStatus2,
-    GeneralFailure,
-
+    GeneralFailure
 }
+
 public class AuthenticatorLinkerException : Exception
 {
     public AuthenticatorLinkerError Error { get; }
     public bool OnFinalization { get; init; }
+
     public AuthenticatorLinkerException(AuthenticatorLinkerError error) : base($"Linking failed due to error: {error}")
     {
         Error = error;
@@ -37,6 +37,7 @@ public class AuthenticatorLinkerException : Exception
         Error = AuthenticatorLinkerError.GeneralFailure;
     }
 
-    public AuthenticatorLinkerException(){}
-
+    public AuthenticatorLinkerException()
+    {
+    }
 }

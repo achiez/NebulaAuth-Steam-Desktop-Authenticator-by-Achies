@@ -19,12 +19,19 @@ public readonly struct SteamId3 : IEquatable<SteamId3>
     {
         var bit = Id % 2;
         var highestBits = Id / 2;
-        return new SteamId2(universe, (byte)bit, highestBits);
+        return new SteamId2(universe, (byte) bit, highestBits);
     }
 
 
-    public SteamId64 ToSteam64() => new SteamId64(SteamId64.SEED + Id);
-    public override string ToString() => $"[{Type}:1:{Id}]";
+    public SteamId64 ToSteam64()
+    {
+        return new SteamId64(SteamId64.SEED + Id);
+    }
+
+    public override string ToString()
+    {
+        return $"[{Type}:1:{Id}]";
+    }
 
     public string ToString(bool withBrackets)
     {
@@ -32,20 +39,48 @@ public readonly struct SteamId3 : IEquatable<SteamId3>
         {
             return ToString();
         }
-        else
-        {
-            return $"{Type}:1:{Id}";
-        }
+
+        return $"{Type}:1:{Id}";
     }
 
-    public int ToInt() => Id;
-    public bool Equals(SteamId3 other) => Type == other.Type && Id == other.Id;
-    public override bool Equals(object? obj) => obj is SteamId3 other && Equals(other);
-    public override int GetHashCode() => HashCode.Combine(Type, Id);
-    public static bool operator ==(SteamId3 left, SteamId3 right) => left.Equals(right);
-    public static bool operator !=(SteamId3 left, SteamId3 right) => !left.Equals(right);
-    public static bool TryParse(string input, out SteamId3 result) => SteamIdParser.TryParse3(input, out result);
+    public int ToInt()
+    {
+        return Id;
+    }
+
+    public bool Equals(SteamId3 other)
+    {
+        return Type == other.Type && Id == other.Id;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is SteamId3 other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Type, Id);
+    }
+
+    public static bool operator ==(SteamId3 left, SteamId3 right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(SteamId3 left, SteamId3 right)
+    {
+        return !left.Equals(right);
+    }
+
+    public static bool TryParse(string input, out SteamId3 result)
+    {
+        return SteamIdParser.TryParse3(input, out result);
+    }
 
     /// <exception cref="FormatException"></exception>
-    public static SteamId3 Parse(string input) => SteamIdParser.Parse3(input);
+    public static SteamId3 Parse(string input)
+    {
+        return SteamIdParser.Parse3(input);
+    }
 }

@@ -13,10 +13,10 @@ public class BackgroundSourceConverter : IValueConverter
     {
         if (value is BackgroundMode.Custom)
         {
-            if(File.Exists("Background.png"))
+            if (File.Exists("Background.png"))
                 return new BitmapImage(new Uri(Path.GetFullPath("Background.png")));
         }
-     
+
 
         return new BitmapImage(new Uri("pack://application:,,,/Theme/Background.jpg"));
     }

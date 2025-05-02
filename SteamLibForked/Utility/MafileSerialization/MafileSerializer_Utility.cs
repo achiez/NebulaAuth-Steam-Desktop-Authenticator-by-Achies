@@ -14,8 +14,8 @@ public partial class MafileSerializer //Utility
             {
                 return token;
             }
-
         }
+
         return null;
     }
 
@@ -27,12 +27,13 @@ public partial class MafileSerializer //Utility
             var parent = token.Parent as JProperty;
             removeFrom.Remove(parent!.Name);
             return token;
-
         }
+
         return null;
     }
 
-    private static JToken GetTokenOrThrow(JObject j, Dictionary<string, JProperty> removeFrom,  string propertyName,  params string[] aliases)
+    private static JToken GetTokenOrThrow(JObject j, Dictionary<string, JProperty> removeFrom, string propertyName,
+        params string[] aliases)
     {
         foreach (var name in aliases)
         {
@@ -41,10 +42,10 @@ public partial class MafileSerializer //Utility
             {
                 throw new ArgumentException($"Required property {propertyName} is null");
             }
+
             var parent = token.Parent as JProperty;
             removeFrom.Remove(parent!.Name);
             return token;
-
         }
 
         throw new ArgumentException($"Required property {propertyName} not found");
@@ -69,9 +70,7 @@ public partial class MafileSerializer //Utility
             return null;
 
 
-
         return token.Value<string>();
-
     }
 
     private static long? GetLong(JObject j, Dictionary<string, JProperty> removeFrom,
@@ -113,7 +112,8 @@ public partial class MafileSerializer //Utility
             Validate.IsValidBase64(propertyName, result);
             return result;
         }
-        else if (token.Type == JTokenType.Array)
+
+        if (token.Type == JTokenType.Array)
         {
             try
             {
@@ -132,7 +132,8 @@ public partial class MafileSerializer //Utility
     }
 
 
-    private static string GetDeviceId(JObject j, MafileSerializerSettings settings, Dictionary<string, JProperty> removeFrom, string propertyName, 
+    private static string GetDeviceId(JObject j, MafileSerializerSettings settings,
+        Dictionary<string, JProperty> removeFrom, string propertyName,
         params string[] aliases)
     {
         var deviceId = GetString(j, removeFrom, aliases);
@@ -149,8 +150,10 @@ public partial class MafileSerializer //Utility
             return "android:" + Guid.NewGuid();
         }
     }
-    private static ulong? GetSerialNumber(JObject j, MafileSerializerSettings settings, string propertyName, Dictionary<string, JProperty> removeFrom,
-         params string[] aliases)
+
+    private static ulong? GetSerialNumber(JObject j, MafileSerializerSettings settings, string propertyName,
+        Dictionary<string, JProperty> removeFrom,
+        params string[] aliases)
     {
         var token = GetToken(j, removeFrom, aliases);
         if (token == null || token.Type == JTokenType.Null)
@@ -162,11 +165,13 @@ public partial class MafileSerializer //Utility
             ulong res;
             if (bigInt < ulong.MinValue && bigInt > long.MinValue) //Negative, e.g. -2260921916482386064
             {
-                res = settings.DeserializationOptions.RestrictOverflowSerialNumberRecovery ? 0 : GetFromOverflow((long)bigInt);
+                res = settings.DeserializationOptions.RestrictOverflowSerialNumberRecovery
+                    ? 0
+                    : GetFromOverflow((long) bigInt);
             }
             else if (bigInt > ulong.MinValue && bigInt < ulong.MaxValue) //Valid range
             {
-                res = (ulong)bigInt;
+                res = (ulong) bigInt;
             }
             else
             {
@@ -187,11 +192,13 @@ public partial class MafileSerializer //Utility
             ulong originalValue;
             unchecked
             {
-                originalValue = (ulong)overflow + ulong.MaxValue + 1;
+                originalValue = (ulong) overflow + ulong.MaxValue + 1;
             }
+
             return originalValue;
         }
     }
+
     private static SteamId? GetSteamId(JObject j, Dictionary<string, JProperty> removeFrom,
         params string[] aliases)
     {
@@ -203,4 +210,3 @@ public partial class MafileSerializer //Utility
         };
     }
 }
-

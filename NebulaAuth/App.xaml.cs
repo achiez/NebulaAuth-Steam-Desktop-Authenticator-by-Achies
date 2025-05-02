@@ -1,11 +1,10 @@
-﻿using NebulaAuth.Core;
+﻿using System;
+using System.Windows;
+using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Exceptions;
-using System;
-using System.Windows;
 
 namespace NebulaAuth;
-
 
 public partial class App
 {
@@ -27,9 +26,9 @@ public partial class App
                 msg = LocManager.Get("CantAlignTimeError");
             }
 
-            MessageBox.Show(msg, "Error", MessageBoxButton.OK,  MessageBoxImage.Stop, MessageBoxResult.OK, MessageBoxOptions.DefaultDesktopOnly);
+            MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Stop, MessageBoxResult.OK,
+                MessageBoxOptions.DefaultDesktopOnly);
             throw;
-
         }
     }
 }

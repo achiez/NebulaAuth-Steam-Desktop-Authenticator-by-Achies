@@ -1,4 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using JetBrains.Annotations;
 using MaterialDesignThemes.Wpf;
@@ -9,21 +14,12 @@ using NebulaAuth.Utility;
 using NebulaAuth.View.Dialogs;
 using SteamLib.Exceptions;
 using SteamLib.SteamMobile;
-using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NebulaAuth.ViewModel;
 
 public partial class MainVM : ObservableObject
 {
-    [ObservableProperty]
-    private ObservableCollection<Mafile> _maFiles = Storage.MaFiles;
-
-    [UsedImplicitly]
-    public SnackbarMessageQueue MessageQueue => SnackbarController.MessageQueue;
+    [UsedImplicitly] public SnackbarMessageQueue MessageQueue => SnackbarController.MessageQueue;
 
 
     public Mafile? SelectedMafile
@@ -31,9 +27,12 @@ public partial class MainVM : ObservableObject
         get => _selectedMafile;
         set => SetMafile(value);
     }
-    private Mafile? _selectedMafile;
 
     public bool IsMafileSelected => SelectedMafile != null;
+
+    [ObservableProperty] private ObservableCollection<Mafile> _maFiles = Storage.MaFiles;
+
+    private Mafile? _selectedMafile;
 
 
     public MainVM()
@@ -63,7 +62,7 @@ public partial class MainVM : ObservableObject
             OnPropertyChanged(nameof(MarketTimerEnabled));
             MaClient.SetAccount(mafile);
             OnPropertyChanged(nameof(ConfirmationsVisible));
-            SetCurrentProxy();
+            SetProxy(mafile?.Proxy, true);
             OnPropertyChanged(nameof(IsDefaultProxy));
             if (mafile != null) Code = SteamGuardCodeGenerator.GenerateCode(mafile.SharedSecret);
             OnPropertyChanged(nameof(IsMafileSelected));
@@ -78,7 +77,9 @@ public partial class MainVM : ObservableObject
         {
             return;
         }
-        var loginAgainVm = await DialogsController.ShowLoginAgainDialog(SelectedMafile.AccountName);
+
+        var currentPassword = PHandler.DecryptPassword(SelectedMafile.Password);
+        var loginAgainVm = await DialogsController.ShowLoginAgainDialog(SelectedMafile.AccountName, currentPassword);
         if (loginAgainVm == null)
         {
             return;
@@ -94,7 +95,8 @@ public partial class MainVM : ObservableObject
         }
         catch (LoginException ex)
         {
-            SnackbarController.SendSnackbar(ErrorTranslatorHelper.TranslateLoginError(ex.Error), TimeSpan.FromSeconds(1.5));
+            SnackbarController.SendSnackbar(ErrorTranslatorHelper.TranslateLoginError(ex.Error),
+                TimeSpan.FromSeconds(1.5));
         }
         catch (Exception ex)
             when (ExceptionHandler.Handle(ex))
@@ -107,6 +109,7 @@ public partial class MainVM : ObservableObject
             await wait;
         }
     }
+
     private void MaFilesOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         SearchText = string.Empty;
@@ -141,16 +144,21 @@ public partial class MainVM : ObservableObject
         if (selectedMafile == null) return;
         if (string.IsNullOrWhiteSpace(selectedMafile.RevocationCode))
         {
-            SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error") + ": " + GetLocalization("MissingRCode"));
+            SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error") + ": " +
+                                            GetLocalization("MissingRCode"));
             return;
         }
+
         try
         {
             if (await DialogsController.ShowConfirmCancelDialog(GetLocalization("ConfirmRemovingAuthenticator")))
             {
-                var result = await SessionHandler.Handle(() => MaClient.RemoveAuthenticator(selectedMafile), selectedMafile);
+                var result =
+                    await SessionHandler.Handle(() => MaClient.RemoveAuthenticator(selectedMafile), selectedMafile);
                 SnackbarController.SendSnackbar(
-                    result.Success ? GetLocalization("AuthenticatorRemoved") : GetLocalization("AuthenticatorNotRemoved"));
+                    result.Success
+                        ? GetLocalization("AuthenticatorRemoved")
+                        : GetLocalization("AuthenticatorNotRemoved"));
 
                 if (result.Success)
                 {
@@ -184,10 +192,11 @@ public partial class MainVM : ObservableObject
             }
             else
             {
-                string msg = res.Error switch
+                var msg = res.Error switch
                 {
                     LoginConfirmationError.NoRequests => GetLocalization("ConfirmLoginFailedNoRequests"),
-                    LoginConfirmationError.MoreThanOneRequest => GetLocalization("ConfirmLoginFailedMoreThanOneRequest"), //TODO
+                    LoginConfirmationError.MoreThanOneRequest =>
+                        GetLocalization("ConfirmLoginFailedMoreThanOneRequest"), //TODO
                     _ => throw new ArgumentOutOfRangeException()
                 };
                 SnackbarController.SendSnackbar(msg);

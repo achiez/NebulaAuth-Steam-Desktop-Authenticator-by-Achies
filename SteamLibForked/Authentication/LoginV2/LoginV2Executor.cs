@@ -30,6 +30,7 @@ public class LoginV2Executor
     public ISteamGuardProvider? SteamGuardProvider { get; init; }
     public string WebsiteId { get; init; }
     public DeviceDetails DeviceDetails { get; init; }
+
     private LoginV2Executor(LoginV2ExecutorOptions options)
     {
         Caller = options.Consumer;
@@ -43,19 +44,21 @@ public class LoginV2Executor
 
 
     /// <summary>
-    /// Do log in on <see href="https://steamcommunity.com/">SteamCommunity</see>.<br/>
-    /// Some functions require proper SessionId. But <see cref="SessionData"/> contains only SteamCommunity related SessionId and some functions on other services may not work
+    ///     Do log in on <see href="https://steamcommunity.com/">SteamCommunity</see>.<br />
+    ///     Some functions require proper SessionId. But <see cref="SessionData" /> contains only SteamCommunity related
+    ///     SessionId and some functions on other services may not work
     /// </summary>
     /// <param name="options"></param>
     /// <param name="username"></param>
     /// <param name="password"></param>
     /// <param name="cancellationToken"></param>
-    /// <returns><see cref="SessionData"/> or <see cref="MobileSessionData"/> depending on which token type is returned</returns>
+    /// <returns><see cref="SessionData" /> or <see cref="MobileSessionData" /> depending on which token type is returned</returns>
     /// <exception cref="LoginException"></exception>
     /// <exception cref="EResultException"></exception>
     /// <exception cref="NotSupportedException"></exception>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public static async Task<ISessionData> DoLogin(LoginV2ExecutorOptions options, string username, string password, CancellationToken cancellationToken = default) //TODO: logs
+    public static async Task<ISessionData> DoLogin(LoginV2ExecutorOptions options, string username, string password,
+        CancellationToken cancellationToken = default) //TODO: logs
     {
         var executor = new LoginV2Executor(options);
         var client = executor.HttpClient;
@@ -68,10 +71,12 @@ public class LoginV2Executor
             AccountName = username
         };
         var rsaResp = await client.GetProto<GetPasswordRSAPublicKey_Response>(
-                "https://api.steampowered.com/IAuthenticationService/GetPasswordRSAPublicKey/v1", rsgMsg, cancellationToken: cancellationToken);
+            "https://api.steampowered.com/IAuthenticationService/GetPasswordRSAPublicKey/v1", rsgMsg,
+            cancellationToken);
 
 
-        var encodedPassword = EncryptionHelper.ToBase64EncryptedPassword(rsaResp.PublickKeyExp, rsaResp.PublickKeyMod, password);
+        var encodedPassword =
+            EncryptionHelper.ToBase64EncryptedPassword(rsaResp.PublickKeyExp, rsaResp.PublickKeyMod, password);
 
 
         var beginAuthMsg = new BeginAuthSessionViaCredentials_Request
@@ -84,15 +89,15 @@ public class LoginV2Executor
             PlatformType = executor.DeviceDetails.PlatformType,
             Persistence = 1,
             WebsiteId = executor.WebsiteId,
-            DeviceDetails = executor.DeviceDetails,
+            DeviceDetails = executor.DeviceDetails
         };
 
-        BeginAuthSessionViaCredentials_Response beginAuthResp;  
+        BeginAuthSessionViaCredentials_Response beginAuthResp;
         try
         {
             beginAuthResp = await client.PostProto<BeginAuthSessionViaCredentials_Response>(
-                "https://api.steampowered.com/IAuthenticationService/BeginAuthSessionViaCredentials/v1", beginAuthMsg, cancellationToken: cancellationToken);
-
+                "https://api.steampowered.com/IAuthenticationService/BeginAuthSessionViaCredentials/v1", beginAuthMsg,
+                cancellationToken);
         }
         catch (EResultException ex)
             when (ex.Result == EResult.InvalidPassword)
@@ -102,7 +107,7 @@ public class LoginV2Executor
 
 
         var clientId = beginAuthResp.ClientId;
-        var steamId = (long)beginAuthResp.Steamid;
+        var steamId = (long) beginAuthResp.Steamid;
 
         var conf = beginAuthResp.AllowedConfirmations.FirstOrDefault(c =>
             c.ConfirmationType is EAuthSessionGuardType.EmailCode or EAuthSessionGuardType.DeviceCode);
@@ -115,7 +120,7 @@ public class LoginV2Executor
                 break;
             case EAuthSessionGuardType.DeviceCode:
             case EAuthSessionGuardType.EmailCode:
-                await UpdateWithCode(executor, clientId, (ulong)steamId, conf.ConfirmationType);
+                await UpdateWithCode(executor, clientId, (ulong) steamId, conf.ConfirmationType);
                 break;
             case EAuthSessionGuardType.Unknown:
             case EAuthSessionGuardType.DeviceConfirmation:
@@ -125,26 +130,28 @@ public class LoginV2Executor
                 throw new NotSupportedException(
                     $"Auth confirmation type of {conf.ConfirmationType} is not implemented yet");
             default:
-                throw new ArgumentOutOfRangeException(nameof(conf.ConfirmationType), conf?.ConfirmationType, "Unknown confirmation type or null");
+                throw new ArgumentOutOfRangeException(nameof(conf.ConfirmationType), conf?.ConfirmationType,
+                    "Unknown confirmation type or null");
         }
 
         var pollSessionMsg = new PollAuthSessionStatus_Request
         {
             ClientId = clientId,
-            RequestId = beginAuthResp.RequestId,
-
+            RequestId = beginAuthResp.RequestId
         };
 
         var pollResp =
             await client.PostProto<PollAuthSessionStatus_Response>(
-                "https://api.steampowered.com/IAuthenticationService/PollAuthSessionStatus/v1", pollSessionMsg, cancellationToken: cancellationToken);
+                "https://api.steampowered.com/IAuthenticationService/PollAuthSessionStatus/v1", pollSessionMsg,
+                cancellationToken);
 
         SteamAuthToken refreshToken;
         try
         {
             refreshToken = SteamTokenHelper.Parse(pollResp.RefreshToken);
             if (refreshToken.Type is not (SteamAccessTokenType.Refresh or SteamAccessTokenType.MobileRefresh))
-                throw new ArgumentException("Refresh token must be of type Refresh or MobileRefresh. No 'renew' audience found in JWT.",
+                throw new ArgumentException(
+                    "Refresh token must be of type Refresh or MobileRefresh. No 'renew' audience found in JWT.",
                     nameof(pollResp.RefreshToken)); //Argument exception for less code
         }
         catch (ArgumentException ex)
@@ -160,11 +167,13 @@ public class LoginV2Executor
             {"sessionid", sessionId}
         };
 
-        var finalize = await client.PostAsync("https://login.steampowered.com/jwt/finalizelogin", new FormUrlEncodedContent(data), cancellationToken);
+        var finalize = await client.PostAsync("https://login.steampowered.com/jwt/finalizelogin",
+            new FormUrlEncodedContent(data), cancellationToken);
         var finalizeContent = await finalize.EnsureSuccessStatusCode().Content.ReadAsStringAsync(cancellationToken);
 
         var finalizeResp =
-            SteamLibErrorMonitor.HandleResponse(finalizeContent, () => JsonConvert.DeserializeObject<FinalizeLoginJson>(finalizeContent)!);
+            SteamLibErrorMonitor.HandleResponse(finalizeContent,
+                () => JsonConvert.DeserializeObject<FinalizeLoginJson>(finalizeContent)!);
 
 
         List<SteamAuthToken> tokens = new();
@@ -185,10 +194,12 @@ public class LoginV2Executor
                 req.Headers.Referrer = SteamDomains.GetDomainUri(SteamDomain.Store);
                 var transferResp = await client.SendAsync(req, cancellationToken);
                 var transferContent = await transferResp.ReadAsStringEnsureSuccessAsync(cancellationToken);
-                var status = JObject.Parse(transferContent); 
+                var status = JObject.Parse(transferContent);
                 var result = status["result"]?.Value<int>();
-                if(result != null)
-                    SteamStatusCode.ValidateSuccessOrThrow(result.Value); //TODO: Fix steam.tv token transfer (result always 8). But who really cares.. 
+                if (result != null)
+                    SteamStatusCode
+                        .ValidateSuccessOrThrow(result
+                            .Value); //TODO: Fix steam.tv token transfer (result always 8). But who really cares.. 
 
                 var tokenStr = SteamTokenHelper.ExtractJwtFromSetCookiesHeader(transferResp.Headers);
                 var token = SteamTokenHelper.Parse(tokenStr);
@@ -206,21 +217,17 @@ public class LoginV2Executor
         {
             return new MobileSessionData(sessionId, SteamId.FromSteam64(steamId), refreshToken, accessToken, tokens);
         }
-        else
-        {
-            return new SessionData(sessionId, SteamId.FromSteam64(steamId), refreshToken, tokens);
-        }
 
-       
-
+        return new SessionData(sessionId, SteamId.FromSteam64(steamId), refreshToken, tokens);
     }
 
-    private static async Task UpdateWithCode(LoginV2Executor executor, ulong clientId, ulong steamId, EAuthSessionGuardType guardType)
+    private static async Task UpdateWithCode(LoginV2Executor executor, ulong clientId, ulong steamId,
+        EAuthSessionGuardType guardType)
     {
         string? code;
         if (guardType == EAuthSessionGuardType.DeviceCode)
         {
-            if(executor.SteamGuardProvider != null)
+            if (executor.SteamGuardProvider != null)
                 code = await executor.SteamGuardProvider.GetSteamGuardCode(executor.Caller);
             else
             {
@@ -233,6 +240,7 @@ public class LoginV2Executor
                     throw new LoginException(LoginError.EmailAuthRequired);
             code = await t;
         }
+
         var updateCodeMsg = new UpdateAuthSessionWithSteamGuardCode_Request
         {
             ClientId = clientId,
@@ -241,7 +249,8 @@ public class LoginV2Executor
             Steamid = steamId
         };
 
-        await executor.HttpClient.PostProtoEnsureSuccess(new Uri("https://api.steampowered.com/IAuthenticationService/UpdateAuthSessionWithSteamGuardCode/v1"), updateCodeMsg);
+        await executor.HttpClient.PostProtoEnsureSuccess(
+            new Uri("https://api.steampowered.com/IAuthenticationService/UpdateAuthSessionWithSteamGuardCode/v1"),
+            updateCodeMsg);
     }
-
 }

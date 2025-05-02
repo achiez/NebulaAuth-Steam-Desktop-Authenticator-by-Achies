@@ -3,6 +3,7 @@ using ProtoBuf;
 using SteamLib.ProtoCore.Enums;
 using SteamLib.ProtoCore.Interfaces;
 using SteamLib.Utility;
+
 // ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
 #pragma warning disable CS8618
@@ -23,7 +24,6 @@ public class GetPasswordRSAPublicKey_Response : IProtoMsg
     [ProtoMember(3)] public ulong Timestamp { get; set; }
 }
 
-
 [ProtoContract]
 public class BeginAuthSessionViaCredentials_Request : IProtoMsg
 {
@@ -36,34 +36,39 @@ public class BeginAuthSessionViaCredentials_Request : IProtoMsg
     [ProtoMember(7)] public int Persistence { get; set; }
 
     /// <summary>
-    /// Gets or sets the website id that the login will be performed for.
-    /// Known values are "Unknown", "Client", "Mobile", "Website", "Store", "Community", "Partner", "SteamStats".
+    ///     Gets or sets the website id that the login will be performed for.
+    ///     Known values are "Unknown", "Client", "Mobile", "Website", "Store", "Community", "Partner", "SteamStats".
     /// </summary>
     /// <value>The website id.</value>
-    [ProtoMember(8)] public string WebsiteId { get; set; }
+    [ProtoMember(8)]
+    public string WebsiteId { get; set; }
+
     [ProtoMember(9)] public DeviceDetails DeviceDetails { get; set; } = new();
     [ProtoMember(10)] public string GuardData { get; set; }
     [ProtoMember(11)] public uint Language { get; set; }
-
 }
 
 [ProtoContract]
 public class DeviceDetails : IProtoMsg
 {
     /// <summary>
-    /// User-Agent if platform is SteamCommunity
+    ///     User-Agent if platform is SteamCommunity
     /// </summary>
-    [ProtoMember(1)] public string DeviceFriendlyName { get; }
+    [ProtoMember(1)]
+    public string DeviceFriendlyName { get; }
+
     [ProtoMember(2)] public EAuthTokenPlatformType PlatformType { get; }
     [ProtoMember(3)] public int? OsType { get; }
     [ProtoMember(4)] public uint? GamingDeviceType { get; }
 
     #region Members
+
     public DeviceDetails()
     {
     }
 
-    public DeviceDetails(string deviceFriendlyName, EAuthTokenPlatformType platformType, int? osType, uint? gamingDeviceType)
+    public DeviceDetails(string deviceFriendlyName, EAuthTokenPlatformType platformType, int? osType,
+        uint? gamingDeviceType)
     {
         DeviceFriendlyName = deviceFriendlyName;
         PlatformType = platformType;
@@ -71,29 +76,29 @@ public class DeviceDetails : IProtoMsg
         GamingDeviceType = gamingDeviceType;
     }
 
-    public DeviceDetails(string deviceFriendlyName, EAuthTokenPlatformType platformType, EOSType? osType, uint? gamingDeviceType)
+    public DeviceDetails(string deviceFriendlyName, EAuthTokenPlatformType platformType, EOSType? osType,
+        uint? gamingDeviceType)
     {
         DeviceFriendlyName = deviceFriendlyName;
         PlatformType = platformType;
-        OsType = (int?)osType;
+        OsType = (int?) osType;
         GamingDeviceType = gamingDeviceType;
     }
 
     public static DeviceDetails CreateDefault()
     {
-        return new DeviceDetails("", EAuthTokenPlatformType.WebBrowser, (int?)null, null);
+        return new DeviceDetails("", EAuthTokenPlatformType.WebBrowser, (int?) null, null);
     }
 
     public static DeviceDetails CreateCommunityDetails(string userAgent)
     {
-        return new DeviceDetails(userAgent, EAuthTokenPlatformType.WebBrowser, (int?)null, null);
+        return new DeviceDetails(userAgent, EAuthTokenPlatformType.WebBrowser, (int?) null, null);
     }
 
     public static DeviceDetails CreateMobileDetails(string deviceName)
     {
         return new DeviceDetails(deviceName, EAuthTokenPlatformType.MobileApp, EOSType.AndroidUnknown, 528);
     }
-
 
     #endregion
 }
@@ -137,19 +142,18 @@ public class PollAuthSessionStatus_Response : IProtoMsg
     [ProtoMember(6)] public string AccountName { get; set; }
     [ProtoMember(7)] public string NewGuardData { get; set; }
     [ProtoMember(8)] public string AgreementSessionUrl { get; set; }
-
 }
-
-
 
 [ProtoContract]
 public class UpdateAuthSessionWithSteamGuardCode_Request : IProtoMsg
 {
     [ProtoMember(1)] public ulong ClientId { get; set; }
-    [ProtoMember(2, DataFormat = DataFormat.FixedSize)] public ulong Steamid { get; set; }
+
+    [ProtoMember(2, DataFormat = DataFormat.FixedSize)]
+    public ulong Steamid { get; set; }
+
     [ProtoMember(3)] public string Code { get; set; }
     [ProtoMember(4)] public EAuthSessionGuardType CodeType { get; set; }
-
 }
 
 [ProtoContract]
@@ -161,8 +165,7 @@ public class GetAuthSessionsForAccount_Response : IProtoMsg
 [ProtoContract]
 public class GetAuthSessionInfo_Request : IProtoMsg
 {
-    [ProtoMember(1)]
-    public ulong ClientId { get; set; }
+    [ProtoMember(1)] public ulong ClientId { get; set; }
 }
 
 [ProtoContract]
@@ -186,8 +189,11 @@ public class GetAuthSessionInfo_Response : IProtoMsg
 public class UpdateAuthSessionWithMobileConfirmation_Request : IProtoMsg
 {
     [ProtoMember(1)] public int Version { get; set; }
-    [ProtoMember(2)] public ulong ClientId  { get; set; }
-    [ProtoMember(3, DataFormat = DataFormat.FixedSize)] public ulong Steamid { get; set; }
+    [ProtoMember(2)] public ulong ClientId { get; set; }
+
+    [ProtoMember(3, DataFormat = DataFormat.FixedSize)]
+    public ulong Steamid { get; set; }
+
     [ProtoMember(4)] public byte[] Signature { get; set; }
     [ProtoMember(5)] public bool Confirm { get; set; }
     [ProtoMember(6)] public int Persistence { get; set; }
@@ -195,34 +201,31 @@ public class UpdateAuthSessionWithMobileConfirmation_Request : IProtoMsg
 
     public void ComputeSignature(string privateKey)
     {
-        byte[] signatureData = new byte[2 + 8 + 8];
+        var signatureData = new byte[2 + 8 + 8];
         BitConverter.GetBytes(Version).CopyTo(signatureData, 0);
         BitConverter.GetBytes(ClientId).CopyTo(signatureData, 2);
         BitConverter.GetBytes(Steamid).CopyTo(signatureData, 10);
 
         using (var hmac = new HMACSHA256(Convert.FromBase64String(privateKey)))
         {
-            Signature= hmac.ComputeHash(signatureData);
+            Signature = hmac.ComputeHash(signatureData);
         }
-
     }
-
 }
 
 [ProtoContract]
 public class GenerateAccessTokenForApp_Request : IProtoMsg
 {
-    [ProtoMember(1)]
-    public string RefreshToken { get; set; }
+    [ProtoMember(1)] public string RefreshToken { get; set; }
+
     [ProtoMember(2, DataFormat = DataFormat.FixedSize)]
     public long SteamId { get; set; }
 
     [ProtoMember(3)] public bool TokenRenewalType { get; set; } = true; //FIXME: enum: ETokenRenewalType 
 }
- 
+
 [ProtoContract]
 public class GenerateAccessTokenForApp_Response : IProtoMsg
 {
-    [ProtoMember(1)]
-    public string AccessToken { get; set; }
+    [ProtoMember(1)] public string AccessToken { get; set; }
 }

@@ -1,10 +1,10 @@
-﻿using AchiesUtilities.Extensions;
+﻿using System.Net;
+using AchiesUtilities.Extensions;
 using JetBrains.Annotations;
 using SteamLib.Account;
 using SteamLib.Core;
 using SteamLib.Core.Enums;
 using SteamLib.Core.Interfaces;
-using System.Net;
 
 namespace SteamLib.Authentication;
 
@@ -19,9 +19,10 @@ public static class AdmissionHelper
     #region Main
 
     /// <summary>
-    /// Clear and set new session
+    ///     Clear and set new session
     /// </summary>
-    public static void SetSteamCookies(this CookieContainer container, ISessionData sessionData, string setLanguage = "english")
+    public static void SetSteamCookies(this CookieContainer container, ISessionData sessionData,
+        string setLanguage = "english")
     {
         container.ClearSteamCookies(setLanguage);
 
@@ -43,7 +44,8 @@ public static class AdmissionHelper
     public static void SetDomainCookie(this CookieContainer container, SteamDomain domain, SteamAuthToken token)
     {
         var uri = SteamDomains.GetDomainUri(domain);
-        foreach (var cookie in container.GetCookies(uri).Where(c => c.Expired == false && c.Name.EqualsIgnoreCase(ACCESS_COOKIE_NAME)))
+        foreach (var cookie in container.GetCookies(uri)
+                     .Where(c => c.Expired == false && c.Name.EqualsIgnoreCase(ACCESS_COOKIE_NAME)))
         {
             cookie.Expired = true;
         }
@@ -53,12 +55,11 @@ public static class AdmissionHelper
 
 
     /// <summary>
-    /// Clear and set new session
+    ///     Clear and set new session
     /// </summary>
-    public static void SetSteamMobileCookies(this CookieContainer container, IMobileSessionData mobileSession, 
+    public static void SetSteamMobileCookies(this CookieContainer container, IMobileSessionData mobileSession,
         string setLanguage = "english")
     {
-
         container.ClearSteamCookies(setLanguage);
         container.AddMinimalMobileCookies();
 
@@ -79,12 +80,14 @@ public static class AdmissionHelper
     }
 
     /// <summary>
-    /// Clear and set new session. Not recommended. Uses <see cref="IMobileSessionData.GetMobileToken()"/> for domain <see cref="SteamDomain.Community"/> instead of its own cookie. It's okay to use it only for confirmations. But Market, Trading and other pages won't be authorized
+    ///     Clear and set new session. Not recommended. Uses <see cref="IMobileSessionData.GetMobileToken()" /> for domain
+    ///     <see cref="SteamDomain.Community" /> instead of its own cookie. It's okay to use it only for confirmations. But
+    ///     Market, Trading and other pages won't be authorized
     /// </summary>
-    public static void SetSteamMobileCookiesWithMobileToken(this CookieContainer container, IMobileSessionData mobileSession,
+    public static void SetSteamMobileCookiesWithMobileToken(this CookieContainer container,
+        IMobileSessionData mobileSession,
         string setLanguage = "english")
     {
-
         container.ClearSteamCookies(setLanguage);
         container.AddMinimalMobileCookies();
 
@@ -99,10 +102,9 @@ public static class AdmissionHelper
         var domainCookieSet = false;
         foreach (var domain in SteamDomains.AllDomains)
         {
-            
             var token = mobileSession.GetToken(domain);
             if (token == null || token.Value.IsExpired) continue;
-            if(domain == SteamDomain.Community )
+            if (domain == SteamDomain.Community)
                 domainCookieSet = true;
             AddTokenCookie(container, token.Value);
         }
@@ -123,6 +125,7 @@ public static class AdmissionHelper
     #endregion
 
     #region Clear
+
     public static void ClearSteamCookies(this CookieContainer container, string setLanguage = "english")
     {
         var cookies = container.GetAllCookies().Where(IsSteamCookie).ToList();
@@ -130,6 +133,7 @@ public static class AdmissionHelper
         {
             cookie.Expired = true;
         }
+
         container.Add(SteamDomains.GetDomainUri(SteamDomain.Community), new Cookie(LANGUAGE_COOKIE_NAME, setLanguage));
         TransferCommunityCookies(container);
     }
@@ -141,10 +145,10 @@ public static class AdmissionHelper
         TransferCommunityCookies(container);
     }
 
-
     #endregion
 
     #region Helpers
+
     public static void TransferCommunityCookies(CookieContainer container)
     {
         var cookies = container.GetAllCookies();
@@ -152,7 +156,8 @@ public static class AdmissionHelper
 
         foreach (Cookie cookie in cookies)
         {
-            if (cookie.Domain.Contains("steamcommunity.com") == false || cookie.Expired || cookie.Name.EqualsIgnoreCase(ACCESS_COOKIE_NAME)) continue;
+            if (cookie.Domain.Contains("steamcommunity.com") == false || cookie.Expired ||
+                cookie.Name.EqualsIgnoreCase(ACCESS_COOKIE_NAME)) continue;
 
 
             container.Add(SteamDomains.GetDomainUri(SteamDomain.Store), CloneCookie(cookie));
@@ -162,14 +167,19 @@ public static class AdmissionHelper
 
         return;
 
-        static Cookie CloneCookie(Cookie cookie) 
-            => new(cookie.Name, cookie.Value, cookie.Path) { Expires = cookie.Expires, Secure = cookie.Secure, HttpOnly = cookie.HttpOnly };
+        static Cookie CloneCookie(Cookie cookie)
+        {
+            return new Cookie(cookie.Name, cookie.Value, cookie.Path)
+                {Expires = cookie.Expires, Secure = cookie.Secure, HttpOnly = cookie.HttpOnly};
+        }
     }
 
     public static void AddRefreshToken(CookieContainer container, SteamAuthToken token)
     {
         if (token.Type is not (SteamAccessTokenType.Refresh or SteamAccessTokenType.MobileRefresh))
-            throw new ArgumentException($"Token must be of type Refresh or MobileRefresh. Provided token has type: {token.Type}", nameof(token));
+            throw new ArgumentException(
+                $"Token must be of type Refresh or MobileRefresh. Provided token has type: {token.Type}",
+                nameof(token));
         var refreshToken = token.SignedToken;
         container.Add(SteamDomains.LoginSteamDomain, new Cookie(REFRESH_COOKIE_NAME, refreshToken)
         {
@@ -180,10 +190,12 @@ public static class AdmissionHelper
     public static void AddTokenCookie(CookieContainer container, SteamAuthToken token)
     {
         if (token.Type is not SteamAccessTokenType.AccessToken)
-            throw new ArgumentException($"Token must be of type AccessToken. Provided token has type: {token.Type}", nameof(token));
+            throw new ArgumentException($"Token must be of type AccessToken. Provided token has type: {token.Type}",
+                nameof(token));
 
         AddTokenCookie(container, token.Domain, token);
     }
+
     private static void AddTokenCookie(CookieContainer container, SteamDomain domain, SteamAuthToken token)
     {
         var domainUri = SteamDomains.GetDomainUri(domain);
@@ -196,8 +208,11 @@ public static class AdmissionHelper
     }
 
 
-    public static bool IsSteamCookie(Cookie cookie) =>
-        cookie.Domain.Contains("steamcommunity.com") || cookie.Domain.Contains("steampowered.com") || cookie.Domain.Contains("steam.tv");
+    public static bool IsSteamCookie(Cookie cookie)
+    {
+        return cookie.Domain.Contains("steamcommunity.com") || cookie.Domain.Contains("steampowered.com") ||
+               cookie.Domain.Contains("steam.tv");
+    }
 
 
     public static string? GetSessionId(this CookieContainer container, string domain = "steamcommunity.com")
@@ -218,7 +233,5 @@ public static class AdmissionHelper
         }
     }
 
-
     #endregion
-
 }

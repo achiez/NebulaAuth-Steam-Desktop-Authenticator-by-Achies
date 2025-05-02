@@ -14,7 +14,8 @@ public class SteamStatusCodeException : Exception
         Response = response;
     }
 
-    public SteamStatusCodeException(string message, SteamStatusCode statusCode, string? response = null, Exception? innerException = null)
+    public SteamStatusCodeException(string message, SteamStatusCode statusCode, string? response = null,
+        Exception? innerException = null)
         : base(message, innerException)
     {
         StatusCode = statusCode;

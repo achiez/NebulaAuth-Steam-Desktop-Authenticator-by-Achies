@@ -1,7 +1,7 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using System;
 
 namespace NebulaAuth.Converters;
 
@@ -16,6 +16,7 @@ public class ColorToBrushConverter : IValueConverter
             rv.Freeze();
             return rv;
         }
+
         return Binding.DoNothing;
     }
 
@@ -25,6 +26,7 @@ public class ColorToBrushConverter : IValueConverter
         {
             return brush.Color;
         }
+
         return default(Color);
     }
 }

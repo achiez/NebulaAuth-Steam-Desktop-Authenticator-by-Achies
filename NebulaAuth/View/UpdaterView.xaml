@@ -1,11 +1,11 @@
 ﻿<UserControl x:Class="NebulaAuth.View.UpdaterView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:other="clr-namespace:NebulaAuth.ViewModel.Other"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              Foreground="WhiteSmoke"
              FontFamily="{materialDesign:MaterialDesignFont}"
              d:DataContext="{d:DesignInstance other:UpdaterVM}"
@@ -19,22 +19,22 @@
     </d:DesignerProperties.DesignStyle>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock FontSize="24" Text="Обновления"/>
+        <TextBlock FontSize="24" Text="Обновления" />
         <Separator Grid.Row="1" />
 
-        <TextBlock FontSize="16" Margin="5,10,0,10" TextWrapping="WrapWithOverflow" Grid.Row="2" >
-            <Run Text="Доступна новая версия:"/>
-            <Run FontWeight="Bold" Text="{Binding UpdateInfoEventArgs.CurrentVersion}"/>
-            <Run Text="&#x0a;Вы используете версию"/>
-            <Run FontWeight="Bold" Text="{Binding UpdateInfoEventArgs.InstalledVersion}"/>
-            <Run Text="Хотите обновить программу?"/>
+        <TextBlock FontSize="16" Margin="5,10,0,10" TextWrapping="WrapWithOverflow" Grid.Row="2">
+            <Run Text="Доступна новая версия:" />
+            <Run FontWeight="Bold" Text="{Binding UpdateInfoEventArgs.CurrentVersion}" />
+            <Run Text="&#x0a;Вы используете версию" />
+            <Run FontWeight="Bold" Text="{Binding UpdateInfoEventArgs.InstalledVersion}" />
+            <Run Text="Хотите обновить программу?" />
         </TextBlock>
         <Expander Header="Что изменилось?" Grid.Row="3">
             <!--<wpf:WebView2  HorizontalAlignment="Stretch" Height="300"
@@ -43,11 +43,12 @@
         </Expander>
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Content="OK"  Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
-            <Button IsCancel="True" Grid.Column="1" Content="Cancel"  Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
+            <Button Content="OK" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
+            <Button IsCancel="True" Grid.Column="1" Content="Cancel"
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" />
         </Grid>
 
     </Grid>

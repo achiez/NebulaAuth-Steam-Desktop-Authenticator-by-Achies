@@ -15,7 +15,8 @@ public class LinkOptions
     public ILogger? Logger { get; }
 
     public LinkOptions(HttpClient httpClient, ILoginConsumer loginConsumer, ISmsCodeProvider? smsCodeProvider,
-        ICaptchaResolver? captchaResolver, IEmailProvider? emailProvider, IPhoneNumberProvider? phoneNumberProvider, Action<MobileDataExtended>? backupHandler = null,
+        ICaptchaResolver? captchaResolver, IEmailProvider? emailProvider, IPhoneNumberProvider? phoneNumberProvider,
+        Action<MobileDataExtended>? backupHandler = null,
         ILogger? logger = null)
     {
         EmailProvider = emailProvider;

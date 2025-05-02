@@ -60,11 +60,11 @@ public class WindowChromeRenderedBehavior : Behavior<Window>
                 break;
             case NativeMethods.WM_NCCALCSIZE:
                 handled = true;
-                var rcClientArea = (RECT)Marshal.PtrToStructure(lParam, typeof(RECT));
-                rcClientArea.Bottom += (int)(WindowChromeHelper.WindowResizeBorderThickness.Bottom / 2);
+                var rcClientArea = (RECT) Marshal.PtrToStructure(lParam, typeof(RECT));
+                rcClientArea.Bottom += (int) (WindowChromeHelper.WindowResizeBorderThickness.Bottom / 2);
                 Marshal.StructureToPtr(rcClientArea, lParam, false);
 
-                return wParam == new IntPtr(1) ? new IntPtr((int)NativeMethods.WVR.REDRAW) : IntPtr.Zero;
+                return wParam == new IntPtr(1) ? new IntPtr((int) NativeMethods.WVR.REDRAW) : IntPtr.Zero;
         }
 
         return IntPtr.Zero;

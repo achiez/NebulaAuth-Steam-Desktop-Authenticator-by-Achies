@@ -1,22 +1,22 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using NebulaAuth.Core;
-using NebulaAuth.Model;
-using SteamLib.SteamMobile;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using NebulaAuth.Core;
+using NebulaAuth.Model;
+using SteamLib.SteamMobile;
 
 namespace NebulaAuth.ViewModel;
 
 public partial class MainVM
 {
-    private Timer _codeTimer;
-    [ObservableProperty] private double _codeProgress;
     [ObservableProperty] private string _code = "Code";
+    [ObservableProperty] private double _codeProgress;
+    private Timer _codeTimer;
 
 
     [MemberNotNull(nameof(_codeTimer))]
@@ -24,7 +24,6 @@ public partial class MainVM
     {
         _codeTimer = new Timer(UpdateCode, null, 0, 1000);
     }
-
 
 
     private void UpdateCode(object? state = null)
@@ -70,6 +69,5 @@ public partial class MainVM
             if (selectedMafile != null)
                 Code = SteamGuardCodeGenerator.GenerateCode(selectedMafile.SharedSecret);
         }
-
     }
 }

@@ -8,9 +8,11 @@ namespace NebulaAuth.Model.Entities;
 public class MarketMultiConfirmation : Confirmation
 {
     public ObservableCollection<MarketConfirmation> Confirmations { get; }
-    public MarketMultiConfirmation(IEnumerable<MarketConfirmation> confirmations) : base(0, 0, 0, 0, ConfirmationType.Unknown, "")
+
+    public MarketMultiConfirmation(IEnumerable<MarketConfirmation> confirmations) : base(0, 0, 0, 0,
+        ConfirmationType.Unknown, "")
     {
-        Confirmations = new(confirmations);
+        Confirmations = new ObservableCollection<MarketConfirmation>(confirmations);
         Time = Confirmations.FirstOrDefault()?.Time ?? default;
     }
 }

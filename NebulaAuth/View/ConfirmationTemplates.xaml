@@ -9,18 +9,21 @@
 
 
     <DataTemplate DataType="{x:Type confirmations:Confirmation}">
-        <Grid >
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition  Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon  Width="20" Height="20" VerticalAlignment="Center" DockPanel.Dock="Left" Kind="QuestionMark" Margin="0,0,10,0"/>
+            <materialDesign:PackIcon Width="20" Height="20" VerticalAlignment="Center" DockPanel.Dock="Left"
+                                     Kind="QuestionMark" Margin="0,0,10,0" />
             <TextBlock VerticalAlignment="Center" Grid.Column="1" Text="{Binding TypeName}" />
-            <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Right" Text="{Binding Time, StringFormat=t}"/>
-            <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="3" Style="{StaticResource MaterialDesignIconButton}"
+            <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Right"
+                       Text="{Binding Time, StringFormat=t}" />
+            <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="3"
+                    Style="{StaticResource MaterialDesignIconButton}"
                     Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.ConfirmCommand)}"
                     CommandParameter="{Binding }">
                 <materialDesign:PackIcon Kind="Check" />
@@ -33,25 +36,31 @@
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type confirmations:TradeConfirmation}">
-        <Grid >
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon VerticalAlignment="Center"   Width="20" Height="20"  Kind="AccountArrowRight" Margin="0,0,10,0" />
-            <Image Grid.Column="1" VerticalAlignment="Center" DockPanel.Dock="Left" Width="24" Height="24" Source="{Binding UserAvatarUri}" Margin="0,0,10,0" />
-            <TextBlock VerticalAlignment="Center" Grid.Column="2"  TextWrapping="WrapWithOverflow" >
-                <Run Text="{Tr MainWindow.ConfirmationTemplates.TradeWith, IsDynamic=False}"/>
+            <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Kind="AccountArrowRight"
+                                     Margin="0,0,10,0" />
+            <Image Grid.Column="1" VerticalAlignment="Center" DockPanel.Dock="Left" Width="24" Height="24"
+                   Source="{Binding UserAvatarUri}" Margin="0,0,10,0" />
+            <TextBlock VerticalAlignment="Center" Grid.Column="2" TextWrapping="WrapWithOverflow">
+                <Run Text="{Tr MainWindow.ConfirmationTemplates.TradeWith, IsDynamic=False}" />
                 <Run Text="{Binding UserName}" FontWeight="Bold" />
             </TextBlock>
-            <materialDesign:PackIcon Grid.Column="3" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="5,0,5,0" Kind="Gift" Visibility="{Binding IsReceiveNothing, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <TextBlock VerticalAlignment="Center" Grid.Column="4" HorizontalAlignment="Right" Text="{Binding Time, StringFormat=t}"/>
-            <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="5" Style="{StaticResource MaterialDesignIconButton}"
+            <materialDesign:PackIcon Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                     Margin="5,0,5,0" Kind="Gift"
+                                     Visibility="{Binding IsReceiveNothing, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBlock VerticalAlignment="Center" Grid.Column="4" HorizontalAlignment="Right"
+                       Text="{Binding Time, StringFormat=t}" />
+            <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="5"
+                    Style="{StaticResource MaterialDesignIconButton}"
                     Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.ConfirmCommand)}"
                     CommandParameter="{Binding }">
                 <materialDesign:PackIcon Kind="Check" />
@@ -64,18 +73,21 @@
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type confirmations:AccountRecoveryConfirmation}">
-        <Grid >
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon  Width="20" Height="20" VerticalAlignment="Center" DockPanel.Dock="Left" Kind="LockOutline" Margin="0,0,10,0"/>
-            <TextBlock VerticalAlignment="Center" Grid.Column="1" Text="{Tr MainWindow.ConfirmationTemplates.Recovery}"/>
-            <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Right" Text="{Binding Time, StringFormat=t}"/>
-            <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="3" Style="{StaticResource MaterialDesignIconButton}"
+            <materialDesign:PackIcon Width="20" Height="20" VerticalAlignment="Center" DockPanel.Dock="Left"
+                                     Kind="LockOutline" Margin="0,0,10,0" />
+            <TextBlock VerticalAlignment="Center" Grid.Column="1" Text="{Tr MainWindow.ConfirmationTemplates.Recovery}" />
+            <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Right"
+                       Text="{Binding Time, StringFormat=t}" />
+            <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="3"
+                    Style="{StaticResource MaterialDesignIconButton}"
                     Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.ConfirmCommand)}"
                     CommandParameter="{Binding }">
                 <materialDesign:PackIcon Kind="Check" />
@@ -88,36 +100,43 @@
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type confirmations:MarketConfirmation}">
-        <Grid >
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon VerticalAlignment="Center"   Width="20" Height="20"  Kind="ShoppingCart" Margin="0,0,10,0" />
-            <Border Grid.Column="1" Background="{DynamicResource MaterialDesignPaper}" MaxHeight="36" HorizontalAlignment="Center" BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="0.6" Margin="0,0,10,0">
-                 <Image  HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="32" MaxHeight="32" Source="{Binding ItemImageUri}" />
+            <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Kind="ShoppingCart"
+                                     Margin="0,0,10,0" />
+            <Border Grid.Column="1" Background="{DynamicResource MaterialDesignPaper}" MaxHeight="36"
+                    HorizontalAlignment="Center" BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                    BorderThickness="0.6" Margin="0,0,10,0">
+                <Image HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="32" MaxHeight="32"
+                       Source="{Binding ItemImageUri}" />
             </Border>
             <Grid Grid.Column="2">
-                <TextBlock VerticalAlignment="Center" x:Name="ItemName" theme:FontScaleWindow.ResizeFont="True" TextWrapping="WrapWithOverflow"  Text="{Binding ItemName}"/> 
-           
+                <TextBlock VerticalAlignment="Center" x:Name="ItemName" theme:FontScaleWindow.ResizeFont="True"
+                           TextWrapping="WrapWithOverflow" Text="{Binding ItemName}" />
+
                 <TextBlock Foreground="LightGray" Text="{Binding PriceString}">
                     <TextBlock.FontSize>
                         <Binding ElementName="ItemName" Path="FontSize" ConverterParameter="0.7">
                             <Binding.Converter>
-                                <converters:CoefficientConverter/>
+                                <converters:CoefficientConverter />
                             </Binding.Converter>
                         </Binding>
                     </TextBlock.FontSize>
                 </TextBlock>
             </Grid>
 
-            <TextBlock VerticalAlignment="Center"  Grid.Column="4" HorizontalAlignment="Left" Margin="5,0,0,0" Text="{Binding Time, StringFormat=t}"/>
-            <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="5" Style="{StaticResource MaterialDesignIconButton}"
+            <TextBlock VerticalAlignment="Center" Grid.Column="4" HorizontalAlignment="Left" Margin="5,0,0,0"
+                       Text="{Binding Time, StringFormat=t}" />
+            <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="5"
+                    Style="{StaticResource MaterialDesignIconButton}"
                     Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.ConfirmCommand)}"
                     CommandParameter="{Binding }">
                 <materialDesign:PackIcon Kind="Check" />
@@ -130,18 +149,21 @@
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type confirmations:RegisterApiKeyConfirmation}">
-        <Grid >
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon  Width="20" Height="20" VerticalAlignment="Center" DockPanel.Dock="Left" Kind="KeyLink" Margin="0,0,10,0"/>
+            <materialDesign:PackIcon Width="20" Height="20" VerticalAlignment="Center" DockPanel.Dock="Left"
+                                     Kind="KeyLink" Margin="0,0,10,0" />
             <TextBlock VerticalAlignment="Center" Grid.Column="1" Text="{Tr MainWindow.ConfirmationTemplates.ApiKey}" />
-            <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Right" Text="{Binding Time, StringFormat=t}"/>
-            <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="3" Style="{StaticResource MaterialDesignIconButton}"
+            <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Right"
+                       Text="{Binding Time, StringFormat=t}" />
+            <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="3"
+                    Style="{StaticResource MaterialDesignIconButton}"
                     Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.ConfirmCommand)}"
                     CommandParameter="{Binding }">
                 <materialDesign:PackIcon Kind="Check" />
@@ -154,23 +176,26 @@
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type entities:MarketMultiConfirmation}">
-        <Grid >
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon VerticalAlignment="Center"   Width="20" Height="20"  Kind="ShoppingCartPlus" Margin="0,0,10,0" />
+            <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Kind="ShoppingCartPlus"
+                                     Margin="0,0,10,0" />
             <TextBlock VerticalAlignment="Center" Grid.Column="1">
-                <Run Text="{Tr MainWindow.ConfirmationTemplates.Market, IsDynamic=False}"/>
-                <Run Text="{Binding Confirmations.Count, Mode=OneWay}"/>
-                <Run Text="{Tr Common.Abbreviations.Count.Items, IsDynamic=False}"/>
+                <Run Text="{Tr MainWindow.ConfirmationTemplates.Market, IsDynamic=False}" />
+                <Run Text="{Binding Confirmations.Count, Mode=OneWay}" />
+                <Run Text="{Tr Common.Abbreviations.Count.Items, IsDynamic=False}" />
             </TextBlock>
 
-            <TextBlock VerticalAlignment="Center"  Grid.Column="2" HorizontalAlignment="Left" Margin="5,0,0,0" Text="{Binding Time, StringFormat=t}"/>
-            <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="3" Style="{StaticResource MaterialDesignIconButton}"
+            <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Left" Margin="5,0,0,0"
+                       Text="{Binding Time, StringFormat=t}" />
+            <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="3"
+                    Style="{StaticResource MaterialDesignIconButton}"
                     Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.ConfirmCommand)}"
                     CommandParameter="{Binding }">
                 <materialDesign:PackIcon Kind="Check" />

@@ -9,15 +9,14 @@ namespace SteamLib.Authentication;
 
 public static class SessionDataValidator
 {
-    [PublicAPI]
-    public static Dictionary<Type, IValidateOptions<ISessionData>> Validators { get; } = new();
+    [PublicAPI] public static Dictionary<Type, IValidateOptions<ISessionData>> Validators { get; } = new();
+
     public static ValidateOptionsResult Validate(string? name, ISessionData data)
     {
-        if(Validators.TryGetValue(data.GetType(), out var validator))
+        if (Validators.TryGetValue(data.GetType(), out var validator))
             return validator.Validate(name, data);
 
         return Validate(data);
-        
     }
 
     public static ValidateOptionsResult Validate<T>(string? name, T data) where T : ISessionData
@@ -56,14 +55,16 @@ public static class SessionDataValidator
             return ValidateOptionsResult.Fail($"SteamId in RefreshToken '{data.SteamId.Steam64}' is invalid.");
         }
 
-       
+
         if (data is IMobileSessionData && data.RefreshToken.Type != SteamAccessTokenType.MobileRefresh)
         {
             return ValidateOptionsResult.Fail($"RefreshToken '{data.RefreshToken.Token}' is not of type MobileRefresh");
         }
-        else if (data.RefreshToken.Type is not (SteamAccessTokenType.Refresh or SteamAccessTokenType.MobileRefresh))
+
+        if (data.RefreshToken.Type is not (SteamAccessTokenType.Refresh or SteamAccessTokenType.MobileRefresh))
         {
-            return ValidateOptionsResult.Fail($"RefreshToken '{data.RefreshToken.Token}' is not of type Refresh or MobileRefresh");
+            return ValidateOptionsResult.Fail(
+                $"RefreshToken '{data.RefreshToken.Token}' is not of type Refresh or MobileRefresh");
         }
 
         if (data.RefreshToken.Expires.ToLong() == 0L)
@@ -72,9 +73,9 @@ public static class SessionDataValidator
         }
 
 
-
         return ValidateOptionsResult.Success;
     }
+
     public static bool IsValid(this ISessionData data)
     {
         return Validate(null, data).Succeeded;
@@ -82,7 +83,7 @@ public static class SessionDataValidator
 
     public static void EnsureValidated(this ISessionData data)
     {
-        if(data.IsValid == true) return;
+        if (data.IsValid == true) return;
         if (data.IsValid == false)
             throw new SessionInvalidException(
                 "SessionData was validated before and validation was not passed. Session is invalid");
@@ -93,4 +94,4 @@ public static class SessionDataValidator
             throw new SessionInvalidException("SessionData is invalid. " + validation.FailureMessage);
         }
     }
-    }
+}

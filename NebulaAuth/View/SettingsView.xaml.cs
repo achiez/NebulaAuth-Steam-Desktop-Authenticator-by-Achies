@@ -1,7 +1,7 @@
 ﻿namespace NebulaAuth.View;
 
 /// <summary>
-/// Логика взаимодействия для SettingsView.xaml
+///     Логика взаимодействия для SettingsView.xaml
 /// </summary>
 public partial class SettingsView
 {

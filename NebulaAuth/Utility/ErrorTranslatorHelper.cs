@@ -8,7 +8,6 @@ namespace NebulaAuth.Utility;
 
 public static class ErrorTranslatorHelper
 {
-
     public static string TranslateLoginError(LoginError error)
     {
         var result = GetMessage("Login", error.ToString());
@@ -20,7 +19,6 @@ public static class ErrorTranslatorHelper
     {
         var result = GetMessage("EResult", eResult.ToString());
         return result ?? eResult.ToString();
-
     }
 
     public static string TranslateLinkerError(AuthenticatorLinkerError error)
@@ -34,6 +32,5 @@ public static class ErrorTranslatorHelper
         var message = Loc.Tr(fullPath, "|ABSENT|");
         if (message == "|ABSENT|") return null;
         return message;
-
     }
 }

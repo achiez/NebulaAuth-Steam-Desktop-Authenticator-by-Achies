@@ -1,11 +1,12 @@
 ﻿// ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
+
 #pragma warning disable CS8618
 
 namespace SteamLib.Login.Default;
 
 /// <summary>
-/// Class to Deserialize the json response strings of the getResKey request/>
+///     Class to Deserialize the json response strings of the getResKey request/>
 /// </summary>
 internal class RsaKeyJson
 {

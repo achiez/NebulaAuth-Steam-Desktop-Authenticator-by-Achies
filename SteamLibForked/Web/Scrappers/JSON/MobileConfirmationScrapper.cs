@@ -15,7 +15,6 @@ public static class MobileConfirmationScrapper
     };
 
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="response"></param>
     /// <returns></returns>
@@ -77,10 +76,10 @@ public static class MobileConfirmationScrapper
             ConfirmationType.AccountRecovery => GetAccountRecoveryConfirmation(json),
             ConfirmationType.MarketSellTransaction => GetMarketConfirmation(json),
             ConfirmationType.RegisterApiKey => GetRegisterApiKeyConfirmation(json),
-            _ => new Confirmation(json.Id, json.Nonce, (int)json.Type, json.CreatorId, json.Type, json.TypeName)
+            _ => new Confirmation(json.Id, json.Nonce, (int) json.Type, json.CreatorId, json.Type, json.TypeName)
             {
                 Time = json.CreationTime.ToLocalDateTime()
-            },
+            }
         };
     }
 
@@ -112,12 +111,11 @@ public static class MobileConfirmationScrapper
     // }
     private static TradeConfirmation GetTradeConfirmation(ConfirmationJson json)
     {
-
         var avatarUri = json.Icon;
 
         var userName = json.Headline;
 
-        
+
         var receiveNodeText = string.Empty;
         if (json.Summary.Count > 0)
         {
@@ -138,14 +136,17 @@ public static class MobileConfirmationScrapper
 
     private static AccountRecoveryConfirmation GetAccountRecoveryConfirmation(ConfirmationJson confirmation)
     {
-        return new AccountRecoveryConfirmation(confirmation.Id, confirmation.Nonce, confirmation.CreatorId, confirmation.TypeName)
+        return new AccountRecoveryConfirmation(confirmation.Id, confirmation.Nonce, confirmation.CreatorId,
+            confirmation.TypeName)
         {
             Time = confirmation.CreationTime.ToLocalDateTime()
         };
     }
+
     private static RegisterApiKeyConfirmation GetRegisterApiKeyConfirmation(ConfirmationJson confirmation)
     {
-        return new RegisterApiKeyConfirmation(confirmation.Id, confirmation.Nonce, confirmation.CreatorId, confirmation.TypeName)
+        return new RegisterApiKeyConfirmation(confirmation.Id, confirmation.Nonce, confirmation.CreatorId,
+            confirmation.TypeName)
         {
             Time = confirmation.CreationTime.ToLocalDateTime()
         };
@@ -153,10 +154,10 @@ public static class MobileConfirmationScrapper
 
     private static MarketConfirmation GetMarketConfirmation(ConfirmationJson confirmation) //TODO: test this
     {
-
         var itemName = confirmation.Headline;
         var itemImageUri = confirmation.Icon?.ToString() ?? string.Empty;
-        return new MarketConfirmation(confirmation.Id, confirmation.Nonce, confirmation.CreatorId, confirmation.TypeName)
+        return new MarketConfirmation(confirmation.Id, confirmation.Nonce, confirmation.CreatorId,
+            confirmation.TypeName)
         {
             Time = confirmation.CreationTime.ToLocalDateTime(),
             ItemImageUri = itemImageUri,

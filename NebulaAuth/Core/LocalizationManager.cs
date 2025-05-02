@@ -1,9 +1,9 @@
-﻿using CodingSeb.Localization;
-using CodingSeb.Localization.Loaders;
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using CodingSeb.Localization;
+using CodingSeb.Localization.Loaders;
 
 namespace NebulaAuth.Core;
 
@@ -11,6 +11,7 @@ public static class LocManager
 {
     public const string CODE_BEHIND_PATH_PART = "CodeBehind";
     public const string COMMON_PATH_PART = "Common";
+
     public static void SetApplicationLocalization(LocalizationLanguage language)
     {
         Loc.Instance.CurrentLanguage = GetLanguageCode(language);
@@ -35,7 +36,6 @@ public static class LocManager
     }
 
 
-
     public static void Init()
     {
         Loc.LogOutMissingTranslations = true;
@@ -47,7 +47,8 @@ public static class LocManager
 
     public static void ReloadFiles()
     {
-        string exampleFileFileName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "localization.loc.json");
+        var exampleFileFileName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!,
+            "localization.loc.json");
         LocalizationLoader.Instance.ClearAllTranslations();
         LocalizationLoader.Instance.AddFile(exampleFileFileName);
     }
@@ -64,14 +65,14 @@ public static class LocManager
 
     public static string? GetCommon(params string[] path)
     {
-       return GetConcat(COMMON_PATH_PART, path);
+        return GetConcat(COMMON_PATH_PART, path);
     }
 
     public static string GetCommonOrDefault(string def, params string[] path)
     {
-       return GetCommon(path) ?? def;
+        return GetCommon(path) ?? def;
     }
-   
+
 
     public static string? Get(params string[] path)
     {
@@ -92,9 +93,10 @@ public static class LocManager
     {
         return Get(path) ?? def;
     }
+
     private static string? GetConcat(string first, string[] path)
     {
-        string[] newArray = new string[path.Length + 1];
+        var newArray = new string[path.Length + 1];
         newArray[0] = first;
         Array.Copy(path, 0, newArray, 1, path.Length);
         return Get(newArray);

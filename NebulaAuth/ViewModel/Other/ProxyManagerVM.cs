@@ -1,14 +1,14 @@
-﻿using AchiesUtilities.Collections;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows;
+using AchiesUtilities.Collections;
 using AchiesUtilities.Web.Proxy;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Windows;
 
 namespace NebulaAuth.ViewModel.Other;
 
@@ -16,13 +16,14 @@ public partial class ProxyManagerVM : ObservableObject
 {
     private const string LOCALIZATION_KEY = "ProxyManagerVM";
 
-    [ObservableProperty] private KeyValuePair<int, ProxyData>? _selectedProxy;
-    [ObservableProperty] private string _addProxyField = string.Empty;
-    [ObservableProperty] private KeyValuePair<int, ProxyData>? _defaultProxy;
+    private static readonly Regex IdRegex = new(@"\{(\d+)\}$", RegexOptions.Compiled);
     public ObservableDictionary<int, ProxyData> Proxies => ProxyStorage.Proxies;
 
-    private static readonly Regex IdRegex = new(@"\{(\d+)\}$", RegexOptions.Compiled);
+    public bool AnyChanges { get; private set; }
+    [ObservableProperty] private string _addProxyField = string.Empty;
+    [ObservableProperty] private KeyValuePair<int, ProxyData>? _defaultProxy;
 
+    [ObservableProperty] private KeyValuePair<int, ProxyData>? _selectedProxy;
 
     public ProxyManagerVM()
     {
@@ -33,6 +34,7 @@ public partial class ProxyManagerVM : ObservableObject
     [RelayCommand]
     private void AddProxy()
     {
+        AnyChanges = true;
         var input = AddProxyField;
         if (string.IsNullOrEmpty(input)) return;
 
@@ -69,7 +71,6 @@ public partial class ProxyManagerVM : ObservableObject
             }
 
 
-
             if (ProxyStorage.DefaultScheme.TryParse(str, out var proxy))
             {
                 if (id != null && proxies.Any(kvp => kvp.Key == id))
@@ -77,6 +78,7 @@ public partial class ProxyManagerVM : ObservableObject
                     SnackbarController.SendSnackbar(string.Format(GetLocalizationOrDefault("DuplicateId"), id));
                     return;
                 }
+
                 proxies.Add(KeyValuePair.Create(id, proxy));
             }
             else
@@ -86,6 +88,7 @@ public partial class ProxyManagerVM : ObservableObject
                     SnackbarController.SendSnackbar(GetLocalizationOrDefault("WrongFormat"));
                     return;
                 }
+
                 SnackbarController.SendSnackbar(string.Format(GetLocalizationOrDefault("WrongFormatOnLine"), i));
                 return;
             }
@@ -108,6 +111,7 @@ public partial class ProxyManagerVM : ObservableObject
     [RelayCommand]
     private void RemoveProxy()
     {
+        AnyChanges = true;
         var selected = SelectedProxy;
         if (selected == null) return;
         var s = selected.Value;
@@ -137,6 +141,7 @@ public partial class ProxyManagerVM : ObservableObject
     private void SetDefault(object? arg)
     {
         if (arg is not KeyValuePair<int, ProxyData> proxy) return;
+        AnyChanges = true;
         DefaultProxy = proxy;
         MaClient.DefaultProxy = proxy.Value;
         ProxyStorage.Save();
@@ -145,6 +150,7 @@ public partial class ProxyManagerVM : ObservableObject
     [RelayCommand]
     private void RemoveDefault()
     {
+        AnyChanges = true;
         DefaultProxy = null;
         MaClient.DefaultProxy = null;
         ProxyStorage.Save();
@@ -162,7 +168,6 @@ public partial class ProxyManagerVM : ObservableObject
         {
             Shell.Logger.Error(ex);
         }
-
     }
 
     [RelayCommand]

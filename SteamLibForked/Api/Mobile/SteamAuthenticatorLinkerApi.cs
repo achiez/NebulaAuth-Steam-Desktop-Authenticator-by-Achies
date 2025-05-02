@@ -21,6 +21,12 @@ public static class SteamAuthenticatorLinkerApi
 {
     private const string PHONE_REQ = SteamConstants.STEAM_COMMUNITY + "steamguard/phoneajax";
 
+    private static string GetAccessToken(this ISessionData s)
+    {
+        return s.GetToken(SteamDomain.Community)?.Token ??
+               throw new SessionInvalidException("Access token was null. MobileEndpoints requires valid AccessToken");
+    }
+
     #region Global
 
     public static Task<AccountPhoneStatus_Response> HasPhone(HttpClient client, string accessToken)
@@ -28,11 +34,10 @@ public static class SteamAuthenticatorLinkerApi
         const string uri = SteamConstants.STEAM_API + "IPhoneService/AccountPhoneStatus/v1";
 
         var reqUri = AddAccessToken(uri, accessToken);
-        return client.PostProto<AccountPhoneStatus_Response>(reqUri, request: null);
+        return client.PostProto<AccountPhoneStatus_Response>(reqUri, null);
     }
 
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="client"></param>
     /// <param name="data"></param>
@@ -40,21 +45,22 @@ public static class SteamAuthenticatorLinkerApi
     /// <returns></returns>
     /// <exception cref="AuthenticatorLinkerException"></exception>
     /// <exception cref="EResultException"></exception>
-    public static async Task<AddAuthenticator_Response> LinkRequest(HttpClient client, ISessionData data, string deviceId)
+    public static async Task<AddAuthenticator_Response> LinkRequest(HttpClient client, ISessionData data,
+        string deviceId)
     {
         const string uri = SteamConstants.STEAM_API + "ITwoFactorService/AddAuthenticator/v1";
         data.EnsureValidated();
         var reqUri = AddAccessToken(uri, data.GetAccessToken());
         var req = new AddAuthenticator_Request
         {
-            SteamId = (ulong)data.SteamId.Steam64.Id,
+            SteamId = (ulong) data.SteamId.Steam64.Id,
             AuthenticatorType = 1,
             DeviceIdentifier = deviceId,
             Version = 2
         };
 
         var resp = await client.PostProtoMsg<AddAuthenticator_Response>(reqUri, req);
-        if (resp is { Result: EResult.InvalidState, ResponseMsg.Status: 2 })
+        if (resp is {Result: EResult.InvalidState, ResponseMsg.Status: 2})
         {
             throw new AuthenticatorLinkerException(AuthenticatorLinkerError.InvalidStateWithStatus2);
         }
@@ -74,7 +80,7 @@ public static class SteamAuthenticatorLinkerApi
             var validateSmsReq = new FinalizeAddAuthenticator_Request
             {
                 SteamId = data.SteamId.Steam64.ToUlong(),
-                AuthenticatorTime = (ulong)time,
+                AuthenticatorTime = (ulong) time,
                 ConfirmationCode = confirmationCode,
                 ValidateConfirmationCode = true
             };
@@ -101,8 +107,8 @@ public static class SteamAuthenticatorLinkerApi
             {
                 SteamId = data.SteamId.Steam64.ToUlong(),
                 AuthenticatorCode = code,
-                AuthenticatorTime = (ulong)time,
-                ConfirmationCode = confirmationCode,
+                AuthenticatorTime = (ulong) time,
+                ConfirmationCode = confirmationCode
             };
 
 
@@ -124,6 +130,7 @@ public static class SteamAuthenticatorLinkerApi
                 return new LinkResult(LinkError.UnableToGenerateCorrectCodes);
             }
         }
+
         return new LinkResult(LinkError.GeneralFailure);
     }
 
@@ -131,6 +138,7 @@ public static class SteamAuthenticatorLinkerApi
     {
         return await CheckPhoneNumber(client, phoneNumber, sessionId) == CheckPhoneResult.Valid;
     }
+
     public static async Task<CheckPhoneResult> CheckPhoneNumber(HttpClient client, long phoneNumber, string sessionId)
     {
         var phone = '+' + phoneNumber.ToString();
@@ -172,6 +180,7 @@ public static class SteamAuthenticatorLinkerApi
 
         return resp.Result == EResult.Pending;
     }
+
     public static async Task<bool> CheckEmailConfirmation(HttpClient client, string accessToken)
     {
         const string uri = SteamConstants.STEAM_API + "IPhoneService/IsAccountWaitingForEmailConfirmation/v1";
@@ -182,7 +191,8 @@ public static class SteamAuthenticatorLinkerApi
         while (i < 5)
         {
             i++;
-            var resp = await client.PostProto<IsAccountWaitingForEmailConfirmation_Response>(reqUri, new EmptyMessage());
+            var resp = await client.PostProto<IsAccountWaitingForEmailConfirmation_Response>(reqUri,
+                new EmptyMessage());
 
             if (resp.IsWaiting == false) return true;
 
@@ -191,6 +201,7 @@ public static class SteamAuthenticatorLinkerApi
 
         return false;
     }
+
     public static Task<EResult> SendSmsCode(HttpClient client, string accessToken)
     {
         const string uri = SteamConstants.STEAM_API + "IPhoneService/SendPhoneVerificationCode/v1";
@@ -198,6 +209,7 @@ public static class SteamAuthenticatorLinkerApi
         var reqUri = AddAccessToken(uri, accessToken);
         return client.PostProto(reqUri, new SendPhoneVerificationCode_Request());
     }
+
     public static async Task<bool> CheckSmsCode(HttpClient client, int smsCode, string sessionId)
     {
         var data = new Dictionary<string, string>
@@ -220,19 +232,27 @@ public static class SteamAuthenticatorLinkerApi
         var hasPhone = await HasPhone(client, sessionId);
         return hasPhone.HasPhone;
     }
+
     private static FormUrlEncodedContent CreateAjaxContent(string op, string arg, string sessionId)
     {
         var data = new Dictionary<string, string>
         {
-            {"op",op},
+            {"op", op},
             {"arg", arg},
             {"sessionid", sessionId}
         };
         return new FormUrlEncodedContent(data);
     }
 
-    public static string GenerateDeviceId() => "android:" + Guid.NewGuid();
-    private static string AddAccessToken(string uri, string accessToken) => uri + "?access_token=" + accessToken;
+    public static string GenerateDeviceId()
+    {
+        return "android:" + Guid.NewGuid();
+    }
+
+    private static string AddAccessToken(string uri, string accessToken)
+    {
+        return uri + "?access_token=" + accessToken;
+    }
 
     #endregion
 
@@ -261,6 +281,7 @@ public static class SteamAuthenticatorLinkerApi
 
         return HasPhone(linker.Client, linker.SessionData.GetAccessToken());
     }
+
     internal static Task<bool> AttachPhone(this SteamAuthenticatorLinker linker, long phoneNumber)
     {
         if (linker.SessionData == null)
@@ -268,6 +289,7 @@ public static class SteamAuthenticatorLinkerApi
 
         return AttachPhone(linker.Client, phoneNumber, linker.SessionData.GetAccessToken());
     }
+
     internal static Task<bool> CheckEmailConfirmation(this SteamAuthenticatorLinker linker)
     {
         if (linker.SessionData == null)
@@ -283,6 +305,7 @@ public static class SteamAuthenticatorLinkerApi
 
         return SendSmsCode(linker.Client, linker.SessionData.GetAccessToken());
     }
+
     internal static Task<bool> CheckSmsCode(this SteamAuthenticatorLinker linker, int smsCode)
     {
         if (linker.SessionData == null)
@@ -291,7 +314,8 @@ public static class SteamAuthenticatorLinkerApi
         return CheckSmsCode(linker.Client, smsCode, linker.SessionData.SessionId);
     }
 
-    internal static Task<LinkResult> FinalizeLink(this SteamAuthenticatorLinker linker, string confirmationCode, byte[] sharedSecret, bool validateSmsCode)
+    internal static Task<LinkResult> FinalizeLink(this SteamAuthenticatorLinker linker, string confirmationCode,
+        byte[] sharedSecret, bool validateSmsCode)
     {
         if (linker.SessionData == null)
             throw new InvalidOperationException("SessionData is null");
@@ -299,7 +323,5 @@ public static class SteamAuthenticatorLinkerApi
         return FinalizeLink(linker.Client, confirmationCode, linker.SessionData, sharedSecret, validateSmsCode);
     }
 
-
     #endregion
-    private static string GetAccessToken(this ISessionData s) => s.GetToken(SteamDomain.Community)?.Token ?? throw new SessionInvalidException("Access token was null. MobileEndpoints requires valid AccessToken");
 }

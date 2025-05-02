@@ -2,6 +2,12 @@
 
 public static class SteamConstants
 {
+    #region Misc
+
+    public const string ENGLISH = "english";
+
+    #endregion
+
     #region Base
 
     public const string STEAM_STORE = "https://store.steampowered.com/";
@@ -18,12 +24,6 @@ public static class SteamConstants
 
     public const string STEAM_MARKET = STEAM_COMMUNITY + "market/";
     public const string STORE_API = STEAM_STORE + "api/";
-
-    #endregion
-
-    #region Misc
-
-    public const string ENGLISH = "english";
 
     #endregion
 }

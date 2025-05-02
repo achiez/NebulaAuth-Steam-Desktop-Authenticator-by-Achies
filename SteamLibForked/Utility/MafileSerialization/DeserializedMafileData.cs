@@ -8,7 +8,7 @@ public enum DeserializedMafileSessionResult
 {
     Missing,
     Invalid,
-    Valid,
+    Valid
 }
 
 [PublicAPI]
@@ -24,22 +24,26 @@ public class DeserializedMafileData
         Info = info;
     }
 
-    internal static DeserializedMafileData Create(MobileData mobileData, int? version = null, Dictionary<string, JProperty>? properties = null, HashSet<string>? missingProperties = null, DeserializedMafileSessionResult sessionResult = DeserializedMafileSessionResult.Missing)
+    internal static DeserializedMafileData Create(MobileData mobileData, int? version = null,
+        Dictionary<string, JProperty>? properties = null, HashSet<string>? missingProperties = null,
+        DeserializedMafileSessionResult sessionResult = DeserializedMafileSessionResult.Missing)
     {
         var info = DeserializedMafileInfo.Create(mobileData, version, properties, missingProperties, sessionResult);
         return new DeserializedMafileData(mobileData, info);
     }
 
-    internal static DeserializedMafileData CreateActual(MobileData mobileData, Dictionary<string, JProperty>? properties = null, DeserializedMafileSessionResult sessionResult = DeserializedMafileSessionResult.Valid)
+    internal static DeserializedMafileData CreateActual(MobileData mobileData,
+        Dictionary<string, JProperty>? properties = null,
+        DeserializedMafileSessionResult sessionResult = DeserializedMafileSessionResult.Valid)
     {
-        var info = DeserializedMafileInfo.Create(mobileData, MafileSerializer.MAFILE_VERSION, properties, null, sessionResult);
+        var info = DeserializedMafileInfo.Create(mobileData, MafileSerializer.MAFILE_VERSION, properties, null,
+            sessionResult);
         return new DeserializedMafileData(mobileData, info);
     }
 }
 
-
 /// <summary>
-/// Represents information about deserialized mafile
+///     Represents information about deserialized mafile
 /// </summary>
 [PublicAPI]
 public class DeserializedMafileInfo
@@ -47,7 +51,7 @@ public class DeserializedMafileInfo
     public static readonly HashSet<string> ImportantProperties =
     [
         nameof(MobileDataExtended.RevocationCode),
-        nameof(MobileDataExtended.AccountName),
+        nameof(MobileDataExtended.AccountName)
     ];
 
     public static readonly HashSet<string> NotImportantProperties =
@@ -70,14 +74,15 @@ public class DeserializedMafileInfo
     public Dictionary<string, JProperty>? UnusedProperties { get; init; }
 
     public bool IsActual => Version == MafileSerializer.MAFILE_VERSION;
-    public bool HasUnusedProperties => UnusedProperties is { Count: > 0 };
-    public bool HasMissingProperties => MissingProperties is { Count: > 0 };
-    public bool HasMissingImportantProperties => MissingImportantProperties is { Count: > 0 };
+    public bool HasUnusedProperties => UnusedProperties is {Count: > 0};
+    public bool HasMissingProperties => MissingProperties is {Count: > 0};
+    public bool HasMissingImportantProperties => MissingImportantProperties is {Count: > 0};
     public bool HasSession => SessionResult == DeserializedMafileSessionResult.Valid;
     public bool HasIdentificationProperty { get; init; }
     public bool SteamIdValid { get; init; }
 
-    internal static DeserializedMafileInfo Create(MobileData mobileData, int? version = null, Dictionary<string, JProperty>? unusedProperties = null, HashSet<string>? missingProperties = null,
+    internal static DeserializedMafileInfo Create(MobileData mobileData, int? version = null,
+        Dictionary<string, JProperty>? unusedProperties = null, HashSet<string>? missingProperties = null,
         DeserializedMafileSessionResult sessionResult = DeserializedMafileSessionResult.Missing)
     {
         HashSet<string>? missingImportantProperties = null;
@@ -88,10 +93,10 @@ public class DeserializedMafileInfo
         {
             steamIdValid = ext.SteamId.Steam64.Id > SteamId64.SEED;
             hasIdentificationProperty = !string.IsNullOrWhiteSpace(ext.AccountName) || steamIdValid;
-            isExtended = true;  
+            isExtended = true;
         }
 
-        if (isExtended && missingProperties is { Count: > 0 })
+        if (isExtended && missingProperties is {Count: > 0})
         {
             var important = missingProperties.Intersect(ImportantProperties).ToList();
             if (important.Count > 0) missingImportantProperties = important.ToHashSet();
@@ -111,5 +116,4 @@ public class DeserializedMafileInfo
             SteamIdValid = steamIdValid
         };
     }
-
 }

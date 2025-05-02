@@ -8,13 +8,15 @@ namespace SteamLib.Web;
 
 public static class ClientBuilder
 {
-    public static HttpClientHandlerPair BuildMobileClient(IWebProxy? proxy, IMobileSessionData? sessionData, bool disposeHandler = true)
+    public static HttpClientHandlerPair BuildMobileClient(IWebProxy? proxy, IMobileSessionData? sessionData,
+        bool disposeHandler = true)
     {
         sessionData?.EnsureValidated();
         var handler = new HttpClientHandler();
         var client = new HttpClient(handler, disposeHandler);
 
-        client.DefaultRequestHeaders.Accept.ParseAdd("application/json, text/javascript, text/html, application/xml, text/xml, */*");
+        client.DefaultRequestHeaders.Accept.ParseAdd(
+            "application/json, text/javascript, text/html, application/xml, text/xml, */*");
         client.DefaultRequestHeaders.UserAgent.ParseAdd("okhttp/3.12.12");
 
         if (proxy != null)
@@ -34,7 +36,6 @@ public static class ClientBuilder
 
         ConfigureCommon(handler, client);
         return new HttpClientHandlerPair(client, handler);
-
     }
 
 
@@ -43,6 +44,7 @@ public static class ClientBuilder
         ConfigureCommonClient(client);
         handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
     }
+
     private static void ConfigureCommonClient(HttpClient client)
     {
         client.Timeout = TimeSpan.FromSeconds(50);

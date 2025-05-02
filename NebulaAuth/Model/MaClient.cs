@@ -1,4 +1,9 @@
-﻿using AchiesUtilities.Web.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using AchiesUtilities.Web.Models;
 using AchiesUtilities.Web.Proxy;
 using NebulaAuth.Model.Entities;
 using SteamLib.Api.Mobile;
@@ -8,14 +13,8 @@ using SteamLib.Exceptions;
 using SteamLib.ProtoCore.Services;
 using SteamLib.SteamMobile.Confirmations;
 using SteamLib.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace NebulaAuth.Model;
-
 
 public static class MaClient
 {
@@ -26,7 +25,6 @@ public static class MaClient
     private static DynamicProxy Proxy { get; }
 
     public static ProxyData? DefaultProxy { get; set; }
-    public static HttpClientHandlerPair Chp => new(Client, ClientHandler);
 
     static MaClient()
     {
@@ -52,6 +50,7 @@ public static class MaClient
                 ClientHandler.CookieContainer.AddMinimalMobileCookies();
                 AdmissionHelper.TransferCommunityCookies(ClientHandler.CookieContainer);
             }
+
             Proxy.SetData(account.Proxy?.Data);
         }
     }
@@ -66,7 +65,8 @@ public static class MaClient
     public static Task LoginAgain(Mafile mafile, string password, bool savePassword, ICaptchaResolver? resolver)
     {
         SetProxy(mafile);
-        return SessionHandler.LoginAgain(Chp, mafile, password, savePassword);
+        return SessionHandler.LoginAgain(new HttpClientHandlerPair(Client, ClientHandler), mafile, password,
+            savePassword);
     }
 
 
@@ -74,27 +74,30 @@ public static class MaClient
     {
         ValidateMafile(mafile, true);
         SetProxy(mafile);
-        return SessionHandler.RefreshMobileToken(Chp, mafile);
+        return SessionHandler.RefreshMobileToken(new HttpClientHandlerPair(Client, ClientHandler), mafile);
     }
 
     public static Task<bool> SendConfirmation(Mafile mafile, Confirmation confirmation, bool confirm)
     {
         ValidateMafile(mafile);
         SetProxy(mafile);
-        return SteamMobileConfirmationsApi.SendConfirmation(Client, confirmation, mafile.SessionData!.SteamId, mafile, confirm);
+        return SteamMobileConfirmationsApi.SendConfirmation(Client, confirmation, mafile.SessionData!.SteamId, mafile,
+            confirm);
     }
 
-    public static Task<bool> SendMultipleConfirmation(Mafile mafile, IEnumerable<Confirmation> confirmations, bool confirm)
+    public static Task<bool> SendMultipleConfirmation(Mafile mafile, IEnumerable<Confirmation> confirmations,
+        bool confirm)
     {
         var enumerable = confirmations.ToList();
         if (enumerable.Count == 0)
         {
-            return Task.FromResult(result: false);
+            return Task.FromResult(false);
         }
 
         ValidateMafile(mafile);
         SetProxy(mafile);
-        return SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, enumerable, mafile.SessionData!.SteamId, mafile, confirm);
+        return SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, enumerable, mafile.SessionData!.SteamId,
+            mafile, confirm);
     }
 
     public static Task<RemoveAuthenticator_Response> RemoveAuthenticator(Mafile mafile)
@@ -105,6 +108,7 @@ public static class MaClient
         {
             throw new InvalidOperationException("This mafile does not have R-Code");
         }
+
         var token = mafile.SessionData!.GetMobileToken()!;
         return SteamMobileApi.RemoveAuthenticator(Client, token.Value.Token, mafile.RevocationCode);
     }
@@ -126,7 +130,6 @@ public static class MaClient
             if (access == null || access.Value.IsExpired)
                 throw new SessionPermanentlyExpiredException();
         }
-
     }
 
     public static async Task<LoginConfirmationResult> ConfirmLoginRequest(Mafile mafile)
@@ -143,6 +146,7 @@ public static class MaClient
                 Error = LoginConfirmationError.NoRequests
             };
         }
+
         if (sessions.ClientIds.Count > 1)
         {
             return new LoginConfirmationResult
@@ -168,5 +172,11 @@ public static class MaClient
             IP = clientInfo.IP,
             Success = true
         };
+    }
+
+    public static HttpClientHandlerPair GetHttpClientHandlerPair(Mafile mafile)
+    {
+        SetProxy(mafile);
+        return new HttpClientHandlerPair(Client, ClientHandler);
     }
 }

@@ -15,19 +15,19 @@ public class LoginV2ExecutorOptions
     public DeviceDetails? DeviceDetails { get; init; }
 
     /// <summary>
-    /// Gets or sets the website id that the login will be performed for.
-    /// Known values are "Unknown", "Client", "Mobile", "Website", "Store", "Community", "Partner", "SteamStats".
-    /// Default value will be set to "Community"
+    ///     Gets or sets the website id that the login will be performed for.
+    ///     Known values are "Unknown", "Client", "Mobile", "Website", "Store", "Community", "Partner", "SteamStats".
+    ///     Default value will be set to "Community"
     /// </summary>
     /// <value>The website id.</value>
     public string? WebsiteId { get; init; }
+
     public LoginV2ExecutorOptions(ILoginConsumer consumer, HttpClient httpClient)
     {
         Consumer = consumer;
         HttpClient = httpClient;
     }
 
- 
 
     public string GetWebsiteIdOrDefault()
     {

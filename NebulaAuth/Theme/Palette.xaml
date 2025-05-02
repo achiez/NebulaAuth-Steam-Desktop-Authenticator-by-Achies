@@ -2,33 +2,33 @@
     x:Class="LolzFucker.Theme.Palette"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    mc:Ignorable="d" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="300">
 
     <UserControl.Resources>
         <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="DemiBold"/>
-            <Setter Property="Margin" Value="4"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="Margin" Value="4" />
         </Style>
     </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
         <Border
@@ -36,7 +36,7 @@
             Grid.ColumnSpan="3">
             <TextBlock
                 Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
-                Text="Primary - Mid"/>
+                Text="Primary - Mid" />
         </Border>
 
         <Border
@@ -46,7 +46,7 @@
             <TextBlock
                 FontWeight="Bold"
                 Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
-                Text="Light"/>
+                Text="Light" />
         </Border>
 
         <Border
@@ -55,7 +55,7 @@
             Grid.Column="1">
             <TextBlock
                 Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
-                Text="Mid"/>
+                Text="Mid" />
         </Border>
 
         <Border
@@ -64,7 +64,7 @@
             Grid.Column="2">
             <TextBlock
                 Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                Text="Dark"/>
+                Text="Dark" />
         </Border>
 
         <Border
@@ -73,7 +73,7 @@
             Grid.Column="0">
             <TextBlock
                 Foreground="{DynamicResource SecondaryHueLightForegroundBrush}"
-                Text="Light"/>
+                Text="Light" />
         </Border>
         <Border
             Background="{DynamicResource SecondaryHueMidBrush}"
@@ -81,7 +81,7 @@
             Grid.Column="1">
             <TextBlock
                 Foreground="{DynamicResource SecondaryHueMidForegroundBrush}"
-                Text="Mid"/>
+                Text="Mid" />
         </Border>
         <Border
             Background="{DynamicResource SecondaryHueDarkBrush}"
@@ -89,7 +89,7 @@
             Grid.Column="2">
             <TextBlock
                 Foreground="{DynamicResource SecondaryHueDarkForegroundBrush}"
-                Text="Dark"/>
+                Text="Dark" />
         </Border>
 
         <Border
@@ -98,16 +98,16 @@
             Grid.Column="0">
             <TextBlock
                 Foreground="{DynamicResource SecondaryHueDarkForegroundBrush}"
-                Text="Background"/>
+                Text="Background" />
         </Border>
 
         <Border
             Background="{DynamicResource MaterialDesignCardBackground}"
-        Grid.Row="3"
-        Grid.Column="1">
-        <TextBlock
-            Foreground="{DynamicResource SecondaryHueMidForegroundBrush}"
-            Text="CardBack"/>
+            Grid.Row="3"
+            Grid.Column="1">
+            <TextBlock
+                Foreground="{DynamicResource SecondaryHueMidForegroundBrush}"
+                Text="CardBack" />
         </Border>
 
         <Border
@@ -116,7 +116,7 @@
             Grid.Column="2">
             <TextBlock
                 Foreground="{DynamicResource SecondaryHueMidForegroundBrush}"
-                Text="Paper"/>
+                Text="Paper" />
         </Border>
 
         <Border
@@ -124,8 +124,8 @@
             Grid.Row="4"
             Grid.Column="0">
             <TextBlock
-               
-                Text="Body"/>
+
+                Text="Body" />
         </Border>
         <Border
             Background="{DynamicResource MaterialDesignBodyLight}"
@@ -133,14 +133,14 @@
             Grid.Column="1">
             <TextBlock
                 Foreground="{DynamicResource SecondaryHueMidForegroundBrush}"
-                Text="BodyLight"/>
+                Text="BodyLight" />
         </Border>
         <Border
             Background="{DynamicResource MaterialDesignToolTipBackground}"
             Grid.Row="4"
             Grid.Column="2">
             <TextBlock
-                Text="ToolTipBack"/>
+                Text="ToolTipBack" />
         </Border>
     </Grid>
 </UserControl>

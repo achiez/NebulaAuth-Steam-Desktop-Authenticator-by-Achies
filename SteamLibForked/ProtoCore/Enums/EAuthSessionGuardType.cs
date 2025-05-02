@@ -12,5 +12,5 @@ public enum EAuthSessionGuardType
     DeviceConfirmation = 4,
     EmailConfirmation = 5,
     MachineToken = 6,
-    LegacyMachineAuth = 7,
+    LegacyMachineAuth = 7
 }

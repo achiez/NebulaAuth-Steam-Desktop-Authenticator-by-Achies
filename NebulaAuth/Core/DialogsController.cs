@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MaterialDesignThemes.Wpf;
+using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;
@@ -10,12 +11,10 @@ namespace NebulaAuth.Core;
 
 public static class DialogsController
 {
-
     #region CommonDialogs
 
     public static async Task<bool> ShowConfirmCancelDialog(string? msg = null)
     {
-        
         var content = msg == null ? new ConfirmCancelDialog() : new ConfirmCancelDialog(msg);
 
         var result = await DialogHost.Show(content);
@@ -31,11 +30,13 @@ public static class DialogsController
 
     #endregion
 
-    public static async Task<LoginAgainVM?> ShowLoginAgainDialog(string username)
+    public static async Task<LoginAgainVM?> ShowLoginAgainDialog(string username, string? currentPassword = null)
     {
         var vm = new LoginAgainVM
         {
-            UserName = username
+            UserName = username,
+            Password = currentPassword ?? string.Empty,
+            SavePassword = PHandler.IsPasswordSet
         };
         var content = new LoginAgainDialog
         {
@@ -50,10 +51,11 @@ public static class DialogsController
         return null;
     }
 
-    public static async Task<LoginAgainOnImportVM?> ShowLoginAgainOnImportDialog(Mafile mafile, IEnumerable<MaProxy> proxies)
+    public static async Task<LoginAgainOnImportVM?> ShowLoginAgainOnImportDialog(Mafile mafile,
+        IEnumerable<MaProxy> proxies)
     {
         var vm = new LoginAgainOnImportVM(mafile, proxies);
-        var content = new LoginAgainOnImportDialog()
+        var content = new LoginAgainOnImportDialog
         {
             DataContext = vm
         };
@@ -66,7 +68,7 @@ public static class DialogsController
         return null;
     }
 
-    public static async Task ShowProxyManager(MaProxy? currentProxy)
+    public static async Task<bool> ShowProxyManager()
     {
         var vm = new ProxyManagerVM();
         var view = new ProxyManagerView
@@ -74,20 +76,21 @@ public static class DialogsController
             DataContext = vm
         };
         await DialogHost.Show(view);
+        return vm.AnyChanges;
     }
+
     public static void CloseDialog()
     {
         DialogHost.Close(null);
     }
+
     public static async Task ShowLinkerDialog()
     {
         var vm = new LinkAccountVM();
-        var view = new LinkerView()
+        var view = new LinkerView
         {
             DataContext = vm
         };
         await DialogHost.Show(view);
     }
-
-
 }

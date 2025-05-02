@@ -13,14 +13,15 @@ namespace SteamLib.Api;
 public static class SteamGlobalApi
 {
     /// <summary>
-    /// Raw AccessToken value
+    ///     Raw AccessToken value
     /// </summary>
     /// <param name="client"></param>
     /// <param name="domain"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     /// <exception cref="SessionInvalidException"></exception>
-    public static async Task<string> RefreshJwt(HttpClient client, SteamDomain domain, CancellationToken cancellationToken = default)
+    public static async Task<string> RefreshJwt(HttpClient client, SteamDomain domain,
+        CancellationToken cancellationToken = default)
     {
         var domainUri = SteamDomains.GetDomain(domain);
         var data = new Dictionary<string, string>
@@ -50,16 +51,18 @@ public static class SteamGlobalApi
                 var translated = SteamStatusCode.Translate<SteamStatusCode>(errorCode, out _);
                 inner = new SteamStatusCodeException(translated, respStr);
             }
-            throw new SessionInvalidException("AjaxRefresh was not successful. 'steamRefresh_steam' cookie is missing or refresh token is invalid", inner);
 
+            throw new SessionInvalidException(
+                "AjaxRefresh was not successful. 'steamRefresh_steam' cookie is missing or refresh token is invalid",
+                inner);
         }
 
-        data = new Dictionary<string, string>()
+        data = new Dictionary<string, string>
         {
             {"steamID", jwtRefresh.SteamId.ToString()},
             {"nonce", jwtRefresh.Nonce},
             {"redir", jwtRefresh.Redir},
-            {"auth", jwtRefresh.Auth},
+            {"auth", jwtRefresh.Auth}
         };
 
         cont = new FormUrlEncodedContent(data);
@@ -81,7 +84,7 @@ public static class SteamGlobalApi
             throw new SessionInvalidException(
                 "AjaxRefresh (set-token) response was not successful. Response string stored in Exception.Data")
             {
-                Data = { { "Response", updateResp } }
+                Data = {{"Response", updateResp}}
             };
         }
 
@@ -102,12 +105,10 @@ public static class SteamGlobalApi
 
     private class JwtUpdateJson
     {
-        [JsonProperty("result")]
-        public int Result { get; set; }
+        [JsonProperty("result")] public int Result { get; set; }
 
         [JsonProperty("rtExpiry")]
         [JsonConverter(typeof(UnixTimeStampConverter))]
         public UnixTimeStamp RtExpiry { get; set; }
     }
 }
-

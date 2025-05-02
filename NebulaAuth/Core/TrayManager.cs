@@ -1,9 +1,9 @@
-﻿using NebulaAuth.Model;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
+using NebulaAuth.Model;
 using Application = System.Windows.Application;
 
 namespace NebulaAuth.Core;
@@ -29,7 +29,7 @@ public static class TrayManager
 
         var contextMenu = new ContextMenuStrip();
 
-        contextMenu.Items.Add("Выйти", null!, onClick: OnExitClick);
+        contextMenu.Items.Add("Выйти", null!, OnExitClick);
 
         _notifyIcon.ContextMenuStrip = contextMenu;
 

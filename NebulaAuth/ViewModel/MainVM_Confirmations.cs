@@ -1,23 +1,22 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Utility;
 using SteamLib.SteamMobile.Confirmations;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-
 
 namespace NebulaAuth.ViewModel;
 
 public partial class MainVM //Confirmations
 {
     public ObservableCollection<Confirmation> Confirmations { get; } = new();
-    private Mafile? _confirmationsLoadedForMafile;
     public bool ConfirmationsVisible => SelectedMafile == _confirmationsLoadedForMafile;
+    private Mafile? _confirmationsLoadedForMafile;
 
     [RelayCommand]
     private async Task GetConfirmations()
@@ -69,6 +68,7 @@ public partial class MainVM //Confirmations
         if (SelectedMafile == null || confirmation == null) return Task.CompletedTask;
         return SendConfirmation(SelectedMafile, confirmation, true);
     }
+
     [RelayCommand]
     private Task Cancel(Confirmation? confirmation)
     {
@@ -81,7 +81,7 @@ public partial class MainVM //Confirmations
         bool result;
         try
         {
-            if (confirmation is MarketMultiConfirmation multi) 
+            if (confirmation is MarketMultiConfirmation multi)
             {
                 result = await MaClient.SendMultipleConfirmation(mafile, multi.Confirmations, confirm);
             }
@@ -91,7 +91,7 @@ public partial class MainVM //Confirmations
             }
         }
         catch (Exception ex)
-            when(ExceptionHandler.Handle(ex))
+            when (ExceptionHandler.Handle(ex))
         {
             return;
         }

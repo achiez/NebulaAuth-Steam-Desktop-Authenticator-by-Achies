@@ -11,35 +11,38 @@
             <SolidColorBrush x:Key="MaterialDesignPaper">#1E2025</SolidColorBrush>
             <FontFamily x:Key="Roboto">pack://application:,,,/Fonts/Roboto/#Roboto</FontFamily>
             <FontFamily x:Key="RobotoSymbols">pack://application:,,,/Fonts/Roboto/#Roboto Symbols</FontFamily>
-            <converters:CoefficientConverter x:Key="CoefficientConverter"/>
-            <converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter"/>
-            <converters:ProxyTextConverter x:Key="ProxyTextConverter"/>
-            <converters:ProxyDataTextConverter x:Key="ProxyDataTextConverter"/>
-            <converters:MultiCommandParameterConverter x:Key="MultiCommandParameterConverter"/>
-            <converters:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
-            <converters:AnyMafilesToVisibilityConverter x:Key="AnyMafilesToVisibilityConverter"/>
-            <converters:PortableMaClientStatusToColorConverter x:Key="PortableMaClientStatusToColorConverter"/>
+            <converters:CoefficientConverter x:Key="CoefficientConverter" />
+            <converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter" />
+            <converters:ProxyTextConverter x:Key="ProxyTextConverter" />
+            <converters:ProxyDataTextConverter x:Key="ProxyDataTextConverter" />
+            <converters:MultiCommandParameterConverter x:Key="MultiCommandParameterConverter" />
+            <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+            <converters:AnyMafilesToVisibilityConverter x:Key="AnyMafilesToVisibilityConverter" />
+            <converters:PortableMaClientStatusToColorConverter x:Key="PortableMaClientStatusToColorConverter" />
             <!-- Background converters-->
-            <background:BackgroundImageVisibleConverter x:Key="BackgroundImageVisibleConverter"/>
-            <background:BackgroundSourceConverter x:Key="BackgroundSourceConverter"/>
+            <background:BackgroundImageVisibleConverter x:Key="BackgroundImageVisibleConverter" />
+            <background:BackgroundSourceConverter x:Key="BackgroundSourceConverter" />
 
             <system:Boolean x:Key="True">True</system:Boolean>
             <system:Boolean x:Key="False">False</system:Boolean>
 
-            
+
             <ResourceDictionary.MergedDictionaries>
-                
-              
-                <materialDesign:BundledTheme BaseTheme="Dark"  PrimaryColor="LightGreen" SecondaryColor="Purple" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.snackbar.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.Dark.xaml" />
+
+
+                <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="LightGreen" SecondaryColor="Purple" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.snackbar.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.Dark.xaml" />
                 <!-- Theme-->
-                <ResourceDictionary Source="Theme/Brushes.xaml"/>
-                <ResourceDictionary Source="Theme/WindowStyle/WindowStyle.xaml"/>
+                <ResourceDictionary Source="Theme/Brushes.xaml" />
+                <ResourceDictionary Source="Theme/WindowStyle/WindowStyle.xaml" />
 
                 <!--Controls-->
-                <ResourceDictionary Source="View/ConfirmationTemplates.xaml"/>
+                <ResourceDictionary Source="View/ConfirmationTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>

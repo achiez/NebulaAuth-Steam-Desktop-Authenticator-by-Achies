@@ -18,7 +18,7 @@ public static class EnvironmentUtility
                 0 => EOSType.Win95,
                 10 => EOSType.Win98,
                 90 => EOSType.WinME,
-                _ => EOSType.WinUnknown,
+                _ => EOSType.WinUnknown
             },
 
             PlatformID.Win32NT => ver.Major switch
@@ -31,22 +31,22 @@ public static class EnvironmentUtility
                     // Assume nobody runs Windows XP Professional x64 Edition
                     // It's an edition of Windows Server 2003 anyway.
                     2 => EOSType.Win2003,
-                    _ => EOSType.WinUnknown,
+                    _ => EOSType.WinUnknown
                 },
                 6 => ver.Minor switch
                 {
                     0 => EOSType.WinVista, // Also Server 2008
                     1 => EOSType.Windows7, // Also Server 2008 R2
                     2 => EOSType.Windows8, // Also Server 2012
-                                           // Note: The OSVersion property reports the same version number (6.2.0.0) for both Windows 8 and Windows 8.1.- http://msdn.microsoft.com/en-us/library/system.environment.osversion(v=vs.110).aspx
-                                           // In practice, this will only get hit if the application targets Windows 8.1 in the app manifest.
-                                           // See http://msdn.microsoft.com/en-us/library/windows/desktop/dn481241(v=vs.85).aspx for more info.
+                    // Note: The OSVersion property reports the same version number (6.2.0.0) for both Windows 8 and Windows 8.1.- http://msdn.microsoft.com/en-us/library/system.environment.osversion(v=vs.110).aspx
+                    // In practice, this will only get hit if the application targets Windows 8.1 in the app manifest.
+                    // See http://msdn.microsoft.com/en-us/library/windows/desktop/dn481241(v=vs.85).aspx for more info.
                     3 => EOSType.Windows81, // Also Server 2012 R2
-                    _ => EOSType.WinUnknown,
+                    _ => EOSType.WinUnknown
                 },
                 10 when ver.Build >= 22000 => EOSType.Win11,
-                10 => EOSType.Windows10,// Also Server 2016, Server 2019, Server 2022
-                _ => EOSType.WinUnknown,
+                10 => EOSType.Windows10, // Also Server 2016, Server 2019, Server 2022
+                _ => EOSType.WinUnknown
             },
 
             // The specific minor versions only exist in Valve's enum for LTS versions
@@ -57,7 +57,7 @@ public static class EnvironmentUtility
                     2 => EOSType.Linux22,
                     4 => EOSType.Linux24,
                     6 => EOSType.Linux26,
-                    _ => EOSType.LinuxUnknown,
+                    _ => EOSType.LinuxUnknown
                 },
                 3 => ver.Minor switch
                 {
@@ -67,7 +67,7 @@ public static class EnvironmentUtility
                     10 => EOSType.Linux310,
                     16 => EOSType.Linux316,
                     18 => EOSType.Linux318,
-                    _ => EOSType.Linux3x,
+                    _ => EOSType.Linux3x
                 },
                 4 => ver.Minor switch
                 {
@@ -76,17 +76,17 @@ public static class EnvironmentUtility
                     9 => EOSType.Linux49,
                     14 => EOSType.Linux414,
                     19 => EOSType.Linux419,
-                    _ => EOSType.Linux4x,
+                    _ => EOSType.Linux4x
                 },
                 5 => ver.Minor switch
                 {
                     4 => EOSType.Linux54,
                     10 => EOSType.Linux510,
-                    _ => EOSType.Linux5x,
+                    _ => EOSType.Linux5x
                 },
                 6 => EOSType.Linux6x,
                 7 => EOSType.Linux7x,
-                _ => EOSType.LinuxUnknown,
+                _ => EOSType.LinuxUnknown
             },
 
             PlatformID.Unix when RuntimeInformation.IsOSPlatform(OSPlatform.OSX) => ver.Major switch
@@ -102,10 +102,10 @@ public static class EnvironmentUtility
                 19 => EOSType.Macos1015, // Catalina
                 20 => EOSType.MacOS11, // Big Sur
                 21 => EOSType.MacOS12, // Monterey
-                _ => EOSType.MacOSUnknown,
+                _ => EOSType.MacOSUnknown
             },
 
-            _ => EOSType.Unknown,
+            _ => EOSType.Unknown
         };
     }
 }
@@ -220,5 +220,5 @@ public enum EOSType
     Win2019 = 18,
     Win2022 = 19,
     Win11 = 20,
-    WinMAX = 21,
+    WinMAX = 21
 }

@@ -1,19 +1,15 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using AchiesUtilities.Extensions;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
-using System.Collections.ObjectModel;
-using System.Linq;
-using AchiesUtilities.Extensions;
 
 namespace NebulaAuth.ViewModel;
 
 public partial class MainVM //Groups
 {
-    [ObservableProperty]
-    private ObservableCollection<string> _groups = [];
-
-
     public string? SelectedGroup
     {
         get => _selectedGroup;
@@ -24,21 +20,21 @@ public partial class MainVM //Groups
         }
     }
 
-    private string? _selectedGroup;
-
     public string SearchText
     {
         get => _searchText;
         set
         {
-            if(SetProperty(ref _searchText, value))
+            if (SetProperty(ref _searchText, value))
                 PerformQuery();
         }
-
     }
+
+    [ObservableProperty] private ObservableCollection<string> _groups = [];
+
     private string _searchText = string.Empty;
 
-
+    private string? _selectedGroup;
 
 
     [RelayCommand]
@@ -53,7 +49,6 @@ public partial class MainVM //Groups
         QueryGroups();
         SelectedGroup = value;
         OnPropertyChanged(nameof(SelectedMafile)); //For bindings
-
     }
 
     [RelayCommand]
@@ -62,8 +57,8 @@ public partial class MainVM //Groups
         if (value == null) return;
         if (value.Length < 2) return;
 
-        var group = (string?)value[0];
-        var mafile = (Mafile?)value[1];
+        var group = (string?) value[0];
+        var mafile = (Mafile?) value[1];
 
         if (group == null || mafile == null) return;
         mafile.Group = group;
@@ -86,6 +81,7 @@ public partial class MainVM //Groups
         {
             SelectedGroup = null;
         }
+
         PerformQuery();
     }
 
@@ -103,7 +99,6 @@ public partial class MainVM //Groups
     }
 
 
-
     private void PerformQuery()
     {
         MaacDisplay = false;
@@ -112,20 +107,24 @@ public partial class MainVM //Groups
             MaFiles = Storage.MaFiles;
             return;
         }
+
         long? searchSteamId = null;
         if (long.TryParse(SearchText, out var steamId))
         {
             searchSteamId = steamId;
         }
+
         var query = Storage.MaFiles.AsEnumerable();
         if (!string.IsNullOrWhiteSpace(SearchText))
         {
             query = query.Where(SearchPredicate);
         }
+
         if (!string.IsNullOrWhiteSpace(SelectedGroup))
         {
             query = query.Where(m => m.Group != null && m.Group.Equals(SelectedGroup));
         }
+
         var perform = query.ToList();
         MaFiles = new ObservableCollection<Mafile>(perform);
         SelectedMafile = MaFiles.FirstOrDefault();
@@ -136,7 +135,7 @@ public partial class MainVM //Groups
             return mafile.AccountName.ContainsIgnoreCase(SearchText) || mafile.SteamId.Steam64.Id.Equals(searchSteamId);
         }
     }
-                    
+
     private void ResetQuery()
     {
         _selectedGroup = null;

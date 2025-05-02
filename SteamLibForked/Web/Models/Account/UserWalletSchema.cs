@@ -10,6 +10,5 @@ public class UserWalletSchema
     [JsonConverter(typeof(IntToStringConverter))]
     public int Amount { get; set; }
 
-    [JsonProperty("currency")]
-    public string Currency { get; set; }
+    [JsonProperty("currency")] public string Currency { get; set; }
 }

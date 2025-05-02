@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using AchiesUtilities.Collections;
 using AchiesUtilities.Web.Proxy;
-using System.Linq;
 using AchiesUtilities.Web.Proxy.Parsing;
 using NebulaAuth.Core;
 using Newtonsoft.Json;
@@ -12,14 +12,13 @@ namespace NebulaAuth.Model;
 
 public static class ProxyStorage
 {
-
     public const string FORMAT = ADDRESS_FORMAT + ":{USER}:{PASS}";
     public const string ADDRESS_FORMAT = "{IP}:{PORT}";
 
     public static readonly ProxyParser DefaultScheme = new(
         ProxyDefaultFormats.UniversalColon, false, ProxyProtocol.HTTP,
         ProxyPatternProtocol.All,
-        ProxyPatternHostFormat.Domain | ProxyPatternHostFormat.IPv4, 
+        ProxyPatternHostFormat.Domain | ProxyPatternHostFormat.IPv4,
         PatternRequirement.Optional,
         PatternRequirement.Optional);
 
@@ -29,7 +28,6 @@ public static class ProxyStorage
 
     static ProxyStorage()
     {
-
         if (File.Exists("proxies.json") == false)
             return;
         try
@@ -145,7 +143,7 @@ public static class ProxyStorage
 
     private class ProxiesSchema
     {
-        public ObservableDictionary<int, ProxyData> ProxiesData = [];
         public int? DefaultProxy;
+        public ObservableDictionary<int, ProxyData> ProxiesData = [];
     }
 }

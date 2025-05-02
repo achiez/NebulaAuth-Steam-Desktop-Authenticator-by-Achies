@@ -6,6 +6,7 @@ public class LoginException : Exception
 {
     public LoginError Error { get; }
     public string? Response { get; }
+
     public LoginException(LoginError error)
         : base($"Login was unsuccessful. Error {error}")
     {
@@ -28,22 +29,23 @@ public class LoginException : Exception
 
 public enum LoginError
 {
-
     CaptchaRequired,
     InvalidCredentials,
     InvalidEmailAuthCode,
     InvalidTwoFactorCode,
+
     /// <summary>
-    /// SteamEmail authentication is required to login but no <see cref="IEmailProvider"/> was provided
+    ///     SteamEmail authentication is required to login but no <see cref="IEmailProvider" /> was provided
     /// </summary>
     EmailAuthRequired,
+
     /// <summary>
-    /// SteamGuard is required to login but no <see cref="ISteamGuardProvider"/> was provided
+    ///     SteamGuard is required to login but no <see cref="ISteamGuardProvider" /> was provided
     /// </summary>
     SteamGuardRequired,
+
     /// <summary>
-    /// Some error occurred while trying to login.
+    ///     Some error occurred while trying to login.
     /// </summary>
     UndefinedError
-
 }

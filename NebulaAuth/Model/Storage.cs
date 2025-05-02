@@ -1,16 +1,14 @@
-﻿using NebulaAuth.Model.Entities;
-using SteamLib.Core.Models;
-using SteamLib.Exceptions;
-using SteamLib.SteamMobile;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using AchiesUtilities.Extensions;
+using NebulaAuth.Model.Entities;
 using NebulaAuth.Model.Exceptions;
-using NLog.Targets;
-using SteamLib;
+using SteamLib.Core.Models;
+using SteamLib.Exceptions;
+using SteamLib.SteamMobile;
 
 namespace NebulaAuth.Model;
 
@@ -20,12 +18,13 @@ public static class Storage
     public const string MAFILE_F = "maFiles";
     public const string REMOVED_F = "maFiles_removed";
 
+    public static readonly int DuplicateFound;
+
     public static string MafileFolder { get; } = Path.GetFullPath(MAFILE_F);
     public static string RemovedMafileFolder { get; } = Path.GetFullPath(REMOVED_F);
 
     public static ObservableCollection<Mafile> MaFiles { get; } = new();
 
-    public static readonly int DuplicateFound;
     static Storage()
     {
         if (Directory.Exists(MafileFolder) == false)
@@ -55,6 +54,7 @@ public static class Storage
                     Shell.Logger.Error("Duplicate mafile {file}", Path.GetFileName(file));
                     continue;
                 }
+
                 hashNames.Add(data.AccountName);
                 if (data.SessionData != null) hashIds.Add(data.SteamId);
                 MaFiles.Add(data);
@@ -69,7 +69,6 @@ public static class Storage
     }
 
     /// <summary>
-    /// 
     /// </summary>
     /// <param name="path"></param>
     /// <param name="overwrite"></param>
@@ -84,11 +83,12 @@ public static class Storage
             data = ReadMafile(path);
         }
         catch (Exception ex)
-            when(ex is not MafileNeedReloginException)
+            when (ex is not MafileNeedReloginException)
         {
             Shell.Logger.Warn(ex, "Can't load mafile");
             throw new FormatException("File data is not valid", ex);
         }
+
         if (string.IsNullOrWhiteSpace(data.AccountName))
             throw new FormatException("File data is not valid. Missing AccountName");
 
@@ -153,6 +153,7 @@ public static class Storage
             i++;
             copyPathCompleted = copyPath + $" ({i})";
         }
+
         File.Copy(path, copyPathCompleted, false);
         File.Delete(path);
         MaFiles.Remove(data);
@@ -167,8 +168,15 @@ public static class Storage
         return Path.Combine(MafileFolder, fileName);
     }
 
-    private static string CreateFileNameWithAccountName(string accountName) => accountName + ".mafile";
-    private static string CreateFileNameWithSteamId(SteamId steamId) => steamId.Steam64.Id + ".mafile";
+    private static string CreateFileNameWithAccountName(string accountName)
+    {
+        return accountName + ".mafile";
+    }
+
+    private static string CreateFileNameWithSteamId(SteamId steamId)
+    {
+        return steamId.Steam64.Id + ".mafile";
+    }
 
     public static string? TryFindMafilePath(Mafile data)
     {
@@ -186,10 +194,12 @@ public static class Storage
         {
             return Settings.Instance.UseAccountNameAsMafileName ? pathFileName : pathSteamId;
         }
+
         if (steamIdExist ^ accountNameExist)
         {
             return steamIdExist ? pathSteamId : pathFileName;
         }
+
         return null;
     }
 }
@@ -197,9 +207,10 @@ public static class Storage
 //TODO: Refactor
 internal class MafileNameComparer : IComparer<string>
 {
-    public bool MafileNameMode { get; }
     private const string MAF_64_START = "765";
     private static readonly IComparer<string> DefaultComparer = Comparer<string>.Default;
+    public bool MafileNameMode { get; }
+
     public MafileNameComparer(bool mafileNameMode)
     {
         MafileNameMode = mafileNameMode;
@@ -213,8 +224,8 @@ internal class MafileNameComparer : IComparer<string>
         if (y == null) return 1;
 
 
-        bool xisSteamId = Path.GetFileName(x).StartsWith(MAF_64_START);
-        bool yisSteamId = Path.GetFileName(y).StartsWith(MAF_64_START);
+        var xisSteamId = Path.GetFileName(x).StartsWith(MAF_64_START);
+        var yisSteamId = Path.GetFileName(y).StartsWith(MAF_64_START);
 
         if (xisSteamId ^ yisSteamId)
         {
@@ -222,13 +233,10 @@ internal class MafileNameComparer : IComparer<string>
             {
                 return xisSteamId ? 1 : -1;
             }
-            else
-            {
-                return yisSteamId ? 1 : -1;
-            }
+
+            return yisSteamId ? 1 : -1;
         }
 
         return DefaultComparer.Compare(x, y);
     }
-
 }

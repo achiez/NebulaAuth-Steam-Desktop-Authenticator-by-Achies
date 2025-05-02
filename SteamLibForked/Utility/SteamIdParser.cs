@@ -5,13 +5,17 @@ namespace SteamLib.Utility;
 
 public static class SteamIdParser
 {
-
     public static readonly Regex Steam64Regex = new("^7656119([0-9]{10})$", RegexOptions.Compiled);
-    public static readonly Regex Steam2Regex = new("STEAM_(?<universe>[0-9]):(?<lowestBit>[0-9]):(?<highestBits>[0-9]{1,10})", RegexOptions.Compiled);
-    public static readonly Regex Steam3Regex = new("^\\[?(?<type>[a-zA-Z]):1:(?<id>[0-9]{1,10})\\]$", RegexOptions.Compiled);
+
+    public static readonly Regex Steam2Regex =
+        new("STEAM_(?<universe>[0-9]):(?<lowestBit>[0-9]):(?<highestBits>[0-9]{1,10})", RegexOptions.Compiled);
+
+    public static readonly Regex Steam3Regex =
+        new("^\\[?(?<type>[a-zA-Z]):1:(?<id>[0-9]{1,10})\\]$", RegexOptions.Compiled);
 
 
     #region TryParse
+
     public static bool TryParse(string input, out SteamId result)
     {
         if (TryParse64(input, out var steam64))
@@ -93,6 +97,7 @@ public static class SteamIdParser
         result = default;
         return false;
     }
+
     #endregion
 
     #region Parse
@@ -107,7 +112,6 @@ public static class SteamIdParser
         if (TryParse2(input, out var steam2))
         {
             return new SteamId(steam2);
-
         }
 
         if (TryParse3(input, out var steam3))
@@ -115,7 +119,8 @@ public static class SteamIdParser
             return new SteamId(steam3);
         }
 
-        throw new FormatException($"The input string '{input}' was not in a correct format or not real SteamId64, SteamId2 or SteamId3.");
+        throw new FormatException(
+            $"The input string '{input}' was not in a correct format or not real SteamId64, SteamId2 or SteamId3.");
     }
 
     public static SteamId64 Parse64(string input)
@@ -125,11 +130,8 @@ public static class SteamIdParser
         {
             return new SteamId64(long.Parse(match64.Value));
         }
-        else
-        {
-            throw new FormatException($"The input string '{input}' was not in a correct format or not real SteamId64.");
-        }
 
+        throw new FormatException($"The input string '{input}' was not in a correct format or not real SteamId64.");
     }
 
     public static SteamId2 Parse2(string input)
@@ -142,10 +144,8 @@ public static class SteamIdParser
             var highestBits = int.Parse(match2.Groups["highestBits"].Value);
             return new SteamId2(universe, lowestBit, highestBits);
         }
-        else
-        {
-            throw new FormatException($"The input string '{input}' was not in a correct format or not real SteamId2.");
-        }
+
+        throw new FormatException($"The input string '{input}' was not in a correct format or not real SteamId2.");
     }
 
     public static SteamId3 Parse3(string input)
@@ -156,14 +156,10 @@ public static class SteamIdParser
             var type = match3.Groups["type"].Value[0];
             var id = int.Parse(match3.Groups["id"].Value);
             return new SteamId3(id, type);
+        }
 
-        }
-        else
-        {
-            throw new FormatException($"The input string '{input}' was not in a correct format or not real SteamId3.");
-        }
+        throw new FormatException($"The input string '{input}' was not in a correct format or not real SteamId3.");
     }
 
     #endregion
-
 }

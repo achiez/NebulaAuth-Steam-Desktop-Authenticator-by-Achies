@@ -6,7 +6,9 @@ namespace SteamLib.Utility.MafileSerialization;
 public partial class MafileSerializer //Write
 {
     private const string CREDITS_PROPERTY_NAME = "Credits";
-    public static string Serialize(MobileDataExtended mobileData, Formatting formatting = Formatting.Indented, bool sign = true, MafileCredits? credits = null)
+
+    public static string Serialize(MobileDataExtended mobileData, Formatting formatting = Formatting.Indented,
+        bool sign = true, MafileCredits? credits = null)
     {
         using var w = new StringWriter();
         using var write = new JsonTextWriter(w);
@@ -19,13 +21,13 @@ public partial class MafileSerializer //Write
             var obj = JObject.FromObject(credits);
             j.Add(CREDITS_PROPERTY_NAME, obj);
         }
+
         j.WriteTo(write);
         return w.ToString();
-
-
     }
 
-    public static async Task<string> SerializeAsync(MobileDataExtended mobileData, Formatting formatting = Formatting.Indented, bool sign = true, MafileCredits? credits = null)
+    public static async Task<string> SerializeAsync(MobileDataExtended mobileData,
+        Formatting formatting = Formatting.Indented, bool sign = true, MafileCredits? credits = null)
     {
         await using var w = new StringWriter();
         await using var write = new JsonTextWriter(w);
@@ -42,16 +44,16 @@ public partial class MafileSerializer //Write
 
         await j.WriteToAsync(write);
         return w.ToString();
-
     }
 
-    public static string SerializeLegacy(MobileData mobileData, Formatting formatting, Dictionary<string, object?>? additionalProperties = null, bool sign = true, MafileCredits? credits = null)
+    public static string SerializeLegacy(MobileData mobileData, Formatting formatting,
+        Dictionary<string, object?>? additionalProperties = null, bool sign = true, MafileCredits? credits = null)
     {
         var result = new LegacyMafile
         {
             SharedSecret = mobileData.SharedSecret,
             IdentitySecret = mobileData.IdentitySecret,
-            DeviceId = mobileData.DeviceId,
+            DeviceId = mobileData.DeviceId
         };
 
         if (mobileData is MobileDataExtended ext)
@@ -61,20 +63,19 @@ public partial class MafileSerializer //Write
             result.SessionData = ext.SessionData == null
                 ? null
                 : new
-                    {
-                        AccessToken = ext.SessionData?.MobileToken?.Token,
-                        steamLoginSecure = ext.SessionData?.MobileToken?.SignedToken,
-                        RefreshToken = ext.SessionData?.RefreshToken.Token,
-                        SteamID = ext.SessionData?.SteamId.Steam64.Id,
-                        SessionID = ext.SessionData?.SessionId
-                    };
+                {
+                    AccessToken = ext.SessionData?.MobileToken?.Token,
+                    steamLoginSecure = ext.SessionData?.MobileToken?.SignedToken,
+                    RefreshToken = ext.SessionData?.RefreshToken.Token,
+                    SteamID = ext.SessionData?.SteamId.Steam64.Id,
+                    SessionID = ext.SessionData?.SessionId
+                };
             result.ServerTime = ext.ServerTime;
             result.SerialNumber = ext.SerialNumber.ToString();
             result.Uri = ext.Uri;
             result.TokenGid = ext.TokenGid;
             result.Secret1 = ext.Secret1;
             result.SteamId = ext.SteamId.Steam64.Id;
-
         }
 
 
@@ -102,8 +103,8 @@ public partial class MafileSerializer //Write
             var obj = JObject.FromObject(credits);
             j.Add(CREDITS_PROPERTY_NAME, obj);
         }
+
         j.WriteTo(write);
         return w.ToString();
     }
-
 }

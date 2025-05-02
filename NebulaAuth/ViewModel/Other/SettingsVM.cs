@@ -1,9 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using NebulaAuth.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
+using NebulaAuth.Model;
 
 namespace NebulaAuth.ViewModel.Other;
 
@@ -27,7 +27,7 @@ public partial class SettingsVM : ObservableObject
     {
         {BackgroundMode.Default, LocManager.GetOrDefault("Default", "SettingsDialog", "BackgroundMode", "Default")},
         {BackgroundMode.Custom, LocManager.GetOrDefault("Default", "SettingsDialog", "BackgroundMode", "Custom")},
-        {BackgroundMode.Color, LocManager.GetOrDefault("Default", "SettingsDialog", "BackgroundMode", "NoBackground")},
+        {BackgroundMode.Color, LocManager.GetOrDefault("Default", "SettingsDialog", "BackgroundMode", "NoBackground")}
     };
 
     public Dictionary<LocalizationLanguage, string> Languages { get; } = new()
@@ -47,7 +47,6 @@ public partial class SettingsVM : ObservableObject
     {
         get => Settings.IconColor;
         set => Settings.IconColor = value;
-
     }
 
     public bool UseIcon
@@ -79,7 +78,6 @@ public partial class SettingsVM : ObservableObject
             OnPropertyChanged(nameof(BackgroundColor));
         }
     }
-
 
 
     public LocalizationLanguage Language
@@ -124,5 +122,4 @@ public partial class SettingsVM : ObservableObject
     {
         Settings.IsPasswordSet = PHandler.SetPassword(Password);
     }
-
 }

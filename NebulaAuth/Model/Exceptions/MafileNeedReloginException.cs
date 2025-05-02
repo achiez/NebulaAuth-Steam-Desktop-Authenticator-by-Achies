@@ -1,6 +1,5 @@
 ﻿using System;
 using NebulaAuth.Model.Entities;
-using SteamLib;
 
 namespace NebulaAuth.Model.Exceptions;
 

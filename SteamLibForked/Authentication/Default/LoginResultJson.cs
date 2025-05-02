@@ -4,7 +4,7 @@ namespace SteamLib.Login.Default;
 
 #pragma warning disable CS8618
 /// <summary>
-/// Class to Deserialize the json response strings after the login/>
+///     Class to Deserialize the json response strings after the login/>
 /// </summary>
 internal class LoginResultJson
 {

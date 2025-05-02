@@ -5,24 +5,14 @@ public class Confirmation
     public long Id { get; }
 
     /// <summary>
-    /// The unique key used to act upon this confirmation.
+    ///     The unique key used to act upon this confirmation.
     /// </summary>
     public ulong Nonce { get; }
 
     /// <summary>
-    /// The value of the data-type HTML attribute returned for this contribution.
+    ///     Represents either the Trade Offer ID or market transaction ID that caused this confirmation to be created.
     /// </summary>
-    public int IntType;
-
-    /// <summary>
-    /// Represents either the Trade Offer ID or market transaction ID that caused this confirmation to be created.
-    /// </summary>
-    public long CreatorId { get; } 
-
-    /// <summary>
-    /// The type of this confirmation.
-    /// </summary>
-    public readonly ConfirmationType ConfType;
+    public long CreatorId { get; }
 
     public string TypeName { get; init; }
     public string HeadLine { get; init; } = string.Empty;
@@ -30,6 +20,16 @@ public class Confirmation
     public DateTime Time { get; set; }
 
     public virtual ConfirmationDetails? Details { get; }
+
+    /// <summary>
+    ///     The type of this confirmation.
+    /// </summary>
+    public readonly ConfirmationType ConfType;
+
+    /// <summary>
+    ///     The value of the data-type HTML attribute returned for this contribution.
+    /// </summary>
+    public int IntType;
 
     public Confirmation(long id, ulong nonce, int intType, long creatorId, ConfirmationType confType, string typeName)
     {
@@ -40,5 +40,4 @@ public class Confirmation
         ConfType = confType;
         TypeName = typeName;
     }
-    
 }
