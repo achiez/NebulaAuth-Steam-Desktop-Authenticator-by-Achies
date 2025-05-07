@@ -49,7 +49,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<SplashScreen Include="Theme\SplashScreen.png" />
+		<Resource Include="Theme\SplashScreen.png" />
 	</ItemGroup>
 
 	<ItemGroup>

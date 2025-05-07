@@ -98,6 +98,7 @@
                 <!--Theme-->
 
                 <ResourceDictionary Source="Theme/WindowStyle/WindowStyle.xaml" />
+                <ResourceDictionary Source="Theme/WindowStyle/LoadingSplashScreenStyle.xaml" />
                 <ResourceDictionary Source="Theme/MaterialDesignThemes.Overrides.xaml" />
 
 
