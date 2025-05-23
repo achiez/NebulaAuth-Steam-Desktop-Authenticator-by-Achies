@@ -63,9 +63,7 @@ public class LoginV2Executor
         var executor = new LoginV2Executor(options);
         var client = executor.HttpClient;
 
-        var globalData = await SteamWebApi.GetMarketGlobalInfo(client, cancellationToken);
-        var sessionId = globalData.SessionId;
-
+        var sessionId = await SteamWebApi.GetLoginSessionId(client, cancellationToken);
         var rsgMsg = new GetPasswordRSAPublicKey_Request
         {
             AccountName = username
