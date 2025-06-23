@@ -420,7 +420,7 @@
                             <TextBlock FontWeight="Bold" Text="{Tr MainWindow.Footer.Group}" />
                             <TextBlock FontWeight="Normal"
                                        Text="{Binding SelectedMafile.Group, TargetNullValue=' ', FallbackValue=' ', Mode=OneWay}" />
-                            <Button Command="{Binding DebugCommand}">Debug</Button>
+                            <!--<Button Command="{Binding DebugCommand}">Debug</Button>-->
                         </ToolBarPanel>
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" w:FontScaleWindow.Scale="0.7"
                                    w:FontScaleWindow.ResizeFont="True" Margin="0,0,10,0">
