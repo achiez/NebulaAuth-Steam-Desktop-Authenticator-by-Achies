@@ -1,12 +1,10 @@
-﻿using JetBrains.Annotations;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SteamLib.Account;
-using SteamLib.Core.Models;
+using SteamLibForked.Models.Session;
+using SteamLibForked.Models.SteamIds;
 
 namespace SteamLib.Utility.MafileSerialization;
 
-[PublicAPI]
 public partial class MafileSerializer
 {
     public const int MAFILE_VERSION = 3;

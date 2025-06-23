@@ -1,8 +1,8 @@
 ﻿using CodingSeb.Localization;
 using NebulaAuth.Core;
-using SteamLib.Exceptions;
+using SteamLib.Core.StatusCodes;
 using SteamLib.Exceptions.Mobile;
-using SteamLib.ProtoCore.Enums;
+using SteamLibForked.Exceptions.Authorization;
 
 namespace NebulaAuth.Utility;
 
@@ -14,11 +14,10 @@ public static class ErrorTranslatorHelper
         return result ?? error.ToString();
     }
 
-
-    public static string TranslateEResult(EResult eResult)
+    public static string TranslateSteamStatusCode(SteamStatusCode statusCode)
     {
-        var result = GetMessage("EResult", eResult.ToString());
-        return result ?? eResult.ToString();
+        var result = GetMessage("EResult", statusCode.Name);
+        return result ?? statusCode.ToString();
     }
 
     public static string TranslateLinkerError(AuthenticatorLinkerError error)

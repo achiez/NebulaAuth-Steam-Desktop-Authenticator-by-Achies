@@ -1,10 +1,11 @@
-﻿namespace SteamLib.Utility.MafileSerialization;
+﻿using Newtonsoft.Json;
+
+namespace SteamLib.Utility.MafileSerialization;
 
 public class MafileSerializerSettings
 {
     public MafileDeserializationOptions DeserializationOptions { get; set; } = new();
-
-    [Obsolete("Currently not used")] public MafileDeserializationOptions SerializationOptions { get; set; } = new();
+    public MafileSerializationOptions SerializationOptions { get; set; } = new();
 }
 
 public class MafileDeserializationOptions
@@ -14,7 +15,7 @@ public class MafileDeserializationOptions
 
     /// <summary>
     ///     Throws if the <see cref="MobileDataExtended.SerialNumber" /> is 0 or invalid. Otherwise, SerialNumber will be set
-    ///     to 0.
+    ///     to 0 or recovered value depending on <see cref="RestrictOverflowSerialNumberRecovery" />.
     /// </summary>
     public bool ThrowIfInvalidSerialNumber { get; set; }
 
@@ -31,4 +32,7 @@ public class MafileDeserializationOptions
 
 public class MafileSerializationOptions
 {
+    public MafileCredits? Credits { get; set; }
+    public bool Sign { get; set; }
+    public Formatting Formatting { get; set; }
 }

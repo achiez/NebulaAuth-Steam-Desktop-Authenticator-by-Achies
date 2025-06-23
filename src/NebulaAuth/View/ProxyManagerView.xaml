@@ -12,7 +12,7 @@
              MinWidth="400"
              MaxHeight="550"
              d:DataContext="{d:DesignInstance other:ProxyManagerVM}"
-             Background="{DynamicResource BackgroundBrush1}">
+             Background="Transparent">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -21,19 +21,23 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid>
+        <Grid Margin="10,10,10,5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Margin="10" FontStyle="Normal" Foreground="DarkGray" HorizontalAlignment="Left"
-                       VerticalAlignment="Center" FontSize="18" Text="{Tr ProxyManagerDialog.Title}" />
-            <Button Margin="0,0,10,0" IsCancel="True" Grid.Column="1" Width="30" Height="30"
-                    Style="{StaticResource MaterialDesignIconForegroundButton}" HorizontalAlignment="Right"
-                    Command="{x:Static md:DialogHost.CloseDialogCommand}">
+            <StackPanel Orientation="Horizontal">
+                <md:PackIcon Kind="Proxy" Width="20" Height="20" Margin="0,0,5,0" VerticalAlignment="Center"
+                             Foreground="{DynamicResource PrimaryContentBrush}" />
+                <TextBlock FontStyle="Normal" Foreground="{DynamicResource BaseContentBrush}"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center" FontSize="18" Text="{Tr ProxyManagerDialog.Title}" />
+            </StackPanel>
+            <Button Grid.Column="1" Width="30" Height="30" Style="{StaticResource MaterialDesignIconForegroundButton}"
+                    HorizontalAlignment="Right" Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                    IsCancel="True">
                 <md:PackIcon Kind="Close" Width="24" Height="24" Foreground="IndianRed" />
             </Button>
-
         </Grid>
         <Separator Grid.Row="1" />
         <Grid Grid.Row="2">

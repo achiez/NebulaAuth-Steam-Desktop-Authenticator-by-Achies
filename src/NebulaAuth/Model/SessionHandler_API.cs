@@ -1,12 +1,13 @@
 ﻿using System.Threading.Tasks;
 using AchiesUtilities.Web.Models;
 using NebulaAuth.Model.Entities;
-using SteamLib.Account;
 using SteamLib.Api.Mobile;
 using SteamLib.Authentication;
 using SteamLib.Authentication.LoginV2;
-using SteamLib.Exceptions;
+using SteamLib.Exceptions.Authorization;
+using SteamLib.Factory.Helpers;
 using SteamLib.SteamMobile;
+using SteamLibForked.Models.Session;
 
 namespace NebulaAuth.Model;
 
@@ -35,11 +36,11 @@ public partial class SessionHandler //API
     public static async Task LoginAgain(HttpClientHandlerPair chp, Mafile mafile, string password, bool savePassword)
     {
         var sgGenerator = new SteamGuardCodeGenerator(mafile.SharedSecret);
-        var options = new LoginV2ExecutorOptions(LoginV2Executor.NullConsumer, chp.Client)
+        var options = new LoginV2ExecutorOptions(StaticLoginConsumer.Instance, chp.Client)
         {
             Logger = Shell.ExtensionsLogger,
-            SteamGuardProvider = sgGenerator,
-            DeviceDetails = LoginV2ExecutorOptions.GetMobileDefaultDevice(),
+            AuthProviders = [sgGenerator],
+            DeviceDetails = DeviceDetailsDefaultBuilder.GetMobileDefaultDevice(),
             WebsiteId = "Mobile"
         };
         chp.Handler.CookieContainer.ClearMobileSessionCookies();

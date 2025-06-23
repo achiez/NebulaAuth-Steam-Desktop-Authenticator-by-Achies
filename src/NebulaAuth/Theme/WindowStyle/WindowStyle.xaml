@@ -17,7 +17,7 @@
                     Margin="{x:Static local:WindowChromeHelper.LayoutOffsetThickness}"
                     BorderBrush="Transparent"
                     BorderThickness="1"
-                    Background="{DynamicResource BackgroundBrush}">
+                    Background="{DynamicResource Base200Brush}">
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -27,9 +27,9 @@
                     <Grid x:Name="TitleBar"
                           Grid.Row="0"
                           Height="28"
-                          Background="{DynamicResource Base100Brush}">
+                          Background="{DynamicResource Base300Brush}">
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Foreground="{DynamicResource PrimaryBrush}"
+                                   Foreground="{DynamicResource PrimaryContentBrush}"
                                    Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Title}"
                                    FontSize="17" />
 
@@ -61,7 +61,7 @@
                     <!--  Main Window Content  -->
                     <Grid x:Name="MainGrid"
                           Grid.Row="1"
-                          Background="{DynamicResource MainBackgroundBrush}">
+                          Background="{DynamicResource Base200Brush}">
                         <AdornerDecorator>
                             <ContentPresenter />
                         </AdornerDecorator>

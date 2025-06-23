@@ -17,13 +17,13 @@ public class CodeProgressBar : ProgressBar
 
     public double TimeRemaining
     {
-        get => (double)GetValue(TimeRemainingProperty);
+        get => (double) GetValue(TimeRemainingProperty);
         set => SetValue(TimeRemainingProperty, value);
     }
 
     public double MaxTime
     {
-        get => (double)GetValue(MaxTimeProperty);
+        get => (double) GetValue(MaxTimeProperty);
         set => SetValue(MaxTimeProperty, value);
     }
 
@@ -31,7 +31,7 @@ public class CodeProgressBar : ProgressBar
     {
         if (d is CodeProgressBar progressBar)
         {
-            var newValue = (double)e.NewValue;
+            var newValue = (double) e.NewValue;
             progressBar.StartProgressAnimation(newValue);
         }
     }
@@ -49,9 +49,9 @@ public class CodeProgressBar : ProgressBar
             To = 100,
             Duration = TimeSpan.FromSeconds(timeRemaining),
             AccelerationRatio = 0,
-            DecelerationRatio = 0,
+            DecelerationRatio = 0
         };
-     
+
 
         BeginAnimation(ValueProperty, animation);
     }

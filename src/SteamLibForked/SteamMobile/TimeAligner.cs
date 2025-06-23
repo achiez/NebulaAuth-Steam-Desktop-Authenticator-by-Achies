@@ -1,16 +1,15 @@
 ﻿using System.Diagnostics;
 using AchiesUtilities.Models;
-using JetBrains.Annotations;
 using Newtonsoft.Json.Linq;
 using SteamLib.Core;
 
 namespace SteamLib.SteamMobile;
 
 //TODO: Refactor
-[PublicAPI]
+
 public static class TimeAligner
 {
-    private const string TIME_ALIGN_ENDPOINT = "ITwoFactorService/QueryTime/v0001";
+    private const string TIME_ALIGN_ENDPOINT = "/ITwoFactorService/QueryTime/v0001";
     private static bool _aligned;
     private static int _timeDifference;
     public static UnixTimeStamp UtcNow => UnixTimeStamp.FromDateTime(DateTime.UtcNow);

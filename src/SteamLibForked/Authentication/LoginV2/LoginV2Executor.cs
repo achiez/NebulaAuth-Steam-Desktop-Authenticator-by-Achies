@@ -2,44 +2,40 @@
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SteamLib.Account;
+using SteamLib.Abstractions;
+using SteamLib.Api;
+using SteamLib.Api.Services;
 using SteamLib.Core;
-using SteamLib.Core.Enums;
-using SteamLib.Core.Interfaces;
-using SteamLib.Core.Models;
 using SteamLib.Core.StatusCodes;
 using SteamLib.Exceptions;
-using SteamLib.Login.Default;
-using SteamLib.ProtoCore;
+using SteamLib.Exceptions.Authorization;
 using SteamLib.ProtoCore.Enums;
-using SteamLib.ProtoCore.Exceptions;
 using SteamLib.ProtoCore.Services;
 using SteamLib.Utility;
-using SteamLib.Web;
+using SteamLibForked.Abstractions;
+using SteamLibForked.Exceptions.Authorization;
+using SteamLibForked.Models.Core;
+using SteamLibForked.Models.Session;
 
 namespace SteamLib.Authentication.LoginV2;
 
-public class LoginV2Executor
+public class LoginV2Executor //FIXME: logs
 {
-    public static ILoginConsumer NullConsumer { get; } = new NullLoginConsumer();
-    public ILoginConsumer Caller { get; }
-    public HttpClient HttpClient { get; }
-    public ILogger? Logger { get; init; }
-    public IEmailProvider? EmailAuthProvider { get; init; }
-    public ICaptchaResolver? CaptchaResolver { get; init; }
-    public ISteamGuardProvider? SteamGuardProvider { get; init; }
-    public string WebsiteId { get; init; }
-    public DeviceDetails DeviceDetails { get; init; }
+    private ILoginConsumer Caller { get; }
+    private HttpClient HttpClient { get; }
+    private ILogger? Logger { get; }
+    private IReadOnlyList<IAuthProvider> AuthProviders { get; }
+    private string WebsiteId { get; }
+    private DeviceDetails DeviceDetails { get; }
 
     private LoginV2Executor(LoginV2ExecutorOptions options)
     {
         Caller = options.Consumer;
         HttpClient = options.HttpClient;
         Logger = options.Logger;
-        EmailAuthProvider = options.EmailAuthProvider;
-        SteamGuardProvider = options.SteamGuardProvider;
-        WebsiteId = options.GetWebsiteIdOrDefault();
-        DeviceDetails = options.DeviceDetails ?? DeviceDetails.CreateDefault();
+        AuthProviders = options.AuthProviders;
+        WebsiteId = options.WebsiteId ?? throw new NullReferenceException("WebsiteId was null");
+        DeviceDetails = options.DeviceDetails ?? throw new NullReferenceException("DeviceDetails was null");
     }
 
 
@@ -54,26 +50,25 @@ public class LoginV2Executor
     /// <param name="cancellationToken"></param>
     /// <returns><see cref="SessionData" /> or <see cref="MobileSessionData" /> depending on which token type is returned</returns>
     /// <exception cref="LoginException"></exception>
-    /// <exception cref="EResultException"></exception>
-    /// <exception cref="NotSupportedException"></exception>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    /// <exception cref="SteamStatusCodeException"></exception>
+    /// <exception cref="UnsupportedAuthTypeException"></exception>
     public static async Task<ISessionData> DoLogin(LoginV2ExecutorOptions options, string username, string password,
-        CancellationToken cancellationToken = default) //TODO: logs
+        CancellationToken cancellationToken = default)
     {
         var executor = new LoginV2Executor(options);
         var client = executor.HttpClient;
+        var logger = options.Logger;
 
-        var globalData = await SteamWebApi.GetMarketGlobalInfo(client, cancellationToken);
-        var sessionId = globalData.SessionId;
+        var header = await SteamGlobalApi.GetSessionIdFromLoginPage(client, cancellationToken);
+        var sessionId = header.SessionId;
 
         var rsgMsg = new GetPasswordRSAPublicKey_Request
         {
             AccountName = username
         };
-        var rsaResp = await client.GetProto<GetPasswordRSAPublicKey_Response>(
-            "https://api.steampowered.com/IAuthenticationService/GetPasswordRSAPublicKey/v1", rsgMsg,
-            cancellationToken);
 
+        var rsaResp = await AuthenticationServiceApi.GetPasswordRSAPublicKey(client, rsgMsg, cancellationToken);
+        logger?.LogTrace("Got RSA");
 
         var encodedPassword =
             EncryptionHelper.ToBase64EncryptedPassword(rsaResp.PublickKeyExp, rsaResp.PublickKeyMod, password);
@@ -92,67 +87,72 @@ public class LoginV2Executor
             DeviceDetails = executor.DeviceDetails
         };
 
+        logger?.LogDebug("Sending encrypted password to Steam");
         BeginAuthSessionViaCredentials_Response beginAuthResp;
         try
         {
-            beginAuthResp = await client.PostProto<BeginAuthSessionViaCredentials_Response>(
-                "https://api.steampowered.com/IAuthenticationService/BeginAuthSessionViaCredentials/v1", beginAuthMsg,
-                cancellationToken);
+            beginAuthResp =
+                await AuthenticationServiceApi.BeginAuthSessionViaCredentials(client, beginAuthMsg, cancellationToken);
         }
-        catch (EResultException ex)
-            when (ex.Result == EResult.InvalidPassword)
+        catch (SteamStatusCodeException ex)
+            when (ex.StatusCode == SteamStatusCode.InvalidPassword)
         {
             throw new LoginException(LoginError.InvalidCredentials);
         }
 
-
+        logger?.LogDebug("Password accepted");
         var clientId = beginAuthResp.ClientId;
-        var steamId = (long) beginAuthResp.Steamid;
+        var steamId = beginAuthResp.Steamid;
 
-        var conf = beginAuthResp.AllowedConfirmations.FirstOrDefault(c =>
-            c.ConfirmationType is EAuthSessionGuardType.EmailCode or EAuthSessionGuardType.DeviceCode);
+        var wantMore = true;
 
-        conf ??= beginAuthResp.AllowedConfirmations.FirstOrDefault();
 
-        switch (conf?.ConfirmationType)
+        PollAuthSessionStatus_Response? pollResp = null;
+        for (var i = 0; i < 3; i++)
         {
-            case EAuthSessionGuardType.None:
+            if (beginAuthResp.AllowedConfirmations.Count > 0 &&
+                beginAuthResp.AllowedConfirmations.All(a => a.ConfirmationType != EAuthSessionGuardType.None))
+            {
+                var t = SelectProvider(options, beginAuthResp.AllowedConfirmations);
+                if (!t.HasValue)
+                {
+                    throw new UnsupportedAuthTypeException(
+                        beginAuthResp.AllowedConfirmations.Select(a => a.ConfirmationType).ToArray());
+                }
+
+                var provider = t.Value.Item1;
+                var guardType = t.Value.Item2;
+                logger?.LogDebug("Asking {provider} {guardType} for confirmation", provider.GetType().Name, guardType);
+                var model = new UpdateAuthSessionModel(guardType, clientId, steamId);
+                await UpdateSessionAndMapException(client, executor.Caller, provider, model, cancellationToken);
+            }
+
+            var pollSessionMsg = new PollAuthSessionStatus_Request
+            {
+                ClientId = clientId,
+                RequestId = beginAuthResp.RequestId
+            };
+
+            pollResp = await AuthenticationServiceApi.PollAuthSessionStatus(client, pollSessionMsg, cancellationToken);
+            if (pollResp.AccessToken != null! && pollResp.RefreshToken != null!)
+            {
                 break;
-            case EAuthSessionGuardType.DeviceCode:
-            case EAuthSessionGuardType.EmailCode:
-                await UpdateWithCode(executor, clientId, (ulong) steamId, conf.ConfirmationType);
-                break;
-            case EAuthSessionGuardType.Unknown:
-            case EAuthSessionGuardType.DeviceConfirmation:
-            case EAuthSessionGuardType.EmailConfirmation:
-            case EAuthSessionGuardType.MachineToken:
-            case EAuthSessionGuardType.LegacyMachineAuth:
-                throw new NotSupportedException(
-                    $"Auth confirmation type of {conf.ConfirmationType} is not implemented yet");
-            default:
-                throw new ArgumentOutOfRangeException(nameof(conf.ConfirmationType), conf?.ConfirmationType,
-                    "Unknown confirmation type or null");
+            }
         }
 
-        var pollSessionMsg = new PollAuthSessionStatus_Request
+        if (pollResp == null)
         {
-            ClientId = clientId,
-            RequestId = beginAuthResp.RequestId
-        };
+            throw new LoginException(LoginError.SessionPollingFailed);
+        }
 
-        var pollResp =
-            await client.PostProto<PollAuthSessionStatus_Response>(
-                "https://api.steampowered.com/IAuthenticationService/PollAuthSessionStatus/v1", pollSessionMsg,
-                cancellationToken);
 
         SteamAuthToken refreshToken;
         try
         {
             refreshToken = SteamTokenHelper.Parse(pollResp.RefreshToken);
             if (refreshToken.Type is not (SteamAccessTokenType.Refresh or SteamAccessTokenType.MobileRefresh))
-                throw new ArgumentException(
-                    "Refresh token must be of type Refresh or MobileRefresh. No 'renew' audience found in JWT.",
-                    nameof(pollResp.RefreshToken)); //Argument exception for less code
+                throw new InvalidOperationException(
+                    "Refresh token must be of type Refresh or MobileRefresh. No 'renew' audience found in JWT.");
         }
         catch (ArgumentException ex)
         {
@@ -167,16 +167,16 @@ public class LoginV2Executor
             {"sessionid", sessionId}
         };
 
+        logger?.LogInformation("Got refresh token. Finalizing log-in");
         var finalize = await client.PostAsync("https://login.steampowered.com/jwt/finalizelogin",
             new FormUrlEncodedContent(data), cancellationToken);
         var finalizeContent = await finalize.EnsureSuccessStatusCode().Content.ReadAsStringAsync(cancellationToken);
 
         var finalizeResp =
-            SteamLibErrorMonitor.HandleResponse(finalizeContent,
-                () => JsonConvert.DeserializeObject<FinalizeLoginJson>(finalizeContent)!);
+            JsonConvert.DeserializeObject<FinalizeLoginJson>(finalizeContent)!; //We don't want to log sensitive data
 
 
-        List<SteamAuthToken> tokens = new();
+        List<SteamAuthToken> tokens = [];
         foreach (var transferInfo in finalizeResp.TransferInfo)
         {
             var transferData = new Dictionary<string, string>
@@ -197,9 +197,7 @@ public class LoginV2Executor
                 var status = JObject.Parse(transferContent);
                 var result = status["result"]?.Value<int>();
                 if (result != null)
-                    SteamStatusCode
-                        .ValidateSuccessOrThrow(result
-                            .Value); //TODO: Fix steam.tv token transfer (result always 8). But who really cares.. 
+                    SteamStatusCode.ValidateSuccessOrThrow(result.Value);
 
                 var tokenStr = SteamTokenHelper.ExtractJwtFromSetCookiesHeader(transferResp.Headers);
                 var token = SteamTokenHelper.Parse(tokenStr);
@@ -207,12 +205,13 @@ public class LoginV2Executor
             }
             catch (Exception ex)
             {
-                executor.Logger?.Log(LogLevel.Warning, ex, "Can't transfer tokens for URI: {uri}", transferInfo.Url);
+                logger?.LogWarning(ex, "Error while transferring tokens for URI: {uri}", transferInfo.Url);
             }
         }
 
         var accessToken = SteamTokenHelper.Parse(pollResp.AccessToken);
 
+        logger?.LogInformation("Login successful. Got {authTokenType}", accessToken.Type);
         if (accessToken.Type == SteamAccessTokenType.Mobile)
         {
             return new MobileSessionData(sessionId, SteamId.FromSteam64(steamId), refreshToken, accessToken, tokens);
@@ -221,36 +220,74 @@ public class LoginV2Executor
         return new SessionData(sessionId, SteamId.FromSteam64(steamId), refreshToken, tokens);
     }
 
-    private static async Task UpdateWithCode(LoginV2Executor executor, ulong clientId, ulong steamId,
-        EAuthSessionGuardType guardType)
+    private static async Task UpdateSessionAndMapException(HttpClient client, ILoginConsumer consumer,
+        IAuthProvider provider, UpdateAuthSessionModel model, CancellationToken cancellationToken = default)
     {
-        string? code;
-        if (guardType == EAuthSessionGuardType.DeviceCode)
+        //Also DuplicateRequest means invalid steamId/clientId in MobileConf
+        try
         {
-            if (executor.SteamGuardProvider != null)
-                code = await executor.SteamGuardProvider.GetSteamGuardCode(executor.Caller);
-            else
+            await provider.UpdateAuthSession(client, consumer, model, cancellationToken);
+        }
+        catch (SteamStatusCodeException ex)
+            when (IsSupported(ex.StatusCode))
+        {
+            var loginError = Map(ex.StatusCode);
+            throw new LoginException(loginError, ex);
+        }
+
+        return;
+
+        bool IsSupported(SteamStatusCode code)
+        {
+            return code == SteamStatusCode.InvalidLoginAuthCode ||
+                   code == SteamStatusCode.InvalidSignature ||
+                   code == SteamStatusCode.TwoFactorCodeMismatch;
+        }
+
+        LoginError Map(SteamStatusCode code)
+        {
+            if (code == SteamStatusCode.InvalidLoginAuthCode)
             {
-                throw new LoginException(LoginError.SteamGuardRequired);
+                return LoginError.InvalidEmailAuthCode;
+            }
+
+            if (code == SteamStatusCode.InvalidSignature)
+            {
+                return LoginError.InvalidSharedSecret;
+            }
+
+            if (code == SteamStatusCode.TwoFactorCodeMismatch)
+            {
+                return LoginError.InvalidTwoFactorCode;
+            }
+
+            return LoginError.UndefinedError;
+        }
+    }
+
+    private static (IAuthProvider, EAuthSessionGuardType)? SelectProvider(LoginV2ExecutorOptions options,
+        List<AllowedConfirmationMsg> allowed)
+    {
+        foreach (var guardType in options.PreferredGuardTypes)
+        {
+            var availableProvider =
+                options.AuthProviders.FirstOrDefault(a => a.IsSupportedGuardType(options.Consumer, guardType));
+            if (availableProvider != null)
+            {
+                return (availableProvider, guardType);
             }
         }
-        else
+
+        foreach (var allowedConfirmation in allowed)
         {
-            var t = executor.EmailAuthProvider?.GetEmailAuthCode(executor.Caller) ??
-                    throw new LoginException(LoginError.EmailAuthRequired);
-            code = await t;
+            var availableProvider = options.AuthProviders.FirstOrDefault(a =>
+                a.IsSupportedGuardType(options.Consumer, allowedConfirmation.ConfirmationType));
+            if (availableProvider != null)
+            {
+                return (availableProvider, allowedConfirmation.ConfirmationType);
+            }
         }
 
-        var updateCodeMsg = new UpdateAuthSessionWithSteamGuardCode_Request
-        {
-            ClientId = clientId,
-            Code = code,
-            CodeType = guardType,
-            Steamid = steamId
-        };
-
-        await executor.HttpClient.PostProtoEnsureSuccess(
-            new Uri("https://api.steampowered.com/IAuthenticationService/UpdateAuthSessionWithSteamGuardCode/v1"),
-            updateCodeMsg);
+        return null;
     }
 }

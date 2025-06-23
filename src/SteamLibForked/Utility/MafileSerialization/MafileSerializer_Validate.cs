@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json.Linq;
-using SteamLib.Account;
 using SteamLib.Authentication;
+using SteamLibForked.Models.Session;
 
 namespace SteamLib.Utility.MafileSerialization;
 

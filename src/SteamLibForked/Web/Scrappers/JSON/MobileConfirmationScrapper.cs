@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SteamLib.Exceptions;
+using SteamLib.Exceptions.Authorization;
 using SteamLib.Exceptions.General;
 using SteamLib.SteamMobile.Confirmations;
 using SteamLib.Web.Models.Mobile;

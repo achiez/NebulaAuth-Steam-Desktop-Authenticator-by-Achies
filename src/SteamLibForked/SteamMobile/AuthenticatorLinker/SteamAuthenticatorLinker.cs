@@ -1,17 +1,15 @@
-﻿using JetBrains.Annotations;
-using Microsoft.Extensions.Logging;
-using SteamLib.Account;
+﻿using Microsoft.Extensions.Logging;
+using SteamLib.Abstractions;
 using SteamLib.Api.Mobile;
 using SteamLib.Authentication;
-using SteamLib.Core.Enums;
-using SteamLib.Core.Interfaces;
-using SteamLib.Exceptions;
+using SteamLib.Exceptions.Authorization;
 using SteamLib.Exceptions.Mobile;
 using SteamLib.ProtoCore.Enums;
+using SteamLibForked.Abstractions;
+using SteamLibForked.Models.Session;
 
 namespace SteamLib.SteamMobile.AuthenticatorLinker;
 
-[PublicAPI]
 public class SteamAuthenticatorLinker
 {
     public ILoginConsumer Consumer { get; }
@@ -90,9 +88,17 @@ public class SteamAuthenticatorLinker
             if (await this.AttachPhone(phoneNumber.Value) == false)
                 throw new AuthenticatorLinkerException(AuthenticatorLinkerError.CantAttachPhone);
 
-            await Options.EmailProvider!.ConfirmEmailLink(Consumer, EmailConfirmationType.AttachPhoneAuthenticator);
 
-            if (await this.CheckEmailConfirmation() == false)
+            var emailValid = false;
+            for (var i = 0; i < Options.EmailProvider!.RetryCount; i++)
+            {
+                await Options.EmailProvider!.ConfirmEmailLink(Consumer, EmailConfirmationType.AttachPhoneAuthenticator);
+                emailValid = await this.CheckEmailConfirmation();
+                if (emailValid) break;
+            }
+
+
+            if (!emailValid)
                 throw new AuthenticatorLinkerException(AuthenticatorLinkerError.CantConfirmAttachingEmail);
 
             var sendSms = await this.SendSmsCode();
@@ -126,7 +132,7 @@ public class SteamAuthenticatorLinker
                 throw new AuthenticatorLinkerException(AuthenticatorLinkerError.NoSmsCodeProvider);
 
             var smsCode = await Options.SmsCodeProvider.GetSmsCode(Consumer, phoneNumber, resp.PhoneNumberHint);
-            code = smsCode.ToString();
+            code = smsCode.ToString("D5");
         }
         else if (resp.ConfirmType == 3)
         {

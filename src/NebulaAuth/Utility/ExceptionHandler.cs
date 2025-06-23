@@ -4,8 +4,9 @@ using System.Threading.Tasks;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
 using SteamLib.Exceptions;
+using SteamLib.Exceptions.Authorization;
 using SteamLib.Exceptions.General;
-using SteamLib.ProtoCore.Exceptions;
+using SteamLibForked.Exceptions.Authorization;
 
 namespace NebulaAuth.Utility;
 
@@ -16,53 +17,58 @@ public static class ExceptionHandler
     public static bool Handle(Exception ex, string? prefix = null, string? postfix = null,
         bool handleAllExceptions = false)
     {
-        string msg;
         Shell.Logger.Error(ex);
-        switch (ex)
+        var msg = GetExceptionString(ex, handleAllExceptions);
+        if (msg == null) return false;
+        SnackbarController.SendSnackbar(prefix + msg + postfix);
+        return true;
+    }
+
+
+    public static string? GetExceptionString(Exception exception, bool handleAllExceptions = true)
+    {
+        switch (exception)
         {
             case SessionPermanentlyExpiredException:
             {
-                msg = "SessionExpiredException".GetCodeBehindLocalization();
-                break;
+                return "SessionExpiredException".GetCodeBehindLocalization();
             }
             case SessionInvalidException:
             {
-                msg = "SessionExpiredException".GetCodeBehindLocalization();
-                break;
+                return "SessionExpiredException".GetCodeBehindLocalization();
             }
             case TaskCanceledException e:
             {
-                msg = e.InnerException is TimeoutException
+                return e.InnerException is TimeoutException
                     ? "TimeoutException".GetCodeBehindLocalization()
                     : "TaskCanceledException".GetCodeBehindLocalization();
-                break;
             }
             case HttpRequestException e:
             {
                 var str = "RequestError".GetCommonLocalization() + ": ";
+
                 if (e.StatusCode != null)
                 {
-                    msg = str + e.StatusCode;
+                    str = str + e.StatusCode;
                 }
                 else if (e.InnerException != null)
                 {
-                    msg = str + e.InnerException.Message;
+                    str = str + e.InnerException.Message;
                 }
                 else
                 {
-                    msg = str + e.Message;
+                    str = str + e.Message;
                 }
 
-                break;
+                return str;
             }
             case UnsupportedResponseException:
             {
-                msg = "UnsupportedResponseException".GetCodeBehindLocalization();
-                break;
+                return "UnsupportedResponseException".GetCodeBehindLocalization();
             }
             case CantLoadConfirmationsException e:
             {
-                msg = LocManager.GetCodeBehindOrDefault(nameof(CantLoadConfirmationsException),
+                var msg = LocManager.GetCodeBehindOrDefault(nameof(CantLoadConfirmationsException),
                     EXCEPTION_HANDLER_LOC_PATH, nameof(CantLoadConfirmationsException), "Common");
                 if (e.Error == LoadConfirmationsError.Unknown)
                 {
@@ -76,30 +82,25 @@ public static class ExceptionHandler
                         nameof(CantLoadConfirmationsException), e.Error.ToString());
                 }
 
-                break;
+                return msg;
             }
-            case EResultException e:
+            case SteamStatusCodeException e:
             {
-                msg = "Error".GetCommonLocalization() + ": " + ErrorTranslatorHelper.TranslateEResult(e.Result);
-                break;
+                return "Error".GetCommonLocalization() + ": " +
+                       ErrorTranslatorHelper.TranslateSteamStatusCode(e.StatusCode);
             }
             case LoginException e:
             {
-                msg = "LoginException".GetCodeBehindLocalization() + ": " +
-                      ErrorTranslatorHelper.TranslateLoginError(e.Error);
-                break;
+                return "LoginException".GetCodeBehindLocalization() + ": " +
+                       ErrorTranslatorHelper.TranslateLoginError(e.Error);
             }
             case not null when handleAllExceptions:
             {
-                msg = "UnknownException".GetCodeBehindLocalization() + ex.Message;
-                break;
+                return "UnknownException".GetCodeBehindLocalization() + exception.Message;
             }
-            default:
-                return false;
         }
 
-        SnackbarController.SendSnackbar(prefix + msg + postfix);
-        return true;
+        return null;
     }
 
     private static string GetCommonLocalization(this string key)

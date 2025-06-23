@@ -1,15 +1,14 @@
-﻿using JetBrains.Annotations;
-using Microsoft.Extensions.Options;
-using SteamLib.Core.Enums;
-using SteamLib.Core.Interfaces;
-using SteamLib.Core.Models;
-using SteamLib.Exceptions;
+﻿using Microsoft.Extensions.Options;
+using SteamLib.Exceptions.Authorization;
+using SteamLibForked.Abstractions;
+using SteamLibForked.Models.Session;
+using SteamLibForked.Models.SteamIds;
 
 namespace SteamLib.Authentication;
 
 public static class SessionDataValidator
 {
-    [PublicAPI] public static Dictionary<Type, IValidateOptions<ISessionData>> Validators { get; } = new();
+    public static Dictionary<Type, IValidateOptions<ISessionData>> Validators { get; } = new();
 
     public static ValidateOptionsResult Validate(string? name, ISessionData data)
     {

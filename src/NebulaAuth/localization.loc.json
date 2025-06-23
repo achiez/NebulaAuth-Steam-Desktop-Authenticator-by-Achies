@@ -68,14 +68,6 @@
         "en": "Loading...",
         "ru": "Загрузка...",
         "ua": "Завантаження..."
-      },
-      "StartTip": {
-        "ru":
-          "Чтобы начать пользоваться программой вы можете привязать аккаунт через меню \"Аккаунт\", либо импортировать существующие мафайлы одним из способов:\n1. Скопировать их в папку mafiles и перезапустить приложение\n2. Перетянуть файлы прямо в окно программы\n3. Скопировать файлы и нажать CTRL+V в окне программы\n4. Через меню \"Файл\" - \"Импорт\"",
-        "en":
-          "To start using the program, you can link an account through the \"Account\" menu, or import existing mafiles in one of the following ways:\n1. Copy them to the mafiles folder and restart the application\n2. Drag files directly into the program window\n3. Copy files and press CTRL+V in the program window\n4. Through the \"File\" - \"Import\" menu",
-        "ua":
-          "Щоб почати користуватися програмою, ви можете прив'язати акаунт через меню \"Акаунт\", або імпортувати існуючі мафайли одним із способів:\n1. Скопіювати їх у папку mafiles та перезапустити програму\n2. Перетягнути файли безпосередньо в вікно програми\n3. Скопіювати файли та натиснути CTRL+V в вікні програми\n4. Через меню \"Файл\" - \"Імпорт\""
       }
     },
     "Menu": {
@@ -116,6 +108,11 @@
           "en": "Link",
           "ru": "Привязать",
           "ua": "Прив'язати"
+        },
+        "MoveSteamGuard": {
+          "en": "Move Steam Guard",
+          "ru": "Перенести Steam Guard",
+          "ua": "Перенести Steam Guard"
         },
         "Unlink": {
           "en": "Unlink",
@@ -207,6 +204,11 @@
         "en": "Search",
         "ru": "Поиск",
         "ua": "Пошук"
+      },
+      "NoMafiles": {
+        "en": "No mafiles found..",
+        "ru": "Мафайлы не найдены..",
+        "ua": "Мафайли не знайдено.."
       }
     },
     "RightPart": {
@@ -313,6 +315,58 @@
       "ru": "Настройки",
       "ua": "Налаштування"
     },
+    "MainSettings": {
+      "en": "Main",
+      "ru": "Основные",
+      "ua": "Основні"
+    },
+    "ThemeSettings": {
+      "en": "Theme",
+      "ru": "Тема",
+      "ua": "Тема"
+    },
+    "Theme": {
+      "BackgroundBlur": {
+        "en": "Background Blur",
+        "ru": "Размытие фона",
+        "ua": "Розмиття фону"
+      },
+      "BackgroundOpacity": {
+        "en": "Background Opacity",
+        "ru": "Непрозрачность фона",
+        "ua": "Непрозорість фону"
+      },
+      "Gamma": {
+        "en": "Gamma",
+        "ru": "Гамма",
+        "ua": "Гама"
+      },
+      "LeftOpacity": {
+        "en": "Left Opacity",
+        "ru": "Непрозрачность слева",
+        "ua": "Непрозорість зліва"
+      },
+      "RightOpacity": {
+        "en": "Right Opacity",
+        "ru": "Непрозрачность справа",
+        "ua": "Непрозорість справа"
+      },
+      "CurrentTheme": {
+        "en": "Current Theme",
+        "ru": "Текущая тема",
+        "ua": "Поточна тема"
+      },
+      "DialogBlur": {
+        "en": "Blur on Dialog",
+        "ru": "Размытие при открытии диалог. окна",
+        "ua": "Розмиття при відкритті діалог. вікна"
+      },
+      "Reset": {
+        "en": "Reset",
+        "ru": "Сбросить",
+        "ua": "Скинути"
+      }
+    },
     "BackgroundHint": {
       "en": "Background",
       "ru": "Фон",
@@ -368,14 +422,15 @@
       }
     },
     "LegacyMafileMode": {
-      "en": "Legacy mafile mode",
-      "ru": "Режим старых мафайлов",
-      "ua": "Режим старих мафайлів"
+      "en": "Common mafiles format",
+      "ru": "Общепринятый формат мафайлов",
+      "ua": "Загальноприйнятий формат мафайлів"
     },
     "LegacyMafileModeHint": {
-      "en": "Use old mafile format for compatibility with old versions of Steam Desktop Authenticator",
-      "ru": "Использовать старый формат мафайлов для совместимости со старыми версиями Steam Desktop Authenticator",
-      "ua": "Використовувати старий формат мафайлів для сумісності зі старими версіями Steam Desktop Authenticator"
+      "en": "Save mafiles in compatibility format with Steam Desktop Authenticator and other applications",
+      "ru":
+        "Сохранять мафайлы в старом формате для совместимости со Steam Desktop Authenticator и другими приложениями",
+      "ua": "Зберігати мафайли у старому форматі для сумісності зі Steam Desktop Authenticator та іншими додатками"
     },
     "AllowAutoUpdate": {
       "en": "Allow auto update",
@@ -487,8 +542,8 @@
     },
     "Authorization": {
       "en": "Authorization",
-      "ru": "Авторизация",
-      "ua": "Авторизація"
+      "ru": "Вход в аккаунт",
+      "ua": "Вхід в акаунт"
     },
     "EmailCode": {
       "en": "Email code",
@@ -524,9 +579,54 @@
       "en": "Proceed",
       "ru": "Продолжить",
       "ua": "Продовжити"
+    },
+    "CancelButton": {
+      "en": "Cancel",
+      "ru": "Отмена",
+      "ua": "Відміна"
+    },
+    "MafileLinked": {
+      "en": "Mafile successfully linked",
+      "ru": "Мафайл успешно привязан",
+      "ua": "Мафайл успішно прив'язано"
+    },
+    "FinishButton": {
+      "en": "Finish",
+      "ru": "Завершить",
+      "ua": "Завершити"
+    },
+    "CopyRCodeButton": {
+      "en": "Copy RCode",
+      "ru": "Скопировать RCode",
+      "ua": "Скопіювати RCode"
+    },
+    "Login": {
+      "en": "Login",
+      "ru": "Логин",
+      "ua": "Логін"
+    },
+    "Password": {
+      "en": "Password",
+      "ru": "Пароль",
+      "ua": "Пароль"
+    },
+    "Code": {
+      "en": "Code",
+      "ru": "Код",
+      "ua": "Код"
+    },
+    "SmsCode": {
+      "en": "SMS code",
+      "ru": "СМС код",
+      "ua": "СМС код"
     }
   },
   "SetEncryptedPasswordDialog": {
+    "Title": {
+      "en": "Encryption password",
+      "ru": "Пароль шифрования",
+      "ua": "Пароль шифрування"
+    },
     "DialogText": {
       "en":
         "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session. (Optional)",
@@ -549,6 +649,30 @@
       "en": "Password",
       "ru": "Пароль",
       "ua": "Пароль"
+    }
+  },
+  "LinksView": {
+    "UsefulLinks": {
+      "en": "Useful links",
+      "ru": "Полезные ссылки",
+      "ua": "Корисні посилання"
+    },
+    "Documentation": {
+      "en": "Documentation",
+      "ru": "Документация",
+      "ua": "Документація"
+    }
+  },
+  "MafileMoverView": {
+    "Title": {
+      "en": "Move Steam Guard",
+      "ru": "Перенести Steam Guard",
+      "ua": "Перенести Steam Guard"
+    },
+    "Done": {
+      "en": "Steam Guard moved",
+      "ru": "Steam Guard перенесен",
+      "ua": "Steam Guard перенесено"
     }
   },
   "CodeBehind": {
@@ -817,6 +941,11 @@
           "ua": "Скасовано (52)"
 
         },
+        "InvalidLoginAuthCode": {
+          "ru": "Неверный код авторизации (65)",
+          "en": "Invalid login auth code (65)",
+          "ua": "Невірний код авторизації (65)"
+        },
         "ExpiredLoginAuthCode": {
           "ru": "Истекло время кода (71)",
           "en": "Expired login auth code (71)",
@@ -1062,10 +1191,15 @@
         "en": "Can't login: ",
         "ua": "Не вдалося залогінитися: "
       },
+      "UnsupportedGuardType": {
+        "ru": "Steam Guard уже активирован. Был запрошен код с мобильного устройства",
+        "en": "Steam Guard already activated. Mobile device code was requested",
+        "ua": "Steam Guard вже активовано. Був запрошений код з мобільного пристрою"
+      },
       "MafileLinked": {
-        "ru": "Мафайл успешно привязан. RCode: {0}\r\nИмя файла: {1}.mafile",
-        "en": "Mafile successfully linked. RCode: {0}\r\nFile name: {1}.mafile",
-        "ua": "Мафайл успішно прив'язано. RCode: {0}\r\nІм'я файлу: {1}.mafile"
+        "ru": "RCode: {0}\r\nИмя файла: {1}.mafile",
+        "en": "RCode: {0}\r\nFile name: {1}.mafile",
+        "ua": "RCode: {0}\r\nІм'я файлу: {1}.mafile"
       },
       "ErrorWithCode": {
         "ru": "Ошибка с кодом: ",
@@ -1077,25 +1211,23 @@
         "en": "Unknown error: ",
         "ua": "Невідома помилка: "
       },
-      "PleaseEnterCorrectPhone": {
-        "ru": "Пожалуйста, введите корректный номер телефона",
-        "en": "Please enter correct phone number",
-        "ua": "Будь ласка, введіть коректний номер телефону"
-      },
-      "PleaseEnterCorrectCode": {
-        "ru": "Пожалуйста, введите корректный код",
-        "en": "Please enter correct code",
-        "ua": "Будь ласка, введіть коректний код"
-      },
       "EnterEmailCode": {
-        "ru": "Введите код из письма",
-        "en": "Enter code from email",
-        "ua": "Введіть код з листа"
+        "ru": "Введите код, отправленный на вашу почту",
+        "en": "Enter the code sent to your email",
+        "ua": "Введіть код, надісланий на вашу пошту"
       },
       "ClickOnEmailLink": {
-        "ru": "На почту было отправлено письмо, нажмите по ссылке затем - 'Продолжить'",
-        "en": "Email was sent, click on link and then - 'Proceed'",
-        "ua": "На пошту було відправлено лист, натисніть по посиланню потім - 'Продовжити'"
+        "ru": "На почту было отправлено письмо, откройте ссылку из письма, а затем нажмите — 'Продолжить'",
+        "en": "An email has been sent. Open the link from the email, then click 'Proceed'",
+        "ua": "На пошту надіслано лист. Відкрийте посилання з листа, а потім натисніть — 'Продовжити'"
+      },
+      "ClickOnEmailLinkRetry": {
+        "ru":
+          "Не удалось подтвердить переход по ссылке. Убедитесь, что вы открыли ссылку из письма, затем нажмите — 'Продолжить'",
+        "en":
+          "We couldn’t verify that you clicked the link. Make sure you opened the link from the email, then click 'Proceed'",
+        "ua":
+          "Не вдалося підтвердити перехід за посиланням. Переконайтесь, що ви відкрили посилання з листа, а потім натисніть — 'Продовжити'"
       },
       "PhoneHint": {
         "ru": "На телефон {0} была отправлена СМС",
@@ -1103,40 +1235,82 @@
         "ua": "На телефон {0} було відправлено СМС"
       },
       "EnterPhoneNumber": {
-        "ru": "Введите номер телефона (без знака '+' и др. символов). По-желанию.",
-        "en": "Enter phone number (without '+' and other symbols). Optional",
-        "ua": "Введіть номер телефону (без знака '+' та ін. символів). За бажанням"
+        "ru":
+          "Введите номер в международном формате, только цифры (без '+', пробелов и скобок), или оставьте поле пустым, чтобы привязать без номера",
+        "en":
+          "Enter number in international format, digits only (no '+', spaces or brackets), or leave the field empty to link without a number",
+        "ua":
+          "Введіть номер у міжнародному форматі, лише цифри (без '+', пробілів і дужок), або залиште поле порожнім, щоб прив’язати без номера"
       }
     },
-    "MAAC": {
-      "TimerConfirmed": {
-        "ru": "Авто: подтверждено ",
-        "en": "Auto: confirmed ",
-        "ua": "Авто: підтверджено "
+    "MafileMoverVM": {
+      "EnterGuardCode": {
+        "en": "Enter Steam Guard code or confirm login and click 'Proceed'",
+        "ru": "Введите код Steam Guard либо подтвердите вход и нажмите \"Продолжить\"",
+        "ua": "Введіть код Steam Guard або підтвердіть вхід і натисніть 'Продовжити'"
       },
-      "TimerNotConfirmed": {
-        "ru": "Авто: подтверждение не сработало",
-        "en": "Auto: confirmation was unsuccessful",
-        "ua": "Авто: підтвердження не спрацювало"
+      "EnterGuardCodeRetrying": {
+        "en": "Failed to confirm login. Enter Steam Guard code or try again",
+        "ru": "Не удалось подтвердить вход. Введите код Steam Guard или попробуйте еще раз",
+        "ua": "Не вдалося підтвердити вхід. Введіть код Steam Guard або спробуйте ще раз"
       },
-      "TimerSessionError": {
-        "ru": "необходимо обновить сессию или перелогиниться",
-        "en": "need to refresh session or relogin",
-        "ua": "необхідно оновити сесію або перелогінитися"
+      "SmsCodeStepTip": {
+        "en": "Enter the code from the SMS sent to your phone number",
+        "ru": "Введите код из СМС, отправленный на ваш номер телефона",
+        "ua": "Введіть код з СМС, надісланий на ваш номер телефону"
       },
-      "TimerPrefix": {
-        "ru": "Авто ",
-        "en": "Auto ",
-        "ua": "Авто "
+      "DoneStepTip": {
+        "ru": "RCode: {0}\r\nИмя файла: {1}.mafile",
+        "en": "RCode: {0}\r\nFile name: {1}.mafile",
+        "ua": "RCode: {0}\r\nІм'я файлу: {1}.mafile"
       },
-      "TimerPreventedOverlap": {
+      "GuardIsNotActive": {
         "ru":
-          "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
-        "en":
-          "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
+          "Steam Guard установлен на данном аккаунте. Чтобы привязать mafile к аккаунту, воспользуйтесь окном \"Привязать\"",
+        "en": "Steam Guard is set on this account. To link mafile to the account, use the 'Link' window",
         "ua":
-          "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку"
+          "Steam Guard встановлено на цьому акаунті. Щоб прив'язати mafile до акаунту, скористайтеся вікном 'Прив'язати'"
+      },
+      "SeemsNoPhoneNumber": {
+        "en": "The account has no phone number linked, returned Fail code (2)",
+        "ru": "На аккаунте не привязан номер телефона, был возвращен код Fail (2)",
+        "ua": "На акаунті не прив'язано номер телефону, повернуто код Fail (2)"
+      },
+      "SmsCodeFailed": {
+        "en": "SMS code failed, try again",
+        "ru": "Ошибка SMS-кода, попробуйте еще раз",
+        "ua": "Помилка SMS-коду, спробуйте ще раз"
       }
+    }
+  },
+  "MAAC": {
+    "TimerConfirmed": {
+      "ru": "Авто: подтверждено ",
+      "en": "Auto: confirmed ",
+      "ua": "Авто: підтверджено "
+    },
+    "TimerNotConfirmed": {
+      "ru": "Авто: подтверждение не сработало",
+      "en": "Auto: confirmation was unsuccessful",
+      "ua": "Авто: підтвердження не спрацювало"
+    },
+    "TimerSessionError": {
+      "ru": "необходимо обновить сессию или перелогиниться",
+      "en": "need to refresh session or relogin",
+      "ua": "необхідно оновити сесію або перелогінитися"
+    },
+    "TimerPrefix": {
+      "ru": "Авто ",
+      "en": "Auto ",
+      "ua": "Авто "
+    },
+    "TimerPreventedOverlap": {
+      "ru":
+        "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
+      "en":
+        "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
+      "ua":
+        "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку"
     }
   },
   "CantAlignTimeError": {

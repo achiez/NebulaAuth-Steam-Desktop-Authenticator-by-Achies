@@ -38,7 +38,7 @@ public static class LocManager
 
     public static void Init()
     {
-        Loc.LogOutMissingTranslations = true;
+        Loc.Instance.LogOutMissingTranslations = true;
 
         LocalizationLoader.Instance.FileLanguageLoaders.Add(new JsonFileLoader());
 

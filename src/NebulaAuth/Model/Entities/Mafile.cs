@@ -2,7 +2,7 @@
 using NebulaAuth.Model.MAAC;
 using Newtonsoft.Json;
 using SteamLib;
-using SteamLib.Account;
+using SteamLibForked.Models.Session;
 
 namespace NebulaAuth.Model.Entities;
 

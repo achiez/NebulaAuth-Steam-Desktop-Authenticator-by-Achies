@@ -22,6 +22,11 @@ public static class NebulaSerializer
                 AllowDeviceIdGeneration = true,
                 AllowSessionIdGeneration = true,
                 ThrowIfInvalidSteamId = false
+            },
+            SerializationOptions =
+            {
+                Sign = true,
+                Formatting = Formatting.Indented
             }
         });
     }
@@ -80,9 +85,9 @@ public static class NebulaSerializer
     {
         if (Settings.Instance.LegacyMode)
         {
-            return MafileSerializer.SerializeLegacy(data, Formatting.Indented, properties);
+            return MafileSerializer.SerializeLegacy(data, Serializer.Settings.SerializationOptions, properties);
         }
 
-        return MafileSerializer.Serialize(data);
+        return Serializer.Serialize(data);
     }
 }

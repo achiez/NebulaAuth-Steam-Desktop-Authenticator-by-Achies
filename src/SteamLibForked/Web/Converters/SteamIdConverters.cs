@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SteamLib.Core.Models;
+using SteamLibForked.Models.SteamIds;
 
 namespace SteamLib.Web.Converters;
 

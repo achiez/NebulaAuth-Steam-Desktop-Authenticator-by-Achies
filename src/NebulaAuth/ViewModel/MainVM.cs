@@ -11,9 +11,10 @@ using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Utility;
+using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;
-using SteamLib.Exceptions;
 using SteamLib.SteamMobile;
+using SteamLibForked.Exceptions.Authorization;
 
 namespace NebulaAuth.ViewModel;
 
@@ -29,11 +30,11 @@ public partial class MainVM : ObservableObject
     }
 
     public bool IsMafileSelected => SelectedMafile != null;
+    public DialogHost CurrentDialogHost { get; set; } = null!;
 
     [ObservableProperty] private ObservableCollection<Mafile> _maFiles = Storage.MaFiles;
 
     private Mafile? _selectedMafile;
-
 
     public MainVM()
     {
@@ -52,13 +53,9 @@ public partial class MainVM : ObservableObject
     }
 
     [RelayCommand]
-    public void Debug()
+    public async Task Debug()
     {
-        var ph = new PaletteHelper();
-        var t = new MaterialDesignThemes.Wpf.Theme();
-        var cur = ph.GetTheme();
-        t.SetDarkTheme();
-        ph.SetTheme(t);
+        Shell.Logger.Info("test");
     }
 
 
@@ -100,7 +97,7 @@ public partial class MainVM : ObservableObject
         var wait = DialogHost.Show(waitDialog);
         try
         {
-            await MaClient.LoginAgain(SelectedMafile, password, loginAgainVm.SavePassword, waitDialog);
+            await MaClient.LoginAgain(SelectedMafile, password, loginAgainVm.SavePassword);
             SnackbarController.SendSnackbar(GetLocalization("SuccessfulLogin"));
         }
         catch (LoginException ex)
@@ -145,6 +142,12 @@ public partial class MainVM : ObservableObject
     public async Task LinkAccount()
     {
         await DialogsController.ShowLinkerDialog();
+    }
+
+    [RelayCommand]
+    public async Task MoveAccount()
+    {
+        await DialogsController.ShowMafileMoverDialog();
     }
 
     [RelayCommand]
@@ -217,6 +220,15 @@ public partial class MainVM : ObservableObject
         {
             Shell.Logger.Error(ex);
         }
+    }
+
+    [RelayCommand]
+    private async Task OpenLinksView()
+    {
+        CurrentDialogHost.CloseOnClickAway = true;
+        var view = new LinksView();
+        await DialogHost.Show(view);
+        CurrentDialogHost.CloseOnClickAway = false;
     }
 
 

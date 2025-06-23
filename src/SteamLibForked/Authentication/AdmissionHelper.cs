@@ -1,20 +1,43 @@
 ﻿using System.Net;
 using AchiesUtilities.Extensions;
-using JetBrains.Annotations;
-using SteamLib.Account;
+using AchiesUtilities.Models;
+using Newtonsoft.Json;
 using SteamLib.Core;
-using SteamLib.Core.Enums;
-using SteamLib.Core.Interfaces;
+using SteamLib.Models.Account;
+using SteamLibForked.Abstractions;
+using SteamLibForked.Models.Core;
+using SteamLibForked.Models.Session;
 
 namespace SteamLib.Authentication;
 
-[PublicAPI]
 public static class AdmissionHelper
 {
     public const string ACCESS_COOKIE_NAME = "steamLoginSecure";
     public const string REFRESH_COOKIE_NAME = "steamRefresh_steam";
     public const string LANGUAGE_COOKIE_NAME = "Steam_Language";
     public const string SESSION_ID_COOKIE_NAME = "sessionid";
+
+    private static readonly Uri SteamLoginUri = new(SteamConstants.STEAM_LOGIN);
+
+    public static void InjectWebTradeEligibilityCookie(this CookieContainer container,
+        WebTradeEligibility? eligibility = null)
+    {
+        eligibility ??= new WebTradeEligibility
+        {
+            Allowed = 1,
+            AllowedAtTime = 0,
+            SteamGuardRequiredDays = 15,
+            NewDeviceCooldownDays = 0,
+            TimeChecked = UnixTimeStamp.FromDateTime(DateTime.Now)
+        };
+        var json = JsonConvert.SerializeObject(eligibility);
+        var encoded = WebUtility.UrlEncode(json);
+        var cookie = new Cookie("webTradeEligibility", encoded, "/")
+        {
+            HttpOnly = true
+        };
+        container.Add(SteamDomains.DomainUris[SteamDomain.Community], cookie);
+    }
 
     #region Main
 
@@ -33,7 +56,7 @@ public static class AdmissionHelper
         container.Add(community, new Cookie(SESSION_ID_COOKIE_NAME, sessionData.SessionId, "/"));
         container.Add(community, new Cookie(LANGUAGE_COOKIE_NAME, setLanguage, "/"));
         TransferCommunityCookies(container);
-        foreach (var domain in SteamDomains.AllDomains)
+        foreach (var domain in SteamDomains.AuthDomains)
         {
             var token = sessionData.GetToken(domain);
             if (token == null) continue;
@@ -53,11 +76,10 @@ public static class AdmissionHelper
         AddTokenCookie(container, token);
     }
 
-
     /// <summary>
     ///     Clear and set new session
     /// </summary>
-    public static void SetSteamMobileCookies(this CookieContainer container, IMobileSessionData mobileSession,
+    public static void SetSteamMobileCookies(this CookieContainer container, ISessionData mobileSession,
         string setLanguage = "english")
     {
         container.ClearSteamCookies(setLanguage);
@@ -70,11 +92,10 @@ public static class AdmissionHelper
         container.Add(community, new Cookie(SESSION_ID_COOKIE_NAME, mobileSession.SessionId));
         container.Add(community, new Cookie(LANGUAGE_COOKIE_NAME, setLanguage));
         TransferCommunityCookies(container);
-
-        foreach (var domain in SteamDomains.AllDomains)
+        foreach (var domain in SteamDomains.AuthDomains)
         {
             var token = mobileSession.GetToken(domain);
-            if (token == null || token.Value.IsExpired) continue;
+            if (token == null) continue;
             AddTokenCookie(container, token.Value);
         }
     }
@@ -111,9 +132,16 @@ public static class AdmissionHelper
 
         var mobileToken = mobileSession.GetMobileToken();
         if (domainCookieSet == false && mobileToken is {IsExpired: false})
-            AddTokenCookie(container, SteamDomain.Community, mobileToken.Value);
+        {
+            var domain = SteamDomains.GetDomainUri(SteamDomain.Community);
+            container.Add(domain, new Cookie(ACCESS_COOKIE_NAME, mobileToken.Value.SignedToken)
+            {
+                HttpOnly = true,
+                Secure = true,
+                Expires = mobileToken.Value.Expires.ToLocalDateTime()
+            });
+        }
     }
-
 
     public static void AddMinimalMobileCookies(this CookieContainer container)
     {
@@ -145,6 +173,15 @@ public static class AdmissionHelper
         TransferCommunityCookies(container);
     }
 
+    public static void ClearAllCookies(this CookieContainer container)
+    {
+        var cookies = container.GetAllCookies().ToList();
+        foreach (var cookie in cookies)
+        {
+            cookie.Expired = true;
+        }
+    }
+
     #endregion
 
     #region Helpers
@@ -163,6 +200,7 @@ public static class AdmissionHelper
             container.Add(SteamDomains.GetDomainUri(SteamDomain.Store), CloneCookie(cookie));
             container.Add(SteamDomains.GetDomainUri(SteamDomain.Help), CloneCookie(cookie));
             container.Add(SteamDomains.GetDomainUri(SteamDomain.TV), CloneCookie(cookie));
+            container.Add(SteamDomains.GetDomainUri(SteamDomain.Checkout), CloneCookie(cookie));
         }
 
         return;
@@ -181,7 +219,7 @@ public static class AdmissionHelper
                 $"Token must be of type Refresh or MobileRefresh. Provided token has type: {token.Type}",
                 nameof(token));
         var refreshToken = token.SignedToken;
-        container.Add(SteamDomains.LoginSteamDomain, new Cookie(REFRESH_COOKIE_NAME, refreshToken)
+        container.Add(SteamLoginUri, new Cookie(REFRESH_COOKIE_NAME, refreshToken)
         {
             Expires = token.Expires.ToLocalDateTime()
         });
@@ -193,13 +231,8 @@ public static class AdmissionHelper
             throw new ArgumentException($"Token must be of type AccessToken. Provided token has type: {token.Type}",
                 nameof(token));
 
-        AddTokenCookie(container, token.Domain, token);
-    }
-
-    private static void AddTokenCookie(CookieContainer container, SteamDomain domain, SteamAuthToken token)
-    {
-        var domainUri = SteamDomains.GetDomainUri(domain);
-        container.Add(domainUri, new Cookie(ACCESS_COOKIE_NAME, token.SignedToken)
+        var domain = SteamDomains.GetDomainUri(token.Domain);
+        container.Add(domain, new Cookie(ACCESS_COOKIE_NAME, token.SignedToken)
         {
             HttpOnly = true,
             Secure = true,
@@ -223,14 +256,6 @@ public static class AdmissionHelper
                                  && c.Expired == false
                                  && c.Domain.Contains(domain, StringComparison.InvariantCultureIgnoreCase))?
             .Value;
-    }
-
-    public static void ClearAllCookies(this CookieContainer container)
-    {
-        foreach (Cookie allCookie in container.GetAllCookies())
-        {
-            allCookie.Expired = true;
-        }
     }
 
     #endregion

@@ -11,11 +11,12 @@ namespace NebulaAuth.Model;
 
 public static class Shell
 {
-    public static Logger Logger { get; } = LogManager.GetLogger("Logger");
+    public static Logger Logger { get; private set; } = null!;
     public static ILogger ExtensionsLogger { get; private set; } = null!;
 
     public static void Initialize()
     {
+        Logger = LogManager.GetLogger("Logger");
         var lp = new NLogLoggerProvider();
         var logger = lp.CreateLogger("SteamLib");
         SteamLibErrorMonitor.MonitorLogger = logger;

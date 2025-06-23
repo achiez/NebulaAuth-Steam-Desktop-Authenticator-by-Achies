@@ -1,8 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿namespace SteamLib.Utility.MafileSerialization;
 
-namespace SteamLib.Utility.MafileSerialization;
-
-[PublicAPI]
 public class MafileCredits : IMafileCredits
 {
     private const string ORIGINAL_AUTHOR = "Achies";

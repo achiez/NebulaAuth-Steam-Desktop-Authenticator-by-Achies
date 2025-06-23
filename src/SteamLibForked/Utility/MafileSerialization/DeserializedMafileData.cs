@@ -1,6 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json.Linq;
-using SteamLib.Core.Models;
+using SteamLibForked.Models.SteamIds;
 
 namespace SteamLib.Utility.MafileSerialization;
 
@@ -11,14 +11,13 @@ public enum DeserializedMafileSessionResult
     Valid
 }
 
-[PublicAPI]
 public class DeserializedMafileData
 {
     public MobileData Data { get; init; }
     public DeserializedMafileInfo Info { get; }
 
 
-    private DeserializedMafileData(MobileData mobileData, DeserializedMafileInfo info)
+    protected DeserializedMafileData(MobileData mobileData, DeserializedMafileInfo info)
     {
         Data = mobileData;
         Info = info;
@@ -45,7 +44,6 @@ public class DeserializedMafileData
 /// <summary>
 ///     Represents information about deserialized mafile
 /// </summary>
-[PublicAPI]
 public class DeserializedMafileInfo
 {
     public static readonly HashSet<string> ImportantProperties =
@@ -65,7 +63,6 @@ public class DeserializedMafileInfo
     ];
 
     public int? Version { get; init; }
-
     public bool IsExtended { get; init; }
     public DeserializedMafileSessionResult SessionResult { get; init; }
 
@@ -74,9 +71,16 @@ public class DeserializedMafileInfo
     public Dictionary<string, JProperty>? UnusedProperties { get; init; }
 
     public bool IsActual => Version == MafileSerializer.MAFILE_VERSION;
+
+    [MemberNotNullWhen(true, nameof(UnusedProperties))]
     public bool HasUnusedProperties => UnusedProperties is {Count: > 0};
+
+    [MemberNotNullWhen(true, nameof(MissingProperties))]
     public bool HasMissingProperties => MissingProperties is {Count: > 0};
+
+    [MemberNotNullWhen(true, nameof(MissingImportantProperties))]
     public bool HasMissingImportantProperties => MissingImportantProperties is {Count: > 0};
+
     public bool HasSession => SessionResult == DeserializedMafileSessionResult.Valid;
     public bool HasIdentificationProperty { get; init; }
     public bool SteamIdValid { get; init; }

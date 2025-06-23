@@ -4,8 +4,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converters="clr-namespace:NebulaAuth.Converters"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
-             xmlns:background="clr-namespace:NebulaAuth.Converters.Background"
-             StartupUri="MainWindow.xaml">
+             xmlns:background="clr-namespace:NebulaAuth.Converters.Background">
     <Application.Resources>
         <ResourceDictionary>
             <converters:CoefficientConverter x:Key="CoefficientConverter" />
@@ -32,77 +31,33 @@
 
             <ResourceDictionary.MergedDictionaries>
 
-                <ResourceDictionary Source="Theme/Brushes.xaml" />
+                <ResourceDictionary Source="Theme/Themes/DefaultTheme.xaml" />
                 <ResourceDictionary
                     Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
-                <!--primary color-->
-                <ResourceDictionary>
-
-                    <!--include your primary palette-->
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="Theme/Brushes.xaml" />
-                    </ResourceDictionary.MergedDictionaries>
-
-                   
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Primary.Light" Color="{StaticResource PrimaryColor}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Primary.Light.Foreground"
-                                     Color="{StaticResource BaseContentColor}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Primary" Color="{StaticResource PrimaryColor}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Primary.Foreground"
-                                     Color="{StaticResource BaseContentColor}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Primary.Dark" Color="{StaticResource PrimaryColor}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Primary.Dark.Foreground"
-                                     Color="{StaticResource BaseContentColor}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Card.Background" Color="{StaticResource Base100Color}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Background" Color="{StaticResource BackgroundColor}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Foreground" Color="{StaticResource BaseContentColor}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.ToolBar.Item.Background"
-                                     Color="{StaticResource PrimaryColor}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.ToolBar.Item.Foreground"
-                                     Color="{StaticResource BaseContentColor}" />
-
-                    <!--Unchecked checkbox uses it-->
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.ForegroundLight" Color="{DynamicResource  PrimaryColor}"/>
-                 
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.SnackBar.Background" Color="{StaticResource BaseContentColor}"/>
-
-                </ResourceDictionary>
-
-                <!--secondary colour-->
-                <ResourceDictionary>
-                    <!--include your secondary pallette-->
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="Theme/Brushes.xaml" />
-                    </ResourceDictionary.MergedDictionaries>
-
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Secondary.Light"
-                                     Color="{StaticResource SecondaryColor}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Secondary.Light.Foreground"
-                                     Color="{StaticResource BaseContentColor}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Secondary" Color="{StaticResource SecondaryColor}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Secondary.Foreground"
-                                     Color="{StaticResource BaseContentColor}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Secondary.Dark"
-                                     Color="{StaticResource SecondaryColor}" />
-                    <SolidColorBrush x:Key="MaterialDesign.Brush.Secondary.Dark.Foreground"
-                                     Color="{StaticResource BaseContentColor}" />
-
-                </ResourceDictionary>
-
+                <ResourceDictionary Source="Theme/Brushes.xaml" />
                 <!--Controls-->
 
                 <ResourceDictionary
                     Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.snackbar.xaml" />
                 <ResourceDictionary Source="View/ConfirmationTemplates.xaml" />
+                <ResourceDictionary Source="View/LinkerStepTemplates.xaml" />
+                <ResourceDictionary Source="View/MafileMoverStepTemplates.xaml" />
 
                 <!--Theme-->
 
                 <ResourceDictionary Source="Theme/WindowStyle/WindowStyle.xaml" />
-                <ResourceDictionary Source="Theme/WindowStyle/LoadingSplashScreenStyle.xaml" />
                 <ResourceDictionary Source="Theme/MaterialDesignThemes.Overrides.xaml" />
 
 
+                <ResourceDictionary>
+                    <Style TargetType="ToolTip" BasedOn="{StaticResource {x:Type ToolTip}}">
+                        <Setter Property="Foreground" Value="{DynamicResource Base100Brush}" />
+                        <Setter Property="Background" Value="{DynamicResource BaseContentBrush}" />
+                    </Style>
+                </ResourceDictionary>
+
             </ResourceDictionary.MergedDictionaries>
+
 
         </ResourceDictionary>
 

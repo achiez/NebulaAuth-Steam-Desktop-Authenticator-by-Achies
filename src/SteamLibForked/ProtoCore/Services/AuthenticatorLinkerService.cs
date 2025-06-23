@@ -1,6 +1,6 @@
 ﻿using ProtoBuf;
-using SteamLib.Account;
 using SteamLib.ProtoCore.Interfaces;
+using SteamLibForked.Models.Session;
 
 // ReSharper disable InconsistentNaming
 
@@ -132,4 +132,55 @@ public class RemoveAuthenticator_Response : IProtoMsg
 {
     [ProtoMember(1)] public bool Success { get; set; }
     [ProtoMember(5)] public int RevocationAttemptsRemaining { get; set; }
+}
+
+[ProtoContract]
+public class RemoveAuthenticatorViaChallengeContinue_Request : IProtoMsg
+{
+    [ProtoMember(1)] public string SmsCode { get; set; }
+    [ProtoMember(2)] public bool GenerateNewToken { get; set; }
+    [ProtoMember(3)] public uint Version { get; set; }
+}
+
+[ProtoContract]
+public class RemoveAuthenticatorViaChallengeContinue_Replacement_Token : IProtoMsg
+{
+    [ProtoMember(1)] public byte[] SharedSecret { get; set; }
+    [ProtoMember(2)] public ulong SerialNumber { get; set; }
+    [ProtoMember(3)] public string RevocationCode { get; set; }
+    [ProtoMember(4)] public string Uri { get; set; }
+    [ProtoMember(5)] public long ServerTime { get; set; }
+    [ProtoMember(6)] public string AccountName { get; set; }
+    [ProtoMember(7)] public string TokenGid { get; set; }
+    [ProtoMember(8)] public byte[] IdentitySecret { get; set; }
+    [ProtoMember(9)] public byte[] Secret1 { get; set; }
+    [ProtoMember(10)] public int Status { get; set; }
+    [ProtoMember(11)] public uint SteamGuardScheme { get; set; }
+    [ProtoMember(12)] public ulong SteamId { get; set; }
+
+    public MobileDataExtended ToMobileDataExtended(string deviceId, MobileSessionData? sessionData)
+    {
+        return new MobileDataExtended
+        {
+            SharedSecret = Convert.ToBase64String(SharedSecret),
+            SerialNumber = SerialNumber,
+            RevocationCode = RevocationCode,
+            Uri = Uri,
+            ServerTime = ServerTime,
+            AccountName = AccountName,
+            TokenGid = TokenGid,
+            IdentitySecret = Convert.ToBase64String(IdentitySecret),
+            Secret1 = Convert.ToBase64String(Secret1),
+            SessionData = sessionData,
+            DeviceId = deviceId,
+            SteamId = global::SteamId.FromSteam64(SteamId)
+        };
+    }
+}
+
+[ProtoContract]
+public class RemoveAuthenticatorViaChallengeContinue_Response : IProtoMsg
+{
+    [ProtoMember(1)] public int Success { get; set; }
+    [ProtoMember(2)] public RemoveAuthenticatorViaChallengeContinue_Replacement_Token ReplacementToken { get; set; }
 }

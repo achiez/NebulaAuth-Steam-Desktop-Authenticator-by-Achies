@@ -1,10 +1,9 @@
 ﻿using System.Net;
 using AchiesUtilities.Web.Extensions;
-using JetBrains.Annotations;
 using SteamLib.Core;
-using SteamLib.Core.Models;
 using SteamLib.Core.StatusCodes;
 using SteamLib.Exceptions;
+using SteamLib.Exceptions.Authorization;
 using SteamLib.SteamMobile;
 using SteamLib.SteamMobile.Confirmations;
 using SteamLib.Utility;
@@ -12,19 +11,14 @@ using SteamLib.Web.Scrappers.JSON;
 
 namespace SteamLib.Api.Mobile;
 
-[PublicAPI]
 public static class SteamMobileConfirmationsApi
 {
-    private const string CONF = SteamConstants.STEAM_COMMUNITY + "mobileconf";
-    private const string CONF_OP = SteamConstants.STEAM_COMMUNITY + "mobileconf/ajaxop";
-    private const string MULTI_CONF_OP = SteamConstants.STEAM_COMMUNITY + "mobileconf/multiajaxop";
-
     public static async Task<IEnumerable<Confirmation>> GetConfirmations(HttpClient client, MobileData data,
         SteamId steamId, CancellationToken cancellationToken = default)
     {
         var nvc = GetConfirmationKvp(steamId, data.DeviceId, data.IdentitySecret, "list");
 
-        var req = new Uri(CONF + "/getlist" + nvc.ToQueryString());
+        var req = new Uri(Routes.CONF_LIST + nvc.ToQueryString());
         var reqMsg = new HttpRequestMessage(HttpMethod.Get, req);
         var resp = await client.SendAsync(reqMsg, cancellationToken);
 
@@ -63,10 +57,10 @@ public static class SteamMobileConfirmationsApi
         query.Add(new KeyValuePair<string, string>("cid", id));
         query.Add(new KeyValuePair<string, string>("ck", key));
 
-        var req = CONF_OP + query.ToQueryString();
+        var req = Routes.CONF_OP + query.ToQueryString();
         var resp = await client.GetStringAsync(req, cancellationToken);
         var successCode =
-            SteamLibErrorMonitor.HandleResponse(resp, () => SteamStatusCode.Translate<SteamStatusCode>(resp, out _));
+            SteamLibErrorMonitor.HandleResponse(resp, () => SteamStatusCode.Translate(resp));
 
         return successCode.Equals(SteamStatusCode.Ok);
     }
@@ -86,10 +80,10 @@ public static class SteamMobileConfirmationsApi
         }
 
         var content = new FormUrlEncodedContent(query);
-        var resp = await client.PostAsync(MULTI_CONF_OP, content, cancellationToken);
+        var resp = await client.PostAsync(Routes.MULTI_CONF_OP, content, cancellationToken);
         var respStr = await resp.Content.ReadAsStringAsync(cancellationToken);
         var successCode = SteamLibErrorMonitor.HandleResponse(respStr,
-            () => SteamStatusCode.Translate<SteamStatusCode>(respStr, out _));
+            () => SteamStatusCode.Translate(respStr));
         return successCode.Equals(SteamStatusCode.Ok);
     }
 
@@ -107,5 +101,13 @@ public static class SteamMobileConfirmationsApi
             KeyValuePair.Create("m", "react"),
             KeyValuePair.Create("tag", tag)
         ];
+    }
+
+    public static class Routes
+    {
+        public const string CONF = SteamConstants.STEAM_COMMUNITY + "/mobileconf";
+        public const string CONF_LIST = SteamConstants.STEAM_COMMUNITY + "/mobileconf/getlist";
+        public const string CONF_OP = SteamConstants.STEAM_COMMUNITY + "/mobileconf/ajaxop";
+        public const string MULTI_CONF_OP = SteamConstants.STEAM_COMMUNITY + "/mobileconf/multiajaxop";
     }
 }

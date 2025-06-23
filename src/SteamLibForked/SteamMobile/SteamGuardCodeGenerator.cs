@@ -1,19 +1,20 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using SteamLib.Core.Interfaces;
+using SteamLib.Abstractions;
+using SteamLib.Api.Services;
+using SteamLib.Authentication;
+using SteamLib.ProtoCore.Enums;
+using SteamLibForked.Abstractions.Auth;
 
 namespace SteamLib.SteamMobile;
 
 public class SteamGuardCodeGenerator : ISteamGuardProvider
 {
     private static readonly byte[] SteamGuardCodeTranslations =
-        {50, 51, 52, 53, 54, 55, 56, 57, 66, 67, 68, 70, 71, 72, 74, 75, 77, 78, 80, 81, 82, 84, 86, 87, 88, 89};
+        "23456789BCDFGHJKMNPQRTVWXY"u8.ToArray();
 
-    public string SharedSecret { get; }
-
-    int ISteamGuardProvider.MaxRetryCount => ProviderMaxRetryCount;
-    public int ProviderMaxRetryCount { get; set; }
+    private string SharedSecret { get; }
 
     public SteamGuardCodeGenerator(string sharedSecret)
     {
@@ -21,7 +22,7 @@ public class SteamGuardCodeGenerator : ISteamGuardProvider
     }
 
 
-    public ValueTask<string> GetSteamGuardCode(ILoginConsumer caller)
+    public ValueTask<string> GetSteamGuardCode()
     {
         return ValueTask.FromResult(GenerateCode());
     }
@@ -72,5 +73,19 @@ public class SteamGuardCodeGenerator : ISteamGuardProvider
         }
 
         return Encoding.UTF8.GetString(codeArray);
+    }
+
+
+    public bool IsSupportedGuardType(ILoginConsumer consumer, EAuthSessionGuardType type)
+    {
+        return type == EAuthSessionGuardType.DeviceCode;
+    }
+
+    public Task UpdateAuthSession(HttpClient authClient, ILoginConsumer loginConsumer, UpdateAuthSessionModel model,
+        CancellationToken cancellationToken = default)
+    {
+        var code = GenerateCode();
+        var req = AuthRequestHelper.CreateMobileCodeRequest(code, model.ClientId, model.SteamId);
+        return AuthenticationServiceApi.UpdateAuthSessionWithSteamGuardCode(authClient, req, cancellationToken);
     }
 }

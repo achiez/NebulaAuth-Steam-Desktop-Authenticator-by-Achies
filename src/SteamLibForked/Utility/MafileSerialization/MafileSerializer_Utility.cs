@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 using Newtonsoft.Json.Linq;
-using SteamLib.Core.Models;
+using SteamLibForked.Models.SteamIds;
 
 namespace SteamLib.Utility.MafileSerialization;
 

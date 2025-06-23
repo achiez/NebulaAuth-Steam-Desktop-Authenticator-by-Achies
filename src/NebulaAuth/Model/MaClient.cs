@@ -7,9 +7,9 @@ using AchiesUtilities.Web.Models;
 using AchiesUtilities.Web.Proxy;
 using NebulaAuth.Model.Entities;
 using SteamLib.Api.Mobile;
+using SteamLib.Api.Services;
 using SteamLib.Authentication;
-using SteamLib.Core.Interfaces;
-using SteamLib.Exceptions;
+using SteamLib.Exceptions.Authorization;
 using SteamLib.ProtoCore.Services;
 using SteamLib.SteamMobile.Confirmations;
 using SteamLib.Web;
@@ -63,7 +63,7 @@ public static class MaClient
         return SteamMobileConfirmationsApi.GetConfirmations(Client, mafile, mafile.SessionData!.SteamId);
     }
 
-    public static Task LoginAgain(Mafile mafile, string password, bool savePassword, ICaptchaResolver? resolver)
+    public static Task LoginAgain(Mafile mafile, string password, bool savePassword)
     {
         SetProxy(mafile);
         return SessionHandler.LoginAgain(new HttpClientHandlerPair(Client, ClientHandler), mafile, password,
@@ -138,7 +138,7 @@ public static class MaClient
         ValidateMafile(mafile);
         SetProxy(mafile);
         var token = mafile.SessionData!.GetMobileToken()!.Value;
-        var sessions = await SteamMobileAuthenticatorApi.GetAuthSessionsForAccount(Client, token.Token);
+        var sessions = await AuthenticationServiceApi.GetAuthSessionsForAccount(Client, token.Token);
 
         if (sessions.ClientIds.Count == 0)
         {
@@ -157,16 +157,11 @@ public static class MaClient
         }
 
         var clientId = sessions.ClientIds.Single();
-        var clientInfo = await SteamMobileAuthenticatorApi.GetAuthSessionInfo(Client, token.Token, clientId);
-        var updateReq = new UpdateAuthSessionWithMobileConfirmation_Request
-        {
-            ClientId = clientId,
-            Confirm = true,
-            Persistence = 1,
-            Steamid = mafile.SessionData.SteamId.Steam64.ToUlong(),
-            Version = 1
-        };
-        await SteamMobileAuthenticatorApi.UpdateAuthSessionStatus(Client, token.Token, mafile.SharedSecret, updateReq);
+        var clientInfo = await AuthenticationServiceApi.GetAuthSessionInfo(Client, token.Token, clientId);
+        var updateReq =
+            AuthRequestHelper.CreateMobileConfirmationRequest(1, clientId, mafile.SessionData.SteamId.Steam64,
+                mafile.SharedSecret);
+        await AuthenticationServiceApi.UpdateAuthSessionWithMobileConfirmation(Client, token.Token, updateReq);
         return new LoginConfirmationResult
         {
             Country = clientInfo.Country,

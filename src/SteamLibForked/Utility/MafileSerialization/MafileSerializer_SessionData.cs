@@ -1,10 +1,9 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json.Linq;
-using SteamLib.Account;
 using SteamLib.Authentication;
-using SteamLib.Core.Enums;
-using SteamLib.Core.Models;
+using SteamLibForked.Models.Session;
+using SteamLibForked.Models.SteamIds;
 
 namespace SteamLib.Utility.MafileSerialization;
 
@@ -42,9 +41,10 @@ public partial class MafileSerializer //SessionData
 
         var sessionData =
             new MobileSessionData(sessionId, steamId.Value, refreshToken.Value, accessToken, tokens: null);
-        sessionData.IsValid = SessionDataValidator.Validate(null, sessionData).Succeeded;
-        if (sessionData.IsValid == false)
+        if (!SessionDataValidator.Validate(null, sessionData).Succeeded)
+        {
             return null;
+        }
 
         return sessionData;
     }

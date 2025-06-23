@@ -3,9 +3,9 @@ using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using AchiesUtilities.Models;
 using Microsoft.IdentityModel.JsonWebTokens;
-using SteamLib.Account;
-using SteamLib.Core.Enums;
-using SteamLib.Core.Models;
+using SteamLibForked.Models.Core;
+using SteamLibForked.Models.Session;
+using SteamLibForked.Models.SteamIds;
 
 namespace SteamLib.Authentication;
 

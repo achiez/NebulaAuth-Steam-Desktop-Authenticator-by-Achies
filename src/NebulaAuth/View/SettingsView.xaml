@@ -10,89 +10,158 @@
              FontFamily="{materialDesign:MaterialDesignFont}"
              MinHeight="600"
              MinWidth="400"
-
-             MaxWidth="200"
+             MaxWidth="400"
              d:DataContext="{d:DesignInstance other:SettingsVM}"
-             Background="{DynamicResource WindowBackground}">
+             Background="Transparent">
     <Grid>
-        <Grid Margin="15,10,15,15">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" />
 
             </Grid.RowDefinitions>
-            <Grid>
+            <Grid Margin="10,10,10,5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock FontStyle="Normal" Foreground="DarkGray" HorizontalAlignment="Left"
-                           VerticalAlignment="Center" FontSize="18" Text="{Tr SettingsDialog.Title}" />
-                <Button IsCancel="True" Grid.Column="1" Width="30" Height="30"
-                        Style="{StaticResource MaterialDesignIconForegroundButton}" HorizontalAlignment="Right"
-                        Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Settings" Width="20" Height="20" Margin="0,0,5,0"
+                                             VerticalAlignment="Center"
+                                             Foreground="{DynamicResource PrimaryContentBrush}" />
+                    <TextBlock FontStyle="Normal" Foreground="{DynamicResource BaseContentBrush}"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center" FontSize="18" Text="{Tr SettingsDialog.Title}" />
+                </StackPanel>
+                <Button Grid.Column="1" Width="30" Height="30"
+                        Style="{StaticResource MaterialDesignIconForegroundButton}"
+                        HorizontalAlignment="Right" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                        IsCancel="True">
                     <materialDesign:PackIcon Kind="Close" Width="24" Height="24" Foreground="IndianRed" />
                 </Button>
             </Grid>
             <Separator Grid.Row="1" Margin="0,10,0,0" />
 
-            <TabControl  Grid.Row="2">
-                <TabItem  Header="ОсновныеNTR">
-                    <StackPanel Margin="10,30,10,10" Orientation="Vertical" HorizontalAlignment="Center">
-                        <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}" FontSize="16"
-   ItemsSource="{Binding BackgroundModes}" DisplayMemberPath="Value" SelectedValuePath="Key"
-   SelectedValue="{Binding BackgroundMode}"
-   materialDesign:HintAssist.Hint="{Tr SettingsDialog.BackgroundHint}" />
-                        <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,20,0,0" FontSize="16"
-   ItemsSource="{Binding Languages}" DisplayMemberPath="Value" SelectedValuePath="Key"
-   SelectedValue="{Binding  Language}" materialDesign:HintAssist.Hint="{Tr LanguageWord}" />
-                        <CheckBox Margin="0,10,0,0" FontSize="16" IsChecked="{Binding HideToTray}"
-   Content="{Tr SettingsDialog.MinimizeToTray}" />
-                        <CheckBox Margin="0,10,0,0" FontSize="16" IsChecked="{Binding UseIcon}"
-   Content="{Tr SettingsDialog.UseIndicator}" ToolTip="{Tr SettingsDialog.UseIndicatorHint}" />
+            <TabControl materialDesign:ColorZoneAssist.Background="{DynamicResource Base100Brush}"
+                        Style="{StaticResource MaterialDesignUniformTabControl}" Grid.Row="2">
+                <TabItem Header="{Tr SettingsDialog.MainSettings}">
+                    <StackPanel Width="340" Margin="10,30,10,10" Orientation="Vertical" HorizontalAlignment="Center">
+                        <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,15,0,0"
+                                  FontSize="16"
+                                  ItemsSource="{Binding Languages}" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                  SelectedValue="{Binding  Language}"
+                                  materialDesign:HintAssist.Hint="{Tr LanguageWord}" />
+                        <CheckBox Margin="0,15,0,0" FontSize="16" IsChecked="{Binding HideToTray}"
+                                  Content="{Tr SettingsDialog.MinimizeToTray}" />
+                        <CheckBox Margin="0,15,0,0" FontSize="16" IsChecked="{Binding UseIcon}"
+                                  Content="{Tr SettingsDialog.UseIndicator}"
+                                  ToolTip="{Tr SettingsDialog.UseIndicatorHint}" />
                         <materialDesign:ColorPicker IsEnabled="{Binding UseIcon}" Color="{Binding IconColor, Delay=50}" />
-                        <CheckBox Margin="0,10,0,5" FontSize="16" IsChecked="{Binding UseBackground}"
-   Content="{Tr SettingsDialog.UseCustomColor}" />
-
-                        <materialDesign:ColorPicker Height="100" IsEnabled="{Binding UseBackground}"
-                     Color="{Binding BackgroundColor, Delay=50}" />
-                        <Grid>
+                        <Grid Margin="0,20,0,10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <PasswordBox MinWidth="250" materialDesign:PasswordBoxAssist.Password="{Binding Password}"
-          Height="Auto" VerticalAlignment="Center" FontSize="16" Margin="0,10,0,0"
-          Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
-          materialDesign:HintAssist.Hint="{Tr SettingsDialog.PasswordBox.CurrentCryptPassword}"
-          materialDesign:HintAssist.HelperText="{Tr SettingsDialog.PasswordBox.Hint}" />
+                                         Height="Auto" VerticalAlignment="Center" FontSize="16"
+                                         Style="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}"
+                                         materialDesign:HintAssist.Hint="{Tr SettingsDialog.PasswordBox.CurrentCryptPassword}"
+                                         materialDesign:HintAssist.HelperText="{Tr SettingsDialog.PasswordBox.Hint}" />
                             <Button Command="{Binding SetPasswordCommand}" Margin="5,0,0,0" VerticalAlignment="Bottom"
-     Grid.Column="1">
+                                    Grid.Column="1">
                                 <materialDesign:PackIcon Kind="ContentSave" />
                             </Button>
                         </Grid>
-                        <CheckBox Margin="0,20,0,0" FontSize="16" IsChecked="{Binding LegacyMode}"
-   Content="{Tr SettingsDialog.LegacyMafileMode}"
-   ToolTip="{Tr SettingsDialog.LegacyMafileModeHint}" />
+                        <CheckBox Margin="0,15,0,0" FontSize="16" IsChecked="{Binding LegacyMode}"
+                                  Content="{Tr SettingsDialog.LegacyMafileMode}"
+                                  ToolTip="{Tr SettingsDialog.LegacyMafileModeHint}" />
                         <!--<CheckBox IsEnabled="False"  Margin="0,10,0,0"  FontSize="16" IsChecked="{Binding AllowAutoUpdate}" Content="{Tr SettingsDialog.AllowAutoUpdate}"/>-->
-                        <CheckBox Margin="0,10,0,0" FontSize="16" IsChecked="{Binding UseAccountNameAsMafileName}">
+                        <CheckBox Margin="0,15,0,0" FontSize="16" IsChecked="{Binding UseAccountNameAsMafileName}">
                             <TextBlock TextWrapping="WrapWithOverflow" Text="{Tr SettingsDialog.UseAccountName}" />
                         </CheckBox>
 
-                        <CheckBox Style="{StaticResource MaterialDesignCheckBox}" BorderBrush="AliceBlue" BorderThickness="2"  IsChecked="{Binding IgnorePatchTuesdayErrors}" Margin="0,10,0,0" FontSize="16"
+                        <CheckBox Style="{StaticResource MaterialDesignCheckBox}" BorderBrush="AliceBlue"
+                                  BorderThickness="2" IsChecked="{Binding IgnorePatchTuesdayErrors}" Margin="0,15,0,0"
+                                  FontSize="16"
                                   ToolTip="{Tr SettingsDialog.IgnorePatchTuesdayErrorsHint}">
-                            <TextBlock TextWrapping="WrapWithOverflow" Text="{Tr SettingsDialog.IgnorePatchTuesdayErrors}" />
+                            <TextBlock TextWrapping="WrapWithOverflow"
+                                       Text="{Tr SettingsDialog.IgnorePatchTuesdayErrors}" />
                         </CheckBox>
                     </StackPanel>
 
                 </TabItem>
-                <TabItem  IsEnabled="True" Header="ТулбарNTR">
-                    <TextBlock>Coming soon</TextBlock>
+                <TabItem IsEnabled="True" Header="{Tr SettingsDialog.ThemeSettings}">
+                    <StackPanel Width="340" Margin="10,30,10,10" Orientation="Vertical" HorizontalAlignment="Center">
+                        <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                  Padding="8"
+                                  Margin="0,15,0,0"
+                                  FontSize="16"
+                                  ItemsSource="{Binding BackgroundModes}" DisplayMemberPath="Value"
+                                  SelectedValuePath="Key"
+                                  SelectedValue="{Binding BackgroundMode}"
+                                  materialDesign:HintAssist.Hint="{Tr SettingsDialog.BackgroundHint}" />
+
+                        <!-- Theme input -->
+                        <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                  Padding="8"
+                                  Margin="0,15,0,0"
+                                  FontSize="16"
+                                  ItemsSource="{Binding ThemeTypes}" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                  SelectedValue="{Binding ThemeType}"
+                                  materialDesign:HintAssist.Hint="{Tr SettingsDialog.Theme.CurrentTheme}" />
+
+                        <TextBlock Text="{Tr SettingsDialog.Theme.BackgroundBlur}" Margin="0,15,0,0" />
+                        <Slider materialDesign:SliderAssist.HideActiveTrack="True"
+                                TickFrequency="5"
+                                Minimum="0" Maximum="100" Value="{Binding BackgroundBlur, Mode=TwoWay}"
+                                materialDesign:HintAssist.Hint="Blur Amount"
+                                PreviewMouseDown="Slider_OnMouseDown"
+                                PreviewMouseUp="Slider_OnMouseUp" />
+
+
+                        <TextBlock Text="{Tr SettingsDialog.Theme.BackgroundOpacity}" Margin="0,15,0,0" />
+                        <Slider materialDesign:SliderAssist.HideActiveTrack="True" Minimum="0" Maximum="1"
+                                Value="{Binding BackgroundOpacity, Mode=TwoWay}"
+                                materialDesign:HintAssist.Hint="Blur Amount"
+                                PreviewMouseDown="Slider_OnMouseDown"
+                                PreviewMouseUp="Slider_OnMouseUp" />
+
+                        <!-- Gamma slider -->
+                        <TextBlock Text="{Tr SettingsDialog.Theme.Gamma}" Margin="0,15,0,0" />
+                        <Slider materialDesign:SliderAssist.HideActiveTrack="True" Minimum="0" Maximum="1"
+                                Value="{Binding BackgroundGamma, Mode=TwoWay}"
+                                materialDesign:HintAssist.Hint="Gamma/Smoke"
+                                PreviewMouseDown="Slider_OnMouseDown"
+                                PreviewMouseUp="Slider_OnMouseUp" />
+
+
+                        <!-- Transparency sliders -->
+                        <TextBlock Text="{Tr SettingsDialog.Theme.LeftOpacity}" Margin="0,15,0,0" />
+                        <Slider materialDesign:SliderAssist.HideActiveTrack="True" Minimum="0" Maximum="1"
+                                SmallChange="0.01"
+                                Value="{Binding LeftOpacity, Mode=TwoWay}"
+                                materialDesign:HintAssist.Hint="Left Transparency"
+                                PreviewMouseDown="Slider_OnMouseDown"
+                                PreviewMouseUp="Slider_OnMouseUp" />
+
+                        <TextBlock Text="{Tr SettingsDialog.Theme.RightOpacity}" Margin="0,15,0,0" />
+
+                        <Slider materialDesign:SliderAssist.HideActiveTrack="True" Minimum="0" Maximum="1"
+                                SmallChange="0.01"
+                                Value="{Binding RightOpacity, Mode=TwoWay}"
+                                materialDesign:HintAssist.Hint="Right Transparency"
+                                PreviewMouseDown="Slider_OnMouseDown"
+                                PreviewMouseUp="Slider_OnMouseUp" />
+
+
+                        <CheckBox Margin="0,15,0,0" Content="{Tr SettingsDialog.Theme.DialogBlur}"
+                                  IsChecked="{Binding ApplyBlurBackground}" />
+                        <Button Margin="0,15,0,0" Command="{Binding ResetThemeDefaultsCommand}"
+                                Content="{Tr SettingsDialog.Theme.Reset}" />
+                    </StackPanel>
                 </TabItem>
             </TabControl>
-
-
 
 
         </Grid>

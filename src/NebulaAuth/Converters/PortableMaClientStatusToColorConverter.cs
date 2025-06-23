@@ -14,6 +14,7 @@ public class PortableMaClientStatusToColorConverter : IValueConverter
             return new SolidColorBrush(Color.FromRgb(187, 224, 139));
         }
 
+
         return new SolidColorBrush(Color.FromRgb(224, 139, 139));
     }
 

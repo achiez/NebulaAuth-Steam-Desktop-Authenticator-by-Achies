@@ -5,6 +5,8 @@ using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;
+using NebulaAuth.ViewModel.Linker;
+using NebulaAuth.ViewModel.MafileMover;
 using NebulaAuth.ViewModel.Other;
 
 namespace NebulaAuth.Core;
@@ -86,11 +88,37 @@ public static class DialogsController
 
     public static async Task ShowLinkerDialog()
     {
-        var vm = new LinkAccountVM();
-        var view = new LinkerView
+        LinkAccountVM? vm = null;
+        try
         {
-            DataContext = vm
-        };
-        await DialogHost.Show(view);
+            vm = new LinkAccountVM();
+            var view = new LinkerView
+            {
+                DataContext = vm
+            };
+            await DialogHost.Show(view);
+        }
+        finally
+        {
+            vm?.Dispose();
+        }
+    }
+
+    public static async Task ShowMafileMoverDialog()
+    {
+        MafileMoverVM? vm = null;
+        try
+        {
+            vm = new MafileMoverVM();
+            var view = new MafileMoverView
+            {
+                DataContext = vm
+            };
+            await DialogHost.Show(view);
+        }
+        finally
+        {
+            vm?.Dispose();
+        }
     }
 }

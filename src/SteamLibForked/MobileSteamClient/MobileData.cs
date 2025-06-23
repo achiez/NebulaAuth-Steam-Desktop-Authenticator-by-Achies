@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
-using SteamLib.Account;
-using SteamLib.Core.Models;
 using SteamLib.Web.Converters;
+using SteamLibForked.Models.Session;
 
 namespace SteamLib;
 

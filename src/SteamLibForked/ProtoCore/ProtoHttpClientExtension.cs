@@ -1,5 +1,6 @@
-﻿using SteamLib.ProtoCore.Enums;
-using SteamLib.ProtoCore.Exceptions;
+﻿using SteamLib.Core.StatusCodes;
+using SteamLib.Exceptions;
+using SteamLib.ProtoCore.Enums;
 using SteamLib.ProtoCore.Interfaces;
 
 namespace SteamLib.ProtoCore;
@@ -66,7 +67,7 @@ public static class ProtoHttpClientExtension
     {
         if (eResult != EResult.OK)
         {
-            throw new EResultException(eResult);
+            throw new SteamStatusCodeException(SteamStatusCode.FromEResult(eResult));
         }
     }
 
@@ -75,13 +76,13 @@ public static class ProtoHttpClientExtension
     /// <typeparam name="T"></typeparam>
     /// <param name="response"></param>
     /// <returns></returns>
-    /// <exception cref="EResultException"></exception>
+    /// <exception cref="SteamStatusCodeException"></exception>
     /// <exception cref="NullReferenceException"></exception>
     public static T GetResponseEnsureSuccess<T>(this ProtoResponse<T> response) where T : class, IProtoMsg
     {
         if (response.Result != EResult.OK)
         {
-            throw new EResultException(response.Result);
+            throw new SteamStatusCodeException(SteamStatusCode.FromEResult(response.Result));
         }
 
         return response.GetResponse();

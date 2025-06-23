@@ -11,10 +11,10 @@ public class AnyMafilesToVisibilityConverter : IValueConverter
 
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (_everAnyMafiles)
-        {
-            return Visibility.Collapsed;
-        }
+        //if (_everAnyMafiles)
+        //{
+        //    return Visibility.Collapsed;
+        //}
 
         if (value is 0)
         {

@@ -1,71 +1,84 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using AchiesUtilities.Extensions;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Model.Exceptions;
-using SteamLib.Core.Models;
-using SteamLib.Exceptions;
+using SteamLib;
+using SteamLib.Exceptions.Authorization;
 using SteamLib.SteamMobile;
 
 namespace NebulaAuth.Model;
 
-//RETHINK
 public static class Storage
 {
     public const string MAFILE_F = "maFiles";
     public const string REMOVED_F = "maFiles_removed";
+    private static int _duplicateFound;
 
-    public static readonly int DuplicateFound;
-
+    public static int DuplicateFound => _duplicateFound;
     public static string MafileFolder { get; } = Path.GetFullPath(MAFILE_F);
     public static string RemovedMafileFolder { get; } = Path.GetFullPath(REMOVED_F);
 
-    public static ObservableCollection<Mafile> MaFiles { get; } = new();
+    public static ObservableCollection<Mafile> MaFiles { get; private set; } = new();
 
     static Storage()
     {
-        if (Directory.Exists(MafileFolder) == false)
-        {
+    }
+
+    public static async Task Initialize(int threadCount, CancellationToken token = default)
+    {
+        if (!Directory.Exists(MafileFolder))
             Directory.CreateDirectory(MafileFolder);
-        }
 
-        if (Directory.Exists(RemovedMafileFolder) == false)
-        {
+        if (!Directory.Exists(RemovedMafileFolder))
             Directory.CreateDirectory(RemovedMafileFolder);
-        }
-
-        var files = Directory.GetFiles(MafileFolder);
-        var hashNames = new HashSet<string>();
-        var hashIds = new HashSet<SteamId>();
         var comparer = new MafileNameComparer(Settings.Instance.UseAccountNameAsMafileName);
-        var ordered = files.Order(comparer).ToList();
-        foreach (var file in ordered.Where(file => Path.GetExtension(file).EqualsIgnoreCase(".mafile")))
+        var files = Directory
+            .GetFiles(MafileFolder)
+            .Where(file => Path.GetExtension(file).EqualsIgnoreCase(".mafile"))
+            .Order(comparer)
+            .ToList();
+
+
+        var hashNames = new ConcurrentDictionary<string, byte>();
+        var hashIds = new ConcurrentDictionary<SteamId, byte>();
+        var localList = new ConcurrentBag<Mafile>();
+
+        var processed = 0;
+
+        await Task.Run(() =>
         {
-            try
-            {
-                var data = ReadMafile(file);
-
-                if (hashNames.Contains(data.AccountName) || hashIds.Contains(data.SteamId))
+            return Parallel.ForEachAsync(files,
+                new ParallelOptions {CancellationToken = token, MaxDegreeOfParallelism = threadCount},
+                async (file, ct) =>
                 {
-                    DuplicateFound++;
-                    Shell.Logger.Error("Duplicate mafile {file}", Path.GetFileName(file));
-                    continue;
-                }
+                    try
+                    {
+                        var data = await ReadMafileAsync(file);
 
-                hashNames.Add(data.AccountName);
-                if (data.SessionData != null) hashIds.Add(data.SteamId);
-                MaFiles.Add(data);
-            }
-            catch (Exception ex)
-            {
-                Shell.Logger.Error(ex, "Can't load mafile {file}", Path.GetFileName(file));
-            }
-        }
+                        if (!hashNames.TryAdd(data.AccountName, 0) ||
+                            (data.SessionData != null && !hashIds.TryAdd(data.SteamId, 0)))
+                        {
+                            Interlocked.Increment(ref _duplicateFound);
+                            Shell.Logger.Error("Duplicate mafile {file}", Path.GetFileName(file));
+                        }
 
-        MaFiles = new ObservableCollection<Mafile>(MaFiles.OrderBy(m => m.AccountName));
+                        localList.Add(data);
+                    }
+                    catch (Exception ex)
+                    {
+                        Shell.Logger.Error(ex, "Can't load mafile {file}", Path.GetFileName(file));
+                    }
+                });
+        }, token);
+
+        MaFiles = new ObservableCollection<Mafile>(localList.OrderBy(m => m.AccountName));
     }
 
     /// <summary>
@@ -114,6 +127,12 @@ public static class Storage
     public static Mafile ReadMafile(string path)
     {
         var str = File.ReadAllText(path);
+        return NebulaSerializer.Deserialize(str);
+    }
+
+    public static async Task<Mafile> ReadMafileAsync(string path)
+    {
+        var str = await File.ReadAllTextAsync(path);
         return NebulaSerializer.Deserialize(str);
     }
 
@@ -202,9 +221,35 @@ public static class Storage
 
         return null;
     }
+
+    public static void BackupHandler(MobileDataExtended data)
+    {
+        if (Directory.Exists("mafiles_backup") == false)
+        {
+            Directory.CreateDirectory("mafiles_backup");
+        }
+
+
+        var json = NebulaSerializer.SerializeMafile(data, null);
+        File.WriteAllText(Path.Combine("mafiles_backup", data.AccountName + ".mafile"),
+            json);
+    }
+
+    public static void BackupHandlerStr(string accountName, string data)
+    {
+        if (Directory.Exists("mafiles_backup") == false)
+        {
+            Directory.CreateDirectory("mafiles_backup");
+        }
+
+
+        File.WriteAllText(Path.Combine("mafiles_backup", accountName + ".mafile"),
+            data);
+    }
 }
 
 //TODO: Refactor
+//TODO: use numeric orderer when .net 10 released
 internal class MafileNameComparer : IComparer<string>
 {
     private const string MAF_64_START = "765";

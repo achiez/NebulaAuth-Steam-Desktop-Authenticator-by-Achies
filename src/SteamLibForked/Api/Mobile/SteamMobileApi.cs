@@ -1,23 +1,16 @@
 ﻿using System.Net;
-using JetBrains.Annotations;
 using Newtonsoft.Json.Linq;
 using SteamLib.Core;
-using SteamLib.Core.Models;
+using SteamLib.Core.StatusCodes;
 using SteamLib.Exceptions;
+using SteamLib.Exceptions.Authorization;
 using SteamLib.ProtoCore;
-using SteamLib.ProtoCore.Enums;
-using SteamLib.ProtoCore.Exceptions;
 using SteamLib.ProtoCore.Services;
 
 namespace SteamLib.Api.Mobile;
 
-[PublicAPI]
 public static class SteamMobileApi
 {
-    private const string GENERATE_ACCESS_TOKEN =
-        SteamConstants.STEAM_API + "IAuthenticationService/GenerateAccessTokenForApp/v1";
-
-
     /// <summary>
     /// </summary>
     /// <param name="client"></param>
@@ -38,12 +31,12 @@ public static class SteamMobileApi
 
         try
         {
-            var resp = await client.PostProto<GenerateAccessTokenForApp_Response>(GENERATE_ACCESS_TOKEN, req,
+            var resp = await client.PostProto<GenerateAccessTokenForApp_Response>(Routes.GENERATE_ACCESS_TOKEN, req,
                 cancellationToken);
             return resp.AccessToken;
         }
-        catch (EResultException ex)
-            when (ex.Result == EResult.AccessDenied)
+        catch (SteamStatusCodeException ex)
+            when (ex.StatusCode == SteamStatusCode.AccessDenied)
         {
             throw new SessionPermanentlyExpiredException(
                 "RefreshToken is not accepted by Steam. You must login again and use new token");
@@ -60,7 +53,7 @@ public static class SteamMobileApi
             {"sessionid", sessionId}
         };
         var content = new FormUrlEncodedContent(data);
-        var resp = await client.PostAsync(SteamConstants.STEAM_COMMUNITY + "steamguard/phoneajax", content,
+        var resp = await client.PostAsync(Routes.PHONE_AJAX, content,
             cancellationToken);
         var respContent = await resp.EnsureSuccessStatusCode().Content.ReadAsStringAsync(cancellationToken);
 
@@ -75,7 +68,7 @@ public static class SteamMobileApi
     public static async Task<RemoveAuthenticator_Response> RemoveAuthenticator(HttpClient client, string accessToken,
         string rCode, CancellationToken cancellationToken = default)
     {
-        var req = SteamConstants.STEAM_API + "ITwoFactorService/RemoveAuthenticator/v1?access_token=" + accessToken;
+        var req = Routes.REMOVE_AUTHENTICATOR + $"?access_token={accessToken}";
         var reqData = new RemoveAuthenticator_Request
         {
             RevocationCode = rCode,
@@ -91,5 +84,16 @@ public static class SteamMobileApi
         {
             throw new SessionInvalidException(SessionInvalidException.GOT_401_MSG);
         }
+    }
+
+    public static class Routes
+    {
+        public const string GENERATE_ACCESS_TOKEN =
+            SteamConstants.STEAM_API + "/IAuthenticationService/GenerateAccessTokenForApp/v1";
+
+        public const string PHONE_AJAX = SteamConstants.STEAM_COMMUNITY + "/steamguard/phoneajax";
+
+        public const string REMOVE_AUTHENTICATOR =
+            SteamConstants.STEAM_API + "/ITwoFactorService/RemoveAuthenticator/v1";
     }
 }

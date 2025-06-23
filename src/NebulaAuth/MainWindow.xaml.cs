@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
 using NebulaAuth.Core;
@@ -33,9 +28,12 @@ public partial class MainWindow
 
     private async void OnApplicationStarted(object? sender, EventArgs e)
     {
+        ((MainVM) DataContext).CurrentDialogHost = DialogHostInstance;
         if (Settings.Instance.IsPasswordSet == false) return;
-        await Dispatcher.BeginInvoke(ShowSetPasswordDialog, DispatcherPriority.ContextIdle);
+        Topmost = false;
+        await Dispatcher.InvokeAsync(ShowSetPasswordDialog, DispatcherPriority.ContextIdle);
     }
+
 
     private async Task ShowSetPasswordDialog()
     {
@@ -44,6 +42,7 @@ public partial class MainWindow
         {
             DataContext = vm
         };
+
         var result = await DialogHost.Show(dialog);
         var pass = vm.Password;
         if (result is true && string.IsNullOrWhiteSpace(pass) == false)
@@ -51,15 +50,6 @@ public partial class MainWindow
             PHandler.SetPassword(pass);
         }
     }
-
-    private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
-    {
-        Process.Start(new ProcessStartInfo(e.Uri.ToString())
-        {
-            UseShellExecute = true
-        });
-    }
-
 
     #region Dran'n'Drop
 
@@ -112,5 +102,4 @@ public partial class MainWindow
     }
 
     #endregion
-
 }

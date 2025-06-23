@@ -5,7 +5,6 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows;
 using System.Windows.Interop;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shell;
 using NebulaAuth.Model;
@@ -15,7 +14,6 @@ namespace NebulaAuth.Core;
 
 public static class ThemeManager
 {
-    public static System.Windows.Media.Color DefaultBackgroundColor = System.Windows.Media.Color.FromRgb(30, 32, 37);
     private static readonly Window MainWindow = Application.Current.MainWindow!;
 
     static ThemeManager()
@@ -25,11 +23,7 @@ public static class ThemeManager
 
     private static void SettingsOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(Settings.BackgroundColor))
-        {
-            UpdateBackground();
-        }
-        else if (e.PropertyName == nameof(Settings.IconColor))
+        if (e.PropertyName == nameof(Settings.IconColor))
         {
             UpdateIcon();
         }
@@ -59,32 +53,40 @@ public static class ThemeManager
         }
     }
 
-    private static void UpdateBackground()
+
+    public static void ApplyTheme(string themeName)
     {
-        var color = Settings.Instance.BackgroundColor ?? DefaultBackgroundColor;
-
-        Application.Current.Resources["Background"] = color;
-        ApplyTheme();
-    }
-
-    private static void ApplyTheme()
-    {
-        var keysToGenerate = Application.Current.Resources.Keys
-            .OfType<string>()
-            .Where(k => Application.Current.Resources[k] is System.Windows.Media.Color);
-
-        foreach (var key in keysToGenerate)
+        var colorDict = new ResourceDictionary
         {
-            var brushKey = key + "Brush"; // Генерируем имя для Brush
-            var color = (System.Windows.Media.Color) Application.Current.Resources[key];
-            Application.Current.Resources[brushKey] = new SolidColorBrush(color);
+            Source = new Uri($"Theme/Themes/{themeName}.xaml", UriKind.Relative)
+        };
+
+        var brushDict = new ResourceDictionary
+        {
+            Source = new Uri("Theme/Brushes.xaml", UriKind.Relative)
+        };
+
+        var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
+
+
+        var toRemove = mergedDictionaries
+            .Where(d => d.Source?.OriginalString.Contains("Theme/Themes/") == true ||
+                        d.Source?.OriginalString.EndsWith("Brushes.xaml") == true)
+            .ToList();
+
+        foreach (var dict in toRemove)
+        {
+            mergedDictionaries.Remove(dict);
         }
+
+        mergedDictionaries.Insert(0, colorDict);
+        mergedDictionaries.Insert(0, brushDict);
     }
 
 
     public static void InitializeTheme()
     {
         UpdateIcon();
-        UpdateBackground();
+        ApplyTheme(Settings.Instance.GetTheme());
     }
 }

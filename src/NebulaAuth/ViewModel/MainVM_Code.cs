@@ -25,7 +25,7 @@ public partial class MainVM
         CodeProgress = CalculateCodeProgress();
         _codeTimer = new Timer(UpdateCode, null, 0, 1000);
     }
-    
+
     private void UpdateCode(object? state = null)
     {
         var currentTime = TimeAligner.GetSteamTime();

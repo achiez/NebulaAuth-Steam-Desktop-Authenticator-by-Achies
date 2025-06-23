@@ -2,7 +2,7 @@
 using System.Net.Http.Headers;
 using AchiesUtilities.Web.Models;
 using SteamLib.Authentication;
-using SteamLib.Core.Interfaces;
+using SteamLibForked.Abstractions;
 
 namespace SteamLib.Web;
 
@@ -33,7 +33,8 @@ public static class ClientBuilder
         {
             container.SetSteamMobileCookiesWithMobileToken(sessionData);
         }
-
+        //Nebula tweak:
+        handler.CookieContainer.InjectWebTradeEligibilityCookie();
         ConfigureCommon(handler, client);
         return new HttpClientHandlerPair(client, handler);
     }

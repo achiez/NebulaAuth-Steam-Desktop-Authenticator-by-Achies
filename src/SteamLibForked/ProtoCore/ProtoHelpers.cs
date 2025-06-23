@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using ProtoBuf;
 using SteamLib.ProtoCore.Enums;
-using SteamLib.ProtoCore.Exceptions;
 using SteamLib.ProtoCore.Interfaces;
 
 namespace SteamLib.ProtoCore;
@@ -26,10 +25,6 @@ public static class ProtoHelpers
         if (response.Headers.TryGetValues("x-eresult", out var val))
         {
             var eResultInt = Convert.ToInt32(val.Single());
-
-            if (Enum.IsDefined(typeof(EResult), eResultInt) == false)
-                throw new UnknownEResultException(eResultInt);
-
             return (EResult) eResultInt;
         }
 

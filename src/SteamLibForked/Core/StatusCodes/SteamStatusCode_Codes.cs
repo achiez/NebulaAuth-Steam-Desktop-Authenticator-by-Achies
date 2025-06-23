@@ -1,7 +1,10 @@
 ﻿// ReSharper disable InconsistentNaming
 
+using JetBrains.Annotations;
+
 namespace SteamLib.Core.StatusCodes;
 
+[PublicAPI]
 public partial class SteamStatusCode //Codes 
 {
     /// <summary>

@@ -7,7 +7,7 @@ using MaterialDesignThemes.Wpf;
 using NebulaAuth.Core;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.View.Dialogs;
-using SteamLib.Exceptions;
+using SteamLib.Exceptions.Authorization;
 
 namespace NebulaAuth.Model;
 

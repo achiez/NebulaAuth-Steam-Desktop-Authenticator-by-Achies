@@ -11,11 +11,6 @@ public partial class SettingsVM : ObservableObject
 {
     public Settings Settings => Settings.Instance;
 
-    public BackgroundMode BackgroundMode
-    {
-        get => Settings.BackgroundMode;
-        set => Settings.BackgroundMode = value;
-    }
 
     public bool HideToTray
     {
@@ -30,18 +25,21 @@ public partial class SettingsVM : ObservableObject
         {BackgroundMode.Color, LocManager.GetOrDefault("Default", "SettingsDialog", "BackgroundMode", "NoBackground")}
     };
 
+    public Dictionary<ThemeType, string> ThemeTypes => new()
+    {
+        {ThemeType.Default, "Default"},
+        {ThemeType.Black, "Black"},
+        {ThemeType.Light, "Light"},
+        {ThemeType.Luxury, "Luxury"},
+        {ThemeType.Shadcn, "Shadcn"}
+    };
+
     public Dictionary<LocalizationLanguage, string> Languages { get; } = new()
     {
         {LocalizationLanguage.English, "English"},
         {LocalizationLanguage.Russian, "Русский"},
         {LocalizationLanguage.Ukrainian, "Українська"}
     };
-
-    public Color? BackgroundColor
-    {
-        get => Settings.BackgroundColor;
-        set => Settings.BackgroundColor = value;
-    }
 
     public Color? IconColor
     {
@@ -61,21 +59,6 @@ public partial class SettingsVM : ObservableObject
 
             OnPropertyChanged();
             OnPropertyChanged(nameof(IconColor));
-        }
-    }
-
-    public bool UseBackground
-    {
-        get => BackgroundColor != null;
-        set
-        {
-            if (value == false)
-                BackgroundColor = null;
-            else
-                BackgroundColor = Color.FromRgb(202, 39, 39);
-
-            OnPropertyChanged();
-            OnPropertyChanged(nameof(BackgroundColor));
         }
     }
 
@@ -122,4 +105,69 @@ public partial class SettingsVM : ObservableObject
     {
         Settings.IsPasswordSet = PHandler.SetPassword(Password);
     }
+
+    [RelayCommand]
+    private void ResetThemeDefaults()
+    {
+        Settings.ResetThemeDefaults();
+        OnPropertyChanged(nameof(BackgroundBlur));
+        OnPropertyChanged(nameof(BackgroundOpacity));
+        OnPropertyChanged(nameof(BackgroundGamma));
+        OnPropertyChanged(nameof(LeftOpacity));
+        OnPropertyChanged(nameof(RightOpacity));
+        OnPropertyChanged(nameof(ApplyBlurBackground));
+    }
+
+
+    #region Theme
+
+    public BackgroundMode BackgroundMode
+    {
+        get => Settings.BackgroundMode;
+        set => Settings.BackgroundMode = value;
+    }
+
+    public double BackgroundBlur
+    {
+        get => Settings.BackgroundBlur;
+        set => Settings.BackgroundBlur = value;
+    }
+
+    public double BackgroundOpacity
+    {
+        get => Settings.BackgroundOpacity;
+        set => Settings.BackgroundOpacity = value;
+    }
+
+    public double BackgroundGamma
+    {
+        get => Settings.BackgroundGamma;
+        set => Settings.BackgroundGamma = value;
+    }
+
+    public double LeftOpacity
+    {
+        get => Settings.LeftOpacity;
+        set => Settings.LeftOpacity = value;
+    }
+
+    public double RightOpacity
+    {
+        get => Settings.RightOpacity;
+        set => Settings.RightOpacity = value;
+    }
+
+    public bool ApplyBlurBackground
+    {
+        get => Settings.ApplyBlurBackground;
+        set => Settings.ApplyBlurBackground = value;
+    }
+
+    public ThemeType ThemeType
+    {
+        get => Settings.ThemeType;
+        set => Settings.ThemeType = value;
+    }
+
+    #endregion
 }

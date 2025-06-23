@@ -1,17 +1,18 @@
 ﻿using System.Text.RegularExpressions;
-using SteamLib.Core.Models;
+using SteamLibForked.Models.SteamIds;
 
 namespace SteamLib.Utility;
 
-public static class SteamIdParser
+public static partial class SteamIdParser
 {
-    public static readonly Regex Steam64Regex = new("^7656119([0-9]{10})$", RegexOptions.Compiled);
+    [GeneratedRegex("^7656119([0-9]{10})$", RegexOptions.Compiled)]
+    public static partial Regex Steam64Regex { get; }
 
-    public static readonly Regex Steam2Regex =
-        new("STEAM_(?<universe>[0-9]):(?<lowestBit>[0-9]):(?<highestBits>[0-9]{1,10})", RegexOptions.Compiled);
+    [GeneratedRegex(@"STEAM_(?<universe>[0-9]):(?<lowestBit>[0-9]):(?<highestBits>[0-9]{1,10})", RegexOptions.Compiled)]
+    public static partial Regex Steam2Regex { get; }
 
-    public static readonly Regex Steam3Regex =
-        new("^\\[?(?<type>[a-zA-Z]):1:(?<id>[0-9]{1,10})\\]$", RegexOptions.Compiled);
+    [GeneratedRegex(@"^\[?(?<type>[a-zA-Z]):1:(?<id>[0-9]{1,10})\]$", RegexOptions.Compiled)]
+    public static partial Regex Steam3Regex { get; }
 
 
     #region TryParse
@@ -125,13 +126,13 @@ public static class SteamIdParser
 
     public static SteamId64 Parse64(string input)
     {
-        var match64 = Steam64Regex.Match(input);
-        if (match64.Success)
+        var steamId = long.Parse(input);
+        if (steamId < SteamId64.SEED)
         {
-            return new SteamId64(long.Parse(match64.Value));
+            throw new FormatException($"The input string '{input}' was not in a correct format or not real SteamId64");
         }
 
-        throw new FormatException($"The input string '{input}' was not in a correct format or not real SteamId64.");
+        return new SteamId64(steamId);
     }
 
     public static SteamId2 Parse2(string input)

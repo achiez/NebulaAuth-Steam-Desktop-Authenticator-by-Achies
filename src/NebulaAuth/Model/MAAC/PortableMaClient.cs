@@ -14,10 +14,10 @@ using NebulaAuth.Model.Entities;
 using NebulaAuth.Utility;
 using SteamLib.Api.Mobile;
 using SteamLib.Authentication;
-using SteamLib.Core.Interfaces;
-using SteamLib.Exceptions;
+using SteamLib.Exceptions.Authorization;
 using SteamLib.SteamMobile.Confirmations;
 using SteamLib.Web;
+using SteamLibForked.Abstractions;
 
 namespace NebulaAuth.Model.MAAC;
 

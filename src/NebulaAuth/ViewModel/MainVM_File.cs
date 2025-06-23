@@ -17,7 +17,7 @@ using NebulaAuth.Utility;
 using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;
 using NebulaAuth.ViewModel.Other;
-using SteamLib.Exceptions;
+using SteamLibForked.Exceptions.Authorization;
 
 namespace NebulaAuth.ViewModel;
 
@@ -160,7 +160,7 @@ public partial class MainVM //File //TODO: Refactor
         var wait = DialogHost.Show(waitDialog);
         try
         {
-            await MaClient.LoginAgain(data, password, loginAgainVm.SavePassword, waitDialog);
+            await MaClient.LoginAgain(data, password, loginAgainVm.SavePassword);
             SnackbarController.SendSnackbar(GetLocalization("SuccessfulLogin"));
         }
         catch (LoginException ex)
@@ -217,7 +217,7 @@ public partial class MainVM //File //TODO: Refactor
     private async Task OpenSettingsDialog()
     {
         var vm = new SettingsVM();
-        var view = new SettingsView
+        var view = new SettingsView(CurrentDialogHost)
         {
             DataContext = vm
         };
