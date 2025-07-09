@@ -207,4 +207,31 @@
             </Button>
         </Grid>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type confirmations:PurchaseConfirmation}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <materialDesign:PackIcon Width="20" Height="20" VerticalAlignment="Center" DockPanel.Dock="Left"
+                                     Kind="ShopComplete" Margin="0,0,10,0" />
+            <TextBlock VerticalAlignment="Center" Grid.Column="1" Text="{Tr MainWindow.ConfirmationTemplates.Purchase}" />
+            <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Right"
+                       Text="{Binding Time, StringFormat=t}" />
+            <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="3"
+                    Style="{StaticResource MaterialDesignIconButton}"
+                    Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.ConfirmCommand)}"
+                    CommandParameter="{Binding }">
+                <materialDesign:PackIcon Kind="Check" />
+            </Button>
+            <Button Grid.Column="4" Style="{StaticResource MaterialDesignIconButton}"
+                    Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.CancelCommand)}"
+                    CommandParameter="{Binding }">
+                <materialDesign:PackIcon Kind="Close" />
+            </Button>
+        </Grid>
+    </DataTemplate>
 </ResourceDictionary>

@@ -6,7 +6,7 @@ public class MarketConfirmation : Confirmation
     public string ItemName { get; init; } = string.Empty;
     public string PriceString { get; init; } = string.Empty;
 
-    public MarketConfirmation(long id, ulong key, long creator, string typeName) : base(id, key, 3, creator,
+    public MarketConfirmation(long id, ulong key, ulong creator, string typeName) : base(id, key, 3, creator,
         ConfirmationType.MarketSellTransaction, typeName)
     {
     }

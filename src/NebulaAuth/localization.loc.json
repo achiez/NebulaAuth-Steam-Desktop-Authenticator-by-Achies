@@ -255,7 +255,12 @@
         "en": "Market",
         "ru": "Маркет",
         "ua": "Маркет"
-      }
+      },
+      "Purchase": {
+        "en": "Purchase",
+        "ru": "Покупка",
+        "ua": "Покупка"
+      }       
     },
     "CodeCopied": {
       "ru": "Скопировано",
@@ -1098,14 +1103,14 @@
     },
     "ExceptionHandler": {
       "SessionInvalidException": {
-        "ru": "Сессия истекла. Попробуйте обновить ее через меню или залогиниться заново",
-        "en": "Session expired. Try to refresh it through menu or login again",
-        "ua": "Сесія прострочена. Спробуйте оновити її через меню або залогінитися знову"
+        "ru": "Сессия истекла. Попробуйте обновить ее или залогиниться заново (Аккаунт → войти)",
+        "en": "Session expired. Try to refresh it or login again (Account → Login)",
+        "ua": "Сесія прострочена. Спробуйте оновити її через меню або залогінитися знову (Акаунт → Увійти)"
       },
       "SessionExpiredException": {
-        "ru": "Сессия полностью истекла. Нужно залогиниться заново",
-        "en": "Session fully expired. Need to login again",
-        "ua": "Сесія повніст'ю прострочена'. Потрібно залогінитися знову"
+        "ru": "Сессия полностью истекла. Нужно залогиниться заново (Аккаунт → Войти)",
+        "en": "Session fully expired. Need to login again (Account → Login)",
+        "ua": "Сесія повніст'ю прострочена'. Потрібно залогінитися знову (Акаунт → Увійти)"
       },
       "TaskCanceledException": {
         "ru": "Произошла отмена операции",

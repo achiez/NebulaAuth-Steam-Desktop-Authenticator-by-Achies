@@ -40,5 +40,6 @@ public static class Shell
     private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
         Logger.Fatal((Exception) e.ExceptionObject);
+        LogManager.Shutdown();
     }
 }

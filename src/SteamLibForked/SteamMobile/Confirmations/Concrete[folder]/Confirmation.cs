@@ -12,7 +12,7 @@ public class Confirmation
     /// <summary>
     ///     Represents either the Trade Offer ID or market transaction ID that caused this confirmation to be created.
     /// </summary>
-    public long CreatorId { get; }
+    public ulong CreatorId { get; }
 
     public string TypeName { get; init; }
     public string HeadLine { get; init; } = string.Empty;
@@ -31,7 +31,7 @@ public class Confirmation
     /// </summary>
     public int IntType;
 
-    public Confirmation(long id, ulong nonce, int intType, long creatorId, ConfirmationType confType, string typeName)
+    public Confirmation(long id, ulong nonce, int intType, ulong creatorId, ConfirmationType confType, string typeName)
     {
         Id = id;
         Nonce = nonce;

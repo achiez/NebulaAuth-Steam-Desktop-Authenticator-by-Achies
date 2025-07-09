@@ -23,7 +23,7 @@ public class ConfirmationJson
     [JsonProperty("type")] public ConfirmationType Type { get; set; }
     [JsonProperty("type_name")] public string TypeName { get; set; } = string.Empty;
     [JsonProperty("id")] public long Id { get; set; }
-    [JsonProperty("creator_id")] public long CreatorId { get; set; }
+    [JsonProperty("creator_id")] public ulong CreatorId { get; set; }
     [JsonProperty("nonce")] public ulong Nonce { get; set; }
     [JsonProperty("creation_time")] public UnixTimeStamp CreationTime { get; set; }
     [JsonProperty("cancel")] public string Cancel { get; set; } = string.Empty;

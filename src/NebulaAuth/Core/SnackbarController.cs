@@ -44,7 +44,7 @@ public class SnackbarController
 
     private static TimeSpan GetSnackbarTime(string str)
     {
-        var duration = str.Length / 0.03;
+        var duration = str.Length / 0.022;
         if (duration < MIN_SNACKBAR_TIME)
         {
             duration = MIN_SNACKBAR_TIME;

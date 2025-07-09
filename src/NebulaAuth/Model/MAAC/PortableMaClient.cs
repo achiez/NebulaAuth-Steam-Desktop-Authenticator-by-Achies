@@ -90,7 +90,8 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         var toConfirm = new List<Confirmation>();
         if (AutoConfirmMarket)
         {
-            var market = conf.Where(c => c.ConfType == ConfirmationType.MarketSellTransaction);
+            var market = conf.Where(c => 
+                c.ConfType is ConfirmationType.MarketSellTransaction or ConfirmationType.Purchase);
             toConfirm.AddRange(market);
         }
 

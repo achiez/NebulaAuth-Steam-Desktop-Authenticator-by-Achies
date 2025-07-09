@@ -6,5 +6,6 @@ public enum ConfirmationType
     Trade = 2,
     MarketSellTransaction = 3,
     AccountRecovery = 6,
-    RegisterApiKey = 9
+    RegisterApiKey = 9,
+    Purchase = 12
 }

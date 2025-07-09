@@ -77,6 +77,7 @@ public static class MobileConfirmationScrapper
             ConfirmationType.AccountRecovery => GetAccountRecoveryConfirmation(json),
             ConfirmationType.MarketSellTransaction => GetMarketConfirmation(json),
             ConfirmationType.RegisterApiKey => GetRegisterApiKeyConfirmation(json),
+            ConfirmationType.Purchase => GetPurchaseConfirmation(json),
             _ => new Confirmation(json.Id, json.Nonce, (int) json.Type, json.CreatorId, json.Type, json.TypeName)
             {
                 Time = json.CreationTime.ToLocalDateTime()
@@ -164,6 +165,15 @@ public static class MobileConfirmationScrapper
             ItemImageUri = itemImageUri,
             ItemName = itemName,
             PriceString = string.Empty //TODO:
+        };
+    }
+
+    private static PurchaseConfirmation GetPurchaseConfirmation(ConfirmationJson confirmation)
+    {
+        return new PurchaseConfirmation(confirmation.Id, confirmation.Nonce, (int) confirmation.Type,
+            confirmation.CreatorId, confirmation.TypeName)
+        {
+            Time = confirmation.CreationTime.ToLocalDateTime()
         };
     }
 }
