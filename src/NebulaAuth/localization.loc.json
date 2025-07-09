@@ -1,0 +1,1329 @@
+{
+  "LanguageName": {
+    "en": "English",
+    "ru": "Русский",
+    "ua": "Українська"
+  },
+  "LanguageWord": {
+    "en": "Language",
+    "ru": "Язык",
+    "ua": "Мова"
+  },
+  "Common": {
+    "No": {
+      "en": "No",
+      "ru": "Нет",
+      "ua": "Ні"
+    },
+    "Yes": {
+      "en": "Yes",
+      "ru": "Да",
+      "ua": "Так"
+    },
+    "Error": {
+      "en": "Error",
+      "ru": "Ошибка",
+      "ua": "Помилка"
+    },
+    "RequestError": {
+      "en": "Request error",
+      "ru": "Ошибка запроса",
+      "ua": "Помилка запиту"
+    },
+    "Canceled": {
+      "en": "Canceled",
+      "ru": "Отменено",
+      "ua": "Скасовано"
+    },
+    "Proxy": {
+      "en": "Proxy",
+      "ru": "Прокси",
+      "ua": "Проксі"
+    },
+    "Abbreviations": {
+      "Time": {
+        "Seconds": {
+          "en": "sec",
+          "ru": "сек",
+          "ua": "сек"
+        }
+      },
+      "Count": {
+        "Items": {
+          "en": "items",
+          "ru": "шт",
+          "ua": "шт"
+        }
+      }
+    }
+  },
+  "MainWindow": {
+    "Global": {
+      "DragNDropHint": {
+        "en": "Release to import mafiles",
+        "ru": "Отпустите для импорта мафайлов",
+        "ua": "Відпустіть для імпорту мафайлів"
+      },
+      "LoadingHint": {
+        "en": "Loading...",
+        "ru": "Загрузка...",
+        "ua": "Завантаження..."
+      }
+    },
+    "Menu": {
+      "File": {
+        "Caption": {
+          "en": "File",
+          "ru": "Файл",
+          "ua": "Файл"
+        },
+        "Import": {
+          "en": "Import",
+          "ru": "Импорт",
+          "ua": "Імпорт"
+        },
+        "Remove": {
+          "en": "Remove",
+          "ru": "Удалить",
+          "ua": "Видалити"
+        },
+        "OpenFolder": {
+          "en": "Open folder",
+          "ru": "Открыть папку",
+          "ua": "Відкрити папку"
+        },
+        "Settings": {
+          "en": "Settings",
+          "ru": "Настройки",
+          "ua": "Налаштування"
+        }
+      },
+      "Account": {
+        "Caption": {
+          "en": "Account",
+          "ru": "Аккаунт",
+          "ua": "Акаунт"
+        },
+        "Link": {
+          "en": "Link",
+          "ru": "Привязать",
+          "ua": "Прив'язати"
+        },
+        "MoveSteamGuard": {
+          "en": "Move Steam Guard",
+          "ru": "Перенести Steam Guard",
+          "ua": "Перенести Steam Guard"
+        },
+        "Unlink": {
+          "en": "Unlink",
+          "ru": "Отвязать",
+          "ua": "Відв'язати"
+        },
+        "RefreshSession": {
+          "en": "Refresh session",
+          "ru": "Обновить сессию",
+          "ua": "Оновити сесію"
+        },
+        "LoginAgain": {
+          "en": "Login",
+          "ru": "Войти",
+          "ua": "Увійти"
+        }
+      }
+    },
+    "AppBar": {
+      "GroupsHint": {
+        "en": "Groups",
+        "ru": "Группы",
+        "ua": "Групи"
+      },
+      "GroupToolTip": {
+        "ru": "Введите новую группу и нажмите Enter. Управление группой - ПКМ на аккаунте",
+        "en": "Enter new group and press Enter. Group management - RMB on account",
+        "ua": "Введіть нову групу і натисніть Enter. Управління групою - ПКМ на акаунті"
+      },
+      "Proxy": {
+        "ProxyHint": {
+          "en": "Proxy",
+          "ru": "Прокси",
+          "ua": "Проксі"
+        },
+        "ProxyOpenManagerHint": {
+          "en": "Open proxy manager",
+          "ru": "Открыть менеджер прокси",
+          "ua": "Відкрити менеджер проксі"
+        },
+        "ProxyManipulateToolTip": {
+          "en": "Right-click to open menu. DEL to remove",
+          "ru": "Правый клик для открытия меню. DEL для удаления",
+          "ua": "Правий клік для відкриття меню. DEL для видалення"
+        },
+        "ProxyAlert": {
+          "DefaultInUse": {
+            "en": "Default proxy is in use",
+            "ru": "Используется прокси по умолчанию",
+            "ua": "Використовується проксі за замовчуванням"
+          },
+          "MafileProxyInUse": {
+            "en": "Mafile proxy is in use",
+            "ru": "Используется прокси из mafile",
+            "ua": "Використовується проксі з mafile"
+          }
+        }
+      },
+      "TradeTimerHint": {
+        "en": "Auto-confirm trades. RMC for mass control",
+        "ru": "Автоподтверждение трейдов. ПКМ для массового управления",
+        "ua": "Автопідтвердження трейдів. ПКМ для масового управління"
+      },
+      "MarketTimerHint": {
+        "en": "Auto-confirm market listings. RMC for mass control",
+        "ru": "Автоподтверждение лотов на маркете. ПКМ для массового управления",
+        "ua": "Автопідтвердження лотів на маркеті. ПКМ для масового управління"
+      },
+      "TimersContextMenu": {
+        "SwitchMAACGroup": {
+          "en": "Switch in group",
+          "ru": "Переключить в группе",
+          "ua": "Перемкнути в групі"
+        },
+        "SwitchMAACAll": {
+          "en": "Switch all",
+          "ru": "Переключить все",
+          "ua": "Перемкнути всі"
+        }
+      },
+      "ShowAutoConfirmAccountsHint": {
+        "en": "Show accounts with auto-confirmation enabled.",
+        "ru": "Показать аккаунты с включенным автоподтверждением.",
+        "ua": "Показати акаунти з включеним автопідтвердженням."
+      }
+    },
+    "LeftPart": {
+      "SearchBoxHint": {
+        "en": "Search",
+        "ru": "Поиск",
+        "ua": "Пошук"
+      },
+      "NoMafiles": {
+        "en": "No mafiles found..",
+        "ru": "Мафайлы не найдены..",
+        "ua": "Мафайли не знайдено.."
+      }
+    },
+    "RightPart": {
+      "LoadConfirmations": {
+        "en": "Load confirmations",
+        "ru": "Загрузить подтверждения",
+        "ua": "Завантажити підтвердження"
+      },
+      "ConfirmLogin": {
+        "en": "Confirm login",
+        "ru": "Подтвердить вход",
+        "ua": "Підтвердити вхід"
+      }
+    },
+    "Footer": {
+      "Account": {
+        "en": "Account: ",
+        "ru": "Аккаунт: ",
+        "ua": "Акаунт: "
+      },
+      "Group": {
+        "en": "Group: ",
+        "ru": "Группа: ",
+        "ua": "Група: "
+      }
+    },
+    "ConfirmationTemplates": {
+      "TradeWith": {
+        "en": "Trade with",
+        "ru": "Трейд с",
+        "ua": "Трейд з"
+      },
+      "Recovery": {
+        "en": "Recovery",
+        "ru": "Восстановление",
+        "ua": "Відновлення"
+      },
+      "ApiKey": {
+        "en": "Api key",
+        "ru": "Api ключ",
+        "ua": "Api ключ"
+      },
+      "Market": {
+        "en": "Market",
+        "ru": "Маркет",
+        "ua": "Маркет"
+      },
+      "Purchase": {
+        "en": "Purchase",
+        "ru": "Покупка",
+        "ua": "Покупка"
+      }       
+    },
+    "CodeCopied": {
+      "ru": "Скопировано",
+      "en": "Copied",
+      "ua": "Скопійовано"
+    },
+    "ContextMenus": {
+      "Mafile": {
+        "CopyLogin": {
+          "en": "Copy login",
+          "ru": "Скопировать логин",
+          "ua": "Скопіювати логін"
+        },
+        "CopyMafile": {
+          "en": "Copy mafile",
+          "ru": "Скопировать мафайл",
+          "ua": "Скопіювати мафайл"
+        },
+        "CopySteamId": {
+          "en": "Copy SteamID",
+          "ru": "Скопировать SteamID",
+          "ua": "Скопіювати SteamID"
+        },
+        "AddToGroup": {
+          "en": "Add to group",
+          "ru": "Добавить в группу",
+          "ua": "Додати в групу"
+        },
+        "RemoveFromGroup": {
+          "en": "Remove from group",
+          "ru": "Удалить из группы",
+          "ua": "Видалити з групи"
+        },
+        "CopyPassword": {
+          "en": "Copy password",
+          "ru": "Скопировать пароль",
+          "ua": "Скопіювати пароль"
+        }
+      },
+      "Proxy": {
+        "Copy": {
+          "en": "Copy",
+          "ru": "Скопировать",
+          "ua": "Скопіювати"
+        },
+        "CopyAddress": {
+          "en": "Copy address",
+          "ru": "Скопировать адрес",
+          "ua": "Скопіювати адресу"
+        }
+      }
+    }
+  },
+  "SettingsDialog": {
+    "Title": {
+      "en": "Settings",
+      "ru": "Настройки",
+      "ua": "Налаштування"
+    },
+    "MainSettings": {
+      "en": "Main",
+      "ru": "Основные",
+      "ua": "Основні"
+    },
+    "ThemeSettings": {
+      "en": "Theme",
+      "ru": "Тема",
+      "ua": "Тема"
+    },
+    "Theme": {
+      "BackgroundBlur": {
+        "en": "Background Blur",
+        "ru": "Размытие фона",
+        "ua": "Розмиття фону"
+      },
+      "BackgroundOpacity": {
+        "en": "Background Opacity",
+        "ru": "Непрозрачность фона",
+        "ua": "Непрозорість фону"
+      },
+      "Gamma": {
+        "en": "Gamma",
+        "ru": "Гамма",
+        "ua": "Гама"
+      },
+      "LeftOpacity": {
+        "en": "Left Opacity",
+        "ru": "Непрозрачность слева",
+        "ua": "Непрозорість зліва"
+      },
+      "RightOpacity": {
+        "en": "Right Opacity",
+        "ru": "Непрозрачность справа",
+        "ua": "Непрозорість справа"
+      },
+      "CurrentTheme": {
+        "en": "Current Theme",
+        "ru": "Текущая тема",
+        "ua": "Поточна тема"
+      },
+      "DialogBlur": {
+        "en": "Blur on Dialog",
+        "ru": "Размытие при открытии диалог. окна",
+        "ua": "Розмиття при відкритті діалог. вікна"
+      },
+      "Reset": {
+        "en": "Reset",
+        "ru": "Сбросить",
+        "ua": "Скинути"
+      }
+    },
+    "BackgroundHint": {
+      "en": "Background",
+      "ru": "Фон",
+      "ua": "Фон"
+    },
+    "BackgroundMode": {
+      "Default": {
+        "en": "Default",
+        "ru": "По умолчанию",
+        "ua": "За замовчуванням"
+      },
+      "Custom": {
+        "en": "Custom",
+        "ru": "Свой",
+        "ua": "Свій"
+      },
+      "NoBackground": {
+        "en": "No background",
+        "ru": "Без фона",
+        "ua": "Без фону"
+      }
+    },
+    "MinimizeToTray": {
+      "en": "Minimize to tray",
+      "ru": "Сворачивать в трей",
+      "ua": "Згортати в трей"
+    },
+    "UseIndicator": {
+      "en": "Use indicator",
+      "ru": "Использовать индикатор",
+      "ua": "Використовувати індикатор"
+    },
+    "UseIndicatorHint": {
+      "en": "Small color indicator in windows toolbar to identify program instance",
+      "ru": "Маленький цветной индикатор в панели задач для идентификации экземпляра программы",
+      "ua": "Малий кольоровий індикатор в панелі завдань для ідентифікації екземпляра програми"
+    },
+    "UseCustomColor": {
+      "en": "Custom window color",
+      "ru": "Свой цвет окна",
+      "ua": "Свій колір вікна"
+    },
+    "PasswordBox": {
+      "CurrentCryptPassword": {
+        "en": "Current encryption password",
+        "ru": "Текущий пароль шифрования",
+        "ua": "Поточний пароль шифрування"
+      },
+      "Hint": {
+        "en": "Doesn't saved on disk",
+        "ru": "Не сохраняется в системе",
+        "ua": "Не зберігається у системі"
+      }
+    },
+    "LegacyMafileMode": {
+      "en": "Common mafiles format",
+      "ru": "Общепринятый формат мафайлов",
+      "ua": "Загальноприйнятий формат мафайлів"
+    },
+    "LegacyMafileModeHint": {
+      "en": "Save mafiles in compatibility format with Steam Desktop Authenticator and other applications",
+      "ru":
+        "Сохранять мафайлы в старом формате для совместимости со Steam Desktop Authenticator и другими приложениями",
+      "ua": "Зберігати мафайли у старому форматі для сумісності зі Steam Desktop Authenticator та іншими додатками"
+    },
+    "AllowAutoUpdate": {
+      "en": "Allow auto update",
+      "ru": "Разрешить автообновление",
+      "ua": "Дозволити автооновлення"
+    },
+    "UseAccountName": {
+      "en": "Use account name on mafiles",
+      "ru": "Использовать имя аккаунта на мафайлах",
+      "ua": "Використовувати ім'я акаунта на мафайлах"
+    },
+    "IgnorePatchTuesdayErrors": {
+      "en": "Ignore Patch Tuesday errors in timer (exp.)",
+      "ru": "Игнорировать ошибки Patch Tuesday в таймере (эксп.)",
+      "ua": "Ігнорувати помилки Patch Tuesday у таймері (експ.)"
+    },
+    "IgnorePatchTuesdayErrorsHint": {
+      "en":
+        "Ignore errors that occur every Tuesday (Wednesday night in GMT) when Steam doing technical works and auto-confirm timers turns off unnecessarily",
+      "ru":
+        "Игнорировать ошибки, которые возникают каждый вторник (ночь среды по GMT) когда Steam проводит технические работы и автоподтверждения отключаются без надобности",
+      "ua":
+        "Ігнорувати помилки, які виникають щосереди (ніч середи за GMT) коли Steam проводить технічні роботи і автопідтвердження вимикаються без потреби"
+    }
+
+
+  },
+  "LoginAgainDialog": {
+    "Title": {
+      "en": "Login",
+      "ru": "Вход",
+      "ua": "Вхід"
+    },
+    "LoginFor": {
+      "en": "Login for",
+      "ru": "Войти в",
+      "ua": "Увійти в"
+    },
+    "LoginButton": {
+      "en": "Login",
+      "ru": "Войти",
+      "ua": "Увійти"
+    },
+    "CancelButton": {
+      "en": "Cancel",
+      "ru": "Отмена",
+      "ua": "Відміна"
+    },
+    "PasswordBox": {
+      "en": "Password",
+      "ru": "Пароль",
+      "ua": "Пароль"
+    },
+    "SaveEncryptedPassword": {
+      "en": "Save encrypted password to mafile",
+      "ru": "Сохранить зашифрованный пароль в мафайл",
+      "ua": "Зберегти зашифрований пароль в мафайлі"
+    },
+    "UseMafileProxy": {
+      "en": "Use mafile proxy",
+      "ru": "Использовать прокси из мафайла",
+      "ua": "Використовувати проксі з мафайла"
+    },
+    "ProxyToolTip": {
+      "en": "Press 'DEL' to remove",
+      "ru": "Нажмите 'DEL' для удаления",
+      "ua": "Натисніть 'DEL' для видалення"
+    }
+  },
+  "ProxyManagerDialog": {
+    "Title": {
+      "en": "Proxy manager",
+      "ru": "Менеджер прокси",
+      "ua": "Менеджер проксі"
+    },
+    "DefaultProxy": {
+      "en": "Default proxy:",
+      "ru": "Прокси по умолчанию:",
+      "ua": "Проксі за замовчуванням:"
+    },
+    "UseRandomDefaultProxy": {
+      "en": "Use random default proxy",
+      "ru": "Cлучайный прокси по умолчанию",
+      "ua": "Випадковий проксі за замовчуванням"
+    }
+  },
+  "WaitLoginDialog": {
+    "Text": {
+      "en": "Login in progress. Please wait",
+      "ru": "Производится логин. Ожидайте",
+      "ua": "Виконується вхід. Зачекайте"
+    }
+  },
+  "LinkerDialog": {
+    "Title": {
+      "en": "Linker",
+      "ru": "Привязка",
+      "ua": "Прив'язка"
+    },
+    "GotErrorHyperlinkText": {
+      "en": "(getting error?)",
+      "ru": "(возникает ошибка?)",
+      "ua": "(виникає помилка?)"
+    },
+    "Proxy": {
+      "en": "Proxy",
+      "ru": "Прокси",
+      "ua": "Проксі"
+    },
+    "Authorization": {
+      "en": "Authorization",
+      "ru": "Вход в аккаунт",
+      "ua": "Вхід в акаунт"
+    },
+    "EmailCode": {
+      "en": "Email code",
+      "ru": "Код из письма",
+      "ua": "Код з листа"
+    },
+    "PhoneNumber": {
+      "en": "Phone number",
+      "ru": "Номер телефона",
+      "ua": "Номер телефону"
+    },
+    "EmailLink": {
+      "en": "EMail link",
+      "ru": "Ссылка из email",
+      "ua": "Посилання з email"
+    },
+    "SmsOrCode": {
+      "en": "SMS or code",
+      "ru": "СМС или код",
+      "ua": "СМС або код"
+    },
+    "Completed": {
+      "en": "Completed",
+      "ru": "Завершено",
+      "ua": "Завершено"
+    },
+    "Message": {
+      "en": "Message:",
+      "ru": "Сообщение:",
+      "ua": "Повідомлення:"
+    },
+    "ProceedButton": {
+      "en": "Proceed",
+      "ru": "Продолжить",
+      "ua": "Продовжити"
+    },
+    "CancelButton": {
+      "en": "Cancel",
+      "ru": "Отмена",
+      "ua": "Відміна"
+    },
+    "MafileLinked": {
+      "en": "Mafile successfully linked",
+      "ru": "Мафайл успешно привязан",
+      "ua": "Мафайл успішно прив'язано"
+    },
+    "FinishButton": {
+      "en": "Finish",
+      "ru": "Завершить",
+      "ua": "Завершити"
+    },
+    "CopyRCodeButton": {
+      "en": "Copy RCode",
+      "ru": "Скопировать RCode",
+      "ua": "Скопіювати RCode"
+    },
+    "Login": {
+      "en": "Login",
+      "ru": "Логин",
+      "ua": "Логін"
+    },
+    "Password": {
+      "en": "Password",
+      "ru": "Пароль",
+      "ua": "Пароль"
+    },
+    "Code": {
+      "en": "Code",
+      "ru": "Код",
+      "ua": "Код"
+    },
+    "SmsCode": {
+      "en": "SMS code",
+      "ru": "СМС код",
+      "ua": "СМС код"
+    }
+  },
+  "SetEncryptedPasswordDialog": {
+    "Title": {
+      "en": "Encryption password",
+      "ru": "Пароль шифрования",
+      "ua": "Пароль шифрування"
+    },
+    "DialogText": {
+      "en":
+        "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session. (Optional)",
+      "ru":
+        "Ранее вы устанавливали пароль шифрования для паролей в мафайлах, укажите его, чтобы приложение могло автоматически авторизоваться в случае проблем с сессией. (Не обязательно)",
+      "ua":
+        "Раніше ви встановлювали пароль шифрування для паролів в мафайлах, вкажіть його, щоб додаток міг автоматично авторизуватися у випадку проблем з сесією. (Не обов'язково)"
+    },
+    "Ok": {
+      "en": "Ok",
+      "ru": "Ок",
+      "ua": "Ок"
+    },
+    "Cancel": {
+      "en": "Cancel",
+      "ru": "Отмена",
+      "ua": "Відміна"
+    },
+    "Password": {
+      "en": "Password",
+      "ru": "Пароль",
+      "ua": "Пароль"
+    }
+  },
+  "LinksView": {
+    "UsefulLinks": {
+      "en": "Useful links",
+      "ru": "Полезные ссылки",
+      "ua": "Корисні посилання"
+    },
+    "Documentation": {
+      "en": "Documentation",
+      "ru": "Документация",
+      "ua": "Документація"
+    }
+  },
+  "MafileMoverView": {
+    "Title": {
+      "en": "Move Steam Guard",
+      "ru": "Перенести Steam Guard",
+      "ua": "Перенести Steam Guard"
+    },
+    "Done": {
+      "en": "Steam Guard moved",
+      "ru": "Steam Guard перенесен",
+      "ua": "Steam Guard перенесено"
+    }
+  },
+  "CodeBehind": {
+    "MainVM": {
+      "SuccessfulLogin": {
+        "en": "Successful login",
+        "ru": "Успешный вход",
+        "ua": "Успішний вхід"
+      },
+      "SessionRefreshed": {
+        "en": "Session refreshed",
+        "ru": "Сессия обновлена",
+        "ua": "Сесія оновлена"
+      },
+      "MissingRCode": {
+        "en": "Missing RCode",
+        "ru": "Отсутствует RCode",
+        "ua": "Відсутній RCode"
+      },
+      "ConfirmRemovingAuthenticator": {
+        "ru": "Вы точно уверены что хотите удалить аутентификатор?",
+        "en": "Are you sure you want to remove authenticator?",
+        "ua": "Ви точно впевнені що хочете видалити аутентифікатор?"
+      },
+      "AuthenticatorRemoved": {
+        "ru": "Аутентификатор удален",
+        "en": "Authenticator removed",
+        "ua": "Аутентифікатор видалено"
+      },
+      "AuthenticatorNotRemoved": {
+        "ru": "Что-то пошло не так",
+        "en": "Something went wrong",
+        "ua": "Щось пішло не так"
+      },
+      "ConfirmLoginSuccess": {
+        "ru": "Вход осуществлен:",
+        "en": "Login success:",
+        "ua": "Вхід здійснено:"
+      },
+      "ConfirmLoginFailedNoRequests": {
+        "ru": "Запросов на вход не обнаружено",
+        "en": "No login requests found",
+        "ua": "Запитів на вхід не виявлено"
+      },
+      "ConfirmLoginFailedMoreThanOneRequest": {
+        "ru": "Обнаружено несколько запросов на вход. В целях безопасности операция отменена",
+        "en": "Multiple login requests found. For security reasons, the operation is canceled",
+        "ua": "Виявлено декілька запитів на вхід. З метою безпеки операція скасована"
+      },
+      "ConfirmationError": {
+        "ru": "Ошибка подтверждения",
+        "en": "Confirmation error",
+        "ua": "Помилка підтвердження"
+      },
+      "ConfirmMafileOverwrite": {
+        "ru": "Внимание, мафайл уже присутствует в папке mafiles.\r\nПерезаписать мафайлы, которые конфликтуют?",
+        "en": "Attention, mafile already exists in mafiles folder.\r\nOverwrite conflicting mafiles?",
+        "ua": "Увага, мафайл вже присутній у папці mafiles.\r\nПерезаписати мафайли, які конфліктують?"
+      },
+      "MafileImportError": {
+        "ru": "Ошибка импорта мафайла",
+        "en": "Mafile import error",
+        "ua": "Помилка імпорту мафайла"
+      },
+      "MissingSessionInMafile": {
+        "ru": ". У него отсутствует сессия. Добавьте этот файл отдельно от остальных",
+        "en": ". It has no session. Add this file separately from the others",
+        "ua": ". В нього відсутня сесія. Додайте цей файл окремо від інших"
+      },
+      "Import": {
+        "ru": "Импорт",
+        "en": "Import",
+        "ua": "Імпорт"
+      },
+      "ImportAdded": {
+        "ru": "добавлено:",
+        "en": "added:",
+        "ua": "додано:"
+      },
+      "ImportSkipped": {
+        "ru": "пропущено:",
+        "en": "skipped:",
+        "ua": "пропущено:"
+      },
+      "ImportErrors": {
+        "ru": "ошибки:",
+        "en": "errors:",
+        "ua": "помилки:"
+      },
+      "RemoveMafileConfirmation": {
+        "ru":
+          "Удалить мафайл? Мафайл будет перемещен в папку 'mafiles_removed' (Это действие не удаляет Steam Guard с аккаунта)",
+        "en":
+          "Remove mafile? Mafile will be moved to 'mafiles_removed' directory (This action does not remove the Steam Guard from the account)",
+        "ua":
+          "Видалити мафайл? Мафайл буде переміщено у каталог 'mafiles_removed' (Ця дія не видаляє автентифікатор з облікового запису)"
+      },
+      "CantRemoveAlreadyExist": {
+        "ru": "Не удалось переместить мафайл, возможно в папке уже существует мафайл с таким именем.",
+        "en": "Can't move mafile, maybe mafile with same name already exists in mafiles_removed folder.",
+        "ua": "Не вдалося перемістити мафайл, можливо в папці вже існує мафайл з таким іменем."
+      },
+      "CantRemoveMafile": {
+        "ru": "Не удалось удалить (переместить) мафайл:",
+        "en": "Can't remove mafile:",
+        "ua": "Не вдалося видалити (перемістити) мафайл:"
+      },
+      "TimerTooFast": {
+        "ru": "Слишком быстрый таймер.",
+        "en": "Too fast timer.",
+        "ua": "Занадто швидкий таймер."
+      },
+      "DuplicateMafilesFound": {
+        "en": "Duplicate mafile(s) found and were not loaded. Check log to get lists of duplicate files.",
+        "ru": "Найдены дубликаты мафайлов, они не были загружены. Проверьте лог чтобы получить списки дубликатов.",
+        "ua": "Знайдено дублікати мафайлів, вони не були завантажені. Перевірте лог щоб отримати списки дублікатів."
+      },
+      "TimerChanged": {
+        "en": "Timer changed",
+        "ru": "Таймер изменен",
+        "ua": "Таймер змінено"
+      },
+      "CantRetrieveSteamIDToUpdate": {
+        "ru": "Не удалось получить SteamID из мафайла и сохранить изменения. Необходимо сделать релогин. Отменено",
+        "en": "Can't retrieve SteamID from mafile to save changes. Need to relogin. Canceled",
+        "ua": "Не вдалося отримати SteamID з мафайла та зберегти зміни. Потрібно зробити релогін. Скасовано"
+      },
+      "LoginCopied": {
+        "en": "Login copied",
+        "ru": "Логин скопирован",
+        "ua": "Логін скопійовано"
+      },
+      "SteamIdCopied": {
+        "en": "SteamID copied",
+        "ru": "SteamID скопирован",
+        "ua": "SteamID скопійовано"
+      },
+      "MafileCopied": {
+        "en": "Mafile copied",
+        "ru": "Мафайл скопирован",
+        "ua": "Мафайл скопійовано"
+      },
+      "MafileNotCopied": {
+        "en": "Mafile not copied",
+        "ru": "Мафайл не скопирован",
+        "ua": "Мафайл не скопійовано"
+      },
+      "PasswordCopied": {
+        "en": "Password copied",
+        "ru": "Пароль скопирован",
+        "ua": "Пароль скопійовано"
+      },
+      "CantDecryptPassword": {
+        "en": "Can't decrypt password. Maybe password from this mafile was encrypted with another encryption password",
+        "ru":
+          "Не удалось расшифровать пароль. Возможно пароль из этого мафайла был зашифрован другим паролем шифрования",
+        "ua": "Не вдалося розшифрувати пароль. Можливо пароль з цього мафайла був зашифрований іншим паролем шифрування"
+      }
+    },
+    "ErrorTranslator": {
+      "Login": {
+        "CaptchaRequired": {
+          "en": "Captcha",
+          "ru": "Капча",
+          "ua": "Капча"
+        },
+        "InvalidCredentials": {
+          "en": "Invalid password",
+          "ru": "Неверный пароль",
+          "ua": "Невірний пароль"
+
+        },
+        "EmailAuthRequired": {
+          "en": "Email code required",
+          "ru": "Требуется код с почты",
+          "ua": "Потрібен код з пошти"
+        },
+        "InvalidEmailAuthCode": {
+          "en": "Invalid email code",
+          "ru": "Неверный код с почты",
+          "ua": "Невірний код з пошти"
+        },
+        "InvalidTwoFactorCode": {
+          "en": "Invalid two factor code",
+          "ru": "Неверный двухфакторный код",
+          "ua": "Невірний двофакторний код"
+        },
+        "UndefinedError": {
+          "en": "Undefined error",
+          "ru": "Неизвестная ошибка",
+          "ua": "Невідома помилка"
+        }
+      },
+      "EResult": {
+        "InvalidPassword": {
+          "ru": "Неверный пароль",
+          "en": "Invalid password",
+          "ua": "Невірний пароль"
+        },
+        "InvalidState": {
+          "ru": "Неверное состояние (11)",
+          "en": "Invalid state (11)",
+          "ua": "Невірний стан (11)"
+
+        },
+        "Timeout": {
+          "ru": "Таймаут (16)",
+          "en": "Timeout (16)",
+          "ua": "Таймаут (16)"
+
+        },
+        "Banned": {
+          "ru": "Забанен (17)",
+          "en": "Banned (17)",
+          "ua": "Забанений (17)"
+        },
+        "AccountNotFound": {
+          "ru": "Аккаунт не найден (18)",
+          "en": "Account not found (18)",
+          "ua": "Акаунт не знайдено (18)"
+        },
+        "InvalidSteamID": {
+          "ru": "Неправильный SteamID (19)",
+          "en": "Invalid SteamID (19)",
+          "ua": "Неправильний SteamID (19)"
+        },
+        "ServiceUnavailable": {
+          "ru": "Сервер не отвечает (20)",
+          "en": "Service unavailable (20)",
+          "ua": "Сервер не відповідає (20)"
+        },
+        "Pending": {
+          "ru": "Ожидание (21)",
+          "en": "Pending (21)",
+          "ua": "Очікування (21)"
+        },
+        "LimitExceeded": {
+          "ru": "Лимит превышен (25)",
+          "en": "Limit exceeded (25)",
+          "ua": "Ліміт перевищено (25)"
+        },
+        "Expired": {
+          "ru": "Истекло (27)",
+          "en": "Expired (27)",
+          "ua": "Термін дії закінчився (27)"
+        },
+        "Blocked": {
+          "ru": "Заблокировано (40)",
+          "en": "Blocked (40)",
+          "ua": "Заблоковано (40)"
+        },
+        "AccountDisabled": {
+          "ru": "Аккаунт отключен (43)",
+          "en": "Account disabled (43)",
+          "ua": "Акаунт відключено (43)"
+
+        },
+        "Suspended": {
+          "ru": "Отключено (Suspended 51)",
+          "en": "Suspended (51)",
+          "ua": "Відключено (Suspended 51)"
+        },
+        "Cancelled": {
+          "ru": "Отмена (52)",
+          "en": "Cancelled (52)",
+          "ua": "Скасовано (52)"
+
+        },
+        "InvalidLoginAuthCode": {
+          "ru": "Неверный код авторизации (65)",
+          "en": "Invalid login auth code (65)",
+          "ua": "Невірний код авторизації (65)"
+        },
+        "ExpiredLoginAuthCode": {
+          "ru": "Истекло время кода (71)",
+          "en": "Expired login auth code (71)",
+          "ua": "Термін дії коду закінчився (71)"
+
+        },
+        "AccountLockedDown": {
+          "ru": "Аккаунт заблокирован (КТ 73)",
+          "en": "Account locked down (73)",
+          "ua": "Акаунт заблоковано (КТ 73)"
+
+        },
+        "UnexpectedError": {
+          "ru": "Неожиданная ошибка (79)",
+          "en": "Unexpected error (79)",
+          "ua": "Непередбачувана помилка (79)"
+        },
+        "Disabled": {
+          "ru": "Отключено (80)",
+          "en": "Disabled (80)",
+          "ua": "Відключено (80)"
+        },
+        "RegionLocked": {
+          "ru": "Регион заблокирован (83)",
+          "en": "Region locked (83)",
+          "ua": "Регіон заблоковано (83)"
+        },
+        "RateLimitExceeded": {
+          "ru": "Слишком много запросов (84)",
+          "en": "Rate limit exceeded (84)",
+          "ua": "Забагато запитів (84)"
+        },
+        "TwoFactorCodeMismatch": {
+          "ru": "2FA код не подошел (88)",
+          "en": "2FA code mismatch (88)",
+          "ua": "2FA код не підійшов (88)"
+        },
+        "TwoFactorActivationCodeMismatch": {
+          "ru": "2FA код не прошел проверку (89)",
+          "en": "2FA activation code mismatch (89)",
+          "ua": "2FA код не пройшов перевірку (89)"
+
+        },
+        "TimeNotSynced": {
+          "ru": "Время не синхронизировано (93)",
+          "en": "Time not synced (93)",
+          "ua": "Час не синхронізовано (93)"
+
+        },
+        "SMSCodeFailed": {
+          "ru": "Ошибка SMS-кода (94)",
+          "en": "SMS code failed (94)",
+          "ua": "Помилка SMS-коду (94)"
+        },
+        "AccountLimitExceeded": {
+          "ru": "Лимит аккаунта превышен (95)",
+          "en": "Account limit exceeded (95)",
+          "ua": "Ліміт акаунта перевищено (95)"
+
+        },
+        "EmailSendFailure": {
+          "ru": "Не удалось отправить письмо (99)",
+          "en": "Email send failure (99)",
+          "ua": "Не вдалося відправити лист (99)"
+
+        },
+        "NeedCaptcha": {
+          "ru": "Капча (101)",
+          "en": "Need captcha (101)",
+          "ua": "Капча (101)"
+
+        },
+        "IPBanned": {
+          "ru": "IP заблокирован (105)",
+          "en": "IP banned (105)",
+          "ua": "IP заблоковано (105)"
+
+        },
+        "LimitedUserAccount": {
+          "ru": "Аккаунт с лимитом (112)",
+          "en": "Limited user account (112)",
+          "ua": "Акаунт з лімітом (112)"
+        },
+        "AccountDeleted": {
+          "ru": "Аккаунт удален (114)",
+          "en": "Account deleted (114)",
+          "ua": "Акаунт видалено (114)"
+
+        },
+        "PhoneNumberIsVOIP": {
+          "ru": "Номера VOIP запрещены (127)",
+          "en": "Phone number is VOIP (127)",
+          "ua": "Номера VOIP заборонені (127)"
+        }
+      },
+      "AuthenticatorLinkerError": {
+        "PhoneAlreadyAttached": {
+          "ru": "Телефон привязан, попробуйте через 20 минут",
+          "en": "Phone already attached, try again in 20 minutes",
+          "ua": "Телефон прив'язано, спробуйте через 20 хвилин"
+        },
+        "InvalidPhoneNumber": {
+          "ru": "Неверный номер телефона",
+          "en": "Invalid phone number",
+          "ua": "Невірний номер телефону"
+        },
+        "CantAttachPhone": {
+          "ru": "Не удается привязать телефон",
+          "en": "Can't attach phone",
+          "ua": "Не вдається прив'язати телефон"
+        },
+        "CantConfirmAttachingEmail": {
+          "ru": "Не удалось подтвердить письмо",
+          "en": "Can't confirm attaching email",
+          "ua": "Не вдалося підтвердити лист"
+        },
+        "CantSendSms": {
+          "ru": "Не удалось отправить SMS",
+          "en": "Can't send SMS",
+          "ua": "Не вдалося відправити SMS"
+        },
+        "AuthenticatorPresent": {
+          "ru": "Аутентификатор привязан",
+          "en": "Authenticator present",
+          "ua": "Аутентифікатор прив'язано"
+        },
+        "BadConfirmationCode": {
+          "ru": "Код не подошел",
+          "en": "Bad confirmation code",
+          "ua": "Код не підійшов"
+        },
+        "UnableToGenerateCorrectCodes": {
+          "ru": "Не удается сгенерировать коды",
+          "en": "Unable to generate correct codes",
+          "ua": "Не вдається згенерувати коди"
+        },
+        "InvalidStateWithStatus2": {
+          "ru": "Неверное состояние (InvalidState) со статусом 2. Откройте ссылку на руководство сверху этого окна.",
+          "en":
+            "Invalid state (InvalidState) with status 2. Open link to the troubleshooting guide at the top of this window.",
+          "ua":
+            "Невірний стан (InvalidState) зі статусом 2. Відкрийте посилання на посібник з усунення несправностей у верхній частині цього вікна."
+        },
+        "GeneralFailure": {
+          "ru": "General Failure",
+          "en": "General Failure",
+          "ua": "General Failure"
+        }
+      }
+    },
+    "ExceptionHandler": {
+      "SessionInvalidException": {
+        "ru": "Сессия истекла. Попробуйте обновить ее или залогиниться заново (Аккаунт → войти)",
+        "en": "Session expired. Try to refresh it or login again (Account → Login)",
+        "ua": "Сесія прострочена. Спробуйте оновити її через меню або залогінитися знову (Акаунт → Увійти)"
+      },
+      "SessionExpiredException": {
+        "ru": "Сессия полностью истекла. Нужно залогиниться заново (Аккаунт → Войти)",
+        "en": "Session fully expired. Need to login again (Account → Login)",
+        "ua": "Сесія повніст'ю прострочена'. Потрібно залогінитися знову (Акаунт → Увійти)"
+      },
+      "TaskCanceledException": {
+        "ru": "Произошла отмена операции",
+        "en": "Operation canceled",
+        "ua": "Операція скасована"
+      },
+      "TimeoutException": {
+        "ru": "Таймаут подключения. Проверьте ваше соединение с Proxy или интернетом",
+        "en": "Connection timeout. Check your connection with Proxy or internet",
+        "ua": "Таймаут підключення. Перевірте ваше з'єднання з Proxy або інтернетом"
+      },
+      "UnsupportedResponseException": {
+        "ru": "Получен неожиданный ответ от Steam. Результат сохранен в log.log. Свяжитесь с разработчиком",
+        "en": "Unexpected response from Steam. Result saved in log.log. Contact developer",
+        "ua": "Отримано неочікувану відповідь від Steam. Результат збережено в log.log. Зв'яжіться з розробником"
+      },
+      "LoginException": {
+        "ru": "Ошибка входа: ",
+        "en": "Login error: ",
+        "ua": "Помилка входу: "
+      },
+      "UnknownException": {
+        "ru": "Неизвестная ошибка: ",
+        "en": "Unknown error: ",
+        "ua": "Невідома помилка: "
+      },
+      "CantLoadConfirmationsException": {
+        "Common": {
+          "ru": "Не удалось загрузить потверждения из-за ошибки Steam: ",
+          "en": "Can't load confirmations due to Steam error: ",
+          "ua": "Не вдалося завантажити підтвердження через помилку Steam: "
+        },
+        "TryAgainLater": {
+          "ru": "Попробуйте позже",
+          "en": "Try again later",
+          "ua": "Спробуйте пізніше"
+        },
+        "NotSetupToReceiveConfirmations": {
+          "ru": "Аккаунт не настроен на получение подтверждений",
+          "en": "Account is not set up to receive confirmations",
+          "ua": "Акаунт не налаштований на отримання підтверджень"
+        }
+      }
+
+    },
+    "SessionHandler": {
+      "SessionWasRefreshedAutomatically": {
+        "ru": "Сессия была обновлена автоматически",
+        "en": "Session was refreshed automatically",
+        "ua": "Сесія була оновлена автоматично"
+      }
+    },
+    "ProxyManagerVM": {
+      "WrongFormatSomeIdsMissing": {
+        "ru": "Неверный формат. Некоторые прокси не имеют ID",
+        "en": "Wrong format. Some proxies have no ID",
+        "ua": "Невірний формат. Деякі проксі не мають ID"
+      },
+      "DuplicateId": {
+        "ru": "Прокси с ID {0} добавлен несколько раз",
+        "en": "Proxy with ID {0} added multiple times",
+        "ua": "Проксі з ID {0} додано декілька разів"
+      },
+      "WrongFormatOnLine": {
+        "ru": "Прокси на строке {0} имеет неверный формат.",
+        "en": "Proxy on line {0} has wrong format.",
+        "ua": "Проксі на строці {0} має невірний формат."
+      },
+      "WrongFormat": {
+        "ru": "Прокси имеет неверный формат.",
+        "en": "Proxy has wrong format.",
+        "ua": "Проксі має невірний формат."
+      }
+    },
+    "LinkVM": {
+      "EnterLoginAndPassword": {
+        "ru": "Введите логин и пароль",
+        "en": "Enter login and password",
+        "ua": "Введіть логін і пароль"
+      },
+      "CantLogin": {
+        "ru": "Не удалось залогиниться: ",
+        "en": "Can't login: ",
+        "ua": "Не вдалося залогінитися: "
+      },
+      "UnsupportedGuardType": {
+        "ru": "Steam Guard уже активирован. Был запрошен код с мобильного устройства",
+        "en": "Steam Guard already activated. Mobile device code was requested",
+        "ua": "Steam Guard вже активовано. Був запрошений код з мобільного пристрою"
+      },
+      "MafileLinked": {
+        "ru": "RCode: {0}\r\nИмя файла: {1}.mafile",
+        "en": "RCode: {0}\r\nFile name: {1}.mafile",
+        "ua": "RCode: {0}\r\nІм'я файлу: {1}.mafile"
+      },
+      "ErrorWithCode": {
+        "ru": "Ошибка с кодом: ",
+        "en": "Error with code: ",
+        "ua": "Помилка з кодом: "
+      },
+      "UnknownError": {
+        "ru": "Неизвестная ошибка: ",
+        "en": "Unknown error: ",
+        "ua": "Невідома помилка: "
+      },
+      "EnterEmailCode": {
+        "ru": "Введите код, отправленный на вашу почту",
+        "en": "Enter the code sent to your email",
+        "ua": "Введіть код, надісланий на вашу пошту"
+      },
+      "ClickOnEmailLink": {
+        "ru": "На почту было отправлено письмо, откройте ссылку из письма, а затем нажмите — 'Продолжить'",
+        "en": "An email has been sent. Open the link from the email, then click 'Proceed'",
+        "ua": "На пошту надіслано лист. Відкрийте посилання з листа, а потім натисніть — 'Продовжити'"
+      },
+      "ClickOnEmailLinkRetry": {
+        "ru":
+          "Не удалось подтвердить переход по ссылке. Убедитесь, что вы открыли ссылку из письма, затем нажмите — 'Продолжить'",
+        "en":
+          "We couldn’t verify that you clicked the link. Make sure you opened the link from the email, then click 'Proceed'",
+        "ua":
+          "Не вдалося підтвердити перехід за посиланням. Переконайтесь, що ви відкрили посилання з листа, а потім натисніть — 'Продовжити'"
+      },
+      "PhoneHint": {
+        "ru": "На телефон {0} была отправлена СМС",
+        "en": "SMS was sent to phone {0}",
+        "ua": "На телефон {0} було відправлено СМС"
+      },
+      "EnterPhoneNumber": {
+        "ru":
+          "Введите номер в международном формате, только цифры (без '+', пробелов и скобок), или оставьте поле пустым, чтобы привязать без номера",
+        "en":
+          "Enter number in international format, digits only (no '+', spaces or brackets), or leave the field empty to link without a number",
+        "ua":
+          "Введіть номер у міжнародному форматі, лише цифри (без '+', пробілів і дужок), або залиште поле порожнім, щоб прив’язати без номера"
+      }
+    },
+    "MafileMoverVM": {
+      "EnterGuardCode": {
+        "en": "Enter Steam Guard code or confirm login and click 'Proceed'",
+        "ru": "Введите код Steam Guard либо подтвердите вход и нажмите \"Продолжить\"",
+        "ua": "Введіть код Steam Guard або підтвердіть вхід і натисніть 'Продовжити'"
+      },
+      "EnterGuardCodeRetrying": {
+        "en": "Failed to confirm login. Enter Steam Guard code or try again",
+        "ru": "Не удалось подтвердить вход. Введите код Steam Guard или попробуйте еще раз",
+        "ua": "Не вдалося підтвердити вхід. Введіть код Steam Guard або спробуйте ще раз"
+      },
+      "SmsCodeStepTip": {
+        "en": "Enter the code from the SMS sent to your phone number",
+        "ru": "Введите код из СМС, отправленный на ваш номер телефона",
+        "ua": "Введіть код з СМС, надісланий на ваш номер телефону"
+      },
+      "DoneStepTip": {
+        "ru": "RCode: {0}\r\nИмя файла: {1}.mafile",
+        "en": "RCode: {0}\r\nFile name: {1}.mafile",
+        "ua": "RCode: {0}\r\nІм'я файлу: {1}.mafile"
+      },
+      "GuardIsNotActive": {
+        "ru":
+          "Steam Guard установлен на данном аккаунте. Чтобы привязать mafile к аккаунту, воспользуйтесь окном \"Привязать\"",
+        "en": "Steam Guard is set on this account. To link mafile to the account, use the 'Link' window",
+        "ua":
+          "Steam Guard встановлено на цьому акаунті. Щоб прив'язати mafile до акаунту, скористайтеся вікном 'Прив'язати'"
+      },
+      "SeemsNoPhoneNumber": {
+        "en": "The account has no phone number linked, returned Fail code (2)",
+        "ru": "На аккаунте не привязан номер телефона, был возвращен код Fail (2)",
+        "ua": "На акаунті не прив'язано номер телефону, повернуто код Fail (2)"
+      },
+      "SmsCodeFailed": {
+        "en": "SMS code failed, try again",
+        "ru": "Ошибка SMS-кода, попробуйте еще раз",
+        "ua": "Помилка SMS-коду, спробуйте ще раз"
+      }
+    }
+  },
+  "MAAC": {
+    "TimerConfirmed": {
+      "ru": "Авто: подтверждено ",
+      "en": "Auto: confirmed ",
+      "ua": "Авто: підтверджено "
+    },
+    "TimerNotConfirmed": {
+      "ru": "Авто: подтверждение не сработало",
+      "en": "Auto: confirmation was unsuccessful",
+      "ua": "Авто: підтвердження не спрацювало"
+    },
+    "TimerSessionError": {
+      "ru": "необходимо обновить сессию или перелогиниться",
+      "en": "need to refresh session or relogin",
+      "ua": "необхідно оновити сесію або перелогінитися"
+    },
+    "TimerPrefix": {
+      "ru": "Авто ",
+      "en": "Auto ",
+      "ua": "Авто "
+    },
+    "TimerPreventedOverlap": {
+      "ru":
+        "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
+      "en":
+        "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
+      "ua":
+        "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку"
+    }
+  },
+  "CantAlignTimeError": {
+    "ru":
+      "Не удается синхронизировать время со Steam. Возможно отсутствует подключение к интернету или Steam недоступен. Подробная ошибка сохранена в log.log",
+    "en":
+      "Can't align time with Steam. Maybe no internet connection or Steam is unavailable. Detailed error saved in log.log",
+    "ua":
+      "Не вдається синхронізувати час з Steam. Можливо відсутнє підключення до інтернету або Steam недоступний. Детальна помилка збережена в log.log"
+  }
+}

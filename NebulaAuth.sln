@@ -3,15 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NebulaAuth", "NebulaAuth\NebulaAuth.csproj", "{0FD01700-6D5C-451B-93BA-0860647E8F13}"
-	ProjectSection(ProjectDependencies) = postProject
-		{09F02072-F91D-4DAA-87BC-A34D3E150570} = {09F02072-F91D-4DAA-87BC-A34D3E150570}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NebulaAuth.LegacyConverter", "NebulaAuth.LegacyConverter\NebulaAuth.LegacyConverter.csproj", "{2D78A7D9-986A-4890-8A91-7ABD57A91830}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SteamLibForked", "SteamLibForked\SteamLibForked.csproj", "{09F02072-F91D-4DAA-87BC-A34D3E150570}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "changelog", "changelog", "{161BFADE-FCF3-45D1-82EA-8A1B187529F7}"
 	ProjectSection(SolutionItems) = preProject
 		changelog\1.3.4.html = changelog\1.3.4.html
@@ -28,8 +19,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "changelog", "changelog", "{
 		changelog\1.5.4.html = changelog\1.5.4.html
 		changelog\1.5.5.html = changelog\1.5.5.html
 		changelog\1.5.6.html = changelog\1.5.6.html
-		changelog\1.5.7.html = changelog\1.5.7.html
+		changelog\1.7.1.html = changelog\1.7.1.html
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamLibForked", "src\SteamLibForked\SteamLibForked.csproj", "{224F9DB0-3D20-A614-BA2A-12F22B13A2C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NebulaAuth.LegacyConverter", "src\NebulaAuth.LegacyConverter\NebulaAuth.LegacyConverter.csproj", "{C8235305-E5C4-155B-C718-C0F239CA3AB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NebulaAuth", "src\NebulaAuth\NebulaAuth.csproj", "{C42F63B6-32F7-ED08-5B86-CD51989761AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,18 +34,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0FD01700-6D5C-451B-93BA-0860647E8F13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0FD01700-6D5C-451B-93BA-0860647E8F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0FD01700-6D5C-451B-93BA-0860647E8F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0FD01700-6D5C-451B-93BA-0860647E8F13}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D78A7D9-986A-4890-8A91-7ABD57A91830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D78A7D9-986A-4890-8A91-7ABD57A91830}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D78A7D9-986A-4890-8A91-7ABD57A91830}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D78A7D9-986A-4890-8A91-7ABD57A91830}.Release|Any CPU.Build.0 = Release|Any CPU
-		{09F02072-F91D-4DAA-87BC-A34D3E150570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09F02072-F91D-4DAA-87BC-A34D3E150570}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09F02072-F91D-4DAA-87BC-A34D3E150570}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09F02072-F91D-4DAA-87BC-A34D3E150570}.Release|Any CPU.Build.0 = Release|Any CPU
+		{224F9DB0-3D20-A614-BA2A-12F22B13A2C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{224F9DB0-3D20-A614-BA2A-12F22B13A2C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{224F9DB0-3D20-A614-BA2A-12F22B13A2C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{224F9DB0-3D20-A614-BA2A-12F22B13A2C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8235305-E5C4-155B-C718-C0F239CA3AB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8235305-E5C4-155B-C718-C0F239CA3AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8235305-E5C4-155B-C718-C0F239CA3AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8235305-E5C4-155B-C718-C0F239CA3AB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C42F63B6-32F7-ED08-5B86-CD51989761AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C42F63B6-32F7-ED08-5B86-CD51989761AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C42F63B6-32F7-ED08-5B86-CD51989761AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C42F63B6-32F7-ED08-5B86-CD51989761AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
