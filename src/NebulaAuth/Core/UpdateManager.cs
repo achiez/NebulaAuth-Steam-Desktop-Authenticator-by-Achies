@@ -8,7 +8,7 @@ namespace NebulaAuth.Core;
 public static class UpdateManager
 {
     private const string UPDATE_URL =
-        "https://raw.githubusercontent.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/master/misc/update.xml";
+        "https://raw.githubusercontent.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/master/NebulaAuth/update.xml";
 
     public static void CheckForUpdates()
     {
