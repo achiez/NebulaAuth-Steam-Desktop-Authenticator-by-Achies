@@ -10,7 +10,7 @@
 		<SatelliteResourceLanguages>en;ru;ua</SatelliteResourceLanguages>
 		<ApplicationIcon>Theme\lock.ico</ApplicationIcon>
 		<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-		<AssemblyVersion>1.7.1</AssemblyVersion>
+		<AssemblyVersion>1.7.2</AssemblyVersion>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
