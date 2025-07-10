@@ -8,31 +8,10 @@
     <Application.Resources>
         <ResourceDictionary>
 
-            
-            <converters:CoefficientConverter x:Key="CoefficientConverter" />
-            <converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter" />
-            <converters:ProxyTextConverter x:Key="ProxyTextConverter" />
-            <converters:ProxyDataTextConverter x:Key="ProxyDataTextConverter" />
-            <converters:MultiCommandParameterConverter x:Key="MultiCommandParameterConverter" />
-            <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
-            <converters:AnyMafilesToVisibilityConverter x:Key="AnyMafilesToVisibilityConverter" />
-            <converters:PortableMaClientStatusToColorConverter x:Key="PortableMaClientStatusToColorConverter" />
-
-            <converters:NullableToBooleanConverter x:Key="NullableToBooleanConverter" />
-            <!-- Background converters-->
-            <background:BackgroundImageVisibleConverter x:Key="BackgroundImageVisibleConverter" />
-            <background:BackgroundSourceConverter x:Key="BackgroundSourceConverter" />
-
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-            <materialDesign:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
-
-
-            <system:Boolean x:Key="True">True</system:Boolean>
-            <system:Boolean x:Key="False">False</system:Boolean>
-
 
             <ResourceDictionary.MergedDictionaries>
 
+                <ResourceDictionary Source="/Converters/Converters.xaml"/>
                 <ResourceDictionary Source="Theme/Themes/DefaultTheme.xaml" />
                 <ResourceDictionary
                     Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
