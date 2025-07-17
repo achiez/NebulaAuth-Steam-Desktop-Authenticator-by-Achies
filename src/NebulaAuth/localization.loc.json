@@ -260,7 +260,7 @@
         "en": "Purchase",
         "ru": "Покупка",
         "ua": "Покупка"
-      }       
+      }
     },
     "CodeCopied": {
       "ru": "Скопировано",
@@ -1286,36 +1286,36 @@
         "ru": "Ошибка SMS-кода, попробуйте еще раз",
         "ua": "Помилка SMS-коду, спробуйте ще раз"
       }
-    }
-  },
-  "MAAC": {
-    "TimerConfirmed": {
-      "ru": "Авто: подтверждено ",
-      "en": "Auto: confirmed ",
-      "ua": "Авто: підтверджено "
     },
-    "TimerNotConfirmed": {
-      "ru": "Авто: подтверждение не сработало",
-      "en": "Auto: confirmation was unsuccessful",
-      "ua": "Авто: підтвердження не спрацювало"
-    },
-    "TimerSessionError": {
-      "ru": "необходимо обновить сессию или перелогиниться",
-      "en": "need to refresh session or relogin",
-      "ua": "необхідно оновити сесію або перелогінитися"
-    },
-    "TimerPrefix": {
-      "ru": "Авто ",
-      "en": "Auto ",
-      "ua": "Авто "
-    },
-    "TimerPreventedOverlap": {
-      "ru":
-        "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
-      "en":
-        "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
-      "ua":
-        "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку"
+    "MAAC": {
+      "TimerConfirmed": {
+        "ru": "Авто: подтверждено ",
+        "en": "Auto: confirmed ",
+        "ua": "Авто: підтверджено "
+      },
+      "TimerNotConfirmed": {
+        "ru": "Авто: подтверждение не сработало",
+        "en": "Auto: confirmation was unsuccessful",
+        "ua": "Авто: підтвердження не спрацювало"
+      },
+      "TimerSessionError": {
+        "ru": "необходимо обновить сессию или перелогиниться",
+        "en": "need to refresh session or relogin",
+        "ua": "необхідно оновити сесію або перелогінитися"
+      },
+      "TimerPrefix": {
+        "ru": "Авто ",
+        "en": "Auto ",
+        "ua": "Авто "
+      },
+      "TimerPreventedOverlap": {
+        "ru":
+          "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
+        "en":
+          "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
+        "ua":
+          "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку"
+      }
     }
   },
   "CantAlignTimeError": {

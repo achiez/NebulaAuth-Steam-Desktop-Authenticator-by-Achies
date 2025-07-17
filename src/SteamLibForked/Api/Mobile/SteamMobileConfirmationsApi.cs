@@ -72,8 +72,8 @@ public static class SteamMobileConfirmationsApi
         var op = confirm ? "allow" : "cancel";
         var query = GetConfirmationKvp(steamId, data.DeviceId, data.IdentitySecret, op).ToList();
         query.Insert(0, new KeyValuePair<string, string>("op", op));
-
-        foreach (var confirmation in confirmations)
+        var list = confirmations.ToList();
+        foreach (var confirmation in list)
         {
             query.Add(new KeyValuePair<string, string>("cid[]", confirmation.Id.ToString()));
             query.Add(new KeyValuePair<string, string>("ck[]", confirmation.Nonce.ToString()));

@@ -21,7 +21,7 @@ public class SessionData : ISessionData
 
     public SteamAuthToken RefreshToken { get; }
     public ConcurrentDictionary<SteamDomain, SteamAuthToken> Tokens { get; }
-        
+
     [JsonConstructor]
     public SessionData(string sessionId, SteamId steamId, SteamAuthToken refreshToken,
         IDictionary<SteamDomain, SteamAuthToken>? tokens)

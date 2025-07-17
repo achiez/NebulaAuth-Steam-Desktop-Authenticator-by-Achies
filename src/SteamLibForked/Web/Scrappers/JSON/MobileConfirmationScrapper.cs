@@ -170,7 +170,7 @@ public static class MobileConfirmationScrapper
 
     private static PurchaseConfirmation GetPurchaseConfirmation(ConfirmationJson confirmation)
     {
-        return new PurchaseConfirmation(confirmation.Id, confirmation.Nonce, (int) confirmation.Type,
+        return new PurchaseConfirmation(confirmation.Id, confirmation.Nonce,
             confirmation.CreatorId, confirmation.TypeName)
         {
             Time = confirmation.CreationTime.ToLocalDateTime()

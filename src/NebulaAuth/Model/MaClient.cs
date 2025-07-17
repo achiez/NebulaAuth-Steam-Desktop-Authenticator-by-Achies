@@ -8,6 +8,7 @@ using AchiesUtilities.Web.Proxy;
 using NebulaAuth.Model.Entities;
 using SteamLib.Api.Mobile;
 using SteamLib.Api.Services;
+using SteamLib.Api.Trade;
 using SteamLib.Authentication;
 using SteamLib.Exceptions.Authorization;
 using SteamLib.ProtoCore.Services;
@@ -78,26 +79,49 @@ public static class MaClient
         return SessionHandler.RefreshMobileToken(new HttpClientHandlerPair(Client, ClientHandler), mafile);
     }
 
-    public static Task<bool> SendConfirmation(Mafile mafile, Confirmation confirmation, bool confirm)
+    public static async Task<bool> SendConfirmation(Mafile mafile, Confirmation confirmation, bool confirm)
     {
         ValidateMafile(mafile);
         SetProxy(mafile);
-        return SteamMobileConfirmationsApi.SendConfirmation(Client, confirmation, mafile.SessionData!.SteamId, mafile,
+        var res = await SteamMobileConfirmationsApi.SendConfirmation(Client, confirmation, mafile.SessionData!.SteamId,
+            mafile,
+            confirm);
+        if (!res && confirmation.ConfType == ConfirmationType.Trade)
+        {
+            Shell.Logger.Warn("Failed to send trade confirmation for {accountName}. Sending ack", mafile.AccountName);
+            await SteamTradeApi.Acknowledge(Client, mafile.SessionData.SessionId);
+            await Task.Delay(10);
+        }
+
+        return await SteamMobileConfirmationsApi.SendConfirmation(Client, confirmation, mafile.SessionData!.SteamId,
+            mafile,
             confirm);
     }
 
-    public static Task<bool> SendMultipleConfirmation(Mafile mafile, IEnumerable<Confirmation> confirmations,
+    public static async Task<bool> SendMultipleConfirmation(Mafile mafile, IEnumerable<Confirmation> confirmations,
         bool confirm)
     {
         var enumerable = confirmations.ToList();
         if (enumerable.Count == 0)
         {
-            return Task.FromResult(false);
+            return false;
         }
 
         ValidateMafile(mafile);
         SetProxy(mafile);
-        return SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, enumerable, mafile.SessionData!.SteamId,
+
+        var res = await SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, enumerable,
+            mafile.SessionData!.SteamId,
+            mafile, confirm);
+        if (!res && enumerable.Any(c => c.ConfType == ConfirmationType.Trade))
+        {
+            Shell.Logger.Warn("Failed to send trade confirmations for {accountName}. Sending ack", mafile.AccountName);
+            await SteamTradeApi.Acknowledge(Client, mafile.SessionData.SessionId);
+            await Task.Delay(10);
+        }
+
+        return await SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, enumerable,
+            mafile.SessionData!.SteamId,
             mafile, confirm);
     }
 

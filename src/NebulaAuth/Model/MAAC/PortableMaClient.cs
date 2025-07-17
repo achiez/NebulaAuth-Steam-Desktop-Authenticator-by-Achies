@@ -13,6 +13,7 @@ using NebulaAuth.Core;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Utility;
 using SteamLib.Api.Mobile;
+using SteamLib.Api.Trade;
 using SteamLib.Authentication;
 using SteamLib.Exceptions.Authorization;
 using SteamLib.SteamMobile.Confirmations;
@@ -90,7 +91,7 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         var toConfirm = new List<Confirmation>();
         if (AutoConfirmMarket)
         {
-            var market = conf.Where(c => 
+            var market = conf.Where(c =>
                 c.ConfType is ConfirmationType.MarketSellTransaction or ConfirmationType.Purchase);
             toConfirm.AddRange(market);
         }
@@ -107,6 +108,7 @@ public partial class PortableMaClient : ObservableObject, IDisposable
             Shell.Logger.Debug("Timer {accountName}: Sending confirmations. Count: {count}", Mafile.AccountName,
                 toConfirm.Count);
             var success = await HandleTimerRequest(() => SendConfirmations(toConfirm));
+            //TODO: handle success == false
             Shell.Logger.Debug("Timer {accountName}: Confirmation sent: {confirmResult}", Mafile.AccountName, success);
             return toConfirm.Count;
         }
@@ -126,7 +128,19 @@ public partial class PortableMaClient : ObservableObject, IDisposable
 
     private async Task<bool> SendConfirmations(IEnumerable<Confirmation> confirmations)
     {
-        return await SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, confirmations,
+        var conf = confirmations.ToList();
+        var res = await SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, conf,
+            Mafile.SessionData!.SteamId, Mafile, true, _cts.Token);
+
+        if (!res && conf.Any(c => c.ConfType == ConfirmationType.Trade))
+        {
+            Shell.Logger.Warn("Timer {accountName}: Failed to send trade confirmations. Sending ack",
+                Mafile.AccountName);
+            await SteamTradeApi.Acknowledge(Client, Mafile.SessionData!.SessionId, _cts.Token);
+            await Task.Delay(10, _cts.Token);
+        }
+
+        return await SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, conf,
             Mafile.SessionData!.SteamId, Mafile, true, _cts.Token);
     }
 

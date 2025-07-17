@@ -33,6 +33,7 @@ public static class ClientBuilder
         {
             container.SetSteamMobileCookiesWithMobileToken(sessionData);
         }
+
         //Nebula tweak:
         handler.CookieContainer.InjectWebTradeEligibilityCookie();
         ConfigureCommon(handler, client);
