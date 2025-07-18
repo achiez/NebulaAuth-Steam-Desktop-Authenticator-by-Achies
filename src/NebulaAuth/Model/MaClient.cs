@@ -86,16 +86,21 @@ public static class MaClient
         var res = await SteamMobileConfirmationsApi.SendConfirmation(Client, confirmation, mafile.SessionData!.SteamId,
             mafile,
             confirm);
+
         if (!res && confirmation.ConfType == ConfirmationType.Trade)
         {
             Shell.Logger.Warn("Failed to send trade confirmation for {accountName}. Sending ack", mafile.AccountName);
             await SteamTradeApi.Acknowledge(Client, mafile.SessionData.SessionId);
             await Task.Delay(10);
         }
+        else
+        {
+            return res;
+        }
 
         return await SteamMobileConfirmationsApi.SendConfirmation(Client, confirmation, mafile.SessionData!.SteamId,
-            mafile,
-            confirm);
+                mafile,
+                confirm);
     }
 
     public static async Task<bool> SendMultipleConfirmation(Mafile mafile, IEnumerable<Confirmation> confirmations,
@@ -118,6 +123,10 @@ public static class MaClient
             Shell.Logger.Warn("Failed to send trade confirmations for {accountName}. Sending ack", mafile.AccountName);
             await SteamTradeApi.Acknowledge(Client, mafile.SessionData.SessionId);
             await Task.Delay(10);
+        }
+        else
+        {
+            return res;
         }
 
         return await SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, enumerable,

@@ -139,6 +139,10 @@ public partial class PortableMaClient : ObservableObject, IDisposable
             await SteamTradeApi.Acknowledge(Client, Mafile.SessionData!.SessionId, _cts.Token);
             await Task.Delay(10, _cts.Token);
         }
+        else
+        {
+            return res;
+        }
 
         return await SteamMobileConfirmationsApi.SendMultipleConfirmations(Client, conf,
             Mafile.SessionData!.SteamId, Mafile, true, _cts.Token);
