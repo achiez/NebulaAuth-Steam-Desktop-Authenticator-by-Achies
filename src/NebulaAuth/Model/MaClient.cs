@@ -99,8 +99,8 @@ public static class MaClient
         }
 
         return await SteamMobileConfirmationsApi.SendConfirmation(Client, confirmation, mafile.SessionData!.SteamId,
-                mafile,
-                confirm);
+            mafile,
+            confirm);
     }
 
     public static async Task<bool> SendMultipleConfirmation(Mafile mafile, IEnumerable<Confirmation> confirmations,

@@ -42,6 +42,7 @@ public partial class ProxyManagerVM : ObservableObject
         var split = input
             .Split(Environment.NewLine)
             .Where(s => string.IsNullOrWhiteSpace(s) == false)
+            .Select(x => x.Trim())
             .ToArray();
 
         if (split.Length == 0) return;

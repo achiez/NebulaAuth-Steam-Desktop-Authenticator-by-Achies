@@ -227,7 +227,7 @@ public partial class LinkAccountVM : ObservableObject, ISmsCodeProvider, IPhoneN
 
         Storage.SaveMafile(mafile);
         File.Delete(Path.Combine("mafiles_backup", mafile.AccountName + ".mafile"));
-        await Done(mafile.RevocationCode ?? string.Empty, mafile.SteamId.Steam64.ToString());
+        await Done(mafile.RevocationCode ?? string.Empty, mafile.SteamId.Steam64.ToString(), login);
     }
 
     #region Step 3: Phone Number
@@ -280,9 +280,10 @@ public partial class LinkAccountVM : ObservableObject, ISmsCodeProvider, IPhoneN
 
     #region Step 7: Done
 
-    public async Task Done(string rCode, string steamId)
+    public async Task Done(string rCode, string steamId, string login)
     {
-        var step = new LinkAccountDoneStepVM(rCode, steamId);
+        var filename = Settings.Instance.UseAccountNameAsMafileName ? login : steamId;
+        var step = new LinkAccountDoneStepVM(rCode, filename);
         SetCurrentStep(step);
         await step.GetResultAsync();
     }

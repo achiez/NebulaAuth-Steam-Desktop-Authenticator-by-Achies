@@ -169,5 +169,11 @@ public partial class SettingsVM : ObservableObject
         set => Settings.ThemeType = value;
     }
 
+    public bool RippleDisabled
+    {
+        get => Settings.RippleDisabled;
+        set => Settings.RippleDisabled = value;
+    }
+
     #endregion
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using NebulaAuth.Core;
@@ -6,6 +7,7 @@ using NebulaAuth.Model;
 using SteamLib.Exceptions;
 using SteamLib.Exceptions.Authorization;
 using SteamLib.Exceptions.General;
+using SteamLib.ProtoCore.Enums;
 using SteamLibForked.Exceptions.Authorization;
 
 namespace NebulaAuth.Utility;
@@ -94,6 +96,18 @@ public static class ExceptionHandler
                 return "LoginException".GetCodeBehindLocalization() + ": " +
                        ErrorTranslatorHelper.TranslateLoginError(e.Error);
             }
+            case UnsupportedAuthTypeException e:
+            {
+                var requestedType = e.AllowedGuardTypes.First();
+                var msgType = requestedType switch
+                {
+                    EAuthSessionGuardType.DeviceCode or EAuthSessionGuardType.DeviceConfirmation => "Guard",
+                    EAuthSessionGuardType.EmailCode => "Mail",
+                    _ => "Unknown"
+                };
+
+                return GetCodeBehindLocalization("UnsupportedAuthTypeException", msgType);
+            }
             case not null when handleAllExceptions:
             {
                 return "UnknownException".GetCodeBehindLocalization() + exception.Message;
@@ -111,5 +125,12 @@ public static class ExceptionHandler
     private static string GetCodeBehindLocalization(this string key)
     {
         return LocManager.GetCodeBehindOrDefault(key, EXCEPTION_HANDLER_LOC_PATH, key);
+    }
+
+    private static string GetCodeBehindLocalization(params string[] path)
+    {
+        var def = path.Length == 0 ? "" : path.Last();
+        var newArr = path.Prepend(EXCEPTION_HANDLER_LOC_PATH).ToArray();
+        return LocManager.GetCodeBehindOrDefault(def, newArr);
     }
 }

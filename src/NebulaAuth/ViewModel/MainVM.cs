@@ -55,7 +55,6 @@ public partial class MainVM : ObservableObject
     [RelayCommand]
     public async Task Debug()
     {
-        Shell.Logger.Info("test");
     }
 
 

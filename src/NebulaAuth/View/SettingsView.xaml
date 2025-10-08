@@ -8,7 +8,8 @@
              mc:Ignorable="d"
              d:DesignHeight="650"
              FontFamily="{materialDesign:MaterialDesignFont}"
-             MinHeight="600"
+             MinHeight="400"
+             MaxHeight="600"
              MinWidth="400"
              MaxWidth="400"
              d:DataContext="{d:DesignInstance other:SettingsVM}"
@@ -46,7 +47,7 @@
             <TabControl materialDesign:ColorZoneAssist.Background="{DynamicResource Base100Brush}"
                         Style="{StaticResource MaterialDesignUniformTabControl}" Grid.Row="2">
                 <TabItem Header="{Tr SettingsDialog.MainSettings}">
-                    <StackPanel Width="340" Margin="10,30,10,10" Orientation="Vertical" HorizontalAlignment="Center">
+                    <StackPanel Width="340" Margin="10,20,10,40" Orientation="Vertical" HorizontalAlignment="Center">
                         <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,15,0,0"
                                   FontSize="16"
                                   ItemsSource="{Binding Languages}" DisplayMemberPath="Value" SelectedValuePath="Key"
@@ -92,7 +93,15 @@
 
                 </TabItem>
                 <TabItem IsEnabled="True" Header="{Tr SettingsDialog.ThemeSettings}">
-                    <StackPanel Width="340" Margin="10,30,10,10" Orientation="Vertical" HorizontalAlignment="Center">
+                    <StackPanel Width="340" Margin="10,20,10,10" Orientation="Vertical" HorizontalAlignment="Center">
+                        <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                  Padding="8"
+                                  Margin="0,15,0,0"
+                                  FontSize="16"
+                                  ItemsSource="{Binding ThemeTypes}" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                  SelectedValue="{Binding ThemeType}"
+                                  materialDesign:HintAssist.Hint="{Tr SettingsDialog.Theme.CurrentTheme}" />
+
                         <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                   Padding="8"
                                   Margin="0,15,0,0"
@@ -101,15 +110,6 @@
                                   SelectedValuePath="Key"
                                   SelectedValue="{Binding BackgroundMode}"
                                   materialDesign:HintAssist.Hint="{Tr SettingsDialog.BackgroundHint}" />
-
-                        <!-- Theme input -->
-                        <ComboBox Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                                  Padding="8"
-                                  Margin="0,15,0,0"
-                                  FontSize="16"
-                                  ItemsSource="{Binding ThemeTypes}" DisplayMemberPath="Value" SelectedValuePath="Key"
-                                  SelectedValue="{Binding ThemeType}"
-                                  materialDesign:HintAssist.Hint="{Tr SettingsDialog.Theme.CurrentTheme}" />
 
                         <TextBlock Text="{Tr SettingsDialog.Theme.BackgroundBlur}" Margin="0,15,0,0" />
                         <Slider materialDesign:SliderAssist.HideActiveTrack="True"
@@ -156,14 +156,16 @@
 
 
                         <CheckBox Margin="0,15,0,0" Content="{Tr SettingsDialog.Theme.DialogBlur}"
-                                  IsChecked="{Binding ApplyBlurBackground}" />
+                                  IsChecked="{Binding ApplyBlurBackground}"
+                                  FontSize="15" />
+                        <CheckBox Margin="0,15,0,0" Content="{Tr SettingsDialog.Theme.RippleDisabled}"
+                                  FontSize="15"
+                                  IsChecked="{Binding RippleDisabled}" />
                         <Button Margin="0,15,0,0" Command="{Binding ResetThemeDefaultsCommand}"
                                 Content="{Tr SettingsDialog.Theme.Reset}" />
                     </StackPanel>
                 </TabItem>
             </TabControl>
-
-
         </Grid>
     </Grid>
 </UserControl>

@@ -51,6 +51,12 @@ public partial class MainWindow
         }
     }
 
+    private void SearchField_OnKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key != Key.Escape || !SearchField.IsFocused) return;
+        Keyboard.ClearFocus();
+    }
+
     #region Dran'n'Drop
 
     private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)

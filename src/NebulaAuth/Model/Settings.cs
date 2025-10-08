@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using NebulaAuth.Core;
+using NebulaAuth.Utility;
 using Newtonsoft.Json;
 
 namespace NebulaAuth.Model;
@@ -28,6 +29,7 @@ public partial class Settings : ObservableObject
         {
             Instance = new Settings();
             Instance.PropertyChanged += SettingsOnPropertyChanged;
+            Instance.Language = LanguageUtility.DetectPreferredLanguage();
             return;
         }
 
@@ -70,6 +72,7 @@ public partial class Settings : ObservableObject
         Instance.LeftOpacity = 0.4;
         Instance.RightOpacity = 0.8;
         Instance.ApplyBlurBackground = true;
+        Instance.RippleDisabled = false;
         Save();
     }
 
@@ -99,6 +102,7 @@ public partial class Settings : ObservableObject
     [ObservableProperty] private double _backgroundGamma;
     [ObservableProperty] private bool _applyBlurBackground = true;
     [ObservableProperty] private ThemeType _themeType = ThemeType.Default;
+    [ObservableProperty] private bool _rippleDisabled;
 
     #endregion
 }

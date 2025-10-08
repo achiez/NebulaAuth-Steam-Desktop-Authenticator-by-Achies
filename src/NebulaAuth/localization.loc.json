@@ -166,8 +166,8 @@
           },
           "MafileProxyInUse": {
             "en": "Mafile proxy is in use",
-            "ru": "Используется прокси из mafile",
-            "ua": "Використовується проксі з mafile"
+            "ru": "Используется прокси из мафайла",
+            "ua": "Використовується проксі з мафайла"
           }
         }
       },
@@ -365,6 +365,11 @@
         "en": "Blur on Dialog",
         "ru": "Размытие при открытии диалог. окна",
         "ua": "Розмиття при відкритті діалог. вікна"
+      },
+      "RippleDisabled": {
+        "en": "Disable ripple animations",
+        "ru": "Отключить анимации «ripple»",
+        "ua": "Вимкнути анімації «ripple»"
       },
       "Reset": {
         "en": "Reset",
@@ -680,6 +685,13 @@
       "ua": "Steam Guard перенесено"
     }
   },
+  "ConfirmCancelDialog": {
+    "Title": {
+      "ru": "Подтвердите действие",
+      "en": "Confirm action",
+      "ua": "Підтвердіть дію"
+    }
+  },
   "CodeBehind": {
     "MainVM": {
       "SuccessfulLogin": {
@@ -698,9 +710,13 @@
         "ua": "Відсутній RCode"
       },
       "ConfirmRemovingAuthenticator": {
-        "ru": "Вы точно уверены что хотите удалить аутентификатор?",
-        "en": "Are you sure you want to remove authenticator?",
-        "ua": "Ви точно впевнені що хочете видалити аутентифікатор?"
+        "ru":
+          "Вы точно уверены, что хотите удалить аутентификатор?\r\nПосле этого вы не сможете обмениваться, использовать торговую площадку 15 дней. Мафайл будет удалён навсегда",
+        "en":
+          "Are you sure you want to remove the authenticator?\r\nAfter that, you will not be able to trade or use the marketplace for 15 days. Mafile will be deleted permanently",
+        "ua":
+          "Ви точно впевнені, що хочете видалити автентифікатор?\r\nПісля цього ви не зможете обмінюватися, використовувати торгову площадку 15 днів. Мафайл буде видалено назавжди"
+
       },
       "AuthenticatorRemoved": {
         "ru": "Аутентификатор удален",
@@ -733,12 +749,12 @@
         "ua": "Помилка підтвердження"
       },
       "ConfirmMafileOverwrite": {
-        "ru": "Внимание, мафайл уже присутствует в папке mafiles.\r\nПерезаписать мафайлы, которые конфликтуют?",
-        "en": "Attention, mafile already exists in mafiles folder.\r\nOverwrite conflicting mafiles?",
-        "ua": "Увага, мафайл вже присутній у папці mafiles.\r\nПерезаписати мафайли, які конфліктують?"
+        "ru": "Внимание, мафайл(-ы) уже присутствует в папке mafiles.\r\nПерезаписать мафайлы, которые конфликтуют?",
+        "en": "Attention, mafile(-s) already exists in mafiles folder.\r\nOverwrite conflicting mafiles?",
+        "ua": "Увага, мафайл(-и) вже присутній у папці mafiles.\r\nПерезаписати мафайли, які конфліктують?"
       },
       "MafileImportError": {
-        "ru": "Ошибка импорта мафайла",
+        "ru": "Ошибка при импорте мафайла",
         "en": "Mafile import error",
         "ua": "Помилка імпорту мафайла"
       },
@@ -769,16 +785,16 @@
       },
       "RemoveMafileConfirmation": {
         "ru":
-          "Удалить мафайл? Мафайл будет перемещен в папку 'mafiles_removed' (Это действие не удаляет Steam Guard с аккаунта)",
+          "Удалить mafile?\r\nМафайл будет перемещен в папку 'mafiles_removed'\r\nЭто действие НЕ удаляет Steam Guard с аккаунта",
         "en":
-          "Remove mafile? Mafile will be moved to 'mafiles_removed' directory (This action does not remove the Steam Guard from the account)",
+          "Remove mafile?\r\nMafile will be moved to 'mafiles_removed' directory\r\nThis action will NOT remove the Steam Guard from the account",
         "ua":
-          "Видалити мафайл? Мафайл буде переміщено у каталог 'mafiles_removed' (Ця дія не видаляє автентифікатор з облікового запису)"
+          "Видалити mafile?\r\nМафайл буде переміщено у каталог 'mafiles_removed'\r\nЦя дія НЕ видаляє автентифікатор з облікового запису"
       },
       "CantRemoveAlreadyExist": {
-        "ru": "Не удалось переместить мафайл, возможно в папке уже существует мафайл с таким именем.",
+        "ru": "Не удалось переместить mafile, возможно в папке уже существует мафайл с таким именем.",
         "en": "Can't move mafile, maybe mafile with same name already exists in mafiles_removed folder.",
-        "ua": "Не вдалося перемістити мафайл, можливо в папці вже існує мафайл з таким іменем."
+        "ua": "Не вдалося перемістити mafile, можливо в папці вже існує мафайл з таким іменем."
       },
       "CantRemoveMafile": {
         "ru": "Не удалось удалить (переместить) мафайл:",
@@ -1131,6 +1147,24 @@
         "ru": "Ошибка входа: ",
         "en": "Login error: ",
         "ua": "Помилка входу: "
+      },
+      "UnsupportedAuthTypeException": {
+        "Mail": {
+          "ru": "Ошибка: Был запрошен код с почты. Steam Guard не активирован",
+          "en": "Error: Email code was requested. Steam Guard is not activated",
+          "ua": "Помилка: Був запрошений код з пошти. Steam Guard не активовано"
+        },
+        "Guard": {
+          "ru": "Ошибка: Был запрошен вход с помощью Steam Guard. На аккаунте уже активирован мобильный аутентификатор",
+          "en": "Error: Login with Steam Guard was requested. Mobile authenticator is already activated on the account",
+          "ua":
+            "Помилка: Був запрошений вхід за допомогою Steam Guard. На акаунті вже активовано мобільний автентифікатор"
+        },
+        "Unknown": {
+          "ru": "Ошибка: Неизвестный тип аутентификации",
+          "en": "Error: Unknown authentication type",
+          "ua": "Помилка: Невідомий тип автентифікації"
+        }
       },
       "UnknownException": {
         "ru": "Неизвестная ошибка: ",

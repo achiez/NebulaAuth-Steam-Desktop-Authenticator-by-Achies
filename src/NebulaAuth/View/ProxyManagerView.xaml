@@ -11,6 +11,7 @@
              MinHeight="500"
              MinWidth="400"
              MaxHeight="550"
+             MaxWidth="500"
              d:DataContext="{d:DesignInstance other:ProxyManagerVM}"
              Background="Transparent">
     <Grid>

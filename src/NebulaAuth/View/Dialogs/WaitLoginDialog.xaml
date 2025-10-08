@@ -28,7 +28,8 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Image x:Name="CaptchaImage" Stretch="Uniform" />
-            <TextBox Grid.Row="1" Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="CaptchaTB" />
+            <TextBox TabIndex="0" Grid.Row="1" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     x:Name="CaptchaTB" />
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />

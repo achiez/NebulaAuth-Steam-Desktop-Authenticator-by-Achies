@@ -11,6 +11,7 @@
                 <TextBlock Margin="5,0,0,0" Text="{Tr LinkerDialog.Authorization}" />
             </StackPanel>
             <TextBox
+                TabIndex="0"
                 Padding="8"
                 FontSize="14"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"

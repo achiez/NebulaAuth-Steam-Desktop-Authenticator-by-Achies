@@ -18,7 +18,8 @@
                    FontFamily="{md:MaterialDesignFont}"
                    TextElement.Foreground="{DynamicResource BaseContentBrush}"
                    mc:Ignorable="d"
-                   d:DataContext="{d:DesignInstance viewModel:MainVM}">
+                   d:DataContext="{d:DesignInstance viewModel:MainVM}"
+                   md:RippleAssist.IsDisabled="{Binding Settings.RippleDisabled}">
     <b:Interaction.Behaviors>
         <windowStyle:WindowChromeRenderedBehavior />
     </b:Interaction.Behaviors>
@@ -63,6 +64,7 @@
                     <TextBlock FontWeight="Bold" Foreground="#9a65b8" Text="{Tr MainWindow.Global.DragNDropHint}" />
                     <md:PackIcon Foreground="#9a65b8" HorizontalAlignment="Center" Width="36" Height="36"
                                  Kind="FileReplaceOutline" />
+
                 </StackPanel>
                 <ToolBarTray>
                     <ToolBar ClipToBounds="True" HorizontalContentAlignment="Stretch"
@@ -146,6 +148,7 @@
                                 <KeyBinding Key="Delete" Command="{Binding RemoveProxyCommand}" />
                             </UIElement.InputBindings>
                         </ComboBox>
+
                         <md:PackIcon Kind="StopAlert" VerticalAlignment="Center" HorizontalAlignment="Center"
                                      Foreground="{DynamicResource ErrorBrush}" Margin="3"
                                      ToolTipService.InitialShowDelay="300">
@@ -173,6 +176,7 @@
                                      ToolTip="{Tr MainWindow.AppBar.Proxy.ProxyAlert.DefaultInUse}"
                                      ToolTipService.InitialShowDelay="300"
                                      Visibility="{Binding IsDefaultProxy, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Separator />
                         <ToggleButton ToolTip="{Tr MainWindow.AppBar.MarketTimerHint}"
                                       IsEnabled="{Binding IsMafileSelected}" Margin="2"
                                       Style="{StaticResource MaterialDesignFlatToggleButton}"
@@ -346,7 +350,9 @@
                                          md:TextFieldAssist.HasClearButton="True" w:FontScaleWindow.Scale="0.7"
                                          w:FontScaleWindow.ResizeFont="True" Grid.Row="1" Margin="10,5,10,10"
                                          md:HintAssist.Hint="{Tr MainWindow.LeftPart.SearchBoxHint}"
-                                         Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                         Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         x:Name="SearchField"
+                                         KeyDown="SearchField_OnKeyDown" />
                             </Grid>
 
                         </Border>
@@ -382,7 +388,6 @@
                                     Grid.Row="1" Height="4" Style="{StaticResource MaterialDesignLinearProgressBar}"
                                     MaxTime="30" TimeRemaining="{Binding CodeProgress, Mode=OneWay}" />
                             </Grid>
-
                             <Button IsEnabled="{Binding IsMafileSelected}" w:FontScaleWindow.Scale="0.7"
                                     w:FontScaleWindow.ResizeFont="True" Grid.Row="1"
                                     Style="{StaticResource MaterialDesignOutlinedButton}" Margin="0,10,0,10"

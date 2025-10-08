@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
-using NebulaAuth.Model;
+using NebulaAuth.Utility;
 
 namespace NebulaAuth.ViewModel.Linker;
 
@@ -13,10 +11,10 @@ public partial class LinkAccountDoneStepVM : LinkAccountStepVM
     private readonly TaskCompletionSource _doneTcs = new();
     private readonly string _rCode;
 
-    public LinkAccountDoneStepVM(string rCode, string steamId)
+    public LinkAccountDoneStepVM(string rCode, string fileName)
     {
         var tipStr = LocManager.GetCodeBehindOrDefault("MafileLinked", LinkAccountVM.LOCALIZATION_KEY, "MafileLinked");
-        InnerTip = string.Format(tipStr, rCode, steamId);
+        InnerTip = string.Format(tipStr, rCode, fileName);
         _rCode = rCode;
     }
 
@@ -44,13 +42,6 @@ public partial class LinkAccountDoneStepVM : LinkAccountStepVM
     [RelayCommand]
     private void CopyCode()
     {
-        try
-        {
-            Clipboard.SetText(_rCode);
-        }
-        catch (Exception ex)
-        {
-            Shell.Logger.Error(ex, "Error whily copying RCode");
-        }
+        ClipboardHelper.Set(_rCode);
     }
 }
