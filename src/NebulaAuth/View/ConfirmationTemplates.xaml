@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:confirmations="clr-namespace:SteamLib.SteamMobile.Confirmations;assembly=SteamLibForked"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                    xmlns:theme="clr-namespace:NebulaAuth.Theme"
                     xmlns:converters="clr-namespace:NebulaAuth.Converters"
                     xmlns:entities="clr-namespace:NebulaAuth.Model.Entities"
                     xmlns:vm="clr-namespace:NebulaAuth.ViewModel">
@@ -110,7 +109,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Kind="ShoppingCart"
+            <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Kind="CartArrowUp"
                                      Margin="0,0,10,0" />
             <Border Grid.Column="1" Background="{DynamicResource MaterialDesignPaper}" MaxHeight="36"
                     HorizontalAlignment="Center" BorderBrush="{DynamicResource PrimaryHueMidBrush}"
@@ -119,7 +118,7 @@
                        Source="{Binding ItemImageUri}" />
             </Border>
             <Grid Grid.Column="2">
-                <TextBlock VerticalAlignment="Center" x:Name="ItemName" theme:FontScaleWindow.ResizeFont="True"
+                <TextBlock VerticalAlignment="Center" x:Name="ItemName"
                            TextWrapping="WrapWithOverflow" Text="{Binding ItemName}" />
 
                 <TextBlock Foreground="LightGray" Text="{Binding PriceString}">
@@ -184,7 +183,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Kind="ShoppingCartPlus"
+            <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Kind="CartArrowUp"
                                      Margin="0,0,10,0" />
             <TextBlock VerticalAlignment="Center" Grid.Column="1">
                 <Run Text="{Tr MainWindow.ConfirmationTemplates.Market, IsDynamic=False}" />

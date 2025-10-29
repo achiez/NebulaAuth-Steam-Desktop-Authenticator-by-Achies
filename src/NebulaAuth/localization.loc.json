@@ -50,7 +50,7 @@
       },
       "Count": {
         "Items": {
-          "en": "items",
+          "en": "pcs",
           "ru": "шт",
           "ua": "шт"
         }
@@ -252,9 +252,9 @@
         "ua": "Api ключ"
       },
       "Market": {
-        "en": "Market",
-        "ru": "Маркет",
-        "ua": "Маркет"
+        "en": "Sell",
+        "ru": "Продажа",
+        "ua": "Продаж"
       },
       "Purchase": {
         "en": "Purchase",
@@ -631,7 +631,7 @@
       "ua": "СМС код"
     }
   },
-  "SetEncryptedPasswordDialog": {
+  "SetEncryptionPasswordDialog": {
     "Title": {
       "en": "Encryption password",
       "ru": "Пароль шифрования",
@@ -639,11 +639,11 @@
     },
     "DialogText": {
       "en":
-        "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session. (Optional)",
+        "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session.\r\n(Optional)",
       "ru":
-        "Ранее вы устанавливали пароль шифрования для паролей в мафайлах, укажите его, чтобы приложение могло автоматически авторизоваться в случае проблем с сессией. (Не обязательно)",
+        "Ранее вы устанавливали пароль шифрования для паролей в мафайлах, укажите его, чтобы приложение могло автоматически авторизоваться в случае проблем с сессией.\r\n(Не обязательно)",
       "ua":
-        "Раніше ви встановлювали пароль шифрування для паролів в мафайлах, вкажіть його, щоб додаток міг автоматично авторизуватися у випадку проблем з сесією. (Не обов'язково)"
+        "Раніше ви встановлювали пароль шифрування для паролів в мафайлах, вкажіть його, щоб додаток міг автоматично авторизуватися у випадку проблем з сесією.\r\n(Не обов'язково)"
     },
     "Ok": {
       "en": "Ok",

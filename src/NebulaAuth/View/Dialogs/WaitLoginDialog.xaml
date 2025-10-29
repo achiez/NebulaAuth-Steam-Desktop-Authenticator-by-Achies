@@ -3,9 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:theme="clr-namespace:NebulaAuth.Theme"
              mc:Ignorable="d"
-             theme:FontScaleWindow.ResizeFont="True" theme:FontScaleWindow.Scale="1"
              Foreground="WhiteSmoke"
              Background="{DynamicResource WindowBackground}">
     <Grid Margin="20">
@@ -19,7 +17,8 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" IsIndeterminate="True" />
-            <TextBlock Margin="10,0,0,0" Grid.Column="1" Text="{Tr WaitLoginDialog.Text}" VerticalAlignment="Center" />
+            <TextBlock FontSize="17" Margin="10,0,0,0" Grid.Column="1" Text="{Tr WaitLoginDialog.Text}"
+                       VerticalAlignment="Center" />
         </Grid>
         <Grid x:Name="CaptchaGrid" Margin="0,25,0,0" Visibility="Collapsed" Grid.Row="1">
             <Grid.RowDefinitions>
