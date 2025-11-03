@@ -93,7 +93,7 @@ public static class ProxyStorage
         Save();
     }
 
-    public static void OrderCollection() //RETHINK: maybe there is a better way to handle it
+    public static void SortCollection() //RETHINK: maybe there is a better way to handle it
     {
         var proxies = Proxies.OrderBy(p => p.Key)
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);

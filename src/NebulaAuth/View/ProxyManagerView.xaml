@@ -5,15 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:other="clr-namespace:NebulaAuth.ViewModel.Other"
+             xmlns:nebulaAuth="clr-namespace:NebulaAuth"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="400"
-             FontFamily="{md:MaterialDesignFont}"
-             MinHeight="500"
-             MinWidth="400"
-             MaxHeight="550"
-             MaxWidth="500"
              d:DataContext="{d:DesignInstance other:ProxyManagerVM}"
-             Background="Transparent">
+             d:Background="#141119"
+             d:Foreground="White"
+             FontFamily="{md:MaterialDesignFont}"
+             MinHeight="700"
+             MinWidth="600"
+             MaxHeight="700"
+             MaxWidth="600"
+             Background="Transparent"
+             FontSize="16">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -42,21 +46,32 @@
         </Grid>
         <Separator Grid.Row="1" />
         <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <TextBlock HorizontalAlignment="Stretch"
-                       Margin="15" FontSize="16">
-                <Run Text="{Tr ProxyManagerDialog.DefaultProxy, IsDynamic=False}" />
-                <Run Text="{Binding DefaultProxy.Key, StringFormat='&#x0a;0:', FallbackValue='-', Mode=OneWay}" />
-                <Run
-                    Text="{Binding DefaultProxy.Value, Converter='{StaticResource ProxyDataTextConverter}', Mode=OneWay, FallbackValue=''}" />
-            </TextBlock>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Margin="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock HorizontalAlignment="Stretch">
+                    <Run Text="{Tr ProxyManagerDialog.DefaultProxy, IsDynamic=False}" />
+                    <Run Text="{Binding DefaultProxy.Key, StringFormat='&#x0a;0:', FallbackValue='-', Mode=OneWay}" />
+                    <Run
+                        Text="{Binding DefaultProxy.Value, Converter='{StaticResource ProxyDataTextConverter}', Mode=OneWay, FallbackValue=''}" />
+                </TextBlock>
 
-            <Button Grid.Column="1" Command="{Binding RemoveDefaultCommand}">
-                <md:PackIcon Kind="ClearBox" Width="20" Height="20" />
-            </Button>
+                <Button Grid.Column="1" Command="{Binding RemoveDefaultCommand}">
+                    <md:PackIcon Kind="ClearBox" Width="20" Height="20" />
+                </Button>
+
+            </Grid>
+            <StackPanel Grid.Row="1" Margin="15,0,15,15">
+                <CheckBox Content="{Tr ProxyManagerDialog.DisplayProxyProtocol}" IsChecked="{Binding DisplayProtocol}" />
+                <CheckBox Content="{Tr ProxyManagerDialog.DisplayProxyCredentials}"
+                          IsChecked="{Binding DisplayCredentials}" />
+            </StackPanel>
         </Grid>
         <md:Card Grid.Row="3" Margin="10">
             <ListBox VirtualizingStackPanel.VirtualizationMode="Recycling" FontSize="14"
@@ -78,6 +93,9 @@
                                     <MenuItem Header="{Tr MainWindow.ContextMenus.Proxy.CopyAddress}"
                                               Command="{Binding PlacementTarget.Tag.CopyProxyAddressCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                               CommandParameter="{Binding Value}" />
+                                    <MenuItem Header="{Tr Common.Delete}"
+                                              Command="{Binding PlacementTarget.Tag.RemoveProxyCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                              CommandParameter="{Binding Value}" />
                                 </ContextMenu>
                             </Setter.Value>
                         </Setter>
@@ -96,8 +114,18 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock VerticalAlignment="Center">
                                 <Run Text="{Binding Key, Mode=OneWay}" /><Run Text=": " />
-                                <Run
-                                    Text="{Binding Value, Mode=OneWay, Converter={StaticResource ProxyDataTextConverter}}" />
+                                <Run>
+                                    <Run.Text>
+                                        <MultiBinding Mode="OneWay"
+                                                      Converter="{StaticResource ProxyDataTextMultiConverter}">
+                                            <Binding Path="Value" />
+                                            <Binding Path="DataContext.DisplayProtocol"
+                                                     RelativeSource="{RelativeSource AncestorType=UserControl}" />
+                                            <Binding Path="DataContext.DisplayCredentials"
+                                                     RelativeSource="{RelativeSource AncestorType=UserControl}" />
+                                        </MultiBinding>
+                                    </Run.Text>
+                                </Run>
 
                             </TextBlock>
                             <Button Style="{StaticResource MaterialDesignIconButton}" Padding="0" Width="24"
@@ -115,20 +143,47 @@
             </ListBox>
         </md:Card>
         <Grid Grid.Row="4" Margin="5,0,15,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <TextBox Text="{Binding AddProxyField}" FontSize="12" md:TextFieldAssist.HasClearButton="True"
-                     AcceptsReturn="True" MaxHeight="100" Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                     Margin="15" md:HintAssist.Hint="IP:PORT:USER:PASS{ID}" />
-            <Button IsDefault="True" Grid.Column="1" Command="{Binding AddProxyCommand}">
-                <md:PackIcon Kind="Add" />
-            </Button>
-            <Button Grid.Column="2" Command="{Binding RemoveProxyCommand}">
-                <md:PackIcon Kind="Trash" />
-            </Button>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <nebulaAuth:HintBox
+                Visibility="{Binding ErrorText, Converter={StaticResource NullableToVisibilityConverter}}"
+                Margin="15,0,15,0"
+                Grid.Row="0"
+                Severity="Error"
+                FontSize="14"
+                Text="{Binding ErrorText}"
+                CloseCommand="{Binding ClearErrorCommand}"
+                ShowCloseButton="True" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Text="{Binding AddProxyField}"
+                         KeyDown="ProxyInput_KeyDown"
+                         FontSize="12"
+                         md:TextFieldAssist.HasClearButton="True"
+                         AcceptsReturn="True"
+                         MaxHeight="100" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Margin="15"
+                         Height="90"
+                         md:HintAssist.IsFloating="False"
+                         md:HintAssist.Hint="IP:PORT&#x0a;IP:PORT:USER:PASS&#x0a;PROTOCOL://IP:PORT:USER:PASS&#x0a;IP:PORT:USER:PASS{ID}
+                     " />
+                <Button x:Name="AddProxyBtn" ToolTip="CTRL+ENTER" IsDefault="True" Grid.Column="1" Height="90"
+                        Command="{Binding AddProxyCommand}">
+                    <md:PackIcon Kind="Add" />
+                </Button>
+                <Button Grid.Column="2" Height="90" Command="{Binding RemoveProxyCommand}" CommandParameter="{x:Null}">
+                    <md:PackIcon Kind="Trash" />
+                </Button>
+            </Grid>
+
         </Grid>
 
 

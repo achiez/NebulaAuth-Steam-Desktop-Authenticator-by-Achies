@@ -1,7 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using ProtoBuf;
+﻿using ProtoBuf;
 using SteamLib.ProtoCore.Enums;
 using SteamLib.ProtoCore.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SteamLib.ProtoCore;
 
@@ -25,7 +25,7 @@ public static class ProtoHelpers
         if (response.Headers.TryGetValues("x-eresult", out var val))
         {
             var eResultInt = Convert.ToInt32(val.Single());
-            return (EResult) eResultInt;
+            return (EResult)eResultInt;
         }
 
         return EResult.Invalid;

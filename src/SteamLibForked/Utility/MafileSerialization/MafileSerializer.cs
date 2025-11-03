@@ -29,7 +29,7 @@ public partial class MafileSerializer
         var versionToken = GetToken(j, SIGNATURE_PROPERTY_NAME);
         unusedProperties.Remove(CREDITS_PROPERTY_NAME);
         int? version = null;
-        if (versionToken is {Type: JTokenType.Integer})
+        if (versionToken is { Type: JTokenType.Integer })
         {
             version = versionToken.Value<int>();
         }

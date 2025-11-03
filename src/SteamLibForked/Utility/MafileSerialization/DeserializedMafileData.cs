@@ -1,6 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using SteamLibForked.Models.SteamIds;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SteamLib.Utility.MafileSerialization;
 
@@ -73,13 +73,13 @@ public class DeserializedMafileInfo
     public bool IsActual => Version == MafileSerializer.MAFILE_VERSION;
 
     [MemberNotNullWhen(true, nameof(UnusedProperties))]
-    public bool HasUnusedProperties => UnusedProperties is {Count: > 0};
+    public bool HasUnusedProperties => UnusedProperties is { Count: > 0 };
 
     [MemberNotNullWhen(true, nameof(MissingProperties))]
-    public bool HasMissingProperties => MissingProperties is {Count: > 0};
+    public bool HasMissingProperties => MissingProperties is { Count: > 0 };
 
     [MemberNotNullWhen(true, nameof(MissingImportantProperties))]
-    public bool HasMissingImportantProperties => MissingImportantProperties is {Count: > 0};
+    public bool HasMissingImportantProperties => MissingImportantProperties is { Count: > 0 };
 
     public bool HasSession => SessionResult == DeserializedMafileSessionResult.Valid;
     public bool HasIdentificationProperty { get; init; }
@@ -100,7 +100,7 @@ public class DeserializedMafileInfo
             isExtended = true;
         }
 
-        if (isExtended && missingProperties is {Count: > 0})
+        if (isExtended && missingProperties is { Count: > 0 })
         {
             var important = missingProperties.Intersect(ImportantProperties).ToList();
             if (important.Count > 0) missingImportantProperties = important.ToHashSet();

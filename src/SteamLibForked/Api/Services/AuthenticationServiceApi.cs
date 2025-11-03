@@ -1,9 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Net;
-using SteamLib.Core;
+﻿using SteamLib.Core;
 using SteamLib.Exceptions.Authorization;
 using SteamLib.ProtoCore;
 using SteamLib.ProtoCore.Services;
+using System.Diagnostics.CodeAnalysis;
+using System.Net;
 
 namespace SteamLib.Api.Services;
 

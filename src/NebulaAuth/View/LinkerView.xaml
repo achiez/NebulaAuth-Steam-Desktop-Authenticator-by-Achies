@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:linker="clr-namespace:NebulaAuth.ViewModel.Linker"
+             xmlns:nebulaAuth="clr-namespace:NebulaAuth"
              mc:Ignorable="d"
              TextElement.Foreground="{DynamicResource BaseContentBrush}"
              FontFamily="{materialDesign:MaterialDesignFont}"
@@ -29,8 +30,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-
-
         </Grid.RowDefinitions>
         <Grid.Resources>
             <Style TargetType="materialDesign:PackIcon">
@@ -81,45 +80,20 @@
             </Button>
         </Grid>
         <Separator Background="DarkGray" Opacity="0.4" Grid.Row="1" />
-        <Border Visibility="{Binding Tip, Converter={StaticResource NullableToVisibilityConverter}}"
-                Grid.Row="2" Margin="10,10,10,0" Padding="5"
-                BorderThickness="1"
-                CornerRadius="12">
-            <Border.BorderBrush>
-                <SolidColorBrush Color="{DynamicResource BaseShadowColor}" Opacity="0.5" />
-            </Border.BorderBrush>
-            <Border.Background>
-                <SolidColorBrush Color="{DynamicResource Base300Color}" Opacity="0.2" />
-            </Border.Background>
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon Kind="InfoCircleOutline" Foreground="{DynamicResource InfoBrush}" Height="22"
-                                         Width="22" VerticalAlignment="Center" Margin="5,0,0,0" />
-                <TextBlock VerticalAlignment="Center" MaxWidth="330" FontSize="14" TextWrapping="WrapWithOverflow"
-                           Margin="10,10,10,10" Text="{Binding Tip}" />
-            </StackPanel>
-        </Border>
+        <nebulaAuth:HintBox FontSize="14"
+                            Visibility="{Binding Tip, Converter={StaticResource NullableToVisibilityConverter}}"
+                            Grid.Row="2" Margin="10,10,10,0"
+                            Text="{Binding Tip}" MaxWidth="330" />
         <ContentControl
             Grid.Row="3" Margin="20"
             d:DataContext="{d:DesignInstance Type=linker:DesignLinkAccountAuthStepVM, IsDesignTimeCreatable=True}"
             Content="{Binding CurrentStep}" />
 
-        <Border Visibility="{Binding Error, Converter={StaticResource NullableToVisibilityConverter}}"
-                Grid.Row="4" Margin="10,0,10,10" Padding="5"
-                BorderThickness="1"
-                CornerRadius="12">
-            <Border.BorderBrush>
-                <SolidColorBrush Color="{DynamicResource BaseShadowColor}" Opacity="0.5" />
-            </Border.BorderBrush>
-            <Border.Background>
-                <SolidColorBrush Color="{DynamicResource Base300Color}" Opacity="0.2" />
-            </Border.Background>
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon Kind="ErrorOutline" Foreground="{DynamicResource ErrorBrush}" Height="22"
-                                         Width="22" VerticalAlignment="Center" Margin="5,0,0,0" />
-                <TextBlock VerticalAlignment="Center" MaxWidth="330" FontSize="14" TextWrapping="WrapWithOverflow"
-                           Margin="10,10,10,10" Text="{Binding Error}" />
-            </StackPanel>
-        </Border>
+        <nebulaAuth:HintBox FontSize="14"
+                            Visibility="{Binding Error, Converter={StaticResource NullableToVisibilityConverter}}"
+                            Grid.Row="4" Margin="10,0,10,10"
+                            Severity="Error"
+                            Text="{Binding Error}" />
 
     </Grid>
 </UserControl>

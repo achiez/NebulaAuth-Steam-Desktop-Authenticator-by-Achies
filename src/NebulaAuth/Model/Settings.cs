@@ -49,6 +49,7 @@ public partial class Settings : ObservableObject
         Instance.PropertyChanged += SettingsOnPropertyChanged;
     }
 
+
     private static void SettingsOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         Save();
@@ -70,7 +71,7 @@ public partial class Settings : ObservableObject
         Instance.BackgroundOpacity = 1.0;
         Instance.BackgroundGamma = 0.0;
         Instance.LeftOpacity = 0.4;
-        Instance.RightOpacity = 0.8;
+        Instance.RightOpacity = 0.4;
         Instance.ApplyBlurBackground = true;
         Instance.RippleDisabled = false;
         Save();
@@ -96,13 +97,15 @@ public partial class Settings : ObservableObject
 
     [ObservableProperty] private BackgroundMode _backgroundMode = BackgroundMode.Default;
     [ObservableProperty] private double _leftOpacity = 0.4;
-    [ObservableProperty] private double _rightOpacity = 1.0;
+    [ObservableProperty] private double _rightOpacity = 0.4;
     [ObservableProperty] private double _backgroundBlur;
     [ObservableProperty] private double _backgroundOpacity = 1;
     [ObservableProperty] private double _backgroundGamma;
     [ObservableProperty] private bool _applyBlurBackground = true;
     [ObservableProperty] private ThemeType _themeType = ThemeType.Default;
     [ObservableProperty] private bool _rippleDisabled;
+    [ObservableProperty] private bool _proxyManagerDisplayProtocol;
+    [ObservableProperty] private bool _proxyManagerDisplayCredentials;
 
     #endregion
 }

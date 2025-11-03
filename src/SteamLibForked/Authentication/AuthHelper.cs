@@ -1,6 +1,6 @@
-﻿using System.Security.Cryptography;
-using SteamLib.ProtoCore.Enums;
+﻿using SteamLib.ProtoCore.Enums;
 using SteamLib.ProtoCore.Services;
+using System.Security.Cryptography;
 
 namespace SteamLib.Authentication;
 

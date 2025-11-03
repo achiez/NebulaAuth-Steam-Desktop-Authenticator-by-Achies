@@ -40,21 +40,19 @@ public static class MaClient
     public static void SetAccount(Mafile? account)
     {
         ClientHandler.CookieContainer.ClearAllCookies();
-        if (account != null)
+        if (account == null) return;
+        if (account.SessionData != null)
         {
-            if (account.SessionData != null)
-            {
-                ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(account.SessionData);
-            }
-            else
-            {
-                ClientHandler.CookieContainer.ClearSteamCookies();
-                ClientHandler.CookieContainer.AddMinimalMobileCookies();
-                AdmissionHelper.TransferCommunityCookies(ClientHandler.CookieContainer);
-            }
-
-            Proxy.SetData(account.Proxy?.Data);
+            ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(account.SessionData);
         }
+        else
+        {
+            ClientHandler.CookieContainer.ClearSteamCookies();
+            ClientHandler.CookieContainer.AddMinimalMobileCookies();
+            AdmissionHelper.TransferCommunityCookies(ClientHandler.CookieContainer);
+        }
+
+        Proxy.SetData(account.Proxy?.Data);
     }
 
     public static Task<IEnumerable<Confirmation>> GetConfirmations(Mafile mafile)

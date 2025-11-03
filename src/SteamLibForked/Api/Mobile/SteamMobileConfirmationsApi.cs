@@ -1,5 +1,4 @@
-﻿using System.Net;
-using AchiesUtilities.Web.Extensions;
+﻿using AchiesUtilities.Web.Extensions;
 using SteamLib.Core;
 using SteamLib.Core.StatusCodes;
 using SteamLib.Exceptions;
@@ -8,6 +7,7 @@ using SteamLib.SteamMobile;
 using SteamLib.SteamMobile.Confirmations;
 using SteamLib.Utility;
 using SteamLib.Web.Scrappers.JSON;
+using System.Net;
 
 namespace SteamLib.Api.Mobile;
 

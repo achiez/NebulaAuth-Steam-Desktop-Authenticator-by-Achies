@@ -9,13 +9,13 @@ public static class DeviceDetailsDefaultBuilder
     [Obsolete("Not recommended")]
     public static DeviceDetails CreateDefault(string? deviceFriendlyName)
     {
-        return new DeviceDetails(deviceFriendlyName ?? string.Empty, EAuthTokenPlatformType.WebBrowser, (int?) null,
+        return new DeviceDetails(deviceFriendlyName ?? string.Empty, EAuthTokenPlatformType.WebBrowser, (int?)null,
             null);
     }
 
     public static DeviceDetails CreateCommunityDetails(string userAgent)
     {
-        return new DeviceDetails(userAgent, EAuthTokenPlatformType.WebBrowser, (int?) null, null);
+        return new DeviceDetails(userAgent, EAuthTokenPlatformType.WebBrowser, (int?)null, null);
     }
 
     public static DeviceDetails CreateMobileDetails(string deviceName)

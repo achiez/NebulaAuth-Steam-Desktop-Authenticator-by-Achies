@@ -19,9 +19,6 @@ public static class Storage
 {
     public const string MAFILE_F = "maFiles";
     public const string REMOVED_F = "maFiles_removed";
-    private static int _duplicateFound;
-
-    public static int DuplicateFound => _duplicateFound;
     public static string MafileFolder { get; } = Path.GetFullPath(MAFILE_F);
     public static string RemovedMafileFolder { get; } = Path.GetFullPath(REMOVED_F);
 
@@ -46,12 +43,7 @@ public static class Storage
             .ToList();
 
 
-        var hashNames = new ConcurrentDictionary<string, byte>();
-        var hashIds = new ConcurrentDictionary<SteamId, byte>();
         var localList = new ConcurrentBag<Mafile>();
-
-        var processed = 0;
-
         await Task.Run(() =>
         {
             return Parallel.ForEachAsync(files,
@@ -61,14 +53,6 @@ public static class Storage
                     try
                     {
                         var data = await ReadMafileAsync(file);
-
-                        if (!hashNames.TryAdd(data.AccountName, 0) ||
-                            (data.SessionData != null && !hashIds.TryAdd(data.SteamId, 0)))
-                        {
-                            Interlocked.Increment(ref _duplicateFound);
-                            Shell.Logger.Error("Duplicate mafile {file}", Path.GetFileName(file));
-                        }
-
                         localList.Add(data);
                     }
                     catch (Exception ex)
@@ -114,31 +98,30 @@ public static class Storage
             throw new FormatException("Can't generate code on this mafile", ex);
         }
 
-        if (overwrite == false && File.Exists(CreatePathForMafile(data)))
+        if (overwrite == false && File.Exists(GetMafilePath(data)))
         {
-            throw new IOException("File already exist and overwrite is False");
+            throw new IOException("File already exist and overwrite is False"); //TODO: Custom Exception
         }
 
 
         SaveMafile(data);
     }
 
-
     public static Mafile ReadMafile(string path)
     {
         var str = File.ReadAllText(path);
-        return NebulaSerializer.Deserialize(str);
+        return NebulaSerializer.Deserialize(str, path);
     }
 
     public static async Task<Mafile> ReadMafileAsync(string path)
     {
         var str = await File.ReadAllTextAsync(path);
-        return NebulaSerializer.Deserialize(str);
+        return NebulaSerializer.Deserialize(str, path);
     }
 
     public static void SaveMafile(Mafile data)
     {
-        var path = CreatePathForMafile(data);
+        var path = GetMafilePath(data);
         var str = NebulaSerializer.SerializeMafile(data);
         File.WriteAllText(Path.GetFullPath(path), str);
 
@@ -156,34 +139,40 @@ public static class Storage
 
     public static void UpdateMafile(Mafile data)
     {
-        var path = CreatePathForMafile(data);
+        var path = GetMafilePath(data);
         var str = NebulaSerializer.SerializeMafile(data);
         File.WriteAllText(Path.GetFullPath(path), str);
     }
 
     public static void MoveToRemoved(Mafile data)
     {
-        var path = CreatePathForMafile(data);
-        var copyPath = Path.Combine(REMOVED_F, data.SteamId + ".mafile");
-        var copyPathCompleted = copyPath;
+        var sourcePath = GetMafilePath(data);
+        var destinationPath = Path.Combine(REMOVED_F, data.Filename + ".mafile");
+        var destinationPathFinal = destinationPath;
         var i = 0;
-        while (File.Exists(copyPathCompleted))
+        while (File.Exists(destinationPathFinal))
         {
             i++;
-            copyPathCompleted = copyPath + $" ({i})";
+            destinationPathFinal = destinationPath + $" ({i})";
         }
 
-        File.Copy(path, copyPathCompleted, false);
-        File.Delete(path);
+        File.Copy(sourcePath, destinationPathFinal, false);
+        File.Delete(sourcePath);
         MaFiles.Remove(data);
     }
 
-    private static string CreatePathForMafile(Mafile data)
+    private static string GetMafilePath(Mafile data)
     {
+        if (data.Filename != null)
+        {
+            return Path.Combine(MafileFolder, data.Filename);
+        }
+
         var fileName = Settings.Instance.UseAccountNameAsMafileName
             ? CreateFileNameWithAccountName(data.AccountName)
             : CreateFileNameWithSteamId(data.SteamId);
 
+        data.Filename = fileName;
         return Path.Combine(MafileFolder, fileName);
     }
 
@@ -197,29 +186,10 @@ public static class Storage
         return steamId.Steam64.Id + ".mafile";
     }
 
-    public static string? TryFindMafilePath(Mafile data)
+    public static string? TryGetMafilePath(Mafile data)
     {
-        var pathFileName = Path.Combine(MafileFolder, CreateFileNameWithAccountName(data.AccountName));
-        string? pathSteamId = null;
-        if (data.SessionData != null)
-        {
-            pathSteamId = Path.Combine(MafileFolder, CreateFileNameWithSteamId(data.SteamId));
-        }
-
-        var steamIdExist = pathSteamId != null && File.Exists(pathSteamId);
-        var accountNameExist = File.Exists(pathFileName);
-
-        if (steamIdExist && accountNameExist)
-        {
-            return Settings.Instance.UseAccountNameAsMafileName ? pathFileName : pathSteamId;
-        }
-
-        if (steamIdExist ^ accountNameExist)
-        {
-            return steamIdExist ? pathSteamId : pathFileName;
-        }
-
-        return null;
+        if (data.Filename == null) return null;
+        return Path.Combine(MafileFolder, data.Filename);
     }
 
     public static void BackupHandler(MobileDataExtended data)

@@ -258,29 +258,6 @@ public partial class MafileMoverVM : ObservableObject, IAuthProvider, IDisposabl
         await Done(mafile.RevocationCode ?? string.Empty, mafile.SteamId.Steam64.ToString());
     }
 
-    #region Step 3: Sms code
-
-    // Step 3: Sms code
-    public Task<int> GetSms()
-    {
-        var step = new MafileMoverSmsStepVM();
-        SetCurrentStep(step);
-        return step.GetResultAsync();
-    }
-
-    #endregion
-
-    #region Step 4: Done
-
-    public async Task Done(string rCode, string steamId)
-    {
-        var step = new MafileMoverDoneStepVM(rCode, steamId);
-        SetCurrentStep(step);
-        await step.GetResultAsync();
-    }
-
-    #endregion
-
     private void SetCurrentStep(MafileMoverStepVM step)
     {
         Dispatcher.CurrentDispatcher.Invoke(() =>
@@ -335,13 +312,15 @@ public partial class MafileMoverVM : ObservableObject, IAuthProvider, IDisposabl
         _cts.Dispose();
     }
 
-    #region Step 2: Guard Code
 
     public bool IsSupportedGuardType(ILoginConsumer consumer, EAuthSessionGuardType type)
     {
         return type == EAuthSessionGuardType.DeviceCode;
     }
 
+    // @formatter:off
+
+    #region Step 2: Guard Code
     // Step 2: Guard Code
     public async Task UpdateAuthSession(HttpClient authClient, ILoginConsumer loginConsumer,
         UpdateAuthSessionModel model,
@@ -374,4 +353,29 @@ public partial class MafileMoverVM : ObservableObject, IAuthProvider, IDisposabl
     }
 
     #endregion
+
+    #region Step 3: Sms code
+
+    // Step 3: Sms code
+    public Task<int> GetSms()
+    {
+        var step = new MafileMoverSmsStepVM();
+        SetCurrentStep(step);
+        return step.GetResultAsync();
+    }
+
+    #endregion
+
+    #region Step 4: Done
+
+    public async Task Done(string rCode, string steamId)
+    {
+        var step = new MafileMoverDoneStepVM(rCode, steamId);
+        SetCurrentStep(step);
+        await step.GetResultAsync();
+    }
+
+    #endregion
+
+    // @formatter:on
 }

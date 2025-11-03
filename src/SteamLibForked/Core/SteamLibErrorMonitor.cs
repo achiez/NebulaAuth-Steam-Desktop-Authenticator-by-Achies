@@ -1,7 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Runtime.ExceptionServices;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using SteamLib.Exceptions.General;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.ExceptionServices;
 
 namespace SteamLib.Core;
 

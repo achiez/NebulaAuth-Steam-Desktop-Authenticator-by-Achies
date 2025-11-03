@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using AchiesUtilities.Models;
+﻿using AchiesUtilities.Models;
 using Newtonsoft.Json.Linq;
 using SteamLib.Core;
+using System.Diagnostics;
 
 namespace SteamLib.SteamMobile;
 
@@ -50,7 +50,7 @@ public static class TimeAligner
             var j = JObject.Parse(respStr);
             var time = j["response"]!["server_time"]!.Value<long>();
             var now = UtcNow - sw.Elapsed;
-            _timeDifference = (int) (time - now.ToLong());
+            _timeDifference = (int)(time - now.ToLong());
             _aligned = true;
         }
         finally
@@ -72,7 +72,7 @@ public static class TimeAligner
             var j = JObject.Parse(respStr);
             var time = j["response"]!["server_time"]!.Value<long>();
             var now = UtcNow - sw.Elapsed;
-            _timeDifference = (int) (time - now.ToLong());
+            _timeDifference = (int)(time - now.ToLong());
             _aligned = true;
         }
         finally

@@ -67,7 +67,7 @@ public partial class SteamStatusCode : Enumeration<SteamStatusCode>
 
     public static SteamStatusCode FromEResult(EResult result)
     {
-        var r = (int) result;
+        var r = (int)result;
         var fromId = FromId(r);
         return fromId ?? new SteamStatusCode(r, "Unknown");
     }

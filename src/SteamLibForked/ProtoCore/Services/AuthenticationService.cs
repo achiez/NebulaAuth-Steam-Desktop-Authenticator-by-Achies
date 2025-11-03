@@ -1,8 +1,8 @@
-﻿using System.Security.Cryptography;
-using ProtoBuf;
+﻿using ProtoBuf;
 using SteamLib.ProtoCore.Enums;
 using SteamLib.ProtoCore.Interfaces;
 using SteamLib.Utility;
+using System.Security.Cryptography;
 
 // ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
@@ -81,18 +81,18 @@ public class DeviceDetails : IProtoMsg
     {
         DeviceFriendlyName = deviceFriendlyName;
         PlatformType = platformType;
-        OsType = (int?) osType;
+        OsType = (int?)osType;
         GamingDeviceType = gamingDeviceType;
     }
 
     public static DeviceDetails CreateDefault()
     {
-        return new DeviceDetails("", EAuthTokenPlatformType.WebBrowser, (int?) null, null);
+        return new DeviceDetails("", EAuthTokenPlatformType.WebBrowser, (int?)null, null);
     }
 
     public static DeviceDetails CreateCommunityDetails(string userAgent)
     {
-        return new DeviceDetails(userAgent, EAuthTokenPlatformType.WebBrowser, (int?) null, null);
+        return new DeviceDetails(userAgent, EAuthTokenPlatformType.WebBrowser, (int?)null, null);
     }
 
     public static DeviceDetails CreateMobileDetails(string deviceName)

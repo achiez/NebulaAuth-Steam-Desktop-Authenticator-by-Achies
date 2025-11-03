@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
@@ -55,6 +56,18 @@ public partial class MainWindow
     {
         if (e.Key != Key.Escape || !SearchField.IsFocused) return;
         Keyboard.ClearFocus();
+    }
+
+    private void MafileListBox_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (!Keyboard.Modifiers.HasFlag(ModifierKeys.Control)) return;
+        if (ItemsControl.ContainerFromElement((ListBox) sender, (DependencyObject) e.OriginalSource) is ListBoxItem
+            {
+                IsSelected: true
+            } item)
+        {
+            e.Handled = true;
+        }
     }
 
     #region Dran'n'Drop

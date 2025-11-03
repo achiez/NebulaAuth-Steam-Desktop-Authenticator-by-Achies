@@ -23,6 +23,7 @@
                 Margin="0,10,0,0" />
             <TextBox
                 Padding="8"
+                TabIndex="1"
                 FontSize="14"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"

@@ -40,6 +40,11 @@
       "ru": "Прокси",
       "ua": "Проксі"
     },
+    "Delete": {
+      "en": "Delete",
+      "ru": "Удалить",
+      "ua": "Видалити"
+    },
     "Abbreviations": {
       "Time": {
         "Seconds": {
@@ -224,15 +229,16 @@
       }
     },
     "Footer": {
-      "Account": {
-        "en": "Account: ",
-        "ru": "Аккаунт: ",
-        "ua": "Акаунт: "
+      "AccountsCount": {
+        "en": "Accounts: ",
+        "ru": "Аккаунты: ",
+        "ua": "Акаунти: "
       },
-      "Group": {
-        "en": "Group: ",
-        "ru": "Группа: ",
-        "ua": "Група: "
+      "SelectedAccount": {
+        "en": "Current: ",
+        "ru": "Текущий: ",
+        "ua": "Поточний: "
+
       }
     },
     "ConfirmationTemplates": {
@@ -405,9 +411,9 @@
       "ua": "Згортати в трей"
     },
     "UseIndicator": {
-      "en": "Use indicator",
-      "ru": "Использовать индикатор",
-      "ua": "Використовувати індикатор"
+      "en": "Use color indicator in taskbar",
+      "ru": "Цветной индикатор в панели задач",
+      "ua": "Кольоровий індикатор в панелі завдань"
     },
     "UseIndicatorHint": {
       "en": "Small color indicator in windows toolbar to identify program instance",
@@ -448,9 +454,9 @@
       "ua": "Дозволити автооновлення"
     },
     "UseAccountName": {
-      "en": "Use account name on mafiles",
-      "ru": "Использовать имя аккаунта на мафайлах",
-      "ua": "Використовувати ім'я акаунта на мафайлах"
+      "en": "Use account login on mafiles",
+      "ru": "Использовать логин аккаунта на мафайлах",
+      "ua": "Використовувати логін акаунта на мафайлах"
     },
     "IgnorePatchTuesdayErrors": {
       "en": "Ignore Patch Tuesday errors in timer (exp.)",
@@ -525,6 +531,16 @@
       "en": "Use random default proxy",
       "ru": "Cлучайный прокси по умолчанию",
       "ua": "Випадковий проксі за замовчуванням"
+    },
+    "DisplayProxyProtocol": {
+      "en": "Display protocol",
+      "ru": "Отображать протокол",
+      "ua": "Відображати протокол"
+    },
+    "DisplayProxyCredentials": {
+      "en": "Display credentials",
+      "ru": "Отображать логин и пароль",
+      "ua": "Відображати логін та пароль"
     }
   },
   "WaitLoginDialog": {
@@ -805,11 +821,6 @@
         "ru": "Слишком быстрый таймер.",
         "en": "Too fast timer.",
         "ua": "Занадто швидкий таймер."
-      },
-      "DuplicateMafilesFound": {
-        "en": "Duplicate mafile(s) found and were not loaded. Check log to get lists of duplicate files.",
-        "ru": "Найдены дубликаты мафайлов, они не были загружены. Проверьте лог чтобы получить списки дубликатов.",
-        "ua": "Знайдено дублікати мафайлів, вони не були завантажені. Перевірте лог щоб отримати списки дублікатів."
       },
       "TimerChanged": {
         "en": "Timer changed",

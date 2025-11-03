@@ -34,7 +34,7 @@ public partial class MainVM //File //TODO: Refactor
         string? mafilePath = null;
         if (mafile != null)
         {
-            mafilePath = Storage.TryFindMafilePath(mafile);
+            mafilePath = Storage.TryGetMafilePath(mafile);
         }
 
         if (mafilePath != null)
@@ -266,7 +266,7 @@ public partial class MainVM //File //TODO: Refactor
     private void CopyMafile(object? mafile)
     {
         if (mafile is not Mafile maf) return;
-        var path = Storage.TryFindMafilePath(maf);
+        var path = Storage.TryGetMafilePath(maf);
         if (ClipboardHelper.SetFiles([path]))
             SnackbarController.SendSnackbar(GetLocalization("MafileCopied"));
     }

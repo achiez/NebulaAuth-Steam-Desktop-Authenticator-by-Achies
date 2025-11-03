@@ -78,7 +78,7 @@ public static class MobileConfirmationScrapper
             ConfirmationType.MarketSellTransaction => GetMarketConfirmation(json),
             ConfirmationType.RegisterApiKey => GetRegisterApiKeyConfirmation(json),
             ConfirmationType.Purchase => GetPurchaseConfirmation(json),
-            _ => new Confirmation(json.Id, json.Nonce, (int) json.Type, json.CreatorId, json.Type, json.TypeName)
+            _ => new Confirmation(json.Id, json.Nonce, (int)json.Type, json.CreatorId, json.Type, json.TypeName)
             {
                 Time = json.CreationTime.ToLocalDateTime()
             }

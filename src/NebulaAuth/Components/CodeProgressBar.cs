@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace NebulaAuth.Theme.Controls;
+namespace NebulaAuth;
 
 public class CodeProgressBar : ProgressBar
 {

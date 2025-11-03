@@ -1,6 +1,6 @@
-﻿using System.Numerics;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using SteamLibForked.Models.SteamIds;
+using System.Numerics;
 
 namespace SteamLib.Utility.MafileSerialization;
 
@@ -167,11 +167,11 @@ public partial class MafileSerializer //Utility
             {
                 res = settings.DeserializationOptions.RestrictOverflowSerialNumberRecovery
                     ? 0
-                    : GetFromOverflow((long) bigInt);
+                    : GetFromOverflow((long)bigInt);
             }
             else if (bigInt > ulong.MinValue && bigInt < ulong.MaxValue) //Valid range
             {
-                res = (ulong) bigInt;
+                res = (ulong)bigInt;
             }
             else
             {
@@ -192,7 +192,7 @@ public partial class MafileSerializer //Utility
             ulong originalValue;
             unchecked
             {
-                originalValue = (ulong) overflow + ulong.MaxValue + 1;
+                originalValue = (ulong)overflow + ulong.MaxValue + 1;
             }
 
             return originalValue;

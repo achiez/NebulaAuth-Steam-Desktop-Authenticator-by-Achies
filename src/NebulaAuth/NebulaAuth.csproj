@@ -65,4 +65,9 @@
 		</None>
 	</ItemGroup>
 
+
+	<ItemGroup>
+	  <Folder Include="Theme\Controls\" />
+	</ItemGroup>
+
 </Project>

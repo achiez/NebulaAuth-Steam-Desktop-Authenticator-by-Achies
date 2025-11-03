@@ -8,6 +8,7 @@
     <converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter" />
     <converters:ProxyTextConverter x:Key="ProxyTextConverter" />
     <converters:ProxyDataTextConverter x:Key="ProxyDataTextConverter" />
+    <converters:ProxyDataTextMultiConverter x:Key="ProxyDataTextMultiConverter" />
     <converters:MultiCommandParameterConverter x:Key="MultiCommandParameterConverter" />
     <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
     <converters:AnyMafilesToVisibilityConverter x:Key="AnyMafilesToVisibilityConverter" />

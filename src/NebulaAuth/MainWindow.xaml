@@ -8,7 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:entities="clr-namespace:NebulaAuth.Model.Entities"
         xmlns:viewModel="clr-namespace:NebulaAuth.ViewModel"
-        xmlns:controls="clr-namespace:NebulaAuth.Theme.Controls"
+        xmlns:nebulaAuth="clr-namespace:NebulaAuth"
         WindowStartupLocation="CenterScreen"
         MinHeight="500" MinWidth="500"
         Title="NebulaAuth" Height="800" Width="730"
@@ -73,8 +73,7 @@
                             <MenuItem Header="{Tr MainWindow.Menu.File.Caption}">
                                 <MenuItem Header="{Tr MainWindow.Menu.File.Import}"
                                           Command="{Binding AddMafileCommand}" />
-                                <MenuItem IsEnabled="{Binding IsMafileSelected}"
-                                          Header="{Tr MainWindow.Menu.File.Remove}"
+                                <MenuItem Header="{Tr MainWindow.Menu.File.Remove}"
                                           Command="{Binding RemoveMafileCommand}" />
                                 <MenuItem Header="{Tr MainWindow.Menu.File.OpenFolder}"
                                           Command="{Binding OpenMafileFolderCommand}" />
@@ -93,11 +92,9 @@
                                           Command="{Binding RemoveAuthenticatorCommand}" />
 
                                 <MenuItem IsEnabled="False" Header="⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯" Height="15" />
-                                <MenuItem IsEnabled="{Binding IsMafileSelected}"
-                                          Header="{Tr MainWindow.Menu.Account.RefreshSession}"
+                                <MenuItem Header="{Tr MainWindow.Menu.Account.RefreshSession}"
                                           Command="{Binding RefreshSessionCommand}" />
-                                <MenuItem IsEnabled="{Binding IsMafileSelected}"
-                                          Header="{Tr MainWindow.Menu.Account.LoginAgain}"
+                                <MenuItem Header="{Tr MainWindow.Menu.Account.LoginAgain}"
                                           Command="{Binding LoginAgainCommand}" />
                             </MenuItem>
                         </Menu>
@@ -254,8 +251,11 @@
                                            Text="{Tr MainWindow.LeftPart.NoMafiles}" />
 
                                 <ListBox FontSize="17" Margin="2"
+                                         x:Name="MafileListBox"
+                                         SelectionMode="Single"
                                          ItemsSource="{Binding MaFiles}"
-                                         SelectedValue="{Binding SelectedMafile}">
+                                         SelectedValue="{Binding SelectedMafile}"
+                                         PreviewMouseDown="MafileListBox_OnPreviewMouseDown">
                                     <ListBox.ItemContainerStyle>
                                         <Style TargetType="ListBoxItem"
                                                BasedOn="{StaticResource MaterialDesignListBoxItem}">
@@ -265,7 +265,7 @@
                                     </ListBox.ItemContainerStyle>
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <Grid>
+                                            <Grid ToolTip="{Binding Filename}">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
@@ -358,57 +358,70 @@
                         </Border>
 
                     </Grid>
-                    <md:Card BorderThickness="1" Style="{StaticResource MaterialDesignOutlinedCard}" Grid.Column="1"
-                             Margin="10,10,15,10" UniformCornerRadius="12" Opacity="{Binding Settings.RightOpacity}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="115*" />
-                                <RowDefinition Height="436*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid Row="0">
+                    <Grid Grid.Column="1">
+                        <Border Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
+                                Opacity="{Binding Settings.RightOpacity}"
+                                BorderThickness="1" 
+                                
+                                Margin="10,10,15,10" CornerRadius="12" VerticalAlignment="Stretch">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="{DynamicResource Base300Color}" Opacity="0.3" />
+                            </Border.BorderBrush>
+                        </Border>
+                                <md:Card Margin="10,10,15,10" Padding="2" UniformCornerRadius="12"
+                                 Background="Transparent" >
+                            <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="115*" />
+                                    <RowDefinition Height="436*" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <TextBox FontSize="24"
-                                         IsReadOnly="True" HorizontalContentAlignment="Center" Background="#00FFFFFF"
+                                <Grid Row="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBox FontSize="24"
+                                             IsReadOnly="True" HorizontalContentAlignment="Center"
+                                             Background="#00FFFFFF"
 
-                                         Style="{StaticResource MaterialDesignTextBox}"
+                                             Style="{StaticResource MaterialDesignTextBox}"
 
-                                         Text="{Binding Code, FallbackValue=Code}">
-                                    <TextBox.InputBindings>
-                                        <MouseBinding Gesture="LeftClick" Command="{Binding CopyCodeCommand}" />
-                                    </TextBox.InputBindings>
-                                </TextBox>
-                                <controls:CodeProgressBar
-                                    Visibility="{Binding SelectedMafile, Converter={StaticResource NullableToVisibilityConverter}}"
-                                    Grid.Row="1" Height="4" Style="{StaticResource MaterialDesignLinearProgressBar}"
-                                    MaxTime="30" TimeRemaining="{Binding CodeProgress, Mode=OneWay}" />
+                                             Text="{Binding Code, FallbackValue=Code}">
+                                        <TextBox.InputBindings>
+                                            <MouseBinding Gesture="LeftClick" Command="{Binding CopyCodeCommand}" />
+                                        </TextBox.InputBindings>
+                                    </TextBox>
+                                    <nebulaAuth:CodeProgressBar
+                                        Visibility="{Binding SelectedMafile, Converter={StaticResource NullableToVisibilityConverter}}"
+                                        Grid.Row="1" Height="4"
+                                        Style="{StaticResource MaterialDesignLinearProgressBar}"
+                                        MaxTime="30" TimeRemaining="{Binding CodeProgress, Mode=OneWay}"
+                                        />
+                                </Grid>
+                                <Button IsEnabled="{Binding IsMafileSelected}"
+                                        FontSize="14"
+                                        Grid.Row="1"
+                                        Style="{StaticResource MaterialDesignOutlinedButton}" Margin="0,10,0,10"
+                                        HorizontalAlignment="Center"
+                                        Content="{Tr MainWindow.RightPart.LoadConfirmations}"
+                                        Command="{Binding GetConfirmationsCommand}"
+                                        Width="{Binding Path=ActualWidth, Converter={StaticResource CoefficientConverter}, ConverterParameter=0.6, RelativeSource={RelativeSource AncestorType=md:Card}}" />
+                                <ItemsControl md:RippleAssist.IsDisabled="True" Focusable="False" Grid.Row="2"
+                                              FontSize="16"
+                                              Margin="10,10,10,10"
+                                              Visibility="{Binding ConfirmationsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                              ItemsSource="{Binding Confirmations}" Grid.RowSpan="2" />
+                                <Button FontSize="16"
+                                        Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="4"
+                                        Command="{Binding ConfirmLoginCommand}"
+                                        Content="{Tr MainWindow.RightPart.ConfirmLogin}" />
                             </Grid>
-                            <Button IsEnabled="{Binding IsMafileSelected}"
-                                    FontSize="14"
-                                    Grid.Row="1"
-                                    Style="{StaticResource MaterialDesignOutlinedButton}" Margin="0,10,0,10"
-                                    HorizontalAlignment="Center"
-                                    Content="{Tr MainWindow.RightPart.LoadConfirmations}"
-                                    Command="{Binding GetConfirmationsCommand}"
-                                    Width="{Binding Path=ActualWidth, Converter={StaticResource CoefficientConverter}, ConverterParameter=0.6, RelativeSource={RelativeSource AncestorType=md:Card}}" />
-                            <ItemsControl md:RippleAssist.IsDisabled="True" Focusable="False" Grid.Row="2"
-                                          FontSize="16"
 
-                                          Margin="10,10,10,10"
-                                          Visibility="{Binding ConfirmationsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                          ItemsSource="{Binding Confirmations}" Grid.RowSpan="2" />
-                            <Button Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="4"
-                                    FontSize="18"
-                                    Command="{Binding ConfirmLoginCommand}"
-
-                                    Content="{Tr MainWindow.RightPart.ConfirmLogin}" />
-                        </Grid>
-                    </md:Card>
+                        </md:Card>
+                    </Grid>
                 </Grid>
                 <Border Grid.Row="2" BorderBrush="#1e1e24">
                     <Border.Background>
@@ -417,12 +430,12 @@
                     <Grid>
                         <ToolBarPanel TextElement.Foreground="{DynamicResource SecondaryContentBrush}"
                                       Orientation="Horizontal" Margin="5">
-                            <TextBlock FontSize="15" FontWeight="Bold" Text="{Tr MainWindow.Footer.Account}" />
-                            <TextBlock FontSize="15" Text="{Binding SelectedMafile.AccountName}" />
+                            <TextBlock FontSize="15" Text="{Tr MainWindow.Footer.AccountsCount}" />
+                            <TextBlock FontSize="15" Text="{Binding MaFiles.Count}" />
                             <TextBlock FontSize="15" Text="|" Margin="10,0,10,0" />
-                            <TextBlock FontSize="15" FontWeight="Bold" Text="{Tr MainWindow.Footer.Group}" />
-                            <TextBlock FontSize="15" FontWeight="Normal"
-                                       Text="{Binding SelectedMafile.Group, TargetNullValue=' ', FallbackValue=' ', Mode=OneWay}" />
+                            <TextBlock FontSize="15" Text="{Tr MainWindow.Footer.SelectedAccount}" />
+                            <TextBlock FontSize="15"
+                                       Text="{Binding SelectedMafile.AccountName, TargetNullValue=' ', FallbackValue=' ', Mode=OneWay}" />
                             <!--<Button Command="{Binding DebugCommand}">Debug</Button>-->
                         </ToolBarPanel>
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"

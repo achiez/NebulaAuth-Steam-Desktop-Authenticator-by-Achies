@@ -26,6 +26,7 @@
             <TextBox
                 Padding="8"
                 FontSize="14"
+                TabIndex="1"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
                 materialDesign:HintAssist.Hint="{Tr LinkerDialog.Password}"

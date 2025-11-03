@@ -116,6 +116,7 @@ public partial class SettingsVM : ObservableObject
         OnPropertyChanged(nameof(LeftOpacity));
         OnPropertyChanged(nameof(RightOpacity));
         OnPropertyChanged(nameof(ApplyBlurBackground));
+        OnPropertyChanged(nameof(RippleDisabled));
     }
 
 
