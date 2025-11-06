@@ -30,7 +30,7 @@ public partial class MainVM //File //TODO: Refactor
     {
         var mafile = SelectedMafile;
 
-        var path = Storage.MafileFolder;
+        var path = Storage.MafilesDirectory;
         string? mafilePath = null;
         if (mafile != null)
         {

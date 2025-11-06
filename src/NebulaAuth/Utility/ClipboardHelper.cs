@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Windows;
-using NebulaAuth.Core;
+﻿using NebulaAuth.Core;
 using NebulaAuth.Model;
+using System;
+using System.Collections.Specialized;
 
 namespace NebulaAuth.Utility;
 
@@ -10,24 +9,15 @@ public class ClipboardHelper
 {
     public static bool Set(string text)
     {
-        var i = 0;
-        while (i < 20)
+        try
         {
-            try
-            {
-                Clipboard.SetText(text);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                if (i == 19)
-                {
-                    Shell.Logger.Error(ex);
-                    SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
-                }
-            }
-
-            i++;
+            System.Windows.Forms.Clipboard.SetText(text);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Shell.Logger.Error(ex);
+            SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
         }
 
         return false;
@@ -35,26 +25,16 @@ public class ClipboardHelper
 
     public static bool SetFiles(StringCollection files)
     {
-        var i = 0;
-        while (i < 20)
+        try
         {
-            try
-            {
-                Clipboard.SetFileDropList(files);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                if (i == 19)
-                {
-                    Shell.Logger.Error(ex);
-                    SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
-                }
-            }
-
-            i++;
+            System.Windows.Forms.Clipboard.SetFileDropList(files);
+            return true;
         }
-
+        catch (Exception ex)
+        {
+            Shell.Logger.Error(ex);
+            SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
+        }
         return false;
     }
 }

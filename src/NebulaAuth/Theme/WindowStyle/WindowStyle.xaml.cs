@@ -2,9 +2,6 @@
 
 namespace NebulaAuth.Theme.WindowStyle;
 
-/// <summary>
-///     Логика взаимодействия для WindowStyle.xaml
-/// </summary>
 partial class WindowStyle
 {
     public WindowStyle()

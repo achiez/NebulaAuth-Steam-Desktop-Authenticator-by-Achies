@@ -177,7 +177,7 @@ public partial class LinkAccountVM : ObservableObject, ISmsCodeProvider, IPhoneN
 
 
         var linkOptions = new LinkOptions(_client, StaticLoginConsumer.Instance, this,
-            this, this, Storage.BackupHandler, Logger2);
+            this, this, Storage.WriteBackup, Logger2);
         var linker = new SteamAuthenticatorLinker(linkOptions);
         MobileDataExtended result;
         try
@@ -226,7 +226,6 @@ public partial class LinkAccountVM : ObservableObject, ISmsCodeProvider, IPhoneN
         }
 
         Storage.SaveMafile(mafile);
-        File.Delete(Path.Combine("mafiles_backup", mafile.AccountName + ".mafile"));
         await Done(mafile.RevocationCode ?? string.Empty, mafile.SteamId.Steam64.ToString(), login);
     }
 

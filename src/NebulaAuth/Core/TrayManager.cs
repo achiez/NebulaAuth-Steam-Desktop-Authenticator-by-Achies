@@ -29,7 +29,7 @@ public static class TrayManager
 
         var contextMenu = new ContextMenuStrip();
 
-        contextMenu.Items.Add("Выйти", null!, OnExitClick);
+        contextMenu.Items.Add("Exit", null!, OnExitClick);
 
         _notifyIcon.ContextMenuStrip = contextMenu;
 

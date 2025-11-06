@@ -26,15 +26,12 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-
-            <!-- Иконка типа (info/error) -->
             <materialDesign:PackIcon Height="22" Width="22"
                                      VerticalAlignment="Center"
                                      Margin="5,0,0,0"
                                      Foreground="{Binding IconBrush, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                      Kind="{Binding IconKind, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
-            <!-- Текст подсказки -->
             <TextBlock Grid.Column="1"
                        FontSize="{Binding FontSize, RelativeSource={RelativeSource AncestorType=UserControl}}"
                        TextWrapping="WrapWithOverflow"
@@ -42,12 +39,10 @@
                        Margin="10,10,10,10"
                        Text="{Binding Text, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
-            <!-- Крестик (кнопка закрытия) -->
             <Button Grid.Column="2"
                     Visibility="{Binding ShowCloseButton, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Command="{Binding CloseCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                     Style="{StaticResource MaterialDesignToolButton}"
-                    ToolTip="Закрыть"
                     Margin="0,0,5,0"
                     Padding="2">
                 <materialDesign:PackIcon Kind="Close" Width="18" Height="18" />

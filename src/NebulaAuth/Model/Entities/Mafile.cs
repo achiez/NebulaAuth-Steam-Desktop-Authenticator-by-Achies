@@ -21,7 +21,6 @@ public partial class Mafile : MobileDataExtended
     }
 
     [JsonIgnore] public string? Filename { get; set; }
-
     [JsonIgnore] private PortableMaClient? _linkedClient;
 
     public void SetSessionData(MobileSessionData? sessionData)

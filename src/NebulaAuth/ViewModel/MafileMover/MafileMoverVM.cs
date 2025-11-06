@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Threading;
-using AchiesUtilities.Web.Proxy;
+﻿using AchiesUtilities.Web.Proxy;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
@@ -33,6 +24,14 @@ using SteamLibForked.Abstractions;
 using SteamLibForked.Exceptions.Authorization;
 using SteamLibForked.Models.Core;
 using SteamLibForked.Models.Session;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Threading;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace NebulaAuth.ViewModel.MafileMover;
@@ -236,7 +235,7 @@ public partial class MafileMoverVM : ObservableObject, IAuthProvider, IDisposabl
 
         var t = res.ReplacementToken;
         var j = JsonConvert.SerializeObject(t);
-        Storage.BackupHandlerStr(login, j);
+        Storage.WriteBackup(login, j);
         var mobileData = t.ToMobileDataExtended(SteamAuthenticatorLinkerApi.GenerateDeviceId(), msd);
 
 
@@ -254,7 +253,6 @@ public partial class MafileMoverVM : ObservableObject, IAuthProvider, IDisposabl
         }
 
         Storage.SaveMafile(mafile);
-        File.Delete(Path.Combine("mafiles_backup", mafile.AccountName + ".mafile"));
         await Done(mafile.RevocationCode ?? string.Empty, mafile.SteamId.Steam64.ToString());
     }
 

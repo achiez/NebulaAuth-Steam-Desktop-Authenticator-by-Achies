@@ -5,9 +5,7 @@ using MaterialDesignThemes.Wpf;
 
 namespace NebulaAuth.View;
 
-/// <summary>
-///     Логика взаимодействия для SettingsView.xaml
-/// </summary>
+
 public partial class SettingsView
 {
     private readonly DialogHost? _dialogHost;

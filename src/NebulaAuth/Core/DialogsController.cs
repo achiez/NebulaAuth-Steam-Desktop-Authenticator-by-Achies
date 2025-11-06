@@ -23,12 +23,12 @@ public static class DialogsController
         return result != null && (bool) result;
     }
 
-    //public static async Task<string?> ShowTextFieldDialog(string? msg = null)
-    //{
-    //    var content = msg == null ? new TextFieldDialog() : new TextFieldDialog(msg);
-    //    var result = await DialogHost.Show(content);
-    //    return result as string;
-    //}
+    public static async Task<string?> ShowTextFieldDialog(string? title = null, string? msg = null)
+    {
+        var content = new TextFieldDialog(title, msg);
+        var result = await DialogHost.Show(content);
+        return result as string;
+    }
 
     #endregion
 

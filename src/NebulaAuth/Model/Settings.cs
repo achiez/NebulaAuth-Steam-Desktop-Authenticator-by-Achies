@@ -41,7 +41,7 @@ public partial class Settings : ObservableObject
         }
         catch (Exception ex)
         {
-            SnackbarController.SendSnackbar("Ошибка при загрузке настроек. Настройки были сброшены");
+            SnackbarController.SendSnackbar(LocManager.GetCodeBehindOrDefault("Error when loading settings", "Settings", "ErrorWhileLoadingSettings"));
             SnackbarController.SendSnackbar(ex.Message);
             Instance = new Settings();
         }

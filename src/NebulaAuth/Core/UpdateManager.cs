@@ -15,9 +15,23 @@ public static class UpdateManager
         var jsonPath = Path.Combine(Environment.CurrentDirectory, "update-settings.json");
         AutoUpdater.PersistenceProvider = new JsonFilePersistenceProvider(jsonPath);
         AutoUpdater.ShowSkipButton = false;
-        if (Settings.Instance.AllowAutoUpdate)
-            AutoUpdater.UpdateMode = Mode.ForcedDownload;
+        AutoUpdater.RunUpdateAsAdmin = RequiresAdminAccess();
         AutoUpdater.Start(UPDATE_URL);
+    }
+
+    private static bool RequiresAdminAccess()
+    {
+        try
+        {
+            var testFile = Path.Combine(Environment.CurrentDirectory, "test.tmp");
+            using (File.Create(testFile)) { }
+            File.Delete(testFile);
+            return false; 
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return true;
+        }
     }
 
 

@@ -1,8 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using AchiesUtilities.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 
@@ -33,9 +36,17 @@ public partial class MainVM //Groups
     [ObservableProperty] private ObservableCollection<string> _groups = [];
 
     private string _searchText = string.Empty;
-
     private string? _selectedGroup;
 
+    [RelayCommand]
+    private async Task CreateGroup(Mafile? mafile)
+    {
+        if(mafile == null) return;
+        var res = await DialogsController.ShowTextFieldDialog(GetLocalization("CreateGroupTitle"), GetLocalization("CreateGroupInput"));
+        if(string.IsNullOrWhiteSpace(res)) return;
+        AddToGroup([res, mafile]);
+        SnackbarController.SendSnackbar(GetLocalization("CreateGroupSuccess"));
+    }
 
     [RelayCommand]
     private void AddGroup(string? value)
@@ -68,7 +79,7 @@ public partial class MainVM //Groups
         OnPropertyChanged(nameof(SelectedMafile));
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(RemoveGroupCanExecute))]
     private void RemoveGroup(Mafile? mafile)
     {
         if (mafile?.Group == null) return;
@@ -85,6 +96,10 @@ public partial class MainVM //Groups
         PerformQuery();
     }
 
+    private bool RemoveGroupCanExecute(Mafile? mafile)
+    {
+        return mafile is {Group: not null};
+    }
 
     private void QueryGroups()
     {

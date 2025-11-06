@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Utility;
 using SteamLib.SteamMobile.Confirmations;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NebulaAuth.ViewModel;
 
 public partial class MainVM //Confirmations
 {
-    public ObservableCollection<Confirmation> Confirmations { get; } = new();
+    public ObservableCollection<Confirmation> Confirmations { get; } = [];
     public bool ConfirmationsVisible => SelectedMafile == _confirmationsLoadedForMafile;
     private Mafile? _confirmationsLoadedForMafile;
 

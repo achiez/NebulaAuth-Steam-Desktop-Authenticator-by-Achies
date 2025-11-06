@@ -121,4 +121,9 @@ public partial class MainWindow
     }
 
     #endregion
+
+    private void FocusSearchBox(object sender, ExecutedRoutedEventArgs e)
+    {
+        SearchField.Focus();
+    }
 }
