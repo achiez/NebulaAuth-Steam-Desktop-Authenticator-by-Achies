@@ -55,6 +55,11 @@
       "ru": "ОК",
       "ua": "ОК"
     },
+    "Save": {
+      "en": "Save",
+      "ru": "Сохранить",
+      "ua": "Зберегти"
+    },
     "Abbreviations": {
       "Time": {
         "Seconds": {
@@ -88,9 +93,9 @@
     "Menu": {
       "File": {
         "Caption": {
-          "en": "File",
-          "ru": "Файл",
-          "ua": "Файл"
+          "en": "Menu",
+          "ru": "Меню",
+          "ua": "Меню"
         },
         "Import": {
           "en": "Import",
@@ -111,6 +116,23 @@
           "en": "Settings",
           "ru": "Настройки",
           "ua": "Налаштування"
+        },
+        "ProxyManager": {
+          "en": "Proxy manager",
+          "ru": "Менеджер прокси",
+          "ua": "Менеджер проксі"
+        },
+        "Other": {
+          "Title": {
+            "en": "Other",
+            "ru": "Прочее",
+            "ua": "Інше"
+          },
+          "SetPasswords": {
+            "en": "Set passwords",
+            "ru": "Назначить пароли",
+            "ua": "Призначити паролі"
+          }
         }
       },
       "Account": {
@@ -459,8 +481,7 @@
     },
     "LegacyMafileModeHint": {
       "en": "Save mafiles in compatibility format with Steam Desktop Authenticator and other applications",
-      "ru":
-        "Сохранять мафайлы в старом формате для совместимости со Steam Desktop Authenticator и другими приложениями",
+      "ru": "Сохранять мафайлы в старом формате для совместимости со Steam Desktop Authenticator и другими приложениями",
       "ua": "Зберігати мафайли у старому форматі для сумісності зі Steam Desktop Authenticator та іншими додатками"
     },
     "AllowAutoUpdate": {
@@ -484,12 +505,9 @@
       "ua": "Ігнорувати помилки Patch Tuesday у таймері (експ.)"
     },
     "IgnorePatchTuesdayErrorsHint": {
-      "en":
-        "Ignore errors that occur every Tuesday (Wednesday night in GMT) when Steam doing technical works and auto-confirm timers turns off unnecessarily",
-      "ru":
-        "Игнорировать ошибки, которые возникают каждый вторник (ночь среды по GMT) когда Steam проводит технические работы и автоподтверждения отключаются без надобности",
-      "ua":
-        "Ігнорувати помилки, які виникають щосереди (ніч середи за GMT) коли Steam проводить технічні роботи і автопідтвердження вимикаються без потреби"
+      "en": "Ignore errors that occur every Tuesday (Wednesday night in GMT) when Steam doing technical works and auto-confirm timers turns off unnecessarily",
+      "ru": "Игнорировать ошибки, которые возникают каждый вторник (ночь среды по GMT) когда Steam проводит технические работы и автоподтверждения отключаются без надобности",
+      "ua": "Ігнорувати помилки, які виникають щосереди (ніч середи за GMT) коли Steam проводить технічні роботи і автопідтвердження вимикаються без потреби"
     }
 
 
@@ -674,12 +692,9 @@
       "ua": "Пароль шифрування"
     },
     "DialogText": {
-      "en":
-        "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session.\r\n(Optional)",
-      "ru":
-        "Ранее вы устанавливали пароль шифрования для паролей в мафайлах, укажите его, чтобы приложение могло автоматически авторизоваться в случае проблем с сессией.\r\n(Не обязательно)",
-      "ua":
-        "Раніше ви встановлювали пароль шифрування для паролів в мафайлах, вкажіть його, щоб додаток міг автоматично авторизуватися у випадку проблем з сесією.\r\n(Не обов'язково)"
+      "en": "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session.\r\n(Optional)",
+      "ru": "Ранее вы устанавливали пароль шифрования для паролей в мафайлах, укажите его, чтобы приложение могло автоматически авторизоваться в случае проблем с сессией.\r\n(Не обязательно)",
+      "ua": "Раніше ви встановлювали пароль шифрування для паролів в мафайлах, вкажіть його, щоб додаток міг автоматично авторизуватися у випадку проблем з сесією.\r\n(Не обов'язково)"
     },
     "Ok": {
       "en": "Ok",
@@ -733,6 +748,39 @@
       "ru": "Введите значение",
       "en": "Enter value",
       "ua": "Введіть значення"
+    }
+  },
+  "SetAccountPasswordsView": {
+    "Title": {
+      "en": "Set passwords",
+      "ru": "Назначить пароли",
+      "ua": "Призначити паролі"
+    },
+    "EncryptionPassword": {
+      "en": "Encryption password:",
+      "ru": "Пароль шифрования:",
+      "ua": "Пароль шифрування:"
+    },
+    "EnterPassword": {
+      "en": "Enter password",
+      "ru": "Введите пароль",
+      "ua": "Введіть пароль"
+    },
+    "Status": {
+      "en": "Status:",
+      "ru": "Статус:",
+      "ua": "Статус:"
+    },
+    "EncryptionHint": {
+      "en": "All passwords in mafiles will be encrypted using the encryption password.",
+      "ru": "Все пароли в мафайлах будут зашифрованы с помощью пароля шифрования.",
+      "ua": "Всі паролі в мафайлах будуть зашифровані за допомогою пароля шифрування."
+    }, 
+    "InputFormat": {
+      "en": "Supported formats:\r\n\r\nlogin:password\r\nsteamid:password",
+      "ru": "Поддерживаемые форматы:\r\n\r\nlogin:password\r\nsteamid:password",
+      "ua": "Підтримувані формати:\r\n\r\nlogin:password\r\nsteamid:password"
+
     }
   },
   "CodeBehind": {
@@ -1381,7 +1429,12 @@
         "ru": "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
         "en": "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
         "ua": "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку"
-      }
+      },
+      "FailedToLoadStorage": {
+        "en": "Failed to load auto-confirm timers. File seems to be corrupted",
+        "ru": "Не удалось загрузить таймеры авто-подтверждений. Файл, похоже, поврежден",
+        "ua": "Не вдалося завантажити таймери авто-підтверджень. Файл, схоже, пошкоджено"
+      } 
     },
     "SettingsVM": {
       "MafileRenaming": {
@@ -1414,15 +1467,12 @@
         "en": "Error while loading settings. Settings were reset",
         "ru": "Ошибка при загрузке настроек. Настройки были сброшены",
         "ua": "Помилка при завантаженні налаштувань. Налаштування були скинуті"
-      } 
-    } 
+      }
+    }
   },
   "CantAlignTimeError": {
-    "ru":
-      "Не удается синхронизировать время со Steam. Возможно отсутствует подключение к интернету или Steam недоступен. Подробная ошибка сохранена в log.log",
-    "en":
-      "Can't align time with Steam. Maybe no internet connection or Steam is unavailable. Detailed error saved in log.log",
-    "ua":
-      "Не вдається синхронізувати час з Steam. Можливо відсутнє підключення до інтернету або Steam недоступний. Детальна помилка збережена в log.log"
+    "ru": "Не удается синхронизировать время со Steam. Возможно отсутствует подключение к интернету или Steam недоступен. Подробная ошибка сохранена в log.log",
+    "en": "Can't align time with Steam. Maybe no internet connection or Steam is unavailable. Detailed error saved in log.log",
+    "ua": "Не вдається синхронізувати час з Steam. Можливо відсутнє підключення до інтернету або Steam недоступний. Детальна помилка збережена в log.log"
   }
 }

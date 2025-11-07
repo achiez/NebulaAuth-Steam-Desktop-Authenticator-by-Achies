@@ -55,7 +55,8 @@
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                     CommandParameter="{StaticResource True}"
-                    Content="{Tr Common.OK}"/>
+                    Content="{Tr Common.OK}"
+                    IsDefault="True"/>
                 <Button Grid.Column="1"
                         HorizontalAlignment="Right"
                         Width="130"

@@ -20,8 +20,15 @@ public partial class Mafile : MobileDataExtended
         set => SetProperty(ref _linkedClient, value);
     }
 
-    [JsonIgnore] public string? Filename { get; set; }
+    [JsonIgnore] public string? Filename
+    {
+        get => _filename;
+        set => SetProperty(ref _filename, value);
+    }
+
     [JsonIgnore] private PortableMaClient? _linkedClient;
+
+    private string? _filename;
 
     public void SetSessionData(MobileSessionData? sessionData)
     {

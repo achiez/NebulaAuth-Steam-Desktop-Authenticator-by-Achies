@@ -252,7 +252,7 @@ public partial class MafileMoverVM : ObservableObject, IAuthProvider, IDisposabl
             Logger.Error(ex, "Error during saving Nebula data to mafile");
         }
 
-        Storage.SaveMafile(mafile);
+        await Storage.SaveMafileAsync(mafile);
         await Done(mafile.RevocationCode ?? string.Empty, mafile.SteamId.Steam64.ToString());
     }
 

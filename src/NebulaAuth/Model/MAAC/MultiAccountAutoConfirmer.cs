@@ -25,7 +25,7 @@ public static class MultiAccountAutoConfirmer
         Clients = [];
         Timer = new Timer(TimerConfirm);
         Settings.Instance.PropertyChanged += SettingsOnPropertyChanged;
-        UpdateTimer();
+        UpdateTimer(true);
     }
 
     // ReSharper disable once AsyncVoidMethod //Already safe
@@ -120,8 +120,8 @@ public static class MultiAccountAutoConfirmer
         return Lock.WriteLock(() =>
         {
             if (Clients.Contains(mafile)) return false;
-            Clients.Add(mafile);
             mafile.LinkedClient = new PortableMaClient(mafile);
+            Clients.Add(mafile);
             return true;
         });
     }
@@ -131,9 +131,10 @@ public static class MultiAccountAutoConfirmer
     {
         Lock.WriteLock(() =>
         {
+            Clients.Remove(mafile);
             mafile.LinkedClient?.Dispose();
             mafile.LinkedClient = null;
-            Clients.Remove(mafile);
+          
         });
     }
 
@@ -144,11 +145,16 @@ public static class MultiAccountAutoConfirmer
         UpdateTimer();
     }
 
-    private static void UpdateTimer()
+    private static void UpdateTimer(bool firstStart = false)
     {
         var timerInterval = Settings.Instance.TimerSeconds;
         var intervalTimeSpan = TimeSpan.FromSeconds(timerInterval);
-        Timer.Change(intervalTimeSpan, intervalTimeSpan);
+        var dueTime = intervalTimeSpan;
+        if (firstStart)
+        {
+            dueTime = timerInterval >= 30 ? intervalTimeSpan : TimeSpan.FromSeconds(30);
+        }
+        Timer.Change(dueTime, intervalTimeSpan);
     }
 
     private static string GetLocalization(string key)

@@ -1,8 +1,9 @@
-﻿using System;
-using System.Windows;
-using NebulaAuth.Core;
+﻿using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Exceptions;
+using NebulaAuth.Model.MAAC;
+using System;
+using System.Windows;
 
 namespace NebulaAuth;
 
@@ -20,6 +21,7 @@ public partial class App
             Shell.Initialize();
             var threads = Environment.ProcessorCount > 0 ? Environment.ProcessorCount : 1;
             await Storage.Initialize(threads);
+            MAACStorage.Initialize();
             var mainWindow = new MainWindow();
             Current.MainWindow = mainWindow;
             mainWindow.Show();

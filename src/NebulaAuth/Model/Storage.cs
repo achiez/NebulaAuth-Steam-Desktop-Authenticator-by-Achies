@@ -7,6 +7,7 @@ using SteamLib.Exceptions.Authorization;
 using SteamLib.SteamMobile;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Compression;
@@ -14,6 +15,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using NebulaAuth.Model.MAAC;
 
 namespace NebulaAuth.Model;
 
@@ -131,11 +133,36 @@ public static class Storage
             MaFiles.Add(data);
         }
     }
+
+    public static async Task SaveMafileAsync(Mafile data)
+    {
+        var path = GetOrCreateMafilePath(data);
+        var str = NebulaSerializer.SerializeMafile(data);
+        await File.WriteAllTextAsync(Path.GetFullPath(path), str);
+
+        var existed = MaFiles.SingleOrDefault(m => m.AccountName == data.AccountName);
+        if (existed != null)
+        {
+            var index = MaFiles.IndexOf(existed);
+            MaFiles[index] = data;
+        }
+        else
+        {
+            MaFiles.Add(data);
+        }
+    }
     public static void UpdateMafile(Mafile data)
     {
         var path = GetOrCreateMafilePath(data);
         var str = NebulaSerializer.SerializeMafile(data);
         File.WriteAllText(Path.GetFullPath(path), str);
+    }
+
+    public static async Task UpdateMafileAsync(Mafile data)
+    {
+        var path = GetOrCreateMafilePath(data);
+        var str = NebulaSerializer.SerializeMafile(data);
+        await File.WriteAllTextAsync(Path.GetFullPath(path), str);
     }
     public static void MoveToRemoved(Mafile data)
     {
@@ -229,19 +256,22 @@ public static class Storage
             BackupFileName = backupFileName
         };
 
+        var dic = new Dictionary<string, string>();
         foreach (var mafile in mafiles)
         {
             try
             {
+                
                 var targetFileName = CreateMafileFileName(mafile, loginAsFileName);
                 if (mafile.Filename == targetFileName || mafile.Filename == null)
                 {
                     res.Renamed += 1;
                     continue;
                 }
-
+                var sourceFileName = mafile.Filename;
+                var fullSourcePath = Path.Combine(MafilesDirectory, sourceFileName);
                 var fullTargetPath = Path.Combine(MafilesDirectory, targetFileName);
-                var fullSourcePath = Path.Combine(MafilesDirectory, mafile.Filename);
+       
                 if (!File.Exists(fullSourcePath))
                 {
                     Shell.Logger.Warn("Can't rename mafile {old} to {new} because source file not found",
@@ -254,11 +284,11 @@ public static class Storage
                 {
                     Shell.Logger.Warn("Can't rename mafile {old} to {new} because target file already exist",
                         mafile.Filename, targetFileName);
-                    res.AlreadyExist += 1;
+                    res.Conflict += 1;
                     continue;
                 }
-
                 File.Move(fullSourcePath, fullTargetPath);
+                dic[sourceFileName] = targetFileName;
                 res.Renamed += 1;
                 mafile.Filename = targetFileName;
 
@@ -269,8 +299,9 @@ public static class Storage
                     mafile.AccountName);
                 IncErrors();
             }
-
         }
+
+        MAACStorage.NotifyMafilesRenamed(dic);
         return res;
 
         void IncErrors() => res.Errors += 1;
@@ -280,9 +311,9 @@ public static class Storage
     {
         public int Total { get; set; }
         public int Renamed { get; set; }
-        public int NotRenamed => Errors + AlreadyExist;
+        public int NotRenamed => Errors + Conflict;
         public int Errors { get; set; }
-        public int AlreadyExist { get; set; }
+        public int Conflict { get; set; }
         public string BackupFileName { get; set; }
     }
 }

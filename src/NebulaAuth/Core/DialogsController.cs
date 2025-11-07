@@ -121,4 +121,14 @@ public static class DialogsController
             vm?.Dispose();
         }
     }
+
+    public static async Task ShowSetAccountsPasswordDialog()
+    {
+        var vm = new SetAccountPasswordsVM();
+        var dialog = new SetAccountPasswordsView
+        {
+            DataContext = vm
+        };
+        await DialogHost.Show(dialog);
+    }
 }

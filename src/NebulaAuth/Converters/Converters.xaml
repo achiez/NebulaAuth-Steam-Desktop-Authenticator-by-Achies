@@ -14,7 +14,7 @@
     <converters:AnyMafilesToVisibilityConverter x:Key="AnyMafilesToVisibilityConverter" />
     <converters:PortableMaClientStatusToColorConverter x:Key="PortableMaClientStatusToColorConverter" />
     <converters:BoolToMafileNamingConverter x:Key="BoolToMafileNamingConverter"/>
-
+    <converters:BoolToValueConverter x:Key="BoolToValueConverter"/>
     <converters:NullableToBooleanConverter x:Key="NullableToBooleanConverter" />
     <!-- Background converters-->
     <background:BackgroundImageVisibleConverter x:Key="BackgroundImageVisibleConverter" />

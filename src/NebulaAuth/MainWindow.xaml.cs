@@ -64,7 +64,7 @@ public partial class MainWindow
         if (ItemsControl.ContainerFromElement((ListBox) sender, (DependencyObject) e.OriginalSource) is ListBoxItem
             {
                 IsSelected: true
-            } item)
+            })
         {
             e.Handled = true;
         }

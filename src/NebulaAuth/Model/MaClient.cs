@@ -20,11 +20,8 @@ namespace NebulaAuth.Model;
 public static class MaClient
 {
     private static HttpClientHandler ClientHandler { get; }
-
     private static HttpClient Client { get; }
-
     private static DynamicProxy Proxy { get; }
-
     public static ProxyData? DefaultProxy { get; set; }
 
 

@@ -54,6 +54,7 @@
                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                     CommandParameter="{Binding Text, ElementName=TextField}"
                     Content="{Tr Common.OK}"
+                    IsDefault="True"
                     />
                 <Button Grid.Column="1"
                         HorizontalAlignment="Right"

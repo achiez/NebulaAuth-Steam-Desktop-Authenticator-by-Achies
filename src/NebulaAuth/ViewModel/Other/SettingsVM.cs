@@ -4,7 +4,6 @@ using NebulaAuth.Core;
 using NebulaAuth.Model;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
@@ -241,7 +240,7 @@ public partial class SettingsVM : ObservableObject
         {
             var l = GetLoc("PartialSuccess");
             RenameResultText =
-                string.Format(l, result.Total, result.Renamed, result.Errors, result.AlreadyExist, result.BackupFileName);
+                string.Format(l, result.Total, result.Renamed, result.Errors, result.Conflict, result.BackupFileName);
 
         }
 

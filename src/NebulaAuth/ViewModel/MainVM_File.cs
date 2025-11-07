@@ -181,7 +181,7 @@ public partial class MainVM //File //TODO: Refactor
 
         var result = data.SessionData != null;
         if (!result) return result;
-        Storage.SaveMafile(data);
+        await Storage.SaveMafileAsync(data);
         {
             ResetQuery();
             SearchText = data.AccountName ?? string.Empty;

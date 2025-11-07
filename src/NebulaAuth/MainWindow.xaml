@@ -85,8 +85,17 @@
                                 <MenuItem Header="{Tr MainWindow.Menu.File.OpenFolder}"
                                           Command="{Binding OpenMafileFolderCommand}" />
                                 <MenuItem IsEnabled="False" Header="⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯" Height="15" />
+                                <MenuItem Header="{Tr MainWindow.Menu.File.ProxyManager}"
+                                          Command="{Binding OpenProxyManagerCommand}">
+                                </MenuItem>
                                 <MenuItem Header="{Tr MainWindow.Menu.File.Settings}"
                                           Command="{Binding OpenSettingsDialogCommand}" />
+                                <MenuItem IsEnabled="False" Header="⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯" Height="15" />
+                                <MenuItem Header="{Tr MainWindow.Menu.File.Other.Title}">
+                                    <MenuItem Header="{Tr MainWindow.Menu.File.Other.SetPasswords}"
+                                              Command="{Binding DebugCommand}"
+                                              />
+                                </MenuItem>
                             </MenuItem>
                         </Menu>
                         <Menu>
@@ -314,6 +323,9 @@
                                         <KeyBinding Key="X" Modifiers="Control"
                                                     Command="{Binding DataContext.CopyMafileCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                                     CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}" />
+                                        <KeyBinding Modifiers="Control+Shift" Key="C"
+                                                    Command="{Binding DataContext.CopyPasswordCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                    CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}" />
                                     </ListBox.InputBindings>
                                         <FrameworkElement.ContextMenu>
                                         <ContextMenu Tag="{Binding Groups}">
@@ -321,7 +333,11 @@
                                                           Header="{Tr MainWindow.ContextMenus.Mafile.CopyLogin}"
                                                           Command="{Binding CopyLoginCommand}"
                                                           CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
-                                                <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.CopySteamId}"
+                                            <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.CopyPassword}"
+                                                      Command="{Binding Path=CopyPasswordCommand}"
+                                                      CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" 
+                                                      InputGestureText="CTRL+⇧+C"/>
+                                            <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.CopySteamId}"
                                                           Command="{Binding CopySteamIdCommand}"
                                                           CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                                                 <MenuItem InputGestureText="Ctrl+X"
@@ -374,9 +390,6 @@
                                                           Command="{Binding Path=RemoveGroupCommand}"
                                                           CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
                                                           />
-                                                <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.CopyPassword}"
-                                                          Command="{Binding Path=CopyPasswordCommand}"
-                                                          CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
 
                                             </ContextMenu>
                                         </FrameworkElement.ContextMenu>
