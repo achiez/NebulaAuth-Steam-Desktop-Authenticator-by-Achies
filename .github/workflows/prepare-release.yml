@@ -1,0 +1,65 @@
+name: Prepare release
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'src/NebulaAuth/NebulaAuth.csproj'
+  workflow_dispatch:
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+           token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Read version from csproj
+        id: ver
+        shell: bash
+        run: |
+          VERSION=$(grep -oPm1 "(?<=<AssemblyVersion>)[^<]+" src/NebulaAuth/NebulaAuth.csproj)
+          echo "Detected version $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Generate update.xml
+        run: |
+          cat > NebulaAuth/update.xml <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+           <item>
+            <version>${{ steps.ver.outputs.version }}</version>
+            <url>https://github.com/${{ github.repository }}/releases/download/${{ steps.ver.outputs.version }}/NebulaAuth.${{ steps.ver.outputs.version }}.zip</url>
+            <changelog>https://achiez.github.io/${{ github.repository }}/changelog/${{ steps.ver.outputs.version }}.html</changelog>
+            <mandatory>false</mandatory>
+          </item>
+          EOF
+          echo "Generated NebulaAuth/update.xml:"
+          cat NebulaAuth/update.xml
+
+      - name: Check if update.xml changed
+        id: diff
+        run: |
+          if git diff --exit-code NebulaAuth/update.xml >/dev/null 2>&1; then
+            echo "no_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "no_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and tag
+        if: steps.diff.outputs.no_changes == 'false'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add NebulaAuth/update.xml
+          git commit -m "chore(release): ${{ steps.ver.outputs.version }}"
+          git tag -a "${{ steps.ver.outputs.version }}" -m "Release ${{ steps.ver.outputs.version }}"
+          git push origin HEAD:master --tags
+
+      - name: Skip message
+        if: steps.diff.outputs.no_changes == 'true'
+        run: echo "No changes in version or update.xml — skipping release preparation."

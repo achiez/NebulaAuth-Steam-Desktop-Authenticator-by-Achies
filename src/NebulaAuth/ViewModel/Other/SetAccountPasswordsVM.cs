@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using NebulaAuth.Core;
 using NebulaAuth.Model;
 using SteamLibForked.Models.SteamIds;
 
@@ -102,11 +103,11 @@ public partial class SetAccountPasswordsVM : ObservableObject
 
         if (success > 0 && errors == 0 && notFound == 0)
         {
-            Tip = "Успех";
+            Tip = string.Format(GetLocalization("Success"), success);
         }
         else
         {
-            Tip = $"Успешно: {success}, Не найдено: {notFound}, Ошибки: {errors}";
+            Tip = string.Format(GetLocalization("PartialSuccess"), success, notFound, errors);
         }
     }
 
@@ -119,5 +120,10 @@ public partial class SetAccountPasswordsVM : ObservableObject
     private void ClearTip()
     {
         Tip = null;
+    }
+
+    private string GetLocalization(string key)
+    {
+        return LocManager.GetCodeBehindOrDefault(key, "SetAccountPasswordsVM", key);
     }
 }
