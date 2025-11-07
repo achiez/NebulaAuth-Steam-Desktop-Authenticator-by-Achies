@@ -93,6 +93,7 @@ public static class MAACStorage
 
     public static void Initialize()
     {
+        MultiAccountAutoConfirmer.Clients.CollectionChanged += ClientsOnCollectionChanged;
         if (!File.Exists("maac.json")) return;
         try
         {
@@ -107,6 +108,7 @@ public static class MAACStorage
                 {
                     mafile.LinkedClient.AutoConfirmMarket = storedClient.AutoConfirmMarket;
                     mafile.LinkedClient.AutoConfirmTrades = storedClient.AutoConfirmTrades;
+                    mafile.LinkedClient.PropertyChanged += LinkedClientOnPropertyChanged;
                     Clients[fileName] = storedClient;
                 }
             }
@@ -117,8 +119,6 @@ public static class MAACStorage
             SnackbarController.SendSnackbar(
                 LocManager.GetCodeBehindOrDefault("FailedToLoadStorage", "MAAC", "FailedToLoadStorage"));
         }
-
-        MultiAccountAutoConfirmer.Clients.CollectionChanged += ClientsOnCollectionChanged;
     }
 
     public static void NotifyMafilesRenamed(IDictionary<string, string> oldNewNames)
