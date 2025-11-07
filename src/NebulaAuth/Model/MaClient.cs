@@ -20,11 +20,8 @@ namespace NebulaAuth.Model;
 public static class MaClient
 {
     private static HttpClientHandler ClientHandler { get; }
-
     private static HttpClient Client { get; }
-
     private static DynamicProxy Proxy { get; }
-
     public static ProxyData? DefaultProxy { get; set; }
 
 
@@ -40,21 +37,19 @@ public static class MaClient
     public static void SetAccount(Mafile? account)
     {
         ClientHandler.CookieContainer.ClearAllCookies();
-        if (account != null)
+        if (account == null) return;
+        if (account.SessionData != null)
         {
-            if (account.SessionData != null)
-            {
-                ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(account.SessionData);
-            }
-            else
-            {
-                ClientHandler.CookieContainer.ClearSteamCookies();
-                ClientHandler.CookieContainer.AddMinimalMobileCookies();
-                AdmissionHelper.TransferCommunityCookies(ClientHandler.CookieContainer);
-            }
-
-            Proxy.SetData(account.Proxy?.Data);
+            ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(account.SessionData);
         }
+        else
+        {
+            ClientHandler.CookieContainer.ClearSteamCookies();
+            ClientHandler.CookieContainer.AddMinimalMobileCookies();
+            AdmissionHelper.TransferCommunityCookies(ClientHandler.CookieContainer);
+        }
+
+        Proxy.SetData(account.Proxy?.Data);
     }
 
     public static Task<IEnumerable<Confirmation>> GetConfirmations(Mafile mafile)
@@ -99,8 +94,8 @@ public static class MaClient
         }
 
         return await SteamMobileConfirmationsApi.SendConfirmation(Client, confirmation, mafile.SessionData!.SteamId,
-                mafile,
-                confirm);
+            mafile,
+            confirm);
     }
 
     public static async Task<bool> SendMultipleConfirmation(Mafile mafile, IEnumerable<Confirmation> confirmations,

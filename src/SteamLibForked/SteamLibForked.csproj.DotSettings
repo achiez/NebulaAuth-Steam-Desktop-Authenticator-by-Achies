@@ -3,6 +3,8 @@
                         xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml"
                         xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:Boolean
+		x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=exceptions_005Cauthorization/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean
 		x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=models_005Ccore/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean
 		x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=models_005Ccore_005Csteamids/@EntryIndexedValue">True</s:Boolean>

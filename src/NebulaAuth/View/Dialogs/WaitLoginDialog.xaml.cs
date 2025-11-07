@@ -3,9 +3,6 @@ using System.Windows;
 
 namespace NebulaAuth.View.Dialogs;
 
-/// <summary>
-///     Логика взаимодействия для WaitLoginDialog.xaml
-/// </summary>
 public partial class WaitLoginDialog
 {
     private TaskCompletionSource<string> _tcs = new();

@@ -29,7 +29,7 @@ public partial class SessionHandler //API
         //Trigger PropertyChanged event for PortableMaClient handling session updated from MaClient
         //RETHINK: it makes double operation when session handled from PortableMaClient (more often scenario) which is unwanted behaviour
         mafile.SetSessionData(mafile.SessionData);
-        Storage.UpdateMafile(mafile);
+        await Storage.UpdateMafileAsync(mafile);
         chp.Handler.CookieContainer.SetSteamMobileCookiesWithMobileToken(mafile.SessionData);
     }
 
@@ -53,6 +53,6 @@ public partial class SessionHandler //API
         mafile.SetSessionData((MobileSessionData) result);
         if (PHandler.IsPasswordSet)
             mafile.Password = savePassword ? PHandler.Encrypt(password) : null;
-        Storage.UpdateMafile(mafile);
+        await Storage.UpdateMafileAsync(mafile);
     }
 }

@@ -1,8 +1,5 @@
 ﻿namespace NebulaAuth.View.Dialogs;
 
-/// <summary>
-///     Логика взаимодействия для ConfirmCancelDialog.xaml
-/// </summary>
 public partial class ConfirmCancelDialog
 {
     public ConfirmCancelDialog()
@@ -13,6 +10,6 @@ public partial class ConfirmCancelDialog
     public ConfirmCancelDialog(string msg)
     {
         InitializeComponent();
-        ConfirmTextBlock.Text = msg;
+        ConfirmHint.Text = msg;
     }
 }

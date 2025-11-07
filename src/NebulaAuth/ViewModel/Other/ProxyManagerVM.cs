@@ -18,11 +18,31 @@ public partial class ProxyManagerVM : ObservableObject
 
     private static readonly Regex IdRegex = new(@"\{(\d+)\}$", RegexOptions.Compiled);
     public ObservableDictionary<int, ProxyData> Proxies => ProxyStorage.Proxies;
-
     public bool AnyChanges { get; private set; }
+
+    public bool DisplayProtocol
+    {
+        get => Settings.Instance.ProxyManagerDisplayProtocol;
+        set
+        {
+            Settings.Instance.ProxyManagerDisplayProtocol = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool DisplayCredentials
+    {
+        get => Settings.Instance.ProxyManagerDisplayCredentials;
+        set
+        {
+            Settings.Instance.ProxyManagerDisplayCredentials = value;
+            OnPropertyChanged();
+        }
+    }
+
     [ObservableProperty] private string _addProxyField = string.Empty;
     [ObservableProperty] private KeyValuePair<int, ProxyData>? _defaultProxy;
-
+    [ObservableProperty] private string? _errorText;
     [ObservableProperty] private KeyValuePair<int, ProxyData>? _selectedProxy;
 
     public ProxyManagerVM()
@@ -42,6 +62,7 @@ public partial class ProxyManagerVM : ObservableObject
         var split = input
             .Split(Environment.NewLine)
             .Where(s => string.IsNullOrWhiteSpace(s) == false)
+            .Select(x => x.Trim())
             .ToArray();
 
         if (split.Length == 0) return;
@@ -66,7 +87,7 @@ public partial class ProxyManagerVM : ObservableObject
             idPresent ??= idMatch.Success;
             if (idPresent.Value != idMatch.Success)
             {
-                SnackbarController.SendSnackbar(GetLocalizationOrDefault("WrongFormatSomeIdsMissing"));
+                SetError(GetLocalizationOrDefault("WrongFormatSomeIdsMissing"));
                 return;
             }
 
@@ -75,7 +96,7 @@ public partial class ProxyManagerVM : ObservableObject
             {
                 if (id != null && proxies.Any(kvp => kvp.Key == id))
                 {
-                    SnackbarController.SendSnackbar(string.Format(GetLocalizationOrDefault("DuplicateId"), id));
+                    SetError(string.Format(GetLocalizationOrDefault("DuplicateId"), id));
                     return;
                 }
 
@@ -85,21 +106,32 @@ public partial class ProxyManagerVM : ObservableObject
             {
                 if (split.Length == 1)
                 {
-                    SnackbarController.SendSnackbar(GetLocalizationOrDefault("WrongFormat"));
+                    SetError(GetLocalizationOrDefault("WrongFormat"));
                     return;
                 }
 
-                SnackbarController.SendSnackbar(string.Format(GetLocalizationOrDefault("WrongFormatOnLine"), i));
+                SetError(string.Format(GetLocalizationOrDefault("WrongFormatOnLine"), i));
                 return;
             }
         }
 
         ProxyStorage.SetProxies(proxies);
-        ProxyStorage.OrderCollection();
+        ProxyStorage.SortCollection();
         AddProxyField = string.Empty;
+        SetError(null);
         CheckIfDefaultProxyStay();
     }
 
+    private void SetError(string? err)
+    {
+        ErrorText = err;
+    }
+
+    [RelayCommand]
+    public void ClearError()
+    {
+        SetError(null);
+    }
 
     private void CheckIfDefaultProxyStay()
     {
@@ -109,12 +141,13 @@ public partial class ProxyManagerVM : ObservableObject
     }
 
     [RelayCommand]
-    private void RemoveProxy()
+    private void RemoveProxy(object? target)
     {
+        var targetProxy = target as KeyValuePair<int, ProxyData>? ?? SelectedProxy;
         AnyChanges = true;
-        var selected = SelectedProxy;
-        if (selected == null) return;
-        var s = selected.Value;
+
+        if (targetProxy == null) return;
+        var s = targetProxy.Value;
 
 
         KeyValuePair<int, ProxyData>? nextNeighbor = null;

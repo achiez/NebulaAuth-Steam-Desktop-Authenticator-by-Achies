@@ -3,12 +3,15 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AchiesUtilities.Extensions;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Model.Exceptions;
+using NebulaAuth.Model.MAAC;
+using NebulaAuth.Model.Mafiles;
 using SteamLib;
 using SteamLib.Exceptions.Authorization;
 using SteamLib.SteamMobile;
@@ -17,41 +20,28 @@ namespace NebulaAuth.Model;
 
 public static class Storage
 {
-    public const string MAFILE_F = "maFiles";
-    public const string REMOVED_F = "maFiles_removed";
-    private static int _duplicateFound;
+    public const string DIR_MAFILES = "maFiles";
+    public const string DIR_REMOVED_MAFILES = "maFiles_removed";
+    public const string DIR_BACKUP_MAFILES = "maFiles_backup";
+    public static string MafilesDirectory { get; } = Path.GetFullPath(DIR_MAFILES);
+    public static string RemovedMafilesDirectory { get; } = Path.GetFullPath(DIR_REMOVED_MAFILES);
+    public static string BackupMafilesDirectory { get; } = Path.GetFullPath(DIR_BACKUP_MAFILES);
 
-    public static int DuplicateFound => _duplicateFound;
-    public static string MafileFolder { get; } = Path.GetFullPath(MAFILE_F);
-    public static string RemovedMafileFolder { get; } = Path.GetFullPath(REMOVED_F);
-
-    public static ObservableCollection<Mafile> MaFiles { get; private set; } = new();
-
-    static Storage()
-    {
-    }
+    public static ObservableCollection<Mafile> MaFiles { get; private set; } = [];
 
     public static async Task Initialize(int threadCount, CancellationToken token = default)
     {
-        if (!Directory.Exists(MafileFolder))
-            Directory.CreateDirectory(MafileFolder);
+        Directory.CreateDirectory(MafilesDirectory);
+        Directory.CreateDirectory(RemovedMafilesDirectory);
+        Directory.CreateDirectory(BackupMafilesDirectory);
 
-        if (!Directory.Exists(RemovedMafileFolder))
-            Directory.CreateDirectory(RemovedMafileFolder);
-        var comparer = new MafileNameComparer(Settings.Instance.UseAccountNameAsMafileName);
         var files = Directory
-            .GetFiles(MafileFolder)
+            .GetFiles(MafilesDirectory)
             .Where(file => Path.GetExtension(file).EqualsIgnoreCase(".mafile"))
-            .Order(comparer)
             .ToList();
 
 
-        var hashNames = new ConcurrentDictionary<string, byte>();
-        var hashIds = new ConcurrentDictionary<SteamId, byte>();
         var localList = new ConcurrentBag<Mafile>();
-
-        var processed = 0;
-
         await Task.Run(() =>
         {
             return Parallel.ForEachAsync(files,
@@ -61,14 +51,6 @@ public static class Storage
                     try
                     {
                         var data = await ReadMafileAsync(file);
-
-                        if (!hashNames.TryAdd(data.AccountName, 0) ||
-                            (data.SessionData != null && !hashIds.TryAdd(data.SteamId, 0)))
-                        {
-                            Interlocked.Increment(ref _duplicateFound);
-                            Shell.Logger.Error("Duplicate mafile {file}", Path.GetFileName(file));
-                        }
-
                         localList.Add(data);
                     }
                     catch (Exception ex)
@@ -114,31 +96,30 @@ public static class Storage
             throw new FormatException("Can't generate code on this mafile", ex);
         }
 
-        if (overwrite == false && File.Exists(CreatePathForMafile(data)))
+        if (overwrite == false && File.Exists(GetOrCreateMafilePath(data)))
         {
-            throw new IOException("File already exist and overwrite is False");
+            throw new IOException("File already exist and overwrite is False"); //TODO: Custom Exception
         }
 
 
         SaveMafile(data);
     }
 
-
     public static Mafile ReadMafile(string path)
     {
         var str = File.ReadAllText(path);
-        return NebulaSerializer.Deserialize(str);
+        return NebulaSerializer.Deserialize(str, path);
     }
 
     public static async Task<Mafile> ReadMafileAsync(string path)
     {
         var str = await File.ReadAllTextAsync(path);
-        return NebulaSerializer.Deserialize(str);
+        return NebulaSerializer.Deserialize(str, path);
     }
 
     public static void SaveMafile(Mafile data)
     {
-        var path = CreatePathForMafile(data);
+        var path = GetOrCreateMafilePath(data);
         var str = NebulaSerializer.SerializeMafile(data);
         File.WriteAllText(Path.GetFullPath(path), str);
 
@@ -154,134 +135,193 @@ public static class Storage
         }
     }
 
+    public static async Task SaveMafileAsync(Mafile data)
+    {
+        var path = GetOrCreateMafilePath(data);
+        var str = NebulaSerializer.SerializeMafile(data);
+        await File.WriteAllTextAsync(Path.GetFullPath(path), str);
+
+        var existed = MaFiles.SingleOrDefault(m => m.AccountName == data.AccountName);
+        if (existed != null)
+        {
+            var index = MaFiles.IndexOf(existed);
+            MaFiles[index] = data;
+        }
+        else
+        {
+            MaFiles.Add(data);
+        }
+    }
+
     public static void UpdateMafile(Mafile data)
     {
-        var path = CreatePathForMafile(data);
+        var path = GetOrCreateMafilePath(data);
         var str = NebulaSerializer.SerializeMafile(data);
         File.WriteAllText(Path.GetFullPath(path), str);
     }
 
+    public static async Task UpdateMafileAsync(Mafile data)
+    {
+        var path = GetOrCreateMafilePath(data);
+        var str = NebulaSerializer.SerializeMafile(data);
+        await File.WriteAllTextAsync(Path.GetFullPath(path), str);
+    }
+
     public static void MoveToRemoved(Mafile data)
     {
-        var path = CreatePathForMafile(data);
-        var copyPath = Path.Combine(REMOVED_F, data.SteamId + ".mafile");
-        var copyPathCompleted = copyPath;
+        var sourcePath = GetOrCreateMafilePath(data);
+        var destinationPath = Path.Combine(DIR_REMOVED_MAFILES, data.Filename + ".mafile");
+        var destinationPathFinal = destinationPath;
         var i = 0;
-        while (File.Exists(copyPathCompleted))
+        while (File.Exists(destinationPathFinal))
         {
             i++;
-            copyPathCompleted = copyPath + $" ({i})";
+            destinationPathFinal = destinationPath + $" ({i})";
         }
 
-        File.Copy(path, copyPathCompleted, false);
-        File.Delete(path);
+        File.Copy(sourcePath, destinationPathFinal, false);
+        File.Delete(sourcePath);
         MaFiles.Remove(data);
     }
 
-    private static string CreatePathForMafile(Mafile data)
+    private static string GetOrCreateMafilePath(Mafile data)
     {
-        var fileName = Settings.Instance.UseAccountNameAsMafileName
-            ? CreateFileNameWithAccountName(data.AccountName)
-            : CreateFileNameWithSteamId(data.SteamId);
-
-        return Path.Combine(MafileFolder, fileName);
-    }
-
-    private static string CreateFileNameWithAccountName(string accountName)
-    {
-        return accountName + ".mafile";
-    }
-
-    private static string CreateFileNameWithSteamId(SteamId steamId)
-    {
-        return steamId.Steam64.Id + ".mafile";
-    }
-
-    public static string? TryFindMafilePath(Mafile data)
-    {
-        var pathFileName = Path.Combine(MafileFolder, CreateFileNameWithAccountName(data.AccountName));
-        string? pathSteamId = null;
-        if (data.SessionData != null)
+        if (data.Filename != null)
         {
-            pathSteamId = Path.Combine(MafileFolder, CreateFileNameWithSteamId(data.SteamId));
+            return Path.Combine(MafilesDirectory, data.Filename);
         }
 
-        var steamIdExist = pathSteamId != null && File.Exists(pathSteamId);
-        var accountNameExist = File.Exists(pathFileName);
-
-        if (steamIdExist && accountNameExist)
-        {
-            return Settings.Instance.UseAccountNameAsMafileName ? pathFileName : pathSteamId;
-        }
-
-        if (steamIdExist ^ accountNameExist)
-        {
-            return steamIdExist ? pathSteamId : pathFileName;
-        }
-
-        return null;
+        var fileName = CreateMafileFileName(data, Settings.Instance.UseAccountNameAsMafileName);
+        data.Filename = fileName;
+        return Path.Combine(MafilesDirectory, fileName);
     }
 
-    public static void BackupHandler(MobileDataExtended data)
+    private static string CreateMafileFileName(Mafile data, bool useAccountName)
     {
-        if (Directory.Exists("mafiles_backup") == false)
-        {
-            Directory.CreateDirectory("mafiles_backup");
-        }
+        return useAccountName
+            ? MafileNamingStrategy.Login.GetMafileName(data)
+            : MafileNamingStrategy.SteamId.GetMafileName(data);
+    }
 
+    public static string? TryGetMafilePath(Mafile data)
+    {
+        if (data.Filename == null) return null;
+        return Path.Combine(MafilesDirectory, data.Filename);
+    }
 
+    public static void WriteBackup(MobileDataExtended data)
+    {
         var json = NebulaSerializer.SerializeMafile(data, null);
-        File.WriteAllText(Path.Combine("mafiles_backup", data.AccountName + ".mafile"),
-            json);
+        WriteBackup(data.AccountName, json);
     }
 
-    public static void BackupHandlerStr(string accountName, string data)
+    public static void WriteBackup(string accountName, string data)
     {
-        if (Directory.Exists("mafiles_backup") == false)
+        Directory.CreateDirectory(DIR_BACKUP_MAFILES);
+        File.WriteAllText(Path.Combine(DIR_BACKUP_MAFILES, accountName + MafileNamingStrategy.DEF_EXTENSION), data);
+    }
+
+    public static async Task<MafileRenameResult> RenameMafiles(bool loginAsFileName, IProgress<double>? progress = null)
+    {
+        if (MaFiles.Count == 0) return new MafileRenameResult();
+        var now = DateTime.Now;
+        var backupFileName = $"rename_backup_{now:yyyy-MM-dd_HH-mm-ss}.zip";
+        var zipPath = Path.Combine(BackupMafilesDirectory, backupFileName);
+        await using (var zipStream = new FileStream(zipPath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
         {
-            Directory.CreateDirectory("mafiles_backup");
-        }
+            using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create, false);
+            var files = Directory
+                .EnumerateFiles(MafilesDirectory, "*.*", SearchOption.TopDirectoryOnly)
+                .Where(f => Path.GetExtension(f).Equals(".mafile", StringComparison.OrdinalIgnoreCase))
+                .ToList();
 
-
-        File.WriteAllText(Path.Combine("mafiles_backup", accountName + ".mafile"),
-            data);
-    }
-}
-
-//TODO: Refactor
-//TODO: use numeric orderer when .net 10 released
-internal class MafileNameComparer : IComparer<string>
-{
-    private const string MAF_64_START = "765";
-    private static readonly IComparer<string> DefaultComparer = Comparer<string>.Default;
-    public bool MafileNameMode { get; }
-
-    public MafileNameComparer(bool mafileNameMode)
-    {
-        MafileNameMode = mafileNameMode;
-    }
-
-
-    public int Compare(string? x, string? y)
-    {
-        if (x == null && y == null) return 0;
-        if (x == null) return -1;
-        if (y == null) return 1;
-
-
-        var xisSteamId = Path.GetFileName(x).StartsWith(MAF_64_START);
-        var yisSteamId = Path.GetFileName(y).StartsWith(MAF_64_START);
-
-        if (xisSteamId ^ yisSteamId)
-        {
-            if (MafileNameMode)
+            var counter = 0;
+            foreach (var file in files)
             {
-                return xisSteamId ? 1 : -1;
-            }
+                counter++;
+                var entry = archive.CreateEntry(Path.GetFileName(file), CompressionLevel.Optimal);
 
-            return yisSteamId ? 1 : -1;
+                await using var entryStream = entry.Open();
+                await using var fileStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096,
+                    true);
+                await fileStream.CopyToAsync(entryStream);
+
+                if (counter % 5 == 0)
+                {
+                    progress?.Report(counter / (double) files.Count);
+                    await Task.Delay(10);
+                }
+            }
         }
 
-        return DefaultComparer.Compare(x, y);
+        var mafiles = MaFiles.ToList();
+        var res = new MafileRenameResult
+        {
+            Total = mafiles.Count,
+            BackupFileName = backupFileName
+        };
+
+        var dic = new Dictionary<string, string>();
+        foreach (var mafile in mafiles)
+        {
+            try
+            {
+                var targetFileName = CreateMafileFileName(mafile, loginAsFileName);
+                if (mafile.Filename == targetFileName || mafile.Filename == null)
+                {
+                    res.Renamed += 1;
+                    continue;
+                }
+
+                var sourceFileName = mafile.Filename;
+                var fullSourcePath = Path.Combine(MafilesDirectory, sourceFileName);
+                var fullTargetPath = Path.Combine(MafilesDirectory, targetFileName);
+
+                if (!File.Exists(fullSourcePath))
+                {
+                    Shell.Logger.Warn("Can't rename mafile {old} to {new} because source file not found",
+                        mafile.Filename, targetFileName);
+                    IncErrors();
+                    continue;
+                }
+
+                if (File.Exists(fullTargetPath))
+                {
+                    Shell.Logger.Warn("Can't rename mafile {old} to {new} because target file already exist",
+                        mafile.Filename, targetFileName);
+                    res.Conflict += 1;
+                    continue;
+                }
+
+                File.Move(fullSourcePath, fullTargetPath);
+                dic[sourceFileName] = targetFileName;
+                res.Renamed += 1;
+                mafile.Filename = targetFileName;
+            }
+            catch (Exception ex)
+            {
+                Shell.Logger.Error(ex, "Error renaming mafile {file} {accountName}", mafile.Filename,
+                    mafile.AccountName);
+                IncErrors();
+            }
+        }
+
+        MAACStorage.NotifyMafilesRenamed(dic);
+        return res;
+
+        void IncErrors()
+        {
+            res.Errors += 1;
+        }
+    }
+
+    public class MafileRenameResult
+    {
+        public int Total { get; set; }
+        public int Renamed { get; set; }
+        public int NotRenamed => Errors + Conflict;
+        public int Errors { get; set; }
+        public int Conflict { get; set; }
+        public string BackupFileName { get; set; }
     }
 }

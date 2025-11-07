@@ -6,13 +6,13 @@ namespace SteamLib.Utility;
 public static partial class SteamIdParser
 {
     [GeneratedRegex("^7656119([0-9]{10})$", RegexOptions.Compiled)]
-    public static partial Regex Steam64Regex { get; }
+    public static partial Regex Steam64Regex();
 
     [GeneratedRegex(@"STEAM_(?<universe>[0-9]):(?<lowestBit>[0-9]):(?<highestBits>[0-9]{1,10})", RegexOptions.Compiled)]
-    public static partial Regex Steam2Regex { get; }
+    public static partial Regex Steam2Regex();
 
     [GeneratedRegex(@"^\[?(?<type>[a-zA-Z]):1:(?<id>[0-9]{1,10})\]$", RegexOptions.Compiled)]
-    public static partial Regex Steam3Regex { get; }
+    public static partial Regex Steam3Regex();
 
 
     #region TryParse
@@ -46,7 +46,7 @@ public static partial class SteamIdParser
     {
         result = default;
         if (input == null) return false;
-        var match64 = Steam64Regex.Match(input);
+        var match64 = Steam64Regex().Match(input);
         if (match64.Success)
         {
             return TryParse64(long.Parse(match64.Value), out result);
@@ -69,7 +69,7 @@ public static partial class SteamIdParser
 
     public static bool TryParse2(string input, out SteamId2 result)
     {
-        var match2 = Steam2Regex.Match(input);
+        var match2 = Steam2Regex().Match(input);
         if (match2.Success)
         {
             var universe = byte.Parse(match2.Groups["universe"].Value);
@@ -85,7 +85,7 @@ public static partial class SteamIdParser
 
     public static bool TryParse3(string input, out SteamId3 result)
     {
-        var match3 = Steam3Regex.Match(input);
+        var match3 = Steam3Regex().Match(input);
         if (match3.Success)
         {
             var type = match3.Groups["type"].Value[0];
@@ -137,7 +137,7 @@ public static partial class SteamIdParser
 
     public static SteamId2 Parse2(string input)
     {
-        var match2 = Steam2Regex.Match(input);
+        var match2 = Steam2Regex().Match(input);
         if (match2.Success)
         {
             var universe = byte.Parse(match2.Groups["universe"].Value);
@@ -151,7 +151,7 @@ public static partial class SteamIdParser
 
     public static SteamId3 Parse3(string input)
     {
-        var match3 = Steam3Regex.Match(input);
+        var match3 = Steam3Regex().Match(input);
         if (match3.Success)
         {
             var type = match3.Groups["type"].Value[0];

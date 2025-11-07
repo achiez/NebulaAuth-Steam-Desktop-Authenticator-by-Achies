@@ -1,0 +1,78 @@
+﻿name: Publish release
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract version
+        id: ver
+        run: echo "version=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Build NebulaAuth
+        run: dotnet publish src/NebulaAuth/NebulaAuth.csproj -c Release -o build
+
+      - name: Package release
+        run: |
+          cd build
+          powershell Compress-Archive * "../NebulaAuth.${env:GITHUB_REF_NAME}.zip"
+        shell: pwsh
+
+      - name: Install pandoc
+        run: |
+          choco install pandoc -y
+
+      - name: Convert changelog HTML to Markdown (ul-only)
+        id: changelog
+        shell: bash
+        run: |
+          version="${{ steps.ver.outputs.version }}"
+          file="changelog/${version}.html"
+          echo "Looking for file: $file"
+
+          if [ -f "$file" ]; then
+            echo "✅ File found, extracting <ul> section"
+            sed -n '/<ul>/,/<\/ul>/p' "$file" > body.html
+
+            echo "Converting with pandoc..."
+            pandoc body.html -f html -t markdown --wrap=none -o changelog.md
+
+            echo "-------- Converted changelog.md --------"
+            cat changelog.md
+            echo "----------------------------------------"
+
+            echo "body<<EOF" >> $GITHUB_OUTPUT
+            cat changelog.md >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Changelog not found for version $version"
+            echo "body=No changelog found for $version" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.ver.outputs.version }}
+          name: Release ${{ env.RELEASE_NAME }}
+          body: ${{ steps.changelog.outputs.body }}
+          files: |
+            NebulaAuth.${{ steps.ver.outputs.version }}.zip
+        env:
+          RELEASE_NAME: ${{ steps.ver.outputs.version }}

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
 using System.Windows;
-using AchiesUtilities.Extensions;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Exceptions;
+using NebulaAuth.Model.MAAC;
 
 namespace NebulaAuth;
 
@@ -21,14 +19,9 @@ public partial class App
             LocManager.Init();
             LocManager.SetApplicationLocalization(Settings.Instance.Language);
             Shell.Initialize();
-
-            var files = 0;
-            if (Directory.Exists(Storage.MAFILE_F))
-                files = Directory.GetFiles(Storage.MafileFolder)
-                    .Count(f => Path.GetExtension(f).EqualsIgnoreCase(".mafile"));
-
-            var threads = files > 0 ? files / 100 + 1 : 1;
+            var threads = Environment.ProcessorCount > 0 ? Environment.ProcessorCount : 1;
             await Storage.Initialize(threads);
+            MAACStorage.Initialize();
             var mainWindow = new MainWindow();
             Current.MainWindow = mainWindow;
             mainWindow.Show();

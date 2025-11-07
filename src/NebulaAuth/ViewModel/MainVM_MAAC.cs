@@ -86,12 +86,12 @@ public partial class MainVM //MAAC
     {
         var timerCheckSeconds = Settings.TimerSeconds;
         if (timerCheckSeconds == value) return;
-        if (timerCheckSeconds < 10)
+        if (timerCheckSeconds < 5)
         {
-            timerCheckSeconds = 10; //Guard
+            timerCheckSeconds = 5; //Guard
         }
 
-        if (value < 10)
+        if (value < 5)
         {
             value = timerCheckSeconds;
             SnackbarController.SendSnackbar(GetLocalization("TimerTooFast"));

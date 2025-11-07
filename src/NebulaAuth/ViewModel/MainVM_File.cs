@@ -30,11 +30,11 @@ public partial class MainVM //File //TODO: Refactor
     {
         var mafile = SelectedMafile;
 
-        var path = Storage.MafileFolder;
+        var path = Storage.MafilesDirectory;
         string? mafilePath = null;
         if (mafile != null)
         {
-            mafilePath = Storage.TryFindMafilePath(mafile);
+            mafilePath = Storage.TryGetMafilePath(mafile);
         }
 
         if (mafilePath != null)
@@ -181,7 +181,7 @@ public partial class MainVM //File //TODO: Refactor
 
         var result = data.SessionData != null;
         if (!result) return result;
-        Storage.SaveMafile(data);
+        await Storage.SaveMafileAsync(data);
         {
             ResetQuery();
             SearchText = data.AccountName ?? string.Empty;
@@ -266,7 +266,7 @@ public partial class MainVM //File //TODO: Refactor
     private void CopyMafile(object? mafile)
     {
         if (mafile is not Mafile maf) return;
-        var path = Storage.TryFindMafilePath(maf);
+        var path = Storage.TryGetMafilePath(maf);
         if (ClipboardHelper.SetFiles([path]))
             SnackbarController.SendSnackbar(GetLocalization("MafileCopied"));
     }

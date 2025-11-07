@@ -40,6 +40,26 @@
       "ru": "Прокси",
       "ua": "Проксі"
     },
+    "Delete": {
+      "en": "Delete",
+      "ru": "Удалить",
+      "ua": "Видалити"
+    },
+    "Cancel": {
+      "en": "Cancel",
+      "ru": "Отмена",
+      "ua": "Скасувати"
+    },
+    "OK": {
+      "en": "OK",
+      "ru": "ОК",
+      "ua": "ОК"
+    },
+    "Save": {
+      "en": "Save",
+      "ru": "Сохранить",
+      "ua": "Зберегти"
+    },
     "Abbreviations": {
       "Time": {
         "Seconds": {
@@ -50,7 +70,7 @@
       },
       "Count": {
         "Items": {
-          "en": "items",
+          "en": "pcs",
           "ru": "шт",
           "ua": "шт"
         }
@@ -73,9 +93,9 @@
     "Menu": {
       "File": {
         "Caption": {
-          "en": "File",
-          "ru": "Файл",
-          "ua": "Файл"
+          "en": "Menu",
+          "ru": "Меню",
+          "ua": "Меню"
         },
         "Import": {
           "en": "Import",
@@ -96,6 +116,23 @@
           "en": "Settings",
           "ru": "Настройки",
           "ua": "Налаштування"
+        },
+        "ProxyManager": {
+          "en": "Proxy manager",
+          "ru": "Менеджер прокси",
+          "ua": "Менеджер проксі"
+        },
+        "Other": {
+          "Title": {
+            "en": "Other",
+            "ru": "Прочее",
+            "ua": "Інше"
+          },
+          "SetPasswords": {
+            "en": "Set passwords",
+            "ru": "Назначить пароли",
+            "ua": "Призначити паролі"
+          }
         }
       },
       "Account": {
@@ -166,8 +203,8 @@
           },
           "MafileProxyInUse": {
             "en": "Mafile proxy is in use",
-            "ru": "Используется прокси из mafile",
-            "ua": "Використовується проксі з mafile"
+            "ru": "Используется прокси из мафайла",
+            "ua": "Використовується проксі з мафайла"
           }
         }
       },
@@ -224,15 +261,16 @@
       }
     },
     "Footer": {
-      "Account": {
-        "en": "Account: ",
-        "ru": "Аккаунт: ",
-        "ua": "Акаунт: "
+      "AccountsCount": {
+        "en": "Accounts: ",
+        "ru": "Аккаунты: ",
+        "ua": "Акаунти: "
       },
-      "Group": {
-        "en": "Group: ",
-        "ru": "Группа: ",
-        "ua": "Група: "
+      "SelectedAccount": {
+        "en": "Current: ",
+        "ru": "Текущий: ",
+        "ua": "Поточний: "
+
       }
     },
     "ConfirmationTemplates": {
@@ -252,9 +290,9 @@
         "ua": "Api ключ"
       },
       "Market": {
-        "en": "Market",
-        "ru": "Маркет",
-        "ua": "Маркет"
+        "en": "Sell",
+        "ru": "Продажа",
+        "ua": "Продаж"
       },
       "Purchase": {
         "en": "Purchase",
@@ -283,6 +321,11 @@
           "en": "Copy SteamID",
           "ru": "Скопировать SteamID",
           "ua": "Скопіювати SteamID"
+        },
+        "CreateGroup": {
+          "en": "Create group",
+          "ru": "Создать группу",
+          "ua": "Створити групу"
         },
         "AddToGroup": {
           "en": "Add to group",
@@ -366,6 +409,11 @@
         "ru": "Размытие при открытии диалог. окна",
         "ua": "Розмиття при відкритті діалог. вікна"
       },
+      "RippleDisabled": {
+        "en": "Disable ripple animations",
+        "ru": "Отключить анимации «ripple»",
+        "ua": "Вимкнути анімації «ripple»"
+      },
       "Reset": {
         "en": "Reset",
         "ru": "Сбросить",
@@ -400,9 +448,9 @@
       "ua": "Згортати в трей"
     },
     "UseIndicator": {
-      "en": "Use indicator",
-      "ru": "Использовать индикатор",
-      "ua": "Використовувати індикатор"
+      "en": "Use color indicator in taskbar",
+      "ru": "Цветной индикатор в панели задач",
+      "ua": "Кольоровий індикатор в панелі завдань"
     },
     "UseIndicatorHint": {
       "en": "Small color indicator in windows toolbar to identify program instance",
@@ -421,7 +469,7 @@
         "ua": "Поточний пароль шифрування"
       },
       "Hint": {
-        "en": "Doesn't saved on disk",
+        "en": "Not saved to disk",
         "ru": "Не сохраняется в системе",
         "ua": "Не зберігається у системі"
       }
@@ -442,10 +490,15 @@
       "ru": "Разрешить автообновление",
       "ua": "Дозволити автооновлення"
     },
-    "UseAccountName": {
-      "en": "Use account name on mafiles",
-      "ru": "Использовать имя аккаунта на мафайлах",
-      "ua": "Використовувати ім'я акаунта на мафайлах"
+    "MafileNamingMode": {
+      "en": "Mafile naming mode",
+      "ru": "Режим именования мафайлов",
+      "ua": "Режим іменування мафайлів"
+    },
+    "ApplyNamingMode": {
+      "en": "Apply and rename",
+      "ru": "Применить и переименовать",
+      "ua": "Застосувати та перейменувати"
     },
     "IgnorePatchTuesdayErrors": {
       "en": "Ignore Patch Tuesday errors in timer (exp.)",
@@ -520,6 +573,16 @@
       "en": "Use random default proxy",
       "ru": "Cлучайный прокси по умолчанию",
       "ua": "Випадковий проксі за замовчуванням"
+    },
+    "DisplayProxyProtocol": {
+      "en": "Display protocol",
+      "ru": "Отображать протокол",
+      "ua": "Відображати протокол"
+    },
+    "DisplayProxyCredentials": {
+      "en": "Display credentials",
+      "ru": "Отображать логин и пароль",
+      "ua": "Відображати логін та пароль"
     }
   },
   "WaitLoginDialog": {
@@ -626,7 +689,7 @@
       "ua": "СМС код"
     }
   },
-  "SetEncryptedPasswordDialog": {
+  "SetEncryptionPasswordDialog": {
     "Title": {
       "en": "Encryption password",
       "ru": "Пароль шифрования",
@@ -634,11 +697,11 @@
     },
     "DialogText": {
       "en":
-        "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session. (Optional)",
+        "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session.\r\n(Optional)",
       "ru":
-        "Ранее вы устанавливали пароль шифрования для паролей в мафайлах, укажите его, чтобы приложение могло автоматически авторизоваться в случае проблем с сессией. (Не обязательно)",
+        "Ранее вы устанавливали пароль шифрования для паролей в мафайлах, укажите его, чтобы приложение могло автоматически авторизоваться в случае проблем с сессией.\r\n(Не обязательно)",
       "ua":
-        "Раніше ви встановлювали пароль шифрування для паролів в мафайлах, вкажіть його, щоб додаток міг автоматично авторизуватися у випадку проблем з сесією. (Не обов'язково)"
+        "Раніше ви встановлювали пароль шифрування для паролів в мафайлах, вкажіть його, щоб додаток міг автоматично авторизуватися у випадку проблем з сесією.\r\n(Не обов'язково)"
     },
     "Ok": {
       "en": "Ok",
@@ -680,6 +743,53 @@
       "ua": "Steam Guard перенесено"
     }
   },
+  "ConfirmCancelDialog": {
+    "Title": {
+      "ru": "Подтвердите действие",
+      "en": "Confirm action",
+      "ua": "Підтвердіть дію"
+    }
+  },
+  "TextFieldDialog": {
+    "Title": {
+      "ru": "Введите значение",
+      "en": "Enter value",
+      "ua": "Введіть значення"
+    }
+  },
+  "SetAccountPasswordsView": {
+    "Title": {
+      "en": "Set passwords",
+      "ru": "Назначить пароли",
+      "ua": "Призначити паролі"
+    },
+    "EncryptionPassword": {
+      "en": "Encryption password:",
+      "ru": "Пароль шифрования:",
+      "ua": "Пароль шифрування:"
+    },
+    "EnterPassword": {
+      "en": "Enter password",
+      "ru": "Введите пароль",
+      "ua": "Введіть пароль"
+    },
+    "Status": {
+      "en": "Status:",
+      "ru": "Статус:",
+      "ua": "Статус:"
+    },
+    "EncryptionHint": {
+      "en": "All passwords in mafiles will be encrypted using the encryption password.",
+      "ru": "Все пароли в мафайлах будут зашифрованы с помощью пароля шифрования.",
+      "ua": "Всі паролі в мафайлах будуть зашифровані за допомогою пароля шифрування."
+    },
+    "InputFormat": {
+      "en": "Supported formats:\r\n\r\nlogin:password\r\nsteamid:password",
+      "ru": "Поддерживаемые форматы:\r\n\r\nlogin:password\r\nsteamid:password",
+      "ua": "Підтримувані формати:\r\n\r\nlogin:password\r\nsteamid:password"
+
+    }
+  },
   "CodeBehind": {
     "MainVM": {
       "SuccessfulLogin": {
@@ -698,9 +808,10 @@
         "ua": "Відсутній RCode"
       },
       "ConfirmRemovingAuthenticator": {
-        "ru": "Вы точно уверены что хотите удалить аутентификатор?",
-        "en": "Are you sure you want to remove authenticator?",
-        "ua": "Ви точно впевнені що хочете видалити аутентифікатор?"
+        "ru": "Вы точно уверены, что хотите удалить аутентификатор?\r\nПосле этого вы не сможете обмениваться, использовать торговую площадку 15 дней. Мафайл будет удалён навсегда",
+        "en": "Are you sure you want to remove the authenticator?\r\nAfter that, you will not be able to trade or use the marketplace for 15 days. Mafile will be deleted permanently",
+        "ua": "Ви точно впевнені, що хочете видалити автентифікатор?\r\nПісля цього ви не зможете обмінюватися, використовувати торгову площадку 15 днів. Мафайл буде видалено назавжди"
+
       },
       "AuthenticatorRemoved": {
         "ru": "Аутентификатор удален",
@@ -733,12 +844,12 @@
         "ua": "Помилка підтвердження"
       },
       "ConfirmMafileOverwrite": {
-        "ru": "Внимание, мафайл уже присутствует в папке mafiles.\r\nПерезаписать мафайлы, которые конфликтуют?",
-        "en": "Attention, mafile already exists in mafiles folder.\r\nOverwrite conflicting mafiles?",
-        "ua": "Увага, мафайл вже присутній у папці mafiles.\r\nПерезаписати мафайли, які конфліктують?"
+        "ru": "Внимание, мафайл(-ы) уже присутствует в папке mafiles.\r\nПерезаписать мафайлы, которые конфликтуют?",
+        "en": "Attention, mafile(-s) already exists in mafiles folder.\r\nOverwrite conflicting mafiles?",
+        "ua": "Увага, мафайл(-и) вже присутній у папці mafiles.\r\nПерезаписати мафайли, які конфліктують?"
       },
       "MafileImportError": {
-        "ru": "Ошибка импорта мафайла",
+        "ru": "Ошибка при импорте мафайла",
         "en": "Mafile import error",
         "ua": "Помилка імпорту мафайла"
       },
@@ -768,17 +879,14 @@
         "ua": "помилки:"
       },
       "RemoveMafileConfirmation": {
-        "ru":
-          "Удалить мафайл? Мафайл будет перемещен в папку 'mafiles_removed' (Это действие не удаляет Steam Guard с аккаунта)",
-        "en":
-          "Remove mafile? Mafile will be moved to 'mafiles_removed' directory (This action does not remove the Steam Guard from the account)",
-        "ua":
-          "Видалити мафайл? Мафайл буде переміщено у каталог 'mafiles_removed' (Ця дія не видаляє автентифікатор з облікового запису)"
+        "ru": "Удалить mafile?\r\nМафайл будет перемещен в папку 'mafiles_removed'\r\nЭто действие НЕ удаляет Steam Guard с аккаунта",
+        "en": "Remove mafile?\r\nMafile will be moved to 'mafiles_removed' directory\r\nThis action will NOT remove the Steam Guard from the account",
+        "ua": "Видалити mafile?\r\nМафайл буде переміщено у каталог 'mafiles_removed'\r\nЦя дія НЕ видаляє автентифікатор з облікового запису"
       },
       "CantRemoveAlreadyExist": {
-        "ru": "Не удалось переместить мафайл, возможно в папке уже существует мафайл с таким именем.",
+        "ru": "Не удалось переместить mafile, возможно в папке уже существует мафайл с таким именем.",
         "en": "Can't move mafile, maybe mafile with same name already exists in mafiles_removed folder.",
-        "ua": "Не вдалося перемістити мафайл, можливо в папці вже існує мафайл з таким іменем."
+        "ua": "Не вдалося перемістити mafile, можливо в папці вже існує мафайл з таким іменем."
       },
       "CantRemoveMafile": {
         "ru": "Не удалось удалить (переместить) мафайл:",
@@ -789,11 +897,6 @@
         "ru": "Слишком быстрый таймер.",
         "en": "Too fast timer.",
         "ua": "Занадто швидкий таймер."
-      },
-      "DuplicateMafilesFound": {
-        "en": "Duplicate mafile(s) found and were not loaded. Check log to get lists of duplicate files.",
-        "ru": "Найдены дубликаты мафайлов, они не были загружены. Проверьте лог чтобы получить списки дубликатов.",
-        "ua": "Знайдено дублікати мафайлів, вони не були завантажені. Перевірте лог щоб отримати списки дублікатів."
       },
       "TimerChanged": {
         "en": "Timer changed",
@@ -832,9 +935,23 @@
       },
       "CantDecryptPassword": {
         "en": "Can't decrypt password. Maybe password from this mafile was encrypted with another encryption password",
-        "ru":
-          "Не удалось расшифровать пароль. Возможно пароль из этого мафайла был зашифрован другим паролем шифрования",
+        "ru": "Не удалось расшифровать пароль. Возможно пароль из этого мафайла был зашифрован другим паролем шифрования",
         "ua": "Не вдалося розшифрувати пароль. Можливо пароль з цього мафайла був зашифрований іншим паролем шифрування"
+      },
+      "CreateGroupTitle": {
+        "en": "New group",
+        "ru": "Новая группа",
+        "ua": "Нова група"
+      },
+      "CreateGroupInput": {
+        "en": "Enter group name",
+        "ru": "Введите имя группы",
+        "ua": "Введіть назву групи"
+      },
+      "CreateGroupSuccess": {
+        "en": "Group created",
+        "ru": "Группа создана",
+        "ua": "Групу створено"
       }
     },
     "ErrorTranslator": {
@@ -1089,10 +1206,8 @@
         },
         "InvalidStateWithStatus2": {
           "ru": "Неверное состояние (InvalidState) со статусом 2. Откройте ссылку на руководство сверху этого окна.",
-          "en":
-            "Invalid state (InvalidState) with status 2. Open link to the troubleshooting guide at the top of this window.",
-          "ua":
-            "Невірний стан (InvalidState) зі статусом 2. Відкрийте посилання на посібник з усунення несправностей у верхній частині цього вікна."
+          "en": "Invalid state (InvalidState) with status 2. Open link to the troubleshooting guide at the top of this window.",
+          "ua": "Невірний стан (InvalidState) зі статусом 2. Відкрийте посилання на посібник з усунення несправностей у верхній частині цього вікна."
         },
         "GeneralFailure": {
           "ru": "General Failure",
@@ -1131,6 +1246,23 @@
         "ru": "Ошибка входа: ",
         "en": "Login error: ",
         "ua": "Помилка входу: "
+      },
+      "UnsupportedAuthTypeException": {
+        "Mail": {
+          "ru": "Ошибка: Был запрошен код с почты. Steam Guard не активирован",
+          "en": "Error: Email code was requested. Steam Guard is not activated",
+          "ua": "Помилка: Був запрошений код з пошти. Steam Guard не активовано"
+        },
+        "Guard": {
+          "ru": "Ошибка: Был запрошен вход с помощью Steam Guard. На аккаунте уже активирован мобильный аутентификатор",
+          "en": "Error: Login with Steam Guard was requested. Mobile authenticator is already activated on the account",
+          "ua": "Помилка: Був запрошений вхід за допомогою Steam Guard. На акаунті вже активовано мобільний автентифікатор"
+        },
+        "Unknown": {
+          "ru": "Ошибка: Неизвестный тип аутентификации",
+          "en": "Error: Unknown authentication type",
+          "ua": "Помилка: Невідомий тип автентифікації"
+        }
       },
       "UnknownException": {
         "ru": "Неизвестная ошибка: ",
@@ -1227,12 +1359,9 @@
         "ua": "На пошту надіслано лист. Відкрийте посилання з листа, а потім натисніть — 'Продовжити'"
       },
       "ClickOnEmailLinkRetry": {
-        "ru":
-          "Не удалось подтвердить переход по ссылке. Убедитесь, что вы открыли ссылку из письма, затем нажмите — 'Продолжить'",
-        "en":
-          "We couldn’t verify that you clicked the link. Make sure you opened the link from the email, then click 'Proceed'",
-        "ua":
-          "Не вдалося підтвердити перехід за посиланням. Переконайтесь, що ви відкрили посилання з листа, а потім натисніть — 'Продовжити'"
+        "ru": "Не удалось подтвердить переход по ссылке. Убедитесь, что вы открыли ссылку из письма, затем нажмите — 'Продолжить'",
+        "en": "We couldn’t verify that you clicked the link. Make sure you opened the link from the email, then click 'Proceed'",
+        "ua": "Не вдалося підтвердити перехід за посиланням. Переконайтесь, що ви відкрили посилання з листа, а потім натисніть — 'Продовжити'"
       },
       "PhoneHint": {
         "ru": "На телефон {0} была отправлена СМС",
@@ -1240,12 +1369,9 @@
         "ua": "На телефон {0} було відправлено СМС"
       },
       "EnterPhoneNumber": {
-        "ru":
-          "Введите номер в международном формате, только цифры (без '+', пробелов и скобок), или оставьте поле пустым, чтобы привязать без номера",
-        "en":
-          "Enter number in international format, digits only (no '+', spaces or brackets), or leave the field empty to link without a number",
-        "ua":
-          "Введіть номер у міжнародному форматі, лише цифри (без '+', пробілів і дужок), або залиште поле порожнім, щоб прив’язати без номера"
+        "ru": "Введите номер в международном формате, только цифры (без '+', пробелов и скобок), или оставьте поле пустым, чтобы привязать без номера",
+        "en": "Enter number in international format, digits only (no '+', spaces or brackets), or leave the field empty to link without a number",
+        "ua": "Введіть номер у міжнародному форматі, лише цифри (без '+', пробілів і дужок), або залиште поле порожнім, щоб прив’язати без номера"
       }
     },
     "MafileMoverVM": {
@@ -1270,11 +1396,9 @@
         "ua": "RCode: {0}\r\nІм'я файлу: {1}.mafile"
       },
       "GuardIsNotActive": {
-        "ru":
-          "Steam Guard установлен на данном аккаунте. Чтобы привязать mafile к аккаунту, воспользуйтесь окном \"Привязать\"",
+        "ru": "Steam Guard установлен на данном аккаунте. Чтобы привязать mafile к аккаунту, воспользуйтесь окном \"Привязать\"",
         "en": "Steam Guard is set on this account. To link mafile to the account, use the 'Link' window",
-        "ua":
-          "Steam Guard встановлено на цьому акаунті. Щоб прив'язати mafile до акаунту, скористайтеся вікном 'Прив'язати'"
+        "ua": "Steam Guard встановлено на цьому акаунті. Щоб прив'язати mafile до акаунту, скористайтеся вікном 'Прив'язати'"
       },
       "SeemsNoPhoneNumber": {
         "en": "The account has no phone number linked, returned Fail code (2)",
@@ -1309,14 +1433,62 @@
         "ua": "Авто "
       },
       "TimerPreventedOverlap": {
-        "ru":
-          "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
-        "en":
-          "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
-        "ua":
-          "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку"
+        "ru": "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
+        "en": "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
+        "ua": "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку"
+      },
+      "FailedToLoadStorage": {
+        "en": "Failed to load auto-confirm timers. File seems to be corrupted",
+        "ru": "Не удалось загрузить таймеры авто-подтверждений. Файл, похоже, поврежден",
+        "ua": "Не вдалося завантажити таймери авто-підтверджень. Файл, схоже, пошкоджено"
       }
-    }
+    },
+    "SettingsVM": {
+      "MafileRenaming": {
+        "Error": {
+          "en": "Error while renaming mafiles. It was saved in log",
+          "ru": "Ошибка при переименовании мафайлов. Она была сохранена в log",
+          "ua": "Помилка при перейменуванні мафайлів. Вона була збережена в log"
+        },
+        "AllRenamed": {
+          "ru": "Все мафайлы успешно переименованы ({0}).\r\nБыла создана резервная копия: {1}",
+          "en": "All mafiles successfully renamed ({0}).\r\nBackup was created: {1}",
+          "ua": "Всі мафайли успішно перейменовані ({0}).\r\nБуло створено резервну копію: {1}"
+        },
+        "PartialSuccess": {
+          "en": "Total mafiles: {0}\r\nRenamed: {1}\r\nConflicts: {2}\r\nErrors: {3}\r\n\r\nBackup of mafiles saved in file: {4}",
+          "ru": "Всего мафайлов: {0}\r\nПереименовано: {1}\r\nКонфликты: {2}\r\nОшибок: {3}\r\n\r\nРезервная копия мафайлов сохранена в файле: {4}",
+          "ua": "Всього мафайлів: {0}\r\nПерейменовано: {1}\r\nКонфлікти: {2}\r\nПомилок: {3}\r\n\r\nРезервна копія мафайлів збережена у файлі: {4}"
+        }
+      }
+    },
+    "ProxyStorage": {
+      "ErrorWhileLoadingProxies": {
+        "en": "Error while loading proxies",
+        "ru": "Ошибка при загрузке прокси",
+        "ua": "Помилка при завантаженні проксі"
+      }
+    },
+    "Settings": {
+      "ErrorWhileLoadingSettings": {
+        "en": "Error while loading settings. Settings were reset",
+        "ru": "Ошибка при загрузке настроек. Настройки были сброшены",
+        "ua": "Помилка при завантаженні налаштувань. Налаштування були скинуті"
+      }
+    },
+    "SetAccountPasswordsVM": {
+      "Success": {
+        "en": "Passwords successfully set for {0} mafiles",
+        "ru": "Пароли успешно установлены для {0} мафайлов",
+        "ua": "Паролі успішно встановлені для {0} мафайлів"
+      },
+      "PartialSuccess": {
+        "en": "Success: {0}, Not found: {1}, Errors: {2}",
+        "ru": "Успешно: {0}, Не найдено: {1}, Ошибки: {2}",
+        "ua": "Успішно: {0}, Не знайдено: {1}, Помилки: {2}"
+
+      } 
+    } 
   },
   "CantAlignTimeError": {
     "ru":

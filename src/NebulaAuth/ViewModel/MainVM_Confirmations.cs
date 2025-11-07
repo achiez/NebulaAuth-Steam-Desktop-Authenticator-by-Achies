@@ -14,7 +14,7 @@ namespace NebulaAuth.ViewModel;
 
 public partial class MainVM //Confirmations
 {
-    public ObservableCollection<Confirmation> Confirmations { get; } = new();
+    public ObservableCollection<Confirmation> Confirmations { get; } = [];
     public bool ConfirmationsVisible => SelectedMafile == _confirmationsLoadedForMafile;
     private Mafile? _confirmationsLoadedForMafile;
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -177,7 +176,7 @@ public partial class LinkAccountVM : ObservableObject, ISmsCodeProvider, IPhoneN
 
 
         var linkOptions = new LinkOptions(_client, StaticLoginConsumer.Instance, this,
-            this, this, Storage.BackupHandler, Logger2);
+            this, this, Storage.WriteBackup, Logger2);
         var linker = new SteamAuthenticatorLinker(linkOptions);
         MobileDataExtended result;
         try
@@ -226,9 +225,92 @@ public partial class LinkAccountVM : ObservableObject, ISmsCodeProvider, IPhoneN
         }
 
         Storage.SaveMafile(mafile);
-        File.Delete(Path.Combine("mafiles_backup", mafile.AccountName + ".mafile"));
-        await Done(mafile.RevocationCode ?? string.Empty, mafile.SteamId.Steam64.ToString());
+        await Done(mafile.RevocationCode ?? string.Empty, mafile.SteamId.Steam64.ToString(), login);
     }
+
+    private void SetCurrentStep(LinkAccountStepVM step)
+    {
+        Dispatcher.CurrentDispatcher.Invoke(() =>
+        {
+            CurrentStep = step;
+            Tip = CurrentStep.Tip;
+        });
+    }
+
+    [RelayCommand]
+    private void OpenTroubleshooting()
+    {
+        const string troubleshootingURI =
+            "https://achiez.github.io/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/docs/{0}/LinkingTroubleshooting";
+
+        var localized = string.Format(troubleshootingURI, LocManager.GetCurrentLanguageCode());
+        Process.Start(new ProcessStartInfo(new Uri(localized).ToString())
+        {
+            UseShellExecute = true
+        });
+    }
+
+    private static string GetLocalizationOrDefault(string key)
+    {
+        return LocManager.GetCodeBehindOrDefault(key, LOCALIZATION_KEY, key);
+    }
+
+    private static string GetLocalizationCommon(string key)
+    {
+        return LocManager.GetCommonOrDefault(key, key);
+    }
+
+
+    public void Dispose()
+    {
+        _client.Dispose();
+        _handler.Dispose();
+        try
+        {
+            _cts.Cancel();
+        }
+        catch
+        {
+            //Ignored, may be cancelled or disposed
+        }
+
+        _cts.Dispose();
+    }
+
+    // @formatter:off
+    #region Step 2: Email Code
+
+    public bool IsSupportedGuardType(ILoginConsumer consumer, EAuthSessionGuardType type)
+    {
+        return type == EAuthSessionGuardType.EmailCode;
+    }
+
+    // Step 2: Email Code
+    public async Task UpdateAuthSession(HttpClient authClient, ILoginConsumer loginConsumer,
+        UpdateAuthSessionModel model,
+        CancellationToken cancellationToken = default)
+    {
+        while (true)
+        {
+            try
+            {
+                var step = new LinkAccountEmailAuthStepVM();
+                SetCurrentStep(step);
+                var res = await step.GetResultAsync();
+                var req = AuthRequestHelper.CreateEmailCodeRequest(res, model.ClientId, model.SteamId);
+                await AuthenticationServiceApi.UpdateAuthSessionWithSteamGuardCode(authClient, req, cancellationToken);
+                Error = null;
+                break;
+            }
+            catch (SteamStatusCodeException ex)
+                when (ex.StatusCode.Equals(SteamStatusCode.InvalidLoginAuthCode))
+            {
+                Error = ExceptionHandler.GetExceptionString(ex);
+            }
+        }
+    }
+
+    #endregion
 
     #region Step 3: Phone Number
 
@@ -280,95 +362,14 @@ public partial class LinkAccountVM : ObservableObject, ISmsCodeProvider, IPhoneN
 
     #region Step 7: Done
 
-    public async Task Done(string rCode, string steamId)
+    public async Task Done(string rCode, string steamId, string login)
     {
-        var step = new LinkAccountDoneStepVM(rCode, steamId);
+        var filename = Settings.Instance.UseAccountNameAsMafileName ? login : steamId;
+        var step = new LinkAccountDoneStepVM(rCode, filename);
         SetCurrentStep(step);
         await step.GetResultAsync();
     }
 
     #endregion
-
-    private void SetCurrentStep(LinkAccountStepVM step)
-    {
-        Dispatcher.CurrentDispatcher.Invoke(() =>
-        {
-            CurrentStep = step;
-            Tip = CurrentStep.Tip;
-        });
-    }
-
-    [RelayCommand]
-    private void OpenTroubleshooting()
-    {
-        const string troubleshootingURI =
-            "https://achiez.github.io/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/docs/{0}/LinkingTroubleshooting";
-
-        var localized = string.Format(troubleshootingURI, LocManager.GetCurrentLanguageCode());
-        Process.Start(new ProcessStartInfo(new Uri(localized).ToString())
-        {
-            UseShellExecute = true
-        });
-    }
-
-    private static string GetLocalizationOrDefault(string key)
-    {
-        return LocManager.GetCodeBehindOrDefault(key, LOCALIZATION_KEY, key);
-    }
-
-    private static string GetLocalizationCommon(string key)
-    {
-        return LocManager.GetCommonOrDefault(key, key);
-    }
-
-
-    public void Dispose()
-    {
-        _client.Dispose();
-        _handler.Dispose();
-        try
-        {
-            _cts.Cancel();
-        }
-        catch
-        {
-            //Ignored, may be cancelled or disposed
-        }
-
-        _cts.Dispose();
-    }
-
-    #region Step 2: Email Code
-
-    public bool IsSupportedGuardType(ILoginConsumer consumer, EAuthSessionGuardType type)
-    {
-        return type == EAuthSessionGuardType.EmailCode;
-    }
-
-    // Step 2: Email Code
-    public async Task UpdateAuthSession(HttpClient authClient, ILoginConsumer loginConsumer,
-        UpdateAuthSessionModel model,
-        CancellationToken cancellationToken = default)
-    {
-        while (true)
-        {
-            try
-            {
-                var step = new LinkAccountEmailAuthStepVM();
-                SetCurrentStep(step);
-                var res = await step.GetResultAsync();
-                var req = AuthRequestHelper.CreateEmailCodeRequest(res, model.ClientId, model.SteamId);
-                await AuthenticationServiceApi.UpdateAuthSessionWithSteamGuardCode(authClient, req, cancellationToken);
-                Error = null;
-                break;
-            }
-            catch (SteamStatusCodeException ex)
-                when (ex.StatusCode.Equals(SteamStatusCode.InvalidLoginAuthCode))
-            {
-                Error = ExceptionHandler.GetExceptionString(ex);
-            }
-        }
-    }
-
-    #endregion
+    // @formatter:on
 }

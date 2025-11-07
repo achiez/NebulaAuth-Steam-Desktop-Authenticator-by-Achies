@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace NebulaAuth.Theme.Controls;
+namespace NebulaAuth;
 
 public class CodeProgressBar : ProgressBar
 {
@@ -13,7 +13,7 @@ public class CodeProgressBar : ProgressBar
 
     public static readonly DependencyProperty MaxTimeProperty =
         DependencyProperty.Register(nameof(MaxTime), typeof(double), typeof(CodeProgressBar),
-            new PropertyMetadata(30.0)); // По умолчанию 30 сек
+            new PropertyMetadata(30.0));
 
     public double TimeRemaining
     {

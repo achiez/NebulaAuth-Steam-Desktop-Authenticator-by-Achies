@@ -44,18 +44,12 @@ public partial class MainVM : ObservableObject
         Storage.MaFiles.CollectionChanged += MaFilesOnCollectionChanged;
         QueryGroups();
         UpdateManager.CheckForUpdates();
-        if (Storage.DuplicateFound > 0)
-        {
-            SnackbarController.SendSnackbar(
-                GetLocalization("DuplicateMafilesFound") + " " + Storage.DuplicateFound,
-                TimeSpan.FromSeconds(4));
-        }
     }
 
     [RelayCommand]
     public async Task Debug()
     {
-        Shell.Logger.Info("test");
+        await DialogsController.ShowSetAccountsPasswordDialog();
     }
 
 
@@ -73,20 +67,21 @@ public partial class MainVM : ObservableObject
             OnPropertyChanged(nameof(IsDefaultProxy));
             if (mafile != null) Code = SteamGuardCodeGenerator.GenerateCode(mafile.SharedSecret);
             OnPropertyChanged(nameof(IsMafileSelected));
+            RefreshSessionCommand.NotifyCanExecuteChanged();
+            LoginAgainCommand.NotifyCanExecuteChanged();
+            RemoveAuthenticatorCommand.NotifyCanExecuteChanged();
+            ConfirmLoginCommand.NotifyCanExecuteChanged();
         }
     }
 
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsMafileSelected))]
     public async Task LoginAgain()
     {
-        if (SelectedMafile == null)
-        {
-            return;
-        }
-
-        var currentPassword = PHandler.DecryptPassword(SelectedMafile.Password);
-        var loginAgainVm = await DialogsController.ShowLoginAgainDialog(SelectedMafile.AccountName, currentPassword);
+        var selectedMafile = SelectedMafile;
+        if (selectedMafile == null) return;
+        var currentPassword = PHandler.DecryptPassword(selectedMafile.Password);
+        var loginAgainVm = await DialogsController.ShowLoginAgainDialog(selectedMafile.AccountName, currentPassword);
         if (loginAgainVm == null)
         {
             return;
@@ -97,7 +92,7 @@ public partial class MainVM : ObservableObject
         var wait = DialogHost.Show(waitDialog);
         try
         {
-            await MaClient.LoginAgain(SelectedMafile, password, loginAgainVm.SavePassword);
+            await MaClient.LoginAgain(selectedMafile, password, loginAgainVm.SavePassword);
             SnackbarController.SendSnackbar(GetLocalization("SuccessfulLogin"));
         }
         catch (LoginException ex)
@@ -123,13 +118,14 @@ public partial class MainVM : ObservableObject
     }
 
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsMafileSelected))]
     private async Task RefreshSession()
     {
-        if (SelectedMafile == null) return;
+        var selectedMafile = SelectedMafile;
+        if (selectedMafile == null) return;
         try
         {
-            await MaClient.RefreshSession(SelectedMafile);
+            await MaClient.RefreshSession(selectedMafile);
             SnackbarController.SendSnackbar(GetLocalization("SessionRefreshed"));
         }
         catch (Exception ex) when (ExceptionHandler.Handle(ex))
@@ -150,7 +146,7 @@ public partial class MainVM : ObservableObject
         await DialogsController.ShowMafileMoverDialog();
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsMafileSelected))]
     private async Task RemoveAuthenticator()
     {
         var selectedMafile = SelectedMafile;
@@ -191,14 +187,14 @@ public partial class MainVM : ObservableObject
         }
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsMafileSelected))]
     private async Task ConfirmLogin()
     {
-        if (SelectedMafile == null) return;
-
+        var selectedMafile = SelectedMafile;
+        if (selectedMafile == null) return;
         try
         {
-            var res = await SessionHandler.Handle(() => MaClient.ConfirmLoginRequest(SelectedMafile), SelectedMafile);
+            var res = await SessionHandler.Handle(() => MaClient.ConfirmLoginRequest(selectedMafile), selectedMafile);
             if (res.Success)
             {
                 SnackbarController.SendSnackbar($"{GetLocalization("ConfirmLoginSuccess")} {res.IP} ({res.Country})");

@@ -46,7 +46,9 @@ public static class ProxyStorage
         }
         catch (Exception ex)
         {
-            SnackbarController.SendSnackbar("Ошибка при загрузке прокси");
+            Shell.Logger.Error(ex, "Error while loading proxies");
+            SnackbarController.SendSnackbar(LocManager.GetCodeBehindOrDefault("Error when loading proxies",
+                "ProxyStorage", "ErrorWhileLoadingProxies"));
             SnackbarController.SendSnackbar(ex.Message);
         }
     }
@@ -93,7 +95,7 @@ public static class ProxyStorage
         Save();
     }
 
-    public static void OrderCollection() //RETHINK: maybe there is a better way to handle it
+    public static void SortCollection() //RETHINK: maybe there is a better way to handle it
     {
         var proxies = Proxies.OrderBy(p => p.Key)
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);

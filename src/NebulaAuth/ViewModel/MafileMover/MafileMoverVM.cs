@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -236,7 +235,7 @@ public partial class MafileMoverVM : ObservableObject, IAuthProvider, IDisposabl
 
         var t = res.ReplacementToken;
         var j = JsonConvert.SerializeObject(t);
-        Storage.BackupHandlerStr(login, j);
+        Storage.WriteBackup(login, j);
         var mobileData = t.ToMobileDataExtended(SteamAuthenticatorLinkerApi.GenerateDeviceId(), msd);
 
 
@@ -253,33 +252,9 @@ public partial class MafileMoverVM : ObservableObject, IAuthProvider, IDisposabl
             Logger.Error(ex, "Error during saving Nebula data to mafile");
         }
 
-        Storage.SaveMafile(mafile);
-        File.Delete(Path.Combine("mafiles_backup", mafile.AccountName + ".mafile"));
+        await Storage.SaveMafileAsync(mafile);
         await Done(mafile.RevocationCode ?? string.Empty, mafile.SteamId.Steam64.ToString());
     }
-
-    #region Step 3: Sms code
-
-    // Step 3: Sms code
-    public Task<int> GetSms()
-    {
-        var step = new MafileMoverSmsStepVM();
-        SetCurrentStep(step);
-        return step.GetResultAsync();
-    }
-
-    #endregion
-
-    #region Step 4: Done
-
-    public async Task Done(string rCode, string steamId)
-    {
-        var step = new MafileMoverDoneStepVM(rCode, steamId);
-        SetCurrentStep(step);
-        await step.GetResultAsync();
-    }
-
-    #endregion
 
     private void SetCurrentStep(MafileMoverStepVM step)
     {
@@ -335,13 +310,15 @@ public partial class MafileMoverVM : ObservableObject, IAuthProvider, IDisposabl
         _cts.Dispose();
     }
 
-    #region Step 2: Guard Code
 
     public bool IsSupportedGuardType(ILoginConsumer consumer, EAuthSessionGuardType type)
     {
         return type == EAuthSessionGuardType.DeviceCode;
     }
 
+    // @formatter:off
+
+    #region Step 2: Guard Code
     // Step 2: Guard Code
     public async Task UpdateAuthSession(HttpClient authClient, ILoginConsumer loginConsumer,
         UpdateAuthSessionModel model,
@@ -374,4 +351,29 @@ public partial class MafileMoverVM : ObservableObject, IAuthProvider, IDisposabl
     }
 
     #endregion
+
+    #region Step 3: Sms code
+
+    // Step 3: Sms code
+    public Task<int> GetSms()
+    {
+        var step = new MafileMoverSmsStepVM();
+        SetCurrentStep(step);
+        return step.GetResultAsync();
+    }
+
+    #endregion
+
+    #region Step 4: Done
+
+    public async Task Done(string rCode, string steamId)
+    {
+        var step = new MafileMoverDoneStepVM(rCode, steamId);
+        SetCurrentStep(step);
+        await step.GetResultAsync();
+    }
+
+    #endregion
+
+    // @formatter:on
 }

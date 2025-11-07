@@ -49,7 +49,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox TabIndex="0" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
 
                      materialDesign:TextFieldAssist.HasClearButton="True"
                      Padding="10"

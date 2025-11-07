@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Windows;
+using System.Windows.Forms;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
 
@@ -10,24 +10,15 @@ public class ClipboardHelper
 {
     public static bool Set(string text)
     {
-        var i = 0;
-        while (i < 20)
+        try
         {
-            try
-            {
-                Clipboard.SetText(text);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                if (i == 19)
-                {
-                    Shell.Logger.Error(ex);
-                    SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
-                }
-            }
-
-            i++;
+            Clipboard.SetText(text);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Shell.Logger.Error(ex);
+            SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
         }
 
         return false;
@@ -35,24 +26,15 @@ public class ClipboardHelper
 
     public static bool SetFiles(StringCollection files)
     {
-        var i = 0;
-        while (i < 20)
+        try
         {
-            try
-            {
-                Clipboard.SetFileDropList(files);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                if (i == 19)
-                {
-                    Shell.Logger.Error(ex);
-                    SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
-                }
-            }
-
-            i++;
+            Clipboard.SetFileDropList(files);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Shell.Logger.Error(ex);
+            SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
         }
 
         return false;
