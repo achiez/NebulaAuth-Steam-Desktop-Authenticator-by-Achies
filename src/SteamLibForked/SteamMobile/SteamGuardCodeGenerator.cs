@@ -1,11 +1,11 @@
-﻿using SteamLib.Abstractions;
+﻿using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
+using SteamLib.Abstractions;
 using SteamLib.Api.Services;
 using SteamLib.Authentication;
 using SteamLib.ProtoCore.Enums;
 using SteamLibForked.Abstractions.Auth;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace SteamLib.SteamMobile;
 
@@ -53,7 +53,7 @@ public class SteamGuardCodeGenerator : ISteamGuardProvider
 
         for (var i = 8; i > 0; i--)
         {
-            timeArray[i - 1] = (byte)time;
+            timeArray[i - 1] = (byte) time;
             time >>= 8;
         }
 
@@ -62,7 +62,7 @@ public class SteamGuardCodeGenerator : ISteamGuardProvider
         var hashedData = hmacGenerator.ComputeHash(timeArray);
         var codeArray = new byte[5];
 
-        var b = (byte)(hashedData[19] & 0xF);
+        var b = (byte) (hashedData[19] & 0xF);
         var codePoint = ((hashedData[b] & 0x7F) << 24) | ((hashedData[b + 1] & 0xFF) << 16) |
                         ((hashedData[b + 2] & 0xFF) << 8) | (hashedData[b + 3] & 0xFF);
 

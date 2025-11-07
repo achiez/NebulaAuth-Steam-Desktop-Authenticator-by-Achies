@@ -43,7 +43,7 @@ public readonly struct SteamId : IEquatable<SteamId> //TODO: validation in parse
 
     public static SteamId FromSteam64(ulong steam64, char type = 'U', short universe = 0)
     {
-        return new SteamId(new SteamId64((long)steam64), type, universe);
+        return new SteamId(new SteamId64((long) steam64), type, universe);
     }
 
     public static SteamId FromSteam2(byte lowestBit, int highestBit, byte universe = 0, char type = 'U')

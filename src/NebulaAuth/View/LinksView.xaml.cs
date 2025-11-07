@@ -4,7 +4,6 @@ using System.Windows.Controls;
 
 namespace NebulaAuth.View;
 
-
 public partial class LinksView : UserControl
 {
     public LinksView()

@@ -16,15 +16,15 @@ public readonly struct SteamId64 : IEquatable<SteamId64>
 
     public SteamId2 ToSteam2(short universe = 0)
     {
-        var accountIdLowBit = (byte)(Id & 1);
-        var accountIdHighBits = (int)(Id >> 1) & 0x7FFFFFF;
-        return new SteamId2((byte)universe, accountIdLowBit, accountIdHighBits);
+        var accountIdLowBit = (byte) (Id & 1);
+        var accountIdHighBits = (int) (Id >> 1) & 0x7FFFFFF;
+        return new SteamId2((byte) universe, accountIdLowBit, accountIdHighBits);
     }
 
     public SteamId3 ToSteam3(char type = 'U')
     {
-        var accountIdLowBit = (byte)(Id & 1);
-        var accountIdHighBits = (int)(Id >> 1) & 0x7FFFFFF;
+        var accountIdLowBit = (byte) (Id & 1);
+        var accountIdHighBits = (int) (Id >> 1) & 0x7FFFFFF;
         return new SteamId3(accountIdLowBit + accountIdHighBits * 2, type);
     }
 
@@ -36,7 +36,7 @@ public readonly struct SteamId64 : IEquatable<SteamId64>
 
     public ulong ToUlong()
     {
-        return (ulong)Id;
+        return (ulong) Id;
     }
 
     public long ToLong()

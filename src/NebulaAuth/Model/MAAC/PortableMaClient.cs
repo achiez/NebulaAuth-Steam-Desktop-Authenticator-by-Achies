@@ -1,4 +1,12 @@
-﻿using AchiesUtilities.Web.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using AchiesUtilities.Web.Models;
 using AchiesUtilities.Web.Proxy;
 using CommunityToolkit.Mvvm.ComponentModel;
 using NebulaAuth.Core;
@@ -11,14 +19,6 @@ using SteamLib.Exceptions.Authorization;
 using SteamLib.SteamMobile.Confirmations;
 using SteamLib.Web;
 using SteamLibForked.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace NebulaAuth.Model.MAAC;
 

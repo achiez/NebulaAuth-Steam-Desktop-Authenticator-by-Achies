@@ -40,7 +40,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBox x:Name="TextField" Margin="10" materialDesign:HintAssist.Hint=""></TextBox>
+            <TextBox x:Name="TextField" Margin="10" materialDesign:HintAssist.Hint="" />
             <Grid Grid.Row="1" Margin="10,0,10,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -54,8 +54,7 @@
                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                     CommandParameter="{Binding Text, ElementName=TextField}"
                     Content="{Tr Common.OK}"
-                    IsDefault="True"
-                    />
+                    IsDefault="True" />
                 <Button Grid.Column="1"
                         HorizontalAlignment="Right"
                         Width="130"
@@ -64,8 +63,7 @@
                         Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                         IsCancel="True"
                         CommandParameter="{x:Null}"
-                        Content="{Tr Common.Cancel}"
-                        />
+                        Content="{Tr Common.Cancel}" />
             </Grid>
         </Grid>
     </Grid>

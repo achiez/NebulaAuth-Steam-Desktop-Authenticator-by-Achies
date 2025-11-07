@@ -1,7 +1,8 @@
-﻿using NebulaAuth.Core;
-using NebulaAuth.Model;
-using System;
+﻿using System;
 using System.Collections.Specialized;
+using System.Windows.Forms;
+using NebulaAuth.Core;
+using NebulaAuth.Model;
 
 namespace NebulaAuth.Utility;
 
@@ -11,7 +12,7 @@ public class ClipboardHelper
     {
         try
         {
-            System.Windows.Forms.Clipboard.SetText(text);
+            Clipboard.SetText(text);
             return true;
         }
         catch (Exception ex)
@@ -27,7 +28,7 @@ public class ClipboardHelper
     {
         try
         {
-            System.Windows.Forms.Clipboard.SetFileDropList(files);
+            Clipboard.SetFileDropList(files);
             return true;
         }
         catch (Exception ex)
@@ -35,6 +36,7 @@ public class ClipboardHelper
             Shell.Logger.Error(ex);
             SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Error", "Error"));
         }
+
         return false;
     }
 }

@@ -1,5 +1,5 @@
-﻿using SteamLibForked.Models.SteamIds;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+using SteamLibForked.Models.SteamIds;
 
 namespace SteamLib.Utility;
 

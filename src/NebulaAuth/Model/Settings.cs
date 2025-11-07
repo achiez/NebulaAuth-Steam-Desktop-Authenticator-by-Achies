@@ -41,7 +41,8 @@ public partial class Settings : ObservableObject
         }
         catch (Exception ex)
         {
-            SnackbarController.SendSnackbar(LocManager.GetCodeBehindOrDefault("Error when loading settings", "Settings", "ErrorWhileLoadingSettings"));
+            SnackbarController.SendSnackbar(LocManager.GetCodeBehindOrDefault("Error when loading settings", "Settings",
+                "ErrorWhileLoadingSettings"));
             SnackbarController.SendSnackbar(ex.Message);
             Instance = new Settings();
         }

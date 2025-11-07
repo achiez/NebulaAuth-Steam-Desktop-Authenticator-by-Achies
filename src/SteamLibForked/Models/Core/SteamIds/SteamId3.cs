@@ -19,7 +19,7 @@ public readonly struct SteamId3 : IEquatable<SteamId3>
     {
         var bit = Id % 2;
         var highestBits = Id / 2;
-        return new SteamId2(universe, (byte)bit, highestBits);
+        return new SteamId2(universe, (byte) bit, highestBits);
     }
 
 

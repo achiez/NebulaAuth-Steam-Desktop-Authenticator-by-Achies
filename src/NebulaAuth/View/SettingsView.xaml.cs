@@ -5,7 +5,6 @@ using MaterialDesignThemes.Wpf;
 
 namespace NebulaAuth.View;
 
-
 public partial class SettingsView
 {
     private readonly DialogHost? _dialogHost;

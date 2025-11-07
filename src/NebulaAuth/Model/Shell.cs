@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System;
+using Microsoft.Extensions.Logging;
 using NebulaAuth.Model.Exceptions;
 using NLog;
 using NLog.Extensions.Logging;
 using SteamLib.Core;
 using SteamLib.SteamMobile;
-using System;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace NebulaAuth.Model;
@@ -39,7 +39,7 @@ public static class Shell
 
     private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
-        Logger.Fatal((Exception)e.ExceptionObject);
+        Logger.Fatal((Exception) e.ExceptionObject);
         LogManager.Shutdown();
     }
 }

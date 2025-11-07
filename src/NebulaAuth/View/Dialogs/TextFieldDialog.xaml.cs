@@ -2,7 +2,6 @@
 
 namespace NebulaAuth.View.Dialogs;
 
-
 public partial class TextFieldDialog
 {
     public TextFieldDialog()
@@ -14,7 +13,7 @@ public partial class TextFieldDialog
     {
         InitializeComponent();
 
-        if(!string.IsNullOrWhiteSpace(title))
+        if (!string.IsNullOrWhiteSpace(title))
             TitleTextBlock.Text = title;
 
         if (!string.IsNullOrEmpty(msg))

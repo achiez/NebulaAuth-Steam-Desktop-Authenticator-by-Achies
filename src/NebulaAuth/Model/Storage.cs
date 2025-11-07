@@ -1,11 +1,4 @@
-﻿using AchiesUtilities.Extensions;
-using NebulaAuth.Model.Entities;
-using NebulaAuth.Model.Exceptions;
-using NebulaAuth.Model.Mafiles;
-using SteamLib;
-using SteamLib.Exceptions.Authorization;
-using SteamLib.SteamMobile;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,8 +7,14 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Data;
+using AchiesUtilities.Extensions;
+using NebulaAuth.Model.Entities;
+using NebulaAuth.Model.Exceptions;
 using NebulaAuth.Model.MAAC;
+using NebulaAuth.Model.Mafiles;
+using SteamLib;
+using SteamLib.Exceptions.Authorization;
+using SteamLib.SteamMobile;
 
 namespace NebulaAuth.Model;
 
@@ -46,7 +45,7 @@ public static class Storage
         await Task.Run(() =>
         {
             return Parallel.ForEachAsync(files,
-                new ParallelOptions { CancellationToken = token, MaxDegreeOfParallelism = threadCount },
+                new ParallelOptions {CancellationToken = token, MaxDegreeOfParallelism = threadCount},
                 async (file, ct) =>
                 {
                     try
@@ -105,11 +104,13 @@ public static class Storage
 
         SaveMafile(data);
     }
+
     public static Mafile ReadMafile(string path)
     {
         var str = File.ReadAllText(path);
         return NebulaSerializer.Deserialize(str, path);
     }
+
     public static async Task<Mafile> ReadMafileAsync(string path)
     {
         var str = await File.ReadAllTextAsync(path);
@@ -151,6 +152,7 @@ public static class Storage
             MaFiles.Add(data);
         }
     }
+
     public static void UpdateMafile(Mafile data)
     {
         var path = GetOrCreateMafilePath(data);
@@ -164,6 +166,7 @@ public static class Storage
         var str = NebulaSerializer.SerializeMafile(data);
         await File.WriteAllTextAsync(Path.GetFullPath(path), str);
     }
+
     public static void MoveToRemoved(Mafile data)
     {
         var sourcePath = GetOrCreateMafilePath(data);
@@ -180,6 +183,7 @@ public static class Storage
         File.Delete(sourcePath);
         MaFiles.Remove(data);
     }
+
     private static string GetOrCreateMafilePath(Mafile data)
     {
         if (data.Filename != null)
@@ -210,6 +214,7 @@ public static class Storage
         var json = NebulaSerializer.SerializeMafile(data, null);
         WriteBackup(data.AccountName, json);
     }
+
     public static void WriteBackup(string accountName, string data)
     {
         Directory.CreateDirectory(DIR_BACKUP_MAFILES);
@@ -224,7 +229,7 @@ public static class Storage
         var zipPath = Path.Combine(BackupMafilesDirectory, backupFileName);
         await using (var zipStream = new FileStream(zipPath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
         {
-            using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create, leaveOpen: false);
+            using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create, false);
             var files = Directory
                 .EnumerateFiles(MafilesDirectory, "*.*", SearchOption.TopDirectoryOnly)
                 .Where(f => Path.GetExtension(f).Equals(".mafile", StringComparison.OrdinalIgnoreCase))
@@ -238,12 +243,12 @@ public static class Storage
 
                 await using var entryStream = entry.Open();
                 await using var fileStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096,
-                    useAsync: true);
+                    true);
                 await fileStream.CopyToAsync(entryStream);
-                
+
                 if (counter % 5 == 0)
                 {
-                    progress?.Report(counter / (double)files.Count);
+                    progress?.Report(counter / (double) files.Count);
                     await Task.Delay(10);
                 }
             }
@@ -261,17 +266,17 @@ public static class Storage
         {
             try
             {
-                
                 var targetFileName = CreateMafileFileName(mafile, loginAsFileName);
                 if (mafile.Filename == targetFileName || mafile.Filename == null)
                 {
                     res.Renamed += 1;
                     continue;
                 }
+
                 var sourceFileName = mafile.Filename;
                 var fullSourcePath = Path.Combine(MafilesDirectory, sourceFileName);
                 var fullTargetPath = Path.Combine(MafilesDirectory, targetFileName);
-       
+
                 if (!File.Exists(fullSourcePath))
                 {
                     Shell.Logger.Warn("Can't rename mafile {old} to {new} because source file not found",
@@ -287,11 +292,11 @@ public static class Storage
                     res.Conflict += 1;
                     continue;
                 }
+
                 File.Move(fullSourcePath, fullTargetPath);
                 dic[sourceFileName] = targetFileName;
                 res.Renamed += 1;
                 mafile.Filename = targetFileName;
-
             }
             catch (Exception ex)
             {
@@ -304,7 +309,10 @@ public static class Storage
         MAACStorage.NotifyMafilesRenamed(dic);
         return res;
 
-        void IncErrors() => res.Errors += 1;
+        void IncErrors()
+        {
+            res.Errors += 1;
+        }
     }
 
     public class MafileRenameResult

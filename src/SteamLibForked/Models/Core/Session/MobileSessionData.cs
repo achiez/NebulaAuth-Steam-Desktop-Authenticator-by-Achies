@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 using SteamLibForked.Abstractions;
 using SteamLibForked.Models.Core;
-using System.Diagnostics.CodeAnalysis;
 
 namespace SteamLibForked.Models.Session;
 
@@ -38,7 +38,7 @@ public sealed class MobileSessionData : SessionData, IMobileSessionData
         if (token.Type != SteamAccessTokenType.Mobile)
             throw new ArgumentException("Token must be of type MobileAccess", nameof(token))
             {
-                Data = { { "ActualType", token.Type } }
+                Data = {{"ActualType", token.Type}}
             };
 
         MobileToken = token;
@@ -46,7 +46,7 @@ public sealed class MobileSessionData : SessionData, IMobileSessionData
 
     public override MobileSessionData Clone()
     {
-        return (MobileSessionData)((ISessionData)this).Clone();
+        return (MobileSessionData) ((ISessionData) this).Clone();
     }
 
     object ICloneable.Clone()

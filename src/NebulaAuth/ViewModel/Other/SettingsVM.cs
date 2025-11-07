@@ -1,17 +1,103 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using NebulaAuth.Core;
-using NebulaAuth.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using NebulaAuth.Core;
+using NebulaAuth.Model;
 
 namespace NebulaAuth.ViewModel.Other;
 
 public partial class SettingsVM : ObservableObject
 {
     public Settings Settings => Settings.Instance;
+
+    [ObservableProperty] private string? _password;
+
+    [ObservableProperty] private double _renameMafilesProgress;
+
+    [ObservableProperty] private string? _renameResultText;
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ApplyRenameSettingCommand))]
+    private bool _useAccountNameAsMafileNamePreview;
+
+    public SettingsVM()
+    {
+        _useAccountNameAsMafileNamePreview = Settings.UseAccountNameAsMafileName;
+    }
+
+    [RelayCommand]
+    private void SetPassword()
+    {
+        Settings.IsPasswordSet = PHandler.SetPassword(Password);
+    }
+
+    [RelayCommand]
+    private void ResetThemeDefaults()
+    {
+        Settings.ResetThemeDefaults();
+        OnPropertyChanged(nameof(BackgroundBlur));
+        OnPropertyChanged(nameof(BackgroundOpacity));
+        OnPropertyChanged(nameof(BackgroundGamma));
+        OnPropertyChanged(nameof(LeftOpacity));
+        OnPropertyChanged(nameof(RightOpacity));
+        OnPropertyChanged(nameof(ApplyBlurBackground));
+        OnPropertyChanged(nameof(RippleDisabled));
+    }
+
+    [RelayCommand(CanExecute = nameof(ApplyRenameSettingCanExecute))]
+    private async Task ApplyRenameSetting()
+    {
+        RenameResultText = null;
+        var targetValue = UseAccountNameAsMafileNamePreview;
+        if (UseAccountNameAsMafileName == targetValue) return;
+        RenameMafilesProgress = 0;
+        Storage.MafileRenameResult? result = null;
+        try
+        {
+            result = await Storage.RenameMafiles(targetValue, new Progress<double>(p => RenameMafilesProgress = p));
+            UseAccountNameAsMafileName = targetValue;
+        }
+        catch (Exception ex)
+        {
+            Shell.Logger.Error(ex, "Error while renaming mafiles");
+        }
+        finally
+        {
+            RenameMafilesProgress = 0;
+        }
+
+        if (result == null)
+        {
+            RenameResultText = GetLoc("Error");
+            return;
+        }
+
+        if (result.Total == 0) return;
+
+        if (result.NotRenamed == 0)
+        {
+            var l = GetLoc("AllRenamed");
+            RenameResultText = string.Format(l, result.Total, result.BackupFileName);
+        }
+        else
+        {
+            var l = GetLoc("PartialSuccess");
+            RenameResultText =
+                string.Format(l, result.Total, result.Renamed, result.Errors, result.Conflict, result.BackupFileName);
+        }
+
+        string GetLoc(string key)
+        {
+            return LocManager.GetCodeBehindOrDefault(key, "SettingsVM", "MafileRenaming", key);
+        }
+    }
+
+    private bool ApplyRenameSettingCanExecute()
+    {
+        return UseAccountNameAsMafileNamePreview != UseAccountNameAsMafileName;
+    }
 
     #region SettingsProps
 
@@ -104,8 +190,6 @@ public partial class SettingsVM : ObservableObject
         set => Settings.IgnorePatchTuesdayErrors = value;
     }
 
-
-
     #endregion
 
     #region Theme
@@ -165,90 +249,4 @@ public partial class SettingsVM : ObservableObject
     }
 
     #endregion
-
-    [ObservableProperty] private string? _password;
-    [ObservableProperty] private string? _renameResultText;
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(ApplyRenameSettingCommand))]
-    private bool _useAccountNameAsMafileNamePreview;
-
-    [ObservableProperty]
-    private double _renameMafilesProgress;
-
-    public SettingsVM()
-    {
-        _useAccountNameAsMafileNamePreview = Settings.UseAccountNameAsMafileName;
-    }
-
-    [RelayCommand]
-    private void SetPassword()
-    {
-        Settings.IsPasswordSet = PHandler.SetPassword(Password);
-
-    }
-
-    [RelayCommand]
-    private void ResetThemeDefaults()
-    {
-        Settings.ResetThemeDefaults();
-        OnPropertyChanged(nameof(BackgroundBlur));
-        OnPropertyChanged(nameof(BackgroundOpacity));
-        OnPropertyChanged(nameof(BackgroundGamma));
-        OnPropertyChanged(nameof(LeftOpacity));
-        OnPropertyChanged(nameof(RightOpacity));
-        OnPropertyChanged(nameof(ApplyBlurBackground));
-        OnPropertyChanged(nameof(RippleDisabled));
-    }
-
-    [RelayCommand(CanExecute = nameof(ApplyRenameSettingCanExecute))]
-    private async Task ApplyRenameSetting()
-    {
-        RenameResultText = null;
-        var targetValue = UseAccountNameAsMafileNamePreview;
-        if (UseAccountNameAsMafileName == targetValue) return;
-        RenameMafilesProgress = 0;
-        Storage.MafileRenameResult? result = null;
-        try
-        {
-            result = await Storage.RenameMafiles(targetValue, new Progress<double>(p => RenameMafilesProgress = p));
-            UseAccountNameAsMafileName = targetValue;
-        }
-        catch (Exception ex)
-        {
-            Shell.Logger.Error(ex, "Error while renaming mafiles");
-        }
-        finally
-        {
-            RenameMafilesProgress = 0;
-        }
-
-        if (result == null)
-        {
-            RenameResultText = GetLoc("Error");
-            return;
-        }
-
-        if (result.Total == 0) return;
-
-        if (result.NotRenamed == 0)
-        {
-            var l = GetLoc("AllRenamed");
-            RenameResultText = string.Format(l, result.Total, result.BackupFileName);
-            return;
-        }
-        else
-        {
-            var l = GetLoc("PartialSuccess");
-            RenameResultText =
-                string.Format(l, result.Total, result.Renamed, result.Errors, result.Conflict, result.BackupFileName);
-
-        }
-
-        string GetLoc(string key)
-        {
-            return LocManager.GetCodeBehindOrDefault(key, "SettingsVM", "MafileRenaming", key);
-        }
-    }
-
-    private bool ApplyRenameSettingCanExecute() => UseAccountNameAsMafileNamePreview != UseAccountNameAsMafileName;
 }

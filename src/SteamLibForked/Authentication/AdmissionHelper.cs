@@ -1,4 +1,5 @@
-﻿using AchiesUtilities.Extensions;
+﻿using System.Net;
+using AchiesUtilities.Extensions;
 using AchiesUtilities.Models;
 using Newtonsoft.Json;
 using SteamLib.Core;
@@ -6,7 +7,6 @@ using SteamLib.Models.Account;
 using SteamLibForked.Abstractions;
 using SteamLibForked.Models.Core;
 using SteamLibForked.Models.Session;
-using System.Net;
 
 namespace SteamLib.Authentication;
 
@@ -131,7 +131,7 @@ public static class AdmissionHelper
         }
 
         var mobileToken = mobileSession.GetMobileToken();
-        if (domainCookieSet == false && mobileToken is { IsExpired: false })
+        if (domainCookieSet == false && mobileToken is {IsExpired: false})
         {
             var domain = SteamDomains.GetDomainUri(SteamDomain.Community);
             container.Add(domain, new Cookie(ACCESS_COOKIE_NAME, mobileToken.Value.SignedToken)
@@ -208,7 +208,7 @@ public static class AdmissionHelper
         static Cookie CloneCookie(Cookie cookie)
         {
             return new Cookie(cookie.Name, cookie.Value, cookie.Path)
-            { Expires = cookie.Expires, Secure = cookie.Secure, HttpOnly = cookie.HttpOnly };
+                {Expires = cookie.Expires, Secure = cookie.Secure, HttpOnly = cookie.HttpOnly};
         }
     }
 

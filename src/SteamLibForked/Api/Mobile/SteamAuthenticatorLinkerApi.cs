@@ -67,14 +67,14 @@ public static class SteamAuthenticatorLinkerApi
         var reqUri = AddAccessToken(Routes.LINK_REQUEST, data.GetAccessToken());
         var req = new AddAuthenticator_Request
         {
-            SteamId = (ulong)data.SteamId.Steam64.Id,
+            SteamId = (ulong) data.SteamId.Steam64.Id,
             AuthenticatorType = 1,
             DeviceIdentifier = deviceId,
             Version = 2
         };
 
         var resp = await client.PostProtoMsg<AddAuthenticator_Response>(reqUri, req);
-        if (resp is { Result: EResult.InvalidState, ResponseMsg.Status: 2 })
+        if (resp is {Result: EResult.InvalidState, ResponseMsg.Status: 2})
         {
             throw new AuthenticatorLinkerException(AuthenticatorLinkerError.InvalidStateWithStatus2);
         }
@@ -100,7 +100,7 @@ public static class SteamAuthenticatorLinkerApi
             {
                 SteamId = data.SteamId.Steam64.ToUlong(),
                 AuthenticatorCode = code,
-                AuthenticatorTime = (ulong)time,
+                AuthenticatorTime = (ulong) time,
                 ConfirmationCode = confirmationCode,
                 ValidateConfirmationCode = validateSmsCode
             };
@@ -108,7 +108,7 @@ public static class SteamAuthenticatorLinkerApi
 
             var resp = await client.PostProto<FinalizeAddAuthenticator_Response>(reqUri, req);
 
-            if (resp is { Success: true, WantMore: false })
+            if (resp is {Success: true, WantMore: false})
             {
                 return new LinkResult();
             }

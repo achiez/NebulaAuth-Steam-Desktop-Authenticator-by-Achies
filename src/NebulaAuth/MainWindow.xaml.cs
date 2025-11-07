@@ -70,6 +70,11 @@ public partial class MainWindow
         }
     }
 
+    private void FocusSearchBox(object sender, ExecutedRoutedEventArgs e)
+    {
+        SearchField.Focus();
+    }
+
     #region Dran'n'Drop
 
     private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -121,9 +126,4 @@ public partial class MainWindow
     }
 
     #endregion
-
-    private void FocusSearchBox(object sender, ExecutedRoutedEventArgs e)
-    {
-        SearchField.Focus();
-    }
 }

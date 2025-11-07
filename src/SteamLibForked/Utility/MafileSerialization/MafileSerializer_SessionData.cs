@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Security.Cryptography;
+using System.Text;
+using Newtonsoft.Json.Linq;
 using SteamLib.Authentication;
 using SteamLibForked.Models.Session;
 using SteamLibForked.Models.SteamIds;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace SteamLib.Utility.MafileSerialization;
 
@@ -17,14 +17,14 @@ public partial class MafileSerializer //SessionData
         var refreshToken = GetAuthToken(j, nameof(MobileSessionData.RefreshToken), "refreshtoken", "refresh_token",
             "refresh", "OAuthToken");
 
-        if (refreshToken is not { Type: SteamAccessTokenType.MobileRefresh })
+        if (refreshToken is not {Type: SteamAccessTokenType.MobileRefresh})
         {
             result = DeserializedMafileSessionResult.Invalid;
             return null;
         }
 
         var accessToken = GetAuthToken(j, "accesstoken", "access_token", "access", "steamLoginSecure");
-        if (accessToken is not { Type: SteamAccessTokenType.Mobile })
+        if (accessToken is not {Type: SteamAccessTokenType.Mobile})
         {
             accessToken = null;
         }

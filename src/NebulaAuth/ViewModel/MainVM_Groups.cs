@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AchiesUtilities.Extensions;
@@ -41,9 +40,10 @@ public partial class MainVM //Groups
     [RelayCommand]
     private async Task CreateGroup(Mafile? mafile)
     {
-        if(mafile == null) return;
-        var res = await DialogsController.ShowTextFieldDialog(GetLocalization("CreateGroupTitle"), GetLocalization("CreateGroupInput"));
-        if(string.IsNullOrWhiteSpace(res)) return;
+        if (mafile == null) return;
+        var res = await DialogsController.ShowTextFieldDialog(GetLocalization("CreateGroupTitle"),
+            GetLocalization("CreateGroupInput"));
+        if (string.IsNullOrWhiteSpace(res)) return;
         AddToGroup([res, mafile]);
         SnackbarController.SendSnackbar(GetLocalization("CreateGroupSuccess"));
     }

@@ -1,9 +1,8 @@
-﻿using NebulaAuth.Model.Entities;
-using NebulaAuth.Utility;
-using System;
+﻿using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
-using System.Collections.Immutable;
+using NebulaAuth.Model.Entities;
+using NebulaAuth.Utility;
 
 namespace NebulaAuth.Model.Mafiles;
 
@@ -15,8 +14,6 @@ public interface IMafileNamingStrategy
 
 public class MafileNamingStrategy : IMafileNamingStrategy
 {
-    public static MafileNamingStrategy SteamId { get; } = new("{steamid}");
-    public static MafileNamingStrategy Login { get; } = new("{login}");
     public const string DEF_EXTENSION = ".mafile";
 
     public static readonly IDictionary<string, Func<Mafile, string?>> Placeholders =
@@ -27,6 +24,9 @@ public class MafileNamingStrategy : IMafileNamingStrategy
             {"{group}", GetGroup},
             {"{servertime}", GetServerTime}
         }.ToFrozenDictionary();
+
+    public static MafileNamingStrategy SteamId { get; } = new("{steamid}");
+    public static MafileNamingStrategy Login { get; } = new("{login}");
 
 
     public string Pattern { get; }
@@ -47,7 +47,8 @@ public class MafileNamingStrategy : IMafileNamingStrategy
 
     public string GetMafileName(Mafile mafile)
     {
-        if (!CanNameMafile(mafile)) throw new InvalidOperationException($"Cannot name mafile with the current pattern {Pattern}");
+        if (!CanNameMafile(mafile))
+            throw new InvalidOperationException($"Cannot name mafile with the current pattern {Pattern}");
         return ApplyPatternSubstitution(mafile, Pattern, IncludeExtension);
     }
 
@@ -62,11 +63,27 @@ public class MafileNamingStrategy : IMafileNamingStrategy
                 result = result.Replace(placeholder.Key, value, StringComparison.OrdinalIgnoreCase);
             }
         }
+
         return includeExtension ? result + DEF_EXTENSION : result;
     }
 
-    private static string GetSteamId(Mafile mafile) => mafile.SteamId.Steam64.ToString();
-    private static string GetLogin(Mafile mafile) => mafile.AccountName;
-    private static string? GetGroup(Mafile mafile) => mafile.Group;
-    private static string GetServerTime(Mafile mafile) => mafile.ServerTime.ToString();
+    private static string GetSteamId(Mafile mafile)
+    {
+        return mafile.SteamId.Steam64.ToString();
+    }
+
+    private static string GetLogin(Mafile mafile)
+    {
+        return mafile.AccountName;
+    }
+
+    private static string? GetGroup(Mafile mafile)
+    {
+        return mafile.Group;
+    }
+
+    private static string GetServerTime(Mafile mafile)
+    {
+        return mafile.ServerTime.ToString();
+    }
 }

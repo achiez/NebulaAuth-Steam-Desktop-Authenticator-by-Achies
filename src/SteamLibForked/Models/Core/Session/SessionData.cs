@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Concurrent;
+using Newtonsoft.Json;
 using SteamLib.Web.Converters;
 using SteamLibForked.Abstractions;
 using SteamLibForked.Models.Core;
-using System.Collections.Concurrent;
 
 namespace SteamLibForked.Models.Session;
 
@@ -61,7 +61,7 @@ public class SessionData : ISessionData
 
     public virtual SessionData Clone()
     {
-        return (SessionData)((ICloneable)this).Clone();
+        return (SessionData) ((ICloneable) this).Clone();
     }
 
     object ICloneable.Clone()

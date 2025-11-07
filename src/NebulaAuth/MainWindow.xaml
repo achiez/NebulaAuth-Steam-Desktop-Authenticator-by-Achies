@@ -34,7 +34,7 @@
     </Window.InputBindings>
     <Window.CommandBindings>
         <CommandBinding Command="Find"
-                        Executed="FocusSearchBox"/>
+                        Executed="FocusSearchBox" />
     </Window.CommandBindings>
     <Border Name="DragNDropBorder" Panel.ZIndex="3" Opacity="1" AllowDrop="True"
             DragDrop.DragEnter="Rectangle_DragEnter" DragLeave="Rectangle_DragLeave" Drop="Rectangle_Drop">
@@ -86,15 +86,13 @@
                                           Command="{Binding OpenMafileFolderCommand}" />
                                 <MenuItem IsEnabled="False" Header="⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯" Height="15" />
                                 <MenuItem Header="{Tr MainWindow.Menu.File.ProxyManager}"
-                                          Command="{Binding OpenProxyManagerCommand}">
-                                </MenuItem>
+                                          Command="{Binding OpenProxyManagerCommand}" />
                                 <MenuItem Header="{Tr MainWindow.Menu.File.Settings}"
                                           Command="{Binding OpenSettingsDialogCommand}" />
                                 <MenuItem IsEnabled="False" Header="⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯" Height="15" />
                                 <MenuItem Header="{Tr MainWindow.Menu.File.Other.Title}">
                                     <MenuItem Header="{Tr MainWindow.Menu.File.Other.SetPasswords}"
-                                              Command="{Binding DebugCommand}"
-                                              />
+                                              Command="{Binding DebugCommand}" />
                                 </MenuItem>
                             </MenuItem>
                         </Menu>
@@ -276,8 +274,9 @@
                                          SelectedValue="{Binding SelectedMafile}"
                                          PreviewMouseDown="MafileListBox_OnPreviewMouseDown">
                                     <ListBox.Resources>
-                                        <DiscreteObjectKeyFrame x:Key="groupsProxy" Value="{Binding Groups}"/>
-                                        <DiscreteObjectKeyFrame x:Key="listBoxProxy" Value="{Binding ElementName=MafileListBox}"/>
+                                        <DiscreteObjectKeyFrame x:Key="groupsProxy" Value="{Binding Groups}" />
+                                        <DiscreteObjectKeyFrame x:Key="listBoxProxy"
+                                                                Value="{Binding ElementName=MafileListBox}" />
                                     </ListBox.Resources>
                                     <ListBox.ItemContainerStyle>
                                         <Style TargetType="ListBoxItem"
@@ -327,72 +326,74 @@
                                                     Command="{Binding DataContext.CopyPasswordCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                                     CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}" />
                                     </ListBox.InputBindings>
-                                        <FrameworkElement.ContextMenu>
+                                    <FrameworkElement.ContextMenu>
                                         <ContextMenu Tag="{Binding Groups}">
-                                                <MenuItem InputGestureText="Ctrl+C"
-                                                          Header="{Tr MainWindow.ContextMenus.Mafile.CopyLogin}"
-                                                          Command="{Binding CopyLoginCommand}"
-                                                          CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                            <MenuItem InputGestureText="Ctrl+C"
+                                                      Header="{Tr MainWindow.ContextMenus.Mafile.CopyLogin}"
+                                                      Command="{Binding CopyLoginCommand}"
+                                                      CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                                             <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.CopyPassword}"
                                                       Command="{Binding Path=CopyPasswordCommand}"
-                                                      CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" 
-                                                      InputGestureText="CTRL+⇧+C"/>
+                                                      CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
+                                                      InputGestureText="CTRL+⇧+C" />
                                             <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.CopySteamId}"
-                                                          Command="{Binding CopySteamIdCommand}"
-                                                          CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
-                                                <MenuItem InputGestureText="Ctrl+X"
-                                                          Header="{Tr MainWindow.ContextMenus.Mafile.CopyMafile}"
-                                                          Command="{Binding CopyMafileCommand}"
-                                                          CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
-                                                <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.AddToGroup}"
-                                                         >
-                                                    <MenuItem.ItemsSource>
-                                                        <CompositeCollection>
-                                                        <MenuItem 
-                                                                      Command="{Binding CreateGroupCommand}"
-                                                                      CommandParameter="{Binding Value.SelectedValue, Source={StaticResource listBoxProxy}}">
+                                                      Command="{Binding CopySteamIdCommand}"
+                                                      CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                            <MenuItem InputGestureText="Ctrl+X"
+                                                      Header="{Tr MainWindow.ContextMenus.Mafile.CopyMafile}"
+                                                      Command="{Binding CopyMafileCommand}"
+                                                      CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                            <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.AddToGroup}">
+                                                <MenuItem.ItemsSource>
+                                                    <CompositeCollection>
+                                                        <MenuItem
+                                                            Command="{Binding CreateGroupCommand}"
+                                                            CommandParameter="{Binding Value.SelectedValue, Source={StaticResource listBoxProxy}}">
                                                             <MenuItem.Header>
                                                                 <Grid>
                                                                     <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                        <ColumnDefinition Width="*"/>
+                                                                        <ColumnDefinition Width="Auto" />
+                                                                        <ColumnDefinition Width="*" />
                                                                     </Grid.ColumnDefinitions>
-                                                                    <md:PackIcon Kind="PlusCircle" VerticalAlignment="Center"/>
-                                                                    <TextBlock VerticalAlignment="Center" Margin="5,0,0,0" Grid.Column="1" Text="{Tr MainWindow.ContextMenus.Mafile.CreateGroup}"></TextBlock>
+                                                                    <md:PackIcon Kind="PlusCircle"
+                                                                        VerticalAlignment="Center" />
+                                                                    <TextBlock VerticalAlignment="Center"
+                                                                               Margin="5,0,0,0" Grid.Column="1"
+                                                                               Text="{Tr MainWindow.ContextMenus.Mafile.CreateGroup}" />
                                                                 </Grid>
                                                             </MenuItem.Header>
                                                         </MenuItem>
-                                                            <Separator />
-                                                        <CollectionContainer Collection="{Binding Value, Source={StaticResource groupsProxy}}" />
+                                                        <Separator />
+                                                        <CollectionContainer
+                                                            Collection="{Binding Value, Source={StaticResource groupsProxy}}" />
 
                                                     </CompositeCollection>
-                                                    </MenuItem.ItemsSource>
+                                                </MenuItem.ItemsSource>
 
-                                                    <ItemsControl.ItemContainerStyle>
-                                                        <Style BasedOn="{StaticResource MaterialDesignMenuItem}"
-                                                               TargetType="{x:Type MenuItem}">
-                                                            <Setter Property="Command"
-                                                                    Value="{Binding DataContext.AddToGroupCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
-                                                            <Setter Property="CommandParameter">
-                                                                <Setter.Value>
-                                                                    <MultiBinding
-                                                                        Converter="{StaticResource MultiCommandParameterConverter}">
-                                                                        <Binding />
-                                                                        <Binding Path="PlacementTarget.SelectedValue"
-                                                                                 RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
-                                                                    </MultiBinding>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </Style>
-                                                    </ItemsControl.ItemContainerStyle>
-                                                </MenuItem>
-                                                <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.RemoveFromGroup}"
-                                                          Command="{Binding Path=RemoveGroupCommand}"
-                                                          CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}"
-                                                          />
+                                                <ItemsControl.ItemContainerStyle>
+                                                    <Style BasedOn="{StaticResource MaterialDesignMenuItem}"
+                                                           TargetType="{x:Type MenuItem}">
+                                                        <Setter Property="Command"
+                                                                Value="{Binding DataContext.AddToGroupCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                                        <Setter Property="CommandParameter">
+                                                            <Setter.Value>
+                                                                <MultiBinding
+                                                                    Converter="{StaticResource MultiCommandParameterConverter}">
+                                                                    <Binding />
+                                                                    <Binding Path="PlacementTarget.SelectedValue"
+                                                                             RelativeSource="{RelativeSource AncestorType=ContextMenu}" />
+                                                                </MultiBinding>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ItemsControl.ItemContainerStyle>
+                                            </MenuItem>
+                                            <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.RemoveFromGroup}"
+                                                      Command="{Binding Path=RemoveGroupCommand}"
+                                                      CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
 
-                                            </ContextMenu>
-                                        </FrameworkElement.ContextMenu>
+                                        </ContextMenu>
+                                    </FrameworkElement.ContextMenu>
 
                                 </ListBox>
 
@@ -411,15 +412,15 @@
                     <Grid Grid.Column="1">
                         <Border Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
                                 Opacity="{Binding Settings.RightOpacity}"
-                                BorderThickness="1" 
-                                
+                                BorderThickness="1"
+
                                 Margin="10,10,15,10" CornerRadius="12" VerticalAlignment="Stretch">
                             <Border.BorderBrush>
                                 <SolidColorBrush Color="{DynamicResource Base300Color}" Opacity="0.3" />
                             </Border.BorderBrush>
                         </Border>
                         <md:Card Margin="10,10,15,10" Padding="2" UniformCornerRadius="12"
-                                 Background="Transparent" >
+                                 Background="Transparent">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -448,8 +449,7 @@
                                         Visibility="{Binding SelectedMafile, Converter={StaticResource NullableToVisibilityConverter}}"
                                         Grid.Row="1" Height="4"
                                         Style="{StaticResource MaterialDesignLinearProgressBar}"
-                                        MaxTime="30" TimeRemaining="{Binding CodeProgress, Mode=OneWay}"
-                                        />
+                                        MaxTime="30" TimeRemaining="{Binding CodeProgress, Mode=OneWay}" />
                                 </Grid>
                                 <Button IsEnabled="{Binding IsMafileSelected}"
                                         FontSize="14"

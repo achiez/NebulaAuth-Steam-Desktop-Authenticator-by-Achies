@@ -1,8 +1,8 @@
-﻿using SteamLib.Core;
+﻿using System.Net;
+using System.Web;
+using SteamLib.Core;
 using SteamLib.Models;
 using SteamLib.Web.Scrappers.HTML;
-using System.Net;
-using System.Web;
 
 namespace SteamLib.Api;
 

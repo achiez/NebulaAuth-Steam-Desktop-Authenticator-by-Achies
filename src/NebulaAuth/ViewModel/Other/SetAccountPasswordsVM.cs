@@ -1,26 +1,24 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Model;
 using SteamLibForked.Models.SteamIds;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NebulaAuth.ViewModel.Other;
 
 public partial class SetAccountPasswordsVM : ObservableObject
 {
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SetPasswordsCommand))]
-    private bool _isEncryptionPasswordSet;
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(SetPasswordsCommand))]
+    private string? _accountsPasswords;
 
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SetEncryptionPasswordCommand))]
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(SetEncryptionPasswordCommand))]
     private string? _encryptionPassword;
 
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SetPasswordsCommand))]
-    private string? _accountsPasswords;
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(SetPasswordsCommand))]
+    private bool _isEncryptionPasswordSet;
+
     [ObservableProperty] private string? _tip;
 
     public SetAccountPasswordsVM()
@@ -36,12 +34,16 @@ public partial class SetAccountPasswordsVM : ObservableObject
         {
             return;
         }
+
         Settings.Instance.IsPasswordSet = PHandler.SetPassword(EncryptionPassword);
         IsEncryptionPasswordSet = PHandler.IsPasswordSet;
         EncryptionPassword = null;
     }
 
-    private bool SetEncryptionPasswordCanExecute() => !string.IsNullOrWhiteSpace(EncryptionPassword);
+    private bool SetEncryptionPasswordCanExecute()
+    {
+        return !string.IsNullOrWhiteSpace(EncryptionPassword);
+    }
 
 
     [RelayCommand(CanExecute = nameof(SetPasswordsCanExecute))]
@@ -69,8 +71,8 @@ public partial class SetAccountPasswordsVM : ObservableObject
                     continue;
                 }
 
-                string login = split[0];
-                string password = split[1];
+                var login = split[0];
+                var password = split[1];
                 SteamId64? steamId = null;
 
                 if (SteamId64.TryParse(login, out var id64))
@@ -106,7 +108,6 @@ public partial class SetAccountPasswordsVM : ObservableObject
         {
             Tip = $"Успешно: {success}, Не найдено: {notFound}, Ошибки: {errors}";
         }
-
     }
 
     private bool SetPasswordsCanExecute()

@@ -11,7 +11,7 @@ public class BoolToValueConverter : IValueConverter
         if (value is not bool b) return Binding.DoNothing;
         if (parameter is Array)
         {
-            var arr = (Array)parameter;
+            var arr = (Array) parameter;
             if (arr.Length == 0) return Binding.DoNothing;
             var first = arr.GetValue(0);
             var second = arr.Length > 1 ? arr.GetValue(1) : null;

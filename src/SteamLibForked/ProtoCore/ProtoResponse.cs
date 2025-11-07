@@ -22,7 +22,7 @@ public class ProtoResponse<TProtoResponse> : ProtoResponse
 {
     public TProtoResponse? ResponseMsg
     {
-        get => ProtoObject == null ? default : (TProtoResponse)ProtoObject;
+        get => ProtoObject == null ? default : (TProtoResponse) ProtoObject;
         set => ProtoObject = value;
     }
 
@@ -37,7 +37,7 @@ public class ProtoResponse<TProtoResponse> : ProtoResponse
         if (response.Headers.TryGetValues("x-eresult", out var val))
         {
             var eResultInt = Convert.ToInt32(val.Single());
-            eResult = (EResult)eResultInt;
+            eResult = (EResult) eResultInt;
         }
 
         var msg = default(TProtoResponse);
@@ -67,7 +67,7 @@ public class ProtoResponse<TProtoResponse> : ProtoResponse
         if (response.Headers.TryGetValues("x-eresult", out var val))
         {
             var eResultInt = Convert.ToInt32(val.Single());
-            eResult = (EResult)eResultInt;
+            eResult = (EResult) eResultInt;
         }
 
         var msg = default(TProtoResponse);

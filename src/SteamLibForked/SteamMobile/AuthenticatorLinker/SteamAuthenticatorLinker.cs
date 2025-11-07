@@ -103,7 +103,7 @@ public class SteamAuthenticatorLinker
 
             var sendSms = await this.SendSmsCode();
             if (sendSms != EResult.OK)
-                throw new AuthenticatorLinkerException($"Can't send SMS code: {sendSms} ({(int)sendSms})");
+                throw new AuthenticatorLinkerException($"Can't send SMS code: {sendSms} ({(int) sendSms})");
             Logger?.LogDebug("SMS code sent");
         }
 
@@ -155,14 +155,14 @@ public class SteamAuthenticatorLinker
             var error = result.Error switch
             {
                 LinkError.GeneralFailure => throw new AuthenticatorLinkerException(result.Code!.Value)
-                { OnFinalization = true },
+                    {OnFinalization = true},
                 LinkError.BadConfirmationCode => AuthenticatorLinkerError.BadConfirmationCode,
                 LinkError.UnableToGenerateCorrectCodes => AuthenticatorLinkerError.UnableToGenerateCorrectCodes,
                 _ => throw new ArgumentOutOfRangeException(nameof(result.Error), result.Error,
                     $"LinkError {result.Error} not supported")
             };
 
-            throw new AuthenticatorLinkerException(error) { OnFinalization = true };
+            throw new AuthenticatorLinkerException(error) {OnFinalization = true};
         }
 
         Logger?.LogInformation("Linking completed");

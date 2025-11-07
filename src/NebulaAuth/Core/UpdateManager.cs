@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using AutoUpdaterDotNET;
-using NebulaAuth.Model;
 
 namespace NebulaAuth.Core;
 
@@ -24,9 +23,12 @@ public static class UpdateManager
         try
         {
             var testFile = Path.Combine(Environment.CurrentDirectory, "test.tmp");
-            using (File.Create(testFile)) { }
+            using (File.Create(testFile))
+            {
+            }
+
             File.Delete(testFile);
-            return false; 
+            return false;
         }
         catch (UnauthorizedAccessException)
         {

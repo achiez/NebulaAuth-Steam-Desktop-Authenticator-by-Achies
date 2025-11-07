@@ -1,9 +1,9 @@
-﻿using HtmlAgilityPack;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
+using HtmlAgilityPack;
 using JetBrains.Annotations;
 using SteamLib.Exceptions.General;
 using SteamLib.Models;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.RegularExpressions;
 
 namespace SteamLib.Web.Scrappers.HTML;
 
@@ -12,9 +12,7 @@ public static class ScriptHeaderScrapper
 {
     private const string XPATH = "//div[@class='responsive_page_content']/script";
 
-    [RegexPattern]
-    [SuppressMessage("ReSharper", "UseRawString")]
-    [SuppressMessage("ReSharper", "StringLiteralTypo")]
+    [RegexPattern] [SuppressMessage("ReSharper", "UseRawString")] [SuppressMessage("ReSharper", "StringLiteralTypo")]
     private static readonly string _regexTip =
         @"g_sessionID = ""(?<g_sessionID>.*)"";"
         + @"\s*g_steamID = (?<g_steamID>.*);";

@@ -3,7 +3,6 @@ using System.Windows.Input;
 
 namespace NebulaAuth.View;
 
-
 public partial class ProxyManagerView
 {
     public ProxyManagerView()

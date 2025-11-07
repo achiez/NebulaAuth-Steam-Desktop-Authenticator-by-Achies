@@ -1,4 +1,12 @@
-﻿using AchiesUtilities.Web.Proxy;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Threading;
+using AchiesUtilities.Web.Proxy;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
@@ -24,14 +32,6 @@ using SteamLibForked.Abstractions;
 using SteamLibForked.Exceptions.Authorization;
 using SteamLibForked.Models.Core;
 using SteamLibForked.Models.Session;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Threading;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace NebulaAuth.ViewModel.MafileMover;

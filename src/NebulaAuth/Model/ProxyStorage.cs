@@ -47,7 +47,8 @@ public static class ProxyStorage
         catch (Exception ex)
         {
             Shell.Logger.Error(ex, "Error while loading proxies");
-            SnackbarController.SendSnackbar(LocManager.GetCodeBehindOrDefault("Error when loading proxies", "ProxyStorage", "ErrorWhileLoadingProxies"));
+            SnackbarController.SendSnackbar(LocManager.GetCodeBehindOrDefault("Error when loading proxies",
+                "ProxyStorage", "ErrorWhileLoadingProxies"));
             SnackbarController.SendSnackbar(ex.Message);
         }
     }

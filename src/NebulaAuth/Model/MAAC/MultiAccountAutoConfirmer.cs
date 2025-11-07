@@ -134,7 +134,6 @@ public static class MultiAccountAutoConfirmer
             Clients.Remove(mafile);
             mafile.LinkedClient?.Dispose();
             mafile.LinkedClient = null;
-          
         });
     }
 
@@ -154,6 +153,7 @@ public static class MultiAccountAutoConfirmer
         {
             dueTime = timerInterval >= 30 ? intervalTimeSpan : TimeSpan.FromSeconds(30);
         }
+
         Timer.Change(dueTime, intervalTimeSpan);
     }
 

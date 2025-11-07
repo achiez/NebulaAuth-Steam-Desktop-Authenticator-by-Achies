@@ -49,7 +49,7 @@ public partial class MainVM : ObservableObject
     [RelayCommand]
     public async Task Debug()
     {
-       await DialogsController.ShowSetAccountsPasswordDialog();
+        await DialogsController.ShowSetAccountsPasswordDialog();
     }
 
 

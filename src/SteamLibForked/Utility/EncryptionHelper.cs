@@ -60,7 +60,7 @@ public static class EncryptionHelper
                 break;
             }
 
-            array[n4] = (byte)time;
+            array[n4] = (byte) time;
             time >>= 8;
             n3 = n4;
         }

@@ -481,7 +481,8 @@
     },
     "LegacyMafileModeHint": {
       "en": "Save mafiles in compatibility format with Steam Desktop Authenticator and other applications",
-      "ru": "Сохранять мафайлы в старом формате для совместимости со Steam Desktop Authenticator и другими приложениями",
+      "ru":
+        "Сохранять мафайлы в старом формате для совместимости со Steam Desktop Authenticator и другими приложениями",
       "ua": "Зберігати мафайли у старому форматі для сумісності зі Steam Desktop Authenticator та іншими додатками"
     },
     "AllowAutoUpdate": {
@@ -505,9 +506,12 @@
       "ua": "Ігнорувати помилки Patch Tuesday у таймері (експ.)"
     },
     "IgnorePatchTuesdayErrorsHint": {
-      "en": "Ignore errors that occur every Tuesday (Wednesday night in GMT) when Steam doing technical works and auto-confirm timers turns off unnecessarily",
-      "ru": "Игнорировать ошибки, которые возникают каждый вторник (ночь среды по GMT) когда Steam проводит технические работы и автоподтверждения отключаются без надобности",
-      "ua": "Ігнорувати помилки, які виникають щосереди (ніч середи за GMT) коли Steam проводить технічні роботи і автопідтвердження вимикаються без потреби"
+      "en":
+        "Ignore errors that occur every Tuesday (Wednesday night in GMT) when Steam doing technical works and auto-confirm timers turns off unnecessarily",
+      "ru":
+        "Игнорировать ошибки, которые возникают каждый вторник (ночь среды по GMT) когда Steam проводит технические работы и автоподтверждения отключаются без надобности",
+      "ua":
+        "Ігнорувати помилки, які виникають щосереди (ніч середи за GMT) коли Steam проводить технічні роботи і автопідтвердження вимикаються без потреби"
     }
 
 
@@ -692,9 +696,12 @@
       "ua": "Пароль шифрування"
     },
     "DialogText": {
-      "en": "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session.\r\n(Optional)",
-      "ru": "Ранее вы устанавливали пароль шифрования для паролей в мафайлах, укажите его, чтобы приложение могло автоматически авторизоваться в случае проблем с сессией.\r\n(Не обязательно)",
-      "ua": "Раніше ви встановлювали пароль шифрування для паролів в мафайлах, вкажіть його, щоб додаток міг автоматично авторизуватися у випадку проблем з сесією.\r\n(Не обов'язково)"
+      "en":
+        "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session.\r\n(Optional)",
+      "ru":
+        "Ранее вы устанавливали пароль шифрования для паролей в мафайлах, укажите его, чтобы приложение могло автоматически авторизоваться в случае проблем с сессией.\r\n(Не обязательно)",
+      "ua":
+        "Раніше ви встановлювали пароль шифрування для паролів в мафайлах, вкажіть його, щоб додаток міг автоматично авторизуватися у випадку проблем з сесією.\r\n(Не обов'язково)"
     },
     "Ok": {
       "en": "Ok",
@@ -775,7 +782,7 @@
       "en": "All passwords in mafiles will be encrypted using the encryption password.",
       "ru": "Все пароли в мафайлах будут зашифрованы с помощью пароля шифрования.",
       "ua": "Всі паролі в мафайлах будуть зашифровані за допомогою пароля шифрування."
-    }, 
+    },
     "InputFormat": {
       "en": "Supported formats:\r\n\r\nlogin:password\r\nsteamid:password",
       "ru": "Поддерживаемые форматы:\r\n\r\nlogin:password\r\nsteamid:password",
@@ -801,9 +808,12 @@
         "ua": "Відсутній RCode"
       },
       "ConfirmRemovingAuthenticator": {
-        "ru": "Вы точно уверены, что хотите удалить аутентификатор?\r\nПосле этого вы не сможете обмениваться, использовать торговую площадку 15 дней. Мафайл будет удалён навсегда",
-        "en": "Are you sure you want to remove the authenticator?\r\nAfter that, you will not be able to trade or use the marketplace for 15 days. Mafile will be deleted permanently",
-        "ua": "Ви точно впевнені, що хочете видалити автентифікатор?\r\nПісля цього ви не зможете обмінюватися, використовувати торгову площадку 15 днів. Мафайл буде видалено назавжди"
+        "ru":
+          "Вы точно уверены, что хотите удалить аутентификатор?\r\nПосле этого вы не сможете обмениваться, использовать торговую площадку 15 дней. Мафайл будет удалён навсегда",
+        "en":
+          "Are you sure you want to remove the authenticator?\r\nAfter that, you will not be able to trade or use the marketplace for 15 days. Mafile will be deleted permanently",
+        "ua":
+          "Ви точно впевнені, що хочете видалити автентифікатор?\r\nПісля цього ви не зможете обмінюватися, використовувати торгову площадку 15 днів. Мафайл буде видалено назавжди"
 
       },
       "AuthenticatorRemoved": {
@@ -872,9 +882,12 @@
         "ua": "помилки:"
       },
       "RemoveMafileConfirmation": {
-        "ru": "Удалить mafile?\r\nМафайл будет перемещен в папку 'mafiles_removed'\r\nЭто действие НЕ удаляет Steam Guard с аккаунта",
-        "en": "Remove mafile?\r\nMafile will be moved to 'mafiles_removed' directory\r\nThis action will NOT remove the Steam Guard from the account",
-        "ua": "Видалити mafile?\r\nМафайл буде переміщено у каталог 'mafiles_removed'\r\nЦя дія НЕ видаляє автентифікатор з облікового запису"
+        "ru":
+          "Удалить mafile?\r\nМафайл будет перемещен в папку 'mafiles_removed'\r\nЭто действие НЕ удаляет Steam Guard с аккаунта",
+        "en":
+          "Remove mafile?\r\nMafile will be moved to 'mafiles_removed' directory\r\nThis action will NOT remove the Steam Guard from the account",
+        "ua":
+          "Видалити mafile?\r\nМафайл буде переміщено у каталог 'mafiles_removed'\r\nЦя дія НЕ видаляє автентифікатор з облікового запису"
       },
       "CantRemoveAlreadyExist": {
         "ru": "Не удалось переместить mafile, возможно в папке уже существует мафайл с таким именем.",
@@ -928,7 +941,8 @@
       },
       "CantDecryptPassword": {
         "en": "Can't decrypt password. Maybe password from this mafile was encrypted with another encryption password",
-        "ru": "Не удалось расшифровать пароль. Возможно пароль из этого мафайла был зашифрован другим паролем шифрования",
+        "ru":
+          "Не удалось расшифровать пароль. Возможно пароль из этого мафайла был зашифрован другим паролем шифрования",
         "ua": "Не вдалося розшифрувати пароль. Можливо пароль з цього мафайла був зашифрований іншим паролем шифрування"
       },
       "CreateGroupTitle": {
@@ -1199,8 +1213,10 @@
         },
         "InvalidStateWithStatus2": {
           "ru": "Неверное состояние (InvalidState) со статусом 2. Откройте ссылку на руководство сверху этого окна.",
-          "en": "Invalid state (InvalidState) with status 2. Open link to the troubleshooting guide at the top of this window.",
-          "ua": "Невірний стан (InvalidState) зі статусом 2. Відкрийте посилання на посібник з усунення несправностей у верхній частині цього вікна."
+          "en":
+            "Invalid state (InvalidState) with status 2. Open link to the troubleshooting guide at the top of this window.",
+          "ua":
+            "Невірний стан (InvalidState) зі статусом 2. Відкрийте посилання на посібник з усунення несправностей у верхній частині цього вікна."
         },
         "GeneralFailure": {
           "ru": "General Failure",
@@ -1249,7 +1265,8 @@
         "Guard": {
           "ru": "Ошибка: Был запрошен вход с помощью Steam Guard. На аккаунте уже активирован мобильный аутентификатор",
           "en": "Error: Login with Steam Guard was requested. Mobile authenticator is already activated on the account",
-          "ua": "Помилка: Був запрошений вхід за допомогою Steam Guard. На акаунті вже активовано мобільний автентифікатор"
+          "ua":
+            "Помилка: Був запрошений вхід за допомогою Steam Guard. На акаунті вже активовано мобільний автентифікатор"
         },
         "Unknown": {
           "ru": "Ошибка: Неизвестный тип аутентификации",
@@ -1352,9 +1369,12 @@
         "ua": "На пошту надіслано лист. Відкрийте посилання з листа, а потім натисніть — 'Продовжити'"
       },
       "ClickOnEmailLinkRetry": {
-        "ru": "Не удалось подтвердить переход по ссылке. Убедитесь, что вы открыли ссылку из письма, затем нажмите — 'Продолжить'",
-        "en": "We couldn’t verify that you clicked the link. Make sure you opened the link from the email, then click 'Proceed'",
-        "ua": "Не вдалося підтвердити перехід за посиланням. Переконайтесь, що ви відкрили посилання з листа, а потім натисніть — 'Продовжити'"
+        "ru":
+          "Не удалось подтвердить переход по ссылке. Убедитесь, что вы открыли ссылку из письма, затем нажмите — 'Продолжить'",
+        "en":
+          "We couldn’t verify that you clicked the link. Make sure you opened the link from the email, then click 'Proceed'",
+        "ua":
+          "Не вдалося підтвердити перехід за посиланням. Переконайтесь, що ви відкрили посилання з листа, а потім натисніть — 'Продовжити'"
       },
       "PhoneHint": {
         "ru": "На телефон {0} была отправлена СМС",
@@ -1362,9 +1382,12 @@
         "ua": "На телефон {0} було відправлено СМС"
       },
       "EnterPhoneNumber": {
-        "ru": "Введите номер в международном формате, только цифры (без '+', пробелов и скобок), или оставьте поле пустым, чтобы привязать без номера",
-        "en": "Enter number in international format, digits only (no '+', spaces or brackets), or leave the field empty to link without a number",
-        "ua": "Введіть номер у міжнародному форматі, лише цифри (без '+', пробілів і дужок), або залиште поле порожнім, щоб прив’язати без номера"
+        "ru":
+          "Введите номер в международном формате, только цифры (без '+', пробелов и скобок), или оставьте поле пустым, чтобы привязать без номера",
+        "en":
+          "Enter number in international format, digits only (no '+', spaces or brackets), or leave the field empty to link without a number",
+        "ua":
+          "Введіть номер у міжнародному форматі, лише цифри (без '+', пробілів і дужок), або залиште поле порожнім, щоб прив’язати без номера"
       }
     },
     "MafileMoverVM": {
@@ -1389,9 +1412,11 @@
         "ua": "RCode: {0}\r\nІм'я файлу: {1}.mafile"
       },
       "GuardIsNotActive": {
-        "ru": "Steam Guard установлен на данном аккаунте. Чтобы привязать mafile к аккаунту, воспользуйтесь окном \"Привязать\"",
+        "ru":
+          "Steam Guard установлен на данном аккаунте. Чтобы привязать mafile к аккаунту, воспользуйтесь окном \"Привязать\"",
         "en": "Steam Guard is set on this account. To link mafile to the account, use the 'Link' window",
-        "ua": "Steam Guard встановлено на цьому акаунті. Щоб прив'язати mafile до акаунту, скористайтеся вікном 'Прив'язати'"
+        "ua":
+          "Steam Guard встановлено на цьому акаунті. Щоб прив'язати mafile до акаунту, скористайтеся вікном 'Прив'язати'"
       },
       "SeemsNoPhoneNumber": {
         "en": "The account has no phone number linked, returned Fail code (2)",
@@ -1426,15 +1451,18 @@
         "ua": "Авто "
       },
       "TimerPreventedOverlap": {
-        "ru": "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
-        "en": "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
-        "ua": "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку"
+        "ru":
+          "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
+        "en":
+          "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
+        "ua":
+          "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку"
       },
       "FailedToLoadStorage": {
         "en": "Failed to load auto-confirm timers. File seems to be corrupted",
         "ru": "Не удалось загрузить таймеры авто-подтверждений. Файл, похоже, поврежден",
         "ua": "Не вдалося завантажити таймери авто-підтверджень. Файл, схоже, пошкоджено"
-      } 
+      }
     },
     "SettingsVM": {
       "MafileRenaming": {
@@ -1449,9 +1477,12 @@
           "ua": "Всі мафайли успішно перейменовані ({0}).\r\nБуло створено резервну копію: {1}"
         },
         "PartialSuccess": {
-          "en": "Total mafiles: {0}\r\nRenamed: {1}\r\nConflicts: {2}\r\nErrors: {3}\r\n\r\nBackup of mafiles saved in file: {4}",
-          "ru": "Всего мафайлов: {0}\r\nПереименовано: {1}\r\nКонфликты: {2}\r\nОшибок: {3}\r\n\r\nРезервная копия мафайлов сохранена в файле: {4}",
-          "ua": "Всього мафайлів: {0}\r\nПерейменовано: {1}\r\nКонфлікти: {2}\r\nПомилок: {3}\r\n\r\nРезервна копія мафайлів збережена у файлі: {4}"
+          "en":
+            "Total mafiles: {0}\r\nRenamed: {1}\r\nConflicts: {2}\r\nErrors: {3}\r\n\r\nBackup of mafiles saved in file: {4}",
+          "ru":
+            "Всего мафайлов: {0}\r\nПереименовано: {1}\r\nКонфликты: {2}\r\nОшибок: {3}\r\n\r\nРезервная копия мафайлов сохранена в файле: {4}",
+          "ua":
+            "Всього мафайлів: {0}\r\nПерейменовано: {1}\r\nКонфлікти: {2}\r\nПомилок: {3}\r\n\r\nРезервна копія мафайлів збережена у файлі: {4}"
         }
       }
     },
@@ -1471,8 +1502,11 @@
     }
   },
   "CantAlignTimeError": {
-    "ru": "Не удается синхронизировать время со Steam. Возможно отсутствует подключение к интернету или Steam недоступен. Подробная ошибка сохранена в log.log",
-    "en": "Can't align time with Steam. Maybe no internet connection or Steam is unavailable. Detailed error saved in log.log",
-    "ua": "Не вдається синхронізувати час з Steam. Можливо відсутнє підключення до інтернету або Steam недоступний. Детальна помилка збережена в log.log"
+    "ru":
+      "Не удается синхронизировать время со Steam. Возможно отсутствует подключение к интернету или Steam недоступен. Подробная ошибка сохранена в log.log",
+    "en":
+      "Can't align time with Steam. Maybe no internet connection or Steam is unavailable. Detailed error saved in log.log",
+    "ua":
+      "Не вдається синхронізувати час з Steam. Можливо відсутнє підключення до інтернету або Steam недоступний. Детальна помилка збережена в log.log"
   }
 }

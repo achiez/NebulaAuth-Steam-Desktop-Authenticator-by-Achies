@@ -1,9 +1,9 @@
-﻿using NebulaAuth.Core;
+﻿using System;
+using System.Windows;
+using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Exceptions;
 using NebulaAuth.Model.MAAC;
-using System;
-using System.Windows;
 
 namespace NebulaAuth;
 

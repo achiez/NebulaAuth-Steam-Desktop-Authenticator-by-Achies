@@ -59,16 +59,16 @@
                     <Run Text="{Tr ProxyManagerDialog.DefaultProxy, IsDynamic=False}" />
                     <Run Text="{Binding DefaultProxy.Key, StringFormat='&#x0a;0:', FallbackValue='-', Mode=OneWay}" />
                     <Run>
-                       <Run.Text>
-                           <MultiBinding Mode="OneWay"
-                                         Converter="{StaticResource ProxyDataTextMultiConverter}">
-                               <Binding Path="DefaultProxy.Value" />
-                               <Binding Path="DataContext.DisplayProtocol"
-                                        RelativeSource="{RelativeSource AncestorType=UserControl}" />
-                               <Binding Path="DataContext.DisplayCredentials"
-                                        RelativeSource="{RelativeSource AncestorType=UserControl}" />
-                           </MultiBinding>
-                       </Run.Text>
+                        <Run.Text>
+                            <MultiBinding Mode="OneWay"
+                                          Converter="{StaticResource ProxyDataTextMultiConverter}">
+                                <Binding Path="DefaultProxy.Value" />
+                                <Binding Path="DataContext.DisplayProtocol"
+                                         RelativeSource="{RelativeSource AncestorType=UserControl}" />
+                                <Binding Path="DataContext.DisplayCredentials"
+                                         RelativeSource="{RelativeSource AncestorType=UserControl}" />
+                            </MultiBinding>
+                        </Run.Text>
                     </Run>
                 </TextBlock>
 

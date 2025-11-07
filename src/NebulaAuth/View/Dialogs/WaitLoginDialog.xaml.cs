@@ -3,7 +3,6 @@ using System.Windows;
 
 namespace NebulaAuth.View.Dialogs;
 
-
 public partial class WaitLoginDialog
 {
     private TaskCompletionSource<string> _tcs = new();

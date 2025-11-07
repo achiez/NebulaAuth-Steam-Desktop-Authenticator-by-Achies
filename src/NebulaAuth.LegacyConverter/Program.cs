@@ -1,8 +1,8 @@
-﻿using AchiesUtilities.Extensions;
+﻿using System.Reflection;
+using AchiesUtilities.Extensions;
 using NebulaAuth.LegacyConverter;
 using Newtonsoft.Json;
 using SteamLib.Utility.MafileSerialization;
-using System.Reflection;
 
 try
 {

@@ -2,7 +2,6 @@
 
 namespace NebulaAuth.View;
 
-
 public partial class MafileMoverView : UserControl
 {
     public MafileMoverView()
