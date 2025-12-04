@@ -6,6 +6,7 @@ using AchiesUtilities.Collections;
 using AchiesUtilities.Web.Proxy;
 using CommunityToolkit.Mvvm.ComponentModel;
 using NebulaAuth.Model;
+using NebulaAuth.Model.Entities;
 
 namespace NebulaAuth.ViewModel.Linker;
 
@@ -21,6 +22,11 @@ public partial class LinkAccountAuthStepVM : LinkAccountStepVM
     private string _password = string.Empty;
 
     [ObservableProperty] private KeyValuePair<int, ProxyData>? _selectedProxy;
+
+    [ObservableProperty] 
+    private EmailAccount? _selectedEmailAccount;
+
+    public string? Email => SelectedEmailAccount?.Email;
 
     public LinkAccountAuthStepVM()
     {
@@ -41,9 +47,9 @@ public partial class LinkAccountAuthStepVM : LinkAccountStepVM
         return !string.IsNullOrWhiteSpace(Login) && !string.IsNullOrWhiteSpace(Password);
     }
 
-    public (string, string, KeyValuePair<int, ProxyData>?) GetState(CancellationToken cancellationToken)
+    public (string, string, KeyValuePair<int, ProxyData>?, string?) GetState(CancellationToken cancellationToken)
     {
-        return (Login, Password, SelectedProxy);
+        return (Login, Password, SelectedProxy, Email);
     }
 
     public override void Cancel()

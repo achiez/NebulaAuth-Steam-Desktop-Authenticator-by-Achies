@@ -32,6 +32,7 @@
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
 		<PackageReference Include="NLog" Version="5.5.0" />
 		<PackageReference Include="NLog.Extensions.Logging" Version="5.5.0" />
+		<PackageReference Include="MailKit" Version="4.8.0" />
 	</ItemGroup>
 
 	<ItemGroup>

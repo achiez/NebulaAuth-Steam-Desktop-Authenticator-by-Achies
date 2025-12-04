@@ -22,6 +22,7 @@ public partial class App
             var threads = Environment.ProcessorCount > 0 ? Environment.ProcessorCount : 1;
             await Storage.Initialize(threads);
             MAACStorage.Initialize();
+            EmailStorage.Initialize();
             var mainWindow = new MainWindow();
             Current.MainWindow = mainWindow;
             mainWindow.Show();

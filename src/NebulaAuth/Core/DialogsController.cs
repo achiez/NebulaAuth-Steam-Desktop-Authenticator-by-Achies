@@ -4,10 +4,10 @@ using MaterialDesignThemes.Wpf;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.View;
-using NebulaAuth.View.Dialogs;
 using NebulaAuth.ViewModel.Linker;
 using NebulaAuth.ViewModel.MafileMover;
 using NebulaAuth.ViewModel.Other;
+using NebulaAuth.View.Dialogs;
 
 namespace NebulaAuth.Core;
 
@@ -111,6 +111,34 @@ public static class DialogsController
             DataContext = vm
         };
         await DialogHost.Show(dialog);
+    }
+
+    public static async Task ShowEmailManagerDialog()
+    {
+        var vm = new EmailManagerVM();
+        var dialog = new EmailManagerDialog
+        {
+            DataContext = vm
+        };
+        await DialogHost.Show(dialog);
+    }
+
+    public static async Task ShowBatchLinkerDialog()
+    {
+        BatchLinkAccountVM? vm = null;
+        try
+        {
+            vm = new BatchLinkAccountVM();
+            var dialog = new BatchLinkAccountDialog
+            {
+                DataContext = vm
+            };
+            await DialogHost.Show(dialog);
+        }
+        finally
+        {
+            vm?.Dispose();
+        }
     }
 
     #region CommonDialogs

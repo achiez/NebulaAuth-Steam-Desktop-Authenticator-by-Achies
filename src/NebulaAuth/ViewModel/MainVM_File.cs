@@ -68,6 +68,95 @@ public partial class MainVM //File //TODO: Refactor
         return AddMafile([path]);
     }
 
+    [RelayCommand]
+    private Task AddMafilesBatch()
+    {
+        var openFileDialog = new OpenFileDialog
+        {
+            Filter = "Mafile|*.mafile;*.maFile",
+            Multiselect = true
+        };
+        var fs = openFileDialog.ShowDialog();
+        if (fs != true) return Task.CompletedTask;
+        var paths = openFileDialog.FileNames;
+        return AddMafilesBatchSequential(paths);
+    }
+
+    private async Task AddMafilesBatchSequential(string[] paths)
+    {
+        bool? confirmOverwrite = null;
+        var added = 0;
+        var notAdded = 0;
+        var errors = 0;
+        
+        foreach (var str in paths)
+        {
+            try
+            {
+                Storage.AddNewMafile(str, confirmOverwrite ?? false);
+                added++;
+            }
+            catch (FormatException)
+            {
+                errors++;
+            }
+            catch (IOException)
+            {
+                confirmOverwrite ??=
+                    await DialogsController.ShowConfirmCancelDialog(GetLocalization("ConfirmMafileOverwrite"));
+
+                if (confirmOverwrite == true)
+                {
+                    Storage.AddNewMafile(str, true);
+                    added++;
+                }
+                else if (confirmOverwrite == false)
+                {
+                    notAdded++;
+                }
+            }
+            catch (MafileNeedReloginException ex)
+            {
+                if (paths.Length == 1 && ex.Mafile != null)
+                {
+                    var mafile = ex.Mafile;
+                    if (await HandleAddMafileWithoutSession(mafile))
+                    {
+                        added++;
+                    }
+                    else
+                    {
+                        errors++;
+                    }
+                }
+                else
+                {
+                    SnackbarController.SendSnackbar(
+                        $"{GetLocalization("MafileImportError")} {Path.GetFileName(str)}{GetLocalization("MissingSessionInMafile")}",
+                        TimeSpan.FromSeconds(4));
+                }
+            }
+        }
+
+        var msg = GetLocalization("Import");
+        if (added > 0)
+        {
+            msg += $" {GetLocalization("ImportAdded")} {added}.";
+        }
+
+        if (notAdded > 0)
+        {
+            msg += $" {GetLocalization("ImportSkipped")} {notAdded}.";
+        }
+
+        if (errors > 0)
+        {
+            msg += $" {GetLocalization("ImportErrors")} {errors}.";
+        }
+
+        SnackbarController.SendSnackbar(msg, TimeSpan.FromSeconds(2));
+    }
+
     public async Task AddMafile(string[] path)
     {
         bool? confirmOverwrite = null;
@@ -222,6 +311,12 @@ public partial class MainVM //File //TODO: Refactor
             DataContext = vm
         };
         await DialogHost.Show(view);
+    }
+
+    [RelayCommand]
+    private async Task OpenEmailManagerDialog()
+    {
+        await DialogsController.ShowEmailManagerDialog();
     }
 
     [RelayCommand]

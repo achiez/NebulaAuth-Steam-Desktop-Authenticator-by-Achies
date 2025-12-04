@@ -141,6 +141,12 @@ public partial class MainVM : ObservableObject
     }
 
     [RelayCommand]
+    public async Task BatchLinkAccount()
+    {
+        await DialogsController.ShowBatchLinkerDialog();
+    }
+
+    [RelayCommand]
     public async Task MoveAccount()
     {
         await DialogsController.ShowMafileMoverDialog();

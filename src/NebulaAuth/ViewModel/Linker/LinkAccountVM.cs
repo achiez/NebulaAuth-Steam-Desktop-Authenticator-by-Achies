@@ -56,6 +56,8 @@ public partial class LinkAccountVM : ObservableObject, ISmsCodeProvider, IPhoneN
 
     [ObservableProperty] private string? _tip;
 
+    private string? _accountEmail;
+
     public LinkAccountVM()
     {
         _proxy = new DynamicProxy();
@@ -122,7 +124,8 @@ public partial class LinkAccountVM : ObservableObject, ISmsCodeProvider, IPhoneN
             throw new InvalidOperationException("Current step is not an authentication step.");
         }
 
-        var (login, pass, proxy) = authStep.GetState(_cts.Token);
+        var (login, pass, proxy, email) = authStep.GetState(_cts.Token);
+        _accountEmail = email;
         _lastProxy = proxy;
         _proxy.SetData(proxy?.Value);
         var log = new LoginV2ExecutorOptions(StaticLoginConsumer.Instance, _client)
@@ -218,6 +221,8 @@ public partial class LinkAccountVM : ObservableObject, ISmsCodeProvider, IPhoneN
                 mafile.Proxy = new MaProxy(proxy.Value.Key, proxy.Value.Value);
             if (Settings.Instance.IsPasswordSet)
                 mafile.Password = PHandler.Encrypt(pass);
+            if (!string.IsNullOrWhiteSpace(_accountEmail))
+                mafile.Email = _accountEmail;
         }
         catch (Exception ex)
         {
@@ -294,7 +299,7 @@ public partial class LinkAccountVM : ObservableObject, ISmsCodeProvider, IPhoneN
         {
             try
             {
-                var step = new LinkAccountEmailAuthStepVM();
+                var step = new LinkAccountEmailAuthStepVM(_accountEmail);
                 SetCurrentStep(step);
                 var res = await step.GetResultAsync();
                 var req = AuthRequestHelper.CreateEmailCodeRequest(res, model.ClientId, model.SteamId);
@@ -353,7 +358,7 @@ public partial class LinkAccountVM : ObservableObject, ISmsCodeProvider, IPhoneN
     public async ValueTask<string> GetAddAuthenticatorCode(ILoginConsumer caller,
         CancellationToken cancellationToken = default)
     {
-        var step = new LinkAccountEmailCodeStepVM();
+        var step = new LinkAccountEmailCodeStepVM(_accountEmail);
         SetCurrentStep(step);
         return await step.GetResultAsync();
     }

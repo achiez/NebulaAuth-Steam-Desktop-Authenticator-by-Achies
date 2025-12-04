@@ -12,6 +12,7 @@ public partial class Mafile : MobileDataExtended
     public MaProxy? Proxy { get; set; }
     public string? Group { get; set; }
     public string? Password { get; set; }
+    public string? Email { get; set; }
 
     [JsonIgnore]
     public PortableMaClient? LinkedClient

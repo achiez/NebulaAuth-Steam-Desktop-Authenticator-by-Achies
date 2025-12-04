@@ -1,0 +1,135 @@
+<UserControl x:Class="NebulaAuth.View.Dialogs.EmailManagerDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:other="clr-namespace:NebulaAuth.ViewModel.Other"
+             xmlns:entities="clr-namespace:NebulaAuth.Model.Entities"
+             mc:Ignorable="d"
+             TextElement.Foreground="{DynamicResource BaseContentBrush}"
+             d:DataContext="{d:DesignInstance other:EmailManagerVM}"
+             Background="{DynamicResource WindowBackground}">
+
+    <Grid MinHeight="400" MinWidth="600">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Grid Margin="10,10,10,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Email" Width="20" Height="20" Margin="0,0,5,0"
+                                         VerticalAlignment="Center"
+                                         Foreground="{DynamicResource PrimaryContentBrush}" />
+                <TextBlock FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource BaseContentBrush}"
+                           Margin="7,0,0,0" HorizontalAlignment="Left">
+                    <Run Text="Управление Email-почтами" />
+                </TextBlock>
+            </StackPanel>
+            <Button Grid.Column="1" Width="30" Height="30" Style="{StaticResource MaterialDesignIconForegroundButton}"
+                    HorizontalAlignment="Right" CommandParameter="{StaticResource False}"
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                <materialDesign:PackIcon Kind="Close" Width="24" Height="24" Foreground="IndianRed" />
+            </Button>
+        </Grid>
+        
+        <Separator Grid.Row="1" Opacity="0.7" />
+        
+        <Grid Grid.Row="2" Margin="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Column="0" Margin="0,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <Button Grid.Row="0" Content="Добавить Email" 
+                        Command="{Binding AddEmailAccountCommand}"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Margin="0,0,0,10" />
+                
+                <ListBox Grid.Row="1" 
+                         ItemsSource="{Binding EmailAccounts}"
+                         SelectedItem="{Binding SelectedEmailAccount}"
+                         Margin="0,0,0,10">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type entities:EmailAccount}">
+                            <TextBlock Text="{Binding DisplayNameOrEmail}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                
+                <Button Grid.Row="2" Content="Удалить" 
+                        Command="{Binding RemoveEmailAccountCommand}"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        IsEnabled="{Binding CanRemoveEmailAccount}" />
+            </Grid>
+            
+            <Grid Grid.Column="1" DataContext="{Binding SelectedEmailAccount}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <TextBlock Grid.Row="0" Text="Email:" Margin="0,0,0,5" />
+                <TextBox Grid.Row="1" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Margin="0,0,0,10" />
+                
+                <TextBlock Grid.Row="2" Text="Пароль:" Margin="0,0,0,5" />
+                <PasswordBox x:Name="PasswordBox" Grid.Row="3" 
+                             Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                             PasswordChanged="PasswordBox_OnPasswordChanged"
+                             Margin="0,0,0,10" />
+                
+                <TextBlock Grid.Row="4" Text="IMAP Сервер:" Margin="0,0,0,5" />
+                <TextBox Grid.Row="5" Text="{Binding ImapServer, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Margin="0,0,0,10" />
+                
+                <StackPanel Grid.Row="6" Orientation="Horizontal">
+                    <TextBlock Text="Порт:" VerticalAlignment="Center" Margin="0,0,5,0" />
+                    <TextBox Text="{Binding ImapPort, UpdateSourceTrigger=PropertyChanged}"
+                             Width="80" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Margin="0,0,10,0" />
+                    <CheckBox Content="SSL" IsChecked="{Binding UseSsl}" VerticalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+        
+        <Grid Grid.Row="3" Margin="10,10,10,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button IsDefault="True" Margin="0,5,5,5"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Command="{Binding SaveChangesCommand}"
+                    CommandParameter="{StaticResource True}"
+                    Content="Сохранить" />
+            <Button IsCancel="True" Grid.Column="1" Margin="5,5,0,5"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                    CommandParameter="{StaticResource False}"
+                    Content="Закрыть" />
+        </Grid>
+    </Grid>
+</UserControl>
+

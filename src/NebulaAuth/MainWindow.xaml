@@ -100,6 +100,8 @@
                             <MenuItem Header="{Tr MainWindow.Menu.Account.Caption}">
                                 <MenuItem Header="{Tr MainWindow.Menu.Account.Link}"
                                           Command="{Binding LinkAccountCommand}" />
+                                <MenuItem Header="Масс. Привязка"
+                                          Command="{Binding BatchLinkAccountCommand}" />
                                 <MenuItem Header="{Tr MainWindow.Menu.Account.MoveSteamGuard}"
                                           Command="{Binding MoveAccountCommand}" />
                                 <MenuItem Header="{Tr MainWindow.Menu.Account.Unlink}"
