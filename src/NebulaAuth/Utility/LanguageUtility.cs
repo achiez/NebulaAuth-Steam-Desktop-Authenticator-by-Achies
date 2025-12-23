@@ -18,10 +18,13 @@ public static class LanguageUtility
             case "ru": return LocalizationLanguage.Russian;
             case "uk": return LocalizationLanguage.Ukrainian;
             case "en": return LocalizationLanguage.English;
+            case "fr": return LocalizationLanguage.French;
         }
 
         if (userRegion.EndsWith("UA", StringComparison.OrdinalIgnoreCase))
             return LocalizationLanguage.Ukrainian;
+        if (userRegion.EndsWith("FR", StringComparison.OrdinalIgnoreCase))
+            return LocalizationLanguage.French;
 
         string[] cisRegions =
         [

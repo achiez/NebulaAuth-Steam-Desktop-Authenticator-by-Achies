@@ -31,6 +31,7 @@ public static class LocManager
             LocalizationLanguage.English => "en",
             LocalizationLanguage.Russian => "ru",
             LocalizationLanguage.Ukrainian => "ua",
+            LocalizationLanguage.French => "fr",
             _ => throw new ArgumentOutOfRangeException(nameof(language), language, null)
         };
     }
@@ -107,5 +108,6 @@ public enum LocalizationLanguage
 {
     English,
     Russian,
-    Ukrainian
+    Ukrainian,
+    French
 }
