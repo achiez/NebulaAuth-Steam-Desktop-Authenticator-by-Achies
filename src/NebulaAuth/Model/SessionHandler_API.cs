@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AchiesUtilities.Web.Models;
 using NebulaAuth.Model.Entities;
+using NebulaAuth.Model.Mafiles;
 using SteamLib.Api.Mobile;
 using SteamLib.Authentication;
 using SteamLib.Authentication.LoginV2;

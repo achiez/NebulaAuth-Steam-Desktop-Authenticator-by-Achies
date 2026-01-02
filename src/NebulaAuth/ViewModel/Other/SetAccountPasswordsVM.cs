@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
+using NebulaAuth.Model.Mafiles;
 using SteamLibForked.Models.SteamIds;
 
 namespace NebulaAuth.ViewModel.Other;

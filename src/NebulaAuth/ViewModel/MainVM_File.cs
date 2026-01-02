@@ -13,6 +13,7 @@ using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Model.Exceptions;
+using NebulaAuth.Model.Mafiles;
 using NebulaAuth.Utility;
 using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;
@@ -78,7 +79,7 @@ public partial class MainVM //File //TODO: Refactor
         {
             try
             {
-                Storage.AddNewMafile(str, confirmOverwrite ?? false);
+                await Storage.AddNewMafile(str, confirmOverwrite ?? false);
                 added++;
             }
             catch (FormatException)
@@ -92,7 +93,7 @@ public partial class MainVM //File //TODO: Refactor
 
                 if (confirmOverwrite == true)
                 {
-                    Storage.AddNewMafile(str, true);
+                    await Storage.AddNewMafile(str, true);
                     added++;
                 }
                 else if (confirmOverwrite == false)

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using NebulaAuth.Core;
 using NebulaAuth.Model.Entities;
+using NebulaAuth.Model.Mafiles;
 using Newtonsoft.Json;
 
 namespace NebulaAuth.Model.MAAC;

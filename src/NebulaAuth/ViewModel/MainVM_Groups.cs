@@ -5,8 +5,8 @@ using AchiesUtilities.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
-using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
+using NebulaAuth.Model.Mafiles;
 
 namespace NebulaAuth.ViewModel;
 

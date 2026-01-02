@@ -4,6 +4,7 @@ using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Exceptions;
 using NebulaAuth.Model.MAAC;
+using NebulaAuth.Model.Mafiles;
 
 namespace NebulaAuth;
 

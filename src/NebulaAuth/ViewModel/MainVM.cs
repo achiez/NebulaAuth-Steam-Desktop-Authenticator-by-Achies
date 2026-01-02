@@ -10,6 +10,7 @@ using MaterialDesignThemes.Wpf;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
+using NebulaAuth.Model.Mafiles;
 using NebulaAuth.Utility;
 using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;

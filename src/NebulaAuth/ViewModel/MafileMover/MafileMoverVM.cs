@@ -12,6 +12,7 @@ using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
+using NebulaAuth.Model.Mafiles;
 using NebulaAuth.Utility;
 using NebulaAuth.ViewModel.Linker;
 using Newtonsoft.Json;
