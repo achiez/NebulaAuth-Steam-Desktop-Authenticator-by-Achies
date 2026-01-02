@@ -11,13 +11,16 @@ public static class LanguageUtility
     {
         var userCulture = CultureInfo.CurrentUICulture;
         var userLang = userCulture.TwoLetterISOLanguageName;
-        var userRegion = userCulture.Name;
+        var userRegion = new RegionInfo(userCulture.Name).TwoLetterISORegionName;
+
 
         switch (userLang)
         {
             case "ru": return LocalizationLanguage.Russian;
             case "uk": return LocalizationLanguage.Ukrainian;
             case "en": return LocalizationLanguage.English;
+            case "zh": return LocalizationLanguage.ChineseSimplified;
+            case "fr": return LocalizationLanguage.French;
         }
 
         if (userRegion.EndsWith("UA", StringComparison.OrdinalIgnoreCase))
@@ -28,9 +31,8 @@ public static class LanguageUtility
             "RU", "BY", "KZ", "KG", "TJ", "TM", "UZ", "AM", "AZ", "GE", "MD"
         ];
 
-        if (cisRegions.Any(r => userRegion.EndsWith(r, StringComparison.OrdinalIgnoreCase)))
-            return LocalizationLanguage.Russian;
-
-        return LocalizationLanguage.English;
+        return cisRegions.Any(r => userRegion.EndsWith(r, StringComparison.OrdinalIgnoreCase)) 
+            ? LocalizationLanguage.Russian 
+            : LocalizationLanguage.English;
     }
 }
