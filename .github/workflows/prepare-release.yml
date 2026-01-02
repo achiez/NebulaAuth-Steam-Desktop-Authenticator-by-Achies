@@ -34,7 +34,7 @@ jobs:
            <item>
             <version>${{ steps.ver.outputs.version }}</version>
             <url>https://github.com/${{ github.repository }}/releases/download/${{ steps.ver.outputs.version }}/NebulaAuth.${{ steps.ver.outputs.version }}.zip</url>
-            <changelog>https://achiez.github.io/${{ github.repository }}/changelog/${{ steps.ver.outputs.version }}.html</changelog>
+            <changelog>https://achiez.github.io/${{ github.event.repository.name }}/changelog/${{ steps.ver.outputs.version }}.html</changelog>
             <mandatory>false</mandatory>
           </item>
           EOF
@@ -62,4 +62,4 @@ jobs:
 
       - name: Skip message
         if: steps.diff.outputs.no_changes == 'true'
-        run: echo "No changes in version or update.xml — skipping release preparation."
+        run: echo "No changes in version or update.xml - skipping release preparation."

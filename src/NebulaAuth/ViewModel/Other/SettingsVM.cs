@@ -86,7 +86,7 @@ public partial class SettingsVM : ObservableObject
         {
             var l = GetLoc("PartialSuccess");
             RenameResultText =
-                string.Format(l, result.Total, result.Renamed, result.Errors, result.Conflict, result.BackupFileName);
+                string.Format(l, result.Total, result.Renamed, result.Conflict, result.Errors, result.BackupFileName);
         }
 
         string GetLoc(string key)

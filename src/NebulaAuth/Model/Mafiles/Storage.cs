@@ -148,13 +148,15 @@ public static class Storage
     public static void MoveToRemoved(Mafile data)
     {
         var sourcePath = MafilesStorageHelper.GetOrUpdateMafilePath(data);
-        var destinationPath = Path.Combine(DIR_REMOVED_MAFILES, data.Filename + ".mafile");
-        var destinationPathFinal = destinationPath;
+        var fileName = Path.GetFileNameWithoutExtension(data.Filename!);
+        var destinationPathBase = Path.Combine(DIR_REMOVED_MAFILES, fileName);
+        var destinationPathFinal = Path.ChangeExtension(destinationPathBase, MafileNamingStrategy.DEF_EXTENSION);
         var i = 0;
         while (File.Exists(destinationPathFinal))
         {
             i++;
-            destinationPathFinal = destinationPath + $" ({i})";
+            destinationPathFinal = destinationPathBase + $" ({i})";
+            destinationPathFinal = Path.ChangeExtension(destinationPathFinal, MafileNamingStrategy.DEF_EXTENSION);
         }
 
         File.Copy(sourcePath, destinationPathFinal, false);

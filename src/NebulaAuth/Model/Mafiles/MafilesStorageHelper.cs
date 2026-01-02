@@ -1,12 +1,12 @@
-﻿using System.IO;
-using NebulaAuth.Model.Entities;
+﻿using NebulaAuth.Model.Entities;
+using System.IO;
 
 namespace NebulaAuth.Model.Mafiles;
 
 internal static class MafilesStorageHelper
 {
     /// <summary>
-    ///     Returns <see cref="Mafile.Filename" /> or creates a new one and updates the property.
+    ///     Returns <see cref="Mafile.Filename" /> or creates a new one and updates the property. <see cref="Mafile.Filename"/> is always not <see langword="null"/> after this method call.
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>

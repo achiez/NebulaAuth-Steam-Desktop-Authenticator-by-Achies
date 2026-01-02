@@ -33,7 +33,7 @@ public partial class MainVM : ObservableObject
     public bool IsMafileSelected => SelectedMafile != null;
     public DialogHost CurrentDialogHost { get; set; } = null!;
 
-    [ObservableProperty] private ObservableCollection<Mafile> _maFiles = Storage.MaFiles;
+    [ObservableProperty] private ObservableCollection<Mafile> _maFiles = new(Storage.MaFiles);
 
     private Mafile? _selectedMafile;
 
@@ -115,7 +115,7 @@ public partial class MainVM : ObservableObject
 
     private void MaFilesOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        SearchText = string.Empty;
+        PerformQuery();
     }
 
 
@@ -173,7 +173,6 @@ public partial class MainVM : ObservableObject
                 if (result.Success)
                 {
                     Storage.MoveToRemoved(selectedMafile);
-                    MaFiles.Remove(selectedMafile);
                 }
             }
             else
