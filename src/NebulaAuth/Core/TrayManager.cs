@@ -69,7 +69,7 @@ public static class TrayManager
     private static void HideMainWindow()
     {
         if (!Init) return;
-        if (IsEnabled == false) return;
+        if (!IsEnabled) return;
         _notifyIcon.Visible = true;
         MainWindow.Hide();
     }

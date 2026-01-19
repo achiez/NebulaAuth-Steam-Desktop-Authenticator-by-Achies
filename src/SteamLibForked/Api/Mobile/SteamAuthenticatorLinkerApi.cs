@@ -152,7 +152,7 @@ public static class SteamAuthenticatorLinkerApi
         var content = await resp.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
         var j = JObject.Parse(content);
 
-        if (j["success"]!.Value<bool>() == false)
+        if (!j["success"]!.Value<bool>())
             return CheckPhoneResult.GeneralFailure;
 
         if (j["is_voip"]!.Value<bool>())
@@ -187,7 +187,7 @@ public static class SteamAuthenticatorLinkerApi
             var resp = await client.PostProto<IsAccountWaitingForEmailConfirmation_Response>(reqUri,
                 new EmptyMessage());
 
-            if (resp.IsWaiting == false) return true;
+            if (!resp.IsWaiting) return true;
 
             await Task.Delay(resp.SecondsToWait * 1000);
         }

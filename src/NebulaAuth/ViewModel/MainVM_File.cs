@@ -240,7 +240,7 @@ public partial class MainVM //File //TODO: Refactor
         }
 
         var arr = files.Cast<string>().ToArray();
-        if (arr.All(p => p.ContainsIgnoreCase("mafile") == false)) return;
+        if (arr.All(p => !p.ContainsIgnoreCase("mafile"))) return;
 
 
         await AddMafile(arr);

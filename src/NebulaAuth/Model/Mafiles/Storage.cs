@@ -22,11 +22,18 @@ public static class Storage
     public const string DIR_MAFILES = "maFiles";
     public const string DIR_REMOVED_MAFILES = "maFiles_removed";
     public const string DIR_BACKUP_MAFILES = "maFiles_backup";
+
+    public static readonly string[] MafilesDirectories;
     public static string MafilesDirectory { get; } = Path.GetFullPath(DIR_MAFILES);
     public static string RemovedMafilesDirectory { get; } = Path.GetFullPath(DIR_REMOVED_MAFILES);
     public static string BackupMafilesDirectory { get; } = Path.GetFullPath(DIR_BACKUP_MAFILES);
 
     public static ObservableCollection<Mafile> MaFiles { get; private set; } = [];
+
+    static Storage()
+    {
+        MafilesDirectories = [MafilesDirectory, RemovedMafilesDirectory, BackupMafilesDirectory];
+    }
 
     public static async Task Initialize(int threadCount, CancellationToken token = default)
     {
@@ -60,6 +67,7 @@ public static class Storage
         }, token);
 
         MaFiles = new ObservableCollection<Mafile>(localList.OrderBy(m => m.AccountName));
+     
     }
 
     /// <summary>

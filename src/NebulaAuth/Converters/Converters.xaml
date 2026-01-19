@@ -23,6 +23,7 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <materialDesign:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
 
+    <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
 
     <system:Boolean x:Key="True">True</system:Boolean>
     <system:Boolean x:Key="False">False</system:Boolean>

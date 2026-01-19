@@ -45,7 +45,7 @@ public static partial class SessionHandler
                 return await func();
             }
             catch (SessionInvalidException ex)
-                when (refreshTokenExpired == false || password != null)
+                when (!refreshTokenExpired || password != null)
             {
                 if (ex is SessionPermanentlyExpiredException)
                 {

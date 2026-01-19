@@ -144,7 +144,7 @@ public partial class SettingsVM : ObservableObject
         get => IconColor != null;
         set
         {
-            if (value == false)
+            if (!value)
                 IconColor = null;
             else
                 IconColor = Color.FromRgb(202, 39, 39);

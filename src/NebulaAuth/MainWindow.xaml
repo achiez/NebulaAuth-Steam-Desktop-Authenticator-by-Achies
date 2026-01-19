@@ -73,7 +73,7 @@
                                  Kind="FileReplaceOutline" />
 
                 </StackPanel>
-                <ToolBarTray>
+                <ToolBarTray Grid.Row="0">
                     <ToolBar ClipToBounds="True" HorizontalContentAlignment="Stretch"
                              Style="{StaticResource MaterialDesignToolBar}" FontSize="16">
                         <Menu FontSize="16">
@@ -92,7 +92,9 @@
                                 <MenuItem IsEnabled="False" Header="⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯" Height="15" />
                                 <MenuItem Header="{Tr MainWindow.Menu.File.Other.Title}">
                                     <MenuItem Header="{Tr MainWindow.Menu.File.Other.SetPasswords}"
-                                              Command="{Binding DebugCommand}" />
+                                              Command="{Binding OpenSetPasswordsDialogCommand}" />
+                                    <MenuItem Header="{Tr MainWindow.Menu.File.Other.OpenExport}"
+                                              Command="{Binding OpenExporterDialogCommand}" />
                                 </MenuItem>
                             </MenuItem>
                         </Menu>
@@ -356,7 +358,7 @@
                                                                         <ColumnDefinition Width="*" />
                                                                     </Grid.ColumnDefinitions>
                                                                     <md:PackIcon Kind="PlusCircle"
-                                                                        VerticalAlignment="Center" />
+                                                                            VerticalAlignment="Center" />
                                                                     <TextBlock VerticalAlignment="Center"
                                                                                Margin="5,0,0,0" Grid.Column="1"
                                                                                Text="{Tr MainWindow.ContextMenus.Mafile.CreateGroup}" />

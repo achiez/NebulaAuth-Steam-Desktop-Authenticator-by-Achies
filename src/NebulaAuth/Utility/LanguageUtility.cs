@@ -31,8 +31,8 @@ public static class LanguageUtility
             "RU", "BY", "KZ", "KG", "TJ", "TM", "UZ", "AM", "AZ", "GE", "MD"
         ];
 
-        return cisRegions.Any(r => userRegion.EndsWith(r, StringComparison.OrdinalIgnoreCase)) 
-            ? LocalizationLanguage.Russian 
+        return cisRegions.Any(r => userRegion.EndsWith(r, StringComparison.OrdinalIgnoreCase))
+            ? LocalizationLanguage.Russian
             : LocalizationLanguage.English;
     }
 }

@@ -187,7 +187,7 @@ public partial class PortableMaClient : ObservableObject, IDisposable
 
     private bool IgnoreTimerErrors()
     {
-        if (Settings.Instance.IgnorePatchTuesdayErrors == false) return false;
+        if (!Settings.Instance.IgnorePatchTuesdayErrors) return false;
 
         var pstZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
         var pstNow = TimeZoneInfo.ConvertTime(DateTime.UtcNow, pstZone);

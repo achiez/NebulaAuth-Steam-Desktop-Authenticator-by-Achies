@@ -28,7 +28,7 @@ public static class ProxyStorage
 
     static ProxyStorage()
     {
-        if (File.Exists("proxies.json") == false)
+        if (!File.Exists("proxies.json"))
             return;
         try
         {

@@ -3,8 +3,6 @@ using System.Windows;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Exceptions;
-using NebulaAuth.Model.MAAC;
-using NebulaAuth.Model.Mafiles;
 
 namespace NebulaAuth;
 
@@ -17,12 +15,8 @@ public partial class App
             var splashScreen = new SplashScreen("Theme\\SplashScreen.png");
             splashScreen.Show(false, true);
             base.OnStartup(e);
-            LocManager.Init();
-            LocManager.SetApplicationLocalization(Settings.Instance.Language);
-            Shell.Initialize();
-            var threads = Environment.ProcessorCount > 0 ? Environment.ProcessorCount : 1;
-            await Storage.Initialize(threads);
-            MAACStorage.Initialize();
+
+            await Shell.Initialize();
             var mainWindow = new MainWindow();
             Current.MainWindow = mainWindow;
             mainWindow.Show();

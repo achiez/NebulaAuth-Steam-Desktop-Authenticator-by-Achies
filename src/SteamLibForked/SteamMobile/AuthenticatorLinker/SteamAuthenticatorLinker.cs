@@ -74,18 +74,18 @@ public class SteamAuthenticatorLinker
 
         long? phoneNumber = null;
 
-        if (hasPhone == false && Options.PhoneNumberProvider != null)
+        if (!hasPhone && Options.PhoneNumberProvider != null)
         {
             phoneNumber = await Options.PhoneNumberProvider.GetPhoneNumber(Consumer);
         }
 
-        if (hasPhone == false && phoneNumber != null)
+        if (!hasPhone && phoneNumber != null)
         {
             Logger?.LogInformation("Attaching phone number {phoneNumber}", phoneNumber);
             //if (await this.IsValidPhoneNumber(phoneNumber.Value) == false)
             //    throw new AuthenticatorLinkerException(AuthenticatorLinkerError.InvalidPhoneNumber);
 
-            if (await this.AttachPhone(phoneNumber.Value) == false)
+            if (!await this.AttachPhone(phoneNumber.Value))
                 throw new AuthenticatorLinkerException(AuthenticatorLinkerError.CantAttachPhone);
 
 
@@ -150,7 +150,7 @@ public class SteamAuthenticatorLinker
         Logger?.LogInformation("Finalizing link");
         var result = await this.FinalizeLink(code, resp.SharedSecret, isPhone);
 
-        if (result.Success == false)
+        if (!result.Success)
         {
             var error = result.Error switch
             {

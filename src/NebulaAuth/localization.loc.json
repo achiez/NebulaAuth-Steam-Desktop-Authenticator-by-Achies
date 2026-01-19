@@ -180,6 +180,13 @@
             "zh": "设置密码",
             "ua": "Призначити паролі",
             "fr": "Définir les mots de passe"
+          },
+          "OpenExport": {
+            "ru": "Экспорт",
+            "en": "Export",
+            "ua": "Експорт",
+            "fr": "Exporter",
+            "zh": "导出"
           }
         }
       },
@@ -652,10 +659,12 @@
     },
     "LegacyMafileModeHint": {
       "en": "Save mafiles in compatibility format with Steam Desktop Authenticator and other applications",
-      "ru": "Сохранять мафайлы в старом формате для совместимости со Steam Desktop Authenticator и другими приложениями",
+      "ru":
+        "Сохранять мафайлы в старом формате для совместимости со Steam Desktop Authenticator и другими приложениями",
       "zh": "以与 Steam 桌面认证器及其他应用程序兼容的格式保存 mafiles",
       "ua": "Зберігати мафайли у старому форматі для сумісності зі Steam Desktop Authenticator та іншими додатками",
-      "fr": "Enregistrer les mafiles dans un format compatible avec Steam Desktop Authenticator et d'autres applications"
+      "fr":
+        "Enregistrer les mafiles dans un format compatible avec Steam Desktop Authenticator et d'autres applications"
     },
     "AllowAutoUpdate": {
       "en": "Allow auto update",
@@ -686,10 +695,13 @@
       "fr": "Ignorer les erreurs dues à la maintenance Steam du mardi soir dans le timer (exp.)"
     },
     "IgnorePatchTuesdayErrorsHint": {
-      "en": "Ignore errors that occur every Tuesday (Wednesday night in GMT) when Steam doing technical works and auto-confirm timers turns off unnecessarily",
-      "ru": "Игнорировать ошибки, которые возникают каждый вторник (ночь среды по GMT) когда Steam проводит технические работы и автоподтверждения отключаются без надобности",
+      "en":
+        "Ignore errors that occur every Tuesday (Wednesday night in GMT) when Steam doing technical works and auto-confirm timers turns off unnecessarily",
+      "ru":
+        "Игнорировать ошибки, которые возникают каждый вторник (ночь среды по GMT) когда Steam проводит технические работы и автоподтверждения отключаются без надобности",
       "zh": "忽略每周三（格林尼治标准时间周三夜间）发生的错误，因为 Steam 进行技术维护时自动确认功能会被无故关闭",
-      "ua": "Ігнорувати помилки, які виникають щосереди (ніч середи за GMT) коли Steam проводить технічні роботи і автопідтвердження вимикаються без потреби",
+      "ua":
+        "Ігнорувати помилки, які виникають щосереди (ніч середи за GMT) коли Steam проводить технічні роботи і автопідтвердження вимикаються без потреби",
       "fr": "Ignorer les erreurs dues à la maintenance Steam du mardi soir (Mercredi à minuit en GMT)"
     }
   },
@@ -941,11 +953,15 @@
       "fr": "Mot de passe de chiffrement"
     },
     "DialogText": {
-      "en": "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session.\r\n(Optional)",
-      "ru": "Ранее вы устанавливали пароль шифрования для паролей в мафайлах, укажите его, чтобы приложение могло автоматически авторизоваться в случае проблем с сессией.\r\n(Не обязательно)",
+      "en":
+        "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session.\r\n(Optional)",
+      "ru":
+        "Ранее вы устанавливали пароль шифрования для паролей в мафайлах, укажите его, чтобы приложение могло автоматически авторизоваться в случае проблем с сессией.\r\n(Не обязательно)",
       "zh": "之前您为密码文件设置了加密密码，请输入它，以便应用程序在会话出现问题时可以自动登录。\r\n（非必填）",
-      "ua": "Раніше ви встановлювали пароль шифрування для паролів в мафайлах, вкажіть його, щоб додаток міг автоматично авторизуватися у випадку проблем з сесією.\r\n(Не обов'язково)",
-      "fr": "Vous avez déjà défini un mot de passe de chiffrement pour les mots de passe des mafiles, spécifiez-le pour que l'appli puisse se connecter automatiquement en cas de problèmes avec la session.\r\n(Facultatif)"
+      "ua":
+        "Раніше ви встановлювали пароль шифрування для паролів в мафайлах, вкажіть його, щоб додаток міг автоматично авторизуватися у випадку проблем з сесією.\r\n(Не обов'язково)",
+      "fr":
+        "Vous avez déjà défini un mot de passe de chiffrement pour les mots de passe des mafiles, spécifiez-le pour que l'appli puisse se connecter automatiquement en cas de problèmes avec la session.\r\n(Facultatif)"
     },
     "Ok": {
       "en": "Ok",
@@ -1019,6 +1035,209 @@
       "fr": "Entrer la valeur"
     }
   },
+  "ExportDialog": {
+    "ExportTitle": {
+      "ru": "Экспорт",
+      "en": "Export",
+      "ua": "Експорт",
+      "fr": "Exportation",
+      "zh": "导出"
+    },
+    "ExportButton": {
+      "ru": "Экспорт",
+      "en": "Export",
+      "ua": "Експорт",
+      "fr": "Exporter",
+      "zh": "导出"
+    },
+    "TemplateHint": {
+      "ru": "Шаблон",
+      "en": "Template",
+      "ua": "Шаблон",
+      "fr": "Modèle",
+      "zh": "模板"
+    },
+    "SelectPathHint": {
+      "ru": "Выберите путь",
+      "en": "Select path",
+      "ua": "Виберіть шлях",
+      "fr": "Sélectionner le chemin",
+      "zh": "选择路径"
+    },
+    "ExportSettingsHeader": {
+      "ru": "Настройки экспорта",
+      "en": "Export settings",
+      "ua": "Налаштування експорту",
+      "fr": "Paramètres d’exportation",
+      "zh": "导出设置"
+    },
+    "ExportSettingsCommon": {
+      "ru": "Основные:",
+      "en": "General:",
+      "ua": "Основні:",
+      "fr": "Général :",
+      "zh": "常规："
+    },
+    "ExportSettingsNebula": {
+      "ru": "Nebula:",
+      "en": "Nebula:",
+      "ua": "Nebula:",
+      "fr": "Nebula :",
+      "zh": "Nebula："
+    },
+    "ExportOptions": {
+      "UseLoginAsMafileName": {
+        "ru": "Использовать логин как имя mafile",
+        "en": "Use login as mafile name",
+        "ua": "Використовувати логін як ім’я mafile",
+        "fr": "Utiliser le login comme nom de mafile",
+        "zh": "使用登录名作为 mafile 名称"
+      },
+      "IncludeSharedSecret": {
+        "ru": "Включать shared secret",
+        "en": "Include shared secret",
+        "ua": "Включати shared secret",
+        "fr": "Inclure le secret partagé",
+        "zh": "包含 shared secret"
+      },
+      "IncludeIdentitySecret": {
+        "ru": "Включать identity secret",
+        "en": "Include identity secret",
+        "ua": "Включати identity secret",
+        "fr": "Inclure le secret d’identité",
+        "zh": "包含 identity secret"
+      },
+      "IncludeRCode": {
+        "ru": "Включать RCode",
+        "en": "Include RCode",
+        "ua": "Включати RCode",
+        "fr": "Inclure RCode",
+        "zh": "包含 RCode"
+      },
+      "IncludeSessionData": {
+        "ru": "Включать данные сессии",
+        "en": "Include session data",
+        "ua": "Включати дані сесії",
+        "fr": "Inclure les données de session",
+        "zh": "包含会话数据"
+      },
+      "IncludeOtherInfo": {
+        "ru": "Включать прочую информацию",
+        "en": "Include other info",
+        "ua": "Включати іншу інформацію",
+        "fr": "Inclure d’autres informations",
+        "zh": "包含其他信息"
+      },
+      "NebulaProxy": {
+        "ru": "Прокси",
+        "en": "Proxy",
+        "ua": "Проксі",
+        "fr": "Proxy",
+        "zh": "代理"
+      },
+      "NebulaPassword": {
+        "ru": "Пароль",
+        "en": "Password",
+        "ua": "Пароль",
+        "fr": "Mot de passe",
+        "zh": "密码"
+      },
+      "NebulaGroup": {
+        "ru": "Группа",
+        "en": "Group",
+        "ua": "Група",
+        "fr": "Groupe",
+        "zh": "组"
+      }
+    },
+    "Tooltips": {
+      "UseLoginAsMafileName": {
+        "ru": "Использовать логин аккаунта в качестве имени mafile.",
+        "en": "Use the account login as the mafile name.",
+        "ua": "Використовувати логін акаунта як ім’я mafile.",
+        "fr": "Utiliser le login du compte comme nom du mafile.",
+        "zh": "使用账户登录名作为 mafile 的名称。"
+      },
+      "IncludeSharedSecret": {
+        "ru": "Позволяет генерировать коды подтверждения и входить в аккаунт при наличии пароля или активной сессии.",
+        "en":
+          "Allows generating confirmation codes and logging into the account if a password or active session is available.",
+        "ua": "Дозволяє генерувати коди підтвердження та входити в акаунт за наявності пароля або активної сесії.",
+        "fr":
+          "Permet de générer des codes de confirmation et de se connecter au compte si un mot de passe ou une session active est disponible.",
+        "zh": "允许生成确认代码，并在有密码或活动会话的情况下登录账户。"
+      },
+      "IncludeIdentitySecret": {
+        "ru":
+          "Включает identity_secret и device_id. Необходимы для отправки подтверждений и дают доступ к трейдам и торговой площадке.",
+        "en":
+          "Includes identity_secret and device_id. Required for confirmations and provides access to trades and the market.",
+        "ua":
+          "Включає identity_secret і device_id. Потрібні для надсилання підтверджень і надають доступ до трейдів та торгового майданчика.",
+        "fr":
+          "Inclut identity_secret et device_id. Nécessaires pour les confirmations et donnent accès aux échanges et au marché.",
+        "zh": "包含 identity_secret 和 device_id。用于发送确认，并可访问交易和市场。"
+      },
+      "IncludeRCode": {
+        "ru": "Код восстановления. Позволяет отвязать Steam Guard от аккаунта в случае потери доступа.",
+        "en": "Recovery code. Allows removing Steam Guard from the account if access is lost.",
+        "ua": "Код відновлення. Дозволяє відв’язати Steam Guard від акаунта у разі втрати доступу.",
+        "fr": "Code de récupération. Permet de supprimer Steam Guard du compte en cas de perte d’accès.",
+        "zh": "恢复代码。在失去访问权限时可将 Steam Guard 与账户解绑。"
+      },
+      "IncludeSessionData": {
+        "ru":
+          "Включает данные текущей сессии. Если сессия активна и не истекла, позволяет получить доступ к аккаунту без ввода пароля с помощью mafile.",
+        "en":
+          "Includes current session data. If the session is active and valid, allows accessing the account without entering a password using the mafile.",
+        "ua":
+          "Включає дані поточної сесії. Якщо сесія активна й не прострочена, дозволяє отримати доступ до акаунта без введення пароля за допомогою mafile.",
+        "fr":
+          "Inclut les données de la session actuelle. Si la session est active et valide, permet d’accéder au compte sans saisir de mot de passe via le mafile.",
+        "zh": "包含当前会话数据。如果会话处于活动状态且未过期，可通过 mafile 在无需输入密码的情况下访问账户。"
+      },
+      "IncludeOtherInfo": {
+        "ru":
+          "Включает дополнительные необязательные поля, которые в данный момент не используются Steam, но могут применяться в будущем и содержать чувствительную информацию.",
+        "en":
+          "Includes additional optional fields not currently used by Steam, but potentially usable in the future and may contain sensitive information.",
+        "ua":
+          "Включає додаткові необов’язкові поля, які наразі не використовуються Steam, але можуть бути задіяні в майбутньому та містити чутливу інформацію.",
+        "fr":
+          "Inclut des champs supplémentaires optionnels actuellement non utilisés par Steam, mais susceptibles d’être exploités à l’avenir et de contenir des informations sensibles.",
+        "zh": "包含目前未被 Steam 使用的可选附加字段，这些字段将来可能会被使用，并可能包含敏感信息。"
+      },
+      "NebulaProxy": {
+        "ru": "Включить Nebula-совместимые данные прокси.",
+        "en": "Include Nebula-compatible proxy data.",
+        "ua": "Увімкнути Nebula-сумісні дані проксі.",
+        "fr": "Inclure les données de proxy compatibles avec Nebula.",
+        "zh": "包含与 Nebula 兼容的代理数据。"
+      },
+      "NebulaPassword": {
+        "ru": "Включить Nebula-совместимые данные пароля.",
+        "en": "Include Nebula-compatible password data.",
+        "ua": "Увімкнути Nebula-сумісні дані пароля.",
+        "fr": "Inclure les données de mot de passe compatibles avec Nebula.",
+        "zh": "包含与 Nebula 兼容的密码数据。"
+      },
+      "NebulaGroup": {
+        "ru": "Включить Nebula-совместимые данные группы.",
+        "en": "Include Nebula-compatible group data.",
+        "ua": "Увімкнути Nebula-сумісні дані групи.",
+        "fr": "Inclure les données de groupe compatibles avec Nebula.",
+        "zh": "包含与 Nebula 兼容的组数据。"
+      }
+    },
+    "ExportAccountsPlaceholder": {
+      "ru": "Введите логины аккаунтов или SteamID (по одному на строку) для экспорта в выбранную директорию.",
+      "en": "Enter account logins or SteamIDs (one per line) to export to the selected directory.",
+      "ua": "Введіть логіни акаунтів або SteamID (по одному на рядок) для експорту у вибрану директорію.",
+      "fr":
+        "Entrez les identifiants de compte ou les SteamID (un par ligne) pour exporter vers le répertoire sélectionné.",
+      "zh": "输入要导出到所选目录的账户登录名或 SteamID（每行一个）。"
+    }
+  },
   "SetAccountPasswordsView": {
     "Title": {
       "en": "Set passwords",
@@ -1087,11 +1306,15 @@
         "fr": "RCode manquant"
       },
       "ConfirmRemovingAuthenticator": {
-        "ru": "Вы точно уверены, что хотите удалить аутентификатор?\r\nПосле этого вы не сможете обмениваться, использовать торговую площадку 15 дней. Мафайл будет удалён навсегда",
-        "en": "Are you sure you want to remove the authenticator?\r\nAfter that, you will not be able to trade or use the marketplace for 15 days. Mafile will be deleted permanently",
+        "ru":
+          "Вы точно уверены, что хотите удалить аутентификатор?\r\nПосле этого вы не сможете обмениваться, использовать торговую площадку 15 дней. Мафайл будет удалён навсегда",
+        "en":
+          "Are you sure you want to remove the authenticator?\r\nAfter that, you will not be able to trade or use the marketplace for 15 days. Mafile will be deleted permanently",
         "zh": "您确定要移除身份验证器吗？\r\n之后，您将在15天内无法进行交易或使用市场。Mafile 将被永久删除。",
-        "ua": "Ви точно впевнені, що хочете видалити автентифікатор?\r\nПісля цього ви не зможете обмінюватися, використовувати торгову площадку 15 днів. Мафайл буде видалено назавжди",
-        "fr": "Êtes-vous sûr de vouloir supprimer l'authenticateur?\r\nAprès cela, vous ne pourrez pas échanger ou utiliser le marché pendant 15 jours. Le mafile sera supprimé définitivement"
+        "ua":
+          "Ви точно впевнені, що хочете видалити автентифікатор?\r\nПісля цього ви не зможете обмінюватися, використовувати торгову площадку 15 днів. Мафайл буде видалено назавжди",
+        "fr":
+          "Êtes-vous sûr de vouloir supprimer l'authenticateur?\r\nAprès cela, vous ne pourrez pas échanger ou utiliser le marché pendant 15 jours. Le mafile sera supprimé définitivement"
       },
       "AuthenticatorRemoved": {
         "ru": "Аутентификатор удален",
@@ -1185,11 +1408,15 @@
         "fr": "erreurs:"
       },
       "RemoveMafileConfirmation": {
-        "ru": "Удалить mafile?\r\nМафайл будет перемещен в папку 'mafiles_removed'\r\nЭто действие НЕ удаляет Steam Guard с аккаунта",
-        "en": "Remove mafile?\r\nMafile will be moved to 'mafiles_removed' directory\r\nThis action will NOT remove the Steam Guard from the account",
+        "ru":
+          "Удалить mafile?\r\nМафайл будет перемещен в папку 'mafiles_removed'\r\nЭто действие НЕ удаляет Steam Guard с аккаунта",
+        "en":
+          "Remove mafile?\r\nMafile will be moved to 'mafiles_removed' directory\r\nThis action will NOT remove the Steam Guard from the account",
         "zh": "是否删除mafile？\r\nMafile将被移动到“mafiles_removed”目录\r\n此操作不会从账户中移除令牌",
-        "ua": "Видалити mafile?\r\nМафайл буде переміщено у каталог 'mafiles_removed'\r\nЦя дія НЕ видаляє автентифікатор з облікового запису",
-        "fr": "Supprimer le mafile?\r\nLe mafile sera déplacé dans le dossier 'mafiles_removed'\r\nCette action NE SUPPRIME PAS le Steam Guard du compte"
+        "ua":
+          "Видалити mafile?\r\nМафайл буде переміщено у каталог 'mafiles_removed'\r\nЦя дія НЕ видаляє автентифікатор з облікового запису",
+        "fr":
+          "Supprimer le mafile?\r\nLe mafile sera déplacé dans le dossier 'mafiles_removed'\r\nCette action NE SUPPRIME PAS le Steam Guard du compte"
       },
       "CantRemoveAlreadyExist": {
         "ru": "Не удалось переместить mafile, возможно в папке уже существует мафайл с таким именем.",
@@ -1224,7 +1451,8 @@
         "en": "Can't retrieve SteamID from mafile to save changes. Need to relogin. Canceled",
         "zh": "无法从配置文件获取 SteamID 并保存更改。需要重新登录。已取消",
         "ua": "Не вдалося отримати SteamID з мафайла та зберегти зміни. Потрібно зробити релогін. Скасовано",
-        "fr": "Impossible de récupérer le SteamID du mafile pour sauvegarder les modifications. Reconnexion nécessaire. Annulé"
+        "fr":
+          "Impossible de récupérer le SteamID du mafile pour sauvegarder les modifications. Reconnexion nécessaire. Annulé"
       },
       "LoginCopied": {
         "en": "Login copied",
@@ -1263,9 +1491,11 @@
       },
       "CantDecryptPassword": {
         "en": "Can't decrypt password. Maybe password from this mafile was encrypted with another encryption password",
-        "ru": "Не удалось расшифровать пароль. Возможно пароль из этого мафайла был зашифрован другим паролем шифрования",
+        "ru":
+          "Не удалось расшифровать пароль. Возможно пароль из этого мафайла был зашифрован другим паролем шифрования",
         "zh": "无法解密密码。可能此文件中的密码是用其他加密密码加密的。",
-        "ua": "Не вдалося розшифрувати пароль. Можливо пароль з цього мафайла був зашифрований іншим паролем шифрування",
+        "ua":
+          "Не вдалося розшифрувати пароль. Можливо пароль з цього мафайла був зашифрований іншим паролем шифрування",
         "fr": "Impossible de déchiffrer le mot de passe. Le mot de passe de chiffrement est peut-être différent"
       },
       "CreateGroupTitle": {
@@ -1620,10 +1850,13 @@
         },
         "InvalidStateWithStatus2": {
           "ru": "Неверное состояние (InvalidState) со статусом 2. Откройте ссылку на руководство сверху этого окна.",
-          "en": "Invalid state (InvalidState) with status 2. Open link to the troubleshooting guide at the top of this window.",
+          "en":
+            "Invalid state (InvalidState) with status 2. Open link to the troubleshooting guide at the top of this window.",
           "zh": "状态无效（InvalidState），状态码为 2. 请打开本窗口顶部的故障排除指南链接。",
-          "ua": "Невірний стан (InvalidState) зі статусом 2. Відкрийте посилання на посібник з усунення несправностей у верхній частині цього вікна.",
-          "fr": "État invalide (InvalidState) avec le statut 2. Ouvrez le lien vers le guide de dépannage en haut de cette fenêtre."
+          "ua":
+            "Невірний стан (InvalidState) зі статусом 2. Відкрийте посилання на посібник з усунення несправностей у верхній частині цього вікна.",
+          "fr":
+            "État invalide (InvalidState) avec le statut 2. Ouvrez le lien vers le guide de dépannage en haut de cette fenêtre."
         },
         "GeneralFailure": {
           "ru": "General Failure",
@@ -1689,7 +1922,8 @@
           "ru": "Ошибка: Был запрошен вход с помощью Steam Guard. На аккаунте уже активирован мобильный аутентификатор",
           "en": "Error: Login with Steam Guard was requested. Mobile authenticator is already activated on the account",
           "zh": "错误：请求使用令牌登录。该账户已激活移动验证器",
-          "ua": "Помилка: Був запрошений вхід за допомогою Steam Guard. На акаунті вже активовано мобільний автентифікатор",
+          "ua":
+            "Помилка: Був запрошений вхід за допомогою Steam Guard. На акаунті вже активовано мобільний автентифікатор",
           "fr": "Erreur: Connexion avec Steam Guard demandée. Authenticateur mobile est déjà activé sur le compte"
         },
         "Unknown": {
@@ -1828,11 +2062,15 @@
         "fr": "Un email a été envoyé. Ouvrez le lien de l'email, puis cliquez sur 'Continuer'"
       },
       "ClickOnEmailLinkRetry": {
-        "ru": "Не удалось подтвердить переход по ссылке. Убедитесь, что вы открыли ссылку из письма, затем нажмите — 'Продолжить'",
-        "en": "We couldn’t verify that you clicked the link. Make sure you opened the link from the email, then click 'Proceed'",
+        "ru":
+          "Не удалось подтвердить переход по ссылке. Убедитесь, что вы открыли ссылку из письма, затем нажмите — 'Продолжить'",
+        "en":
+          "We couldn’t verify that you clicked the link. Make sure you opened the link from the email, then click 'Proceed'",
         "zh": "无法确认通过链接的跳转。请确保您是从邮件中打开的链接，然后点击——“继续”",
-        "ua": "Не вдалося підтвердити перехід за посиланням. Переконайтесь, що ви відкрили посилання з листа, а потім натисніть — 'Продовжити'",
-        "fr": "Nous n'avons pas pu vérifier que vous avez cliqué sur le lien. Assurez-vous d'avoir ouvert le lien de l'email, puis cliquez sur 'Continuer'"
+        "ua":
+          "Не вдалося підтвердити перехід за посиланням. Переконайтесь, що ви відкрили посилання з листа, а потім натисніть — 'Продовжити'",
+        "fr":
+          "Nous n'avons pas pu vérifier que vous avez cliqué sur le lien. Assurez-vous d'avoir ouvert le lien de l'email, puis cliquez sur 'Continuer'"
       },
       "PhoneHint": {
         "ru": "На телефон {0} была отправлена СМС",
@@ -1842,11 +2080,15 @@
         "fr": "SMS envoyé au téléphone {0}"
       },
       "EnterPhoneNumber": {
-        "ru": "Введите номер в международном формате, только цифры (без '+', пробелов и скобок), или оставьте поле пустым, чтобы привязать без номера",
-        "en": "Enter number in international format, digits only (no '+', spaces or brackets), or leave the field empty to link without a number",
+        "ru":
+          "Введите номер в международном формате, только цифры (без '+', пробелов и скобок), или оставьте поле пустым, чтобы привязать без номера",
+        "en":
+          "Enter number in international format, digits only (no '+', spaces or brackets), or leave the field empty to link without a number",
         "zh": "请输入国际格式的号码，仅数字（不含空格和括号），或留空以绑定无号码",
-        "ua": "Введіть номер у міжнародному форматі, лише цифри (без '+', пробілів і дужок), або залиште поле порожнім, щоб прив’язати без номера",
-        "fr": "Entrez un numéro au format international, uniquement des chiffres (sans '+', espaces ou parenthèses), ou laissez le champ vide pour lier sans numéro"
+        "ua":
+          "Введіть номер у міжнародному форматі, лише цифри (без '+', пробілів і дужок), або залиште поле порожнім, щоб прив’язати без номера",
+        "fr":
+          "Entrez un numéro au format international, uniquement des chiffres (sans '+', espaces ou parenthèses), ou laissez le champ vide pour lier sans numéro"
       }
     },
     "MafileMoverVM": {
@@ -1879,10 +2121,12 @@
         "fr": "RCode: {0}\r\nNom du fichier: {1}.mafile"
       },
       "GuardIsNotActive": {
-        "ru": "Steam Guard установлен на данном аккаунте. Чтобы привязать mafile к аккаунту, воспользуйтесь окном \"Привязать\"",
+        "ru":
+          "Steam Guard установлен на данном аккаунте. Чтобы привязать mafile к аккаунту, воспользуйтесь окном \"Привязать\"",
         "en": "Steam Guard is set on this account. To link mafile to the account, use the 'Link' window",
         "zh": "此账户已启用令牌。要将 mafile 绑定到此账户，请使用“绑定”窗口。",
-        "ua": "Steam Guard встановлено на цьому акаунті. Щоб прив'язати mafile до акаунту, скористайтеся вікном 'Прив'язати'",
+        "ua":
+          "Steam Guard встановлено на цьому акаунті. Щоб прив'язати mafile до акаунту, скористайтеся вікном 'Прив'язати'",
         "fr": "Steam Guard est configuré sur ce compte. Pour lier mafile au compte, utilisez la fenêtre 'Lien'"
       },
       "SeemsNoPhoneNumber": {
@@ -1930,11 +2174,15 @@
         "fr": "Auto "
       },
       "TimerPreventedOverlap": {
-        "ru": "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
-        "en": "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
+        "ru":
+          "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
+        "en":
+          "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
         "zh": "自动: 确认计时器在前一个周期尚未完成时尝试启动新周期。我们建议增加延迟。",
-        "ua": "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку",
-        "fr": "Auto: le timer de confirmation a tenté de démarrer un nouveau cycle alors que le précédent n'était pas encore terminé. Nous recommandons d'augmenter le délai"
+        "ua":
+          "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку",
+        "fr":
+          "Auto: le timer de confirmation a tenté de démarrer un nouveau cycle alors que le précédent n'était pas encore terminé. Nous recommandons d'augmenter le délai"
       },
       "FailedToLoadStorage": {
         "en": "Failed to load auto-confirm timers. File seems to be corrupted",
@@ -1961,11 +2209,15 @@
           "fr": "Tous les mafiles ont été renommés avec succès ({0}).\r\nUn backup a été créé: {1}"
         },
         "PartialSuccess": {
-          "en": "Total mafiles: {0}\r\nRenamed: {1}\r\nConflicts: {2}\r\nErrors: {3}\r\n\r\nBackup of mafiles saved in file: {4}",
-          "ru": "Всего мафайлов: {0}\r\nПереименовано: {1}\r\nКонфликты: {2}\r\nОшибок: {3}\r\n\r\nРезервная копия мафайлов сохранена в файле: {4}",
+          "en":
+            "Total mafiles: {0}\r\nRenamed: {1}\r\nConflicts: {2}\r\nErrors: {3}\r\n\r\nBackup of mafiles saved in file: {4}",
+          "ru":
+            "Всего мафайлов: {0}\r\nПереименовано: {1}\r\nКонфликты: {2}\r\nОшибок: {3}\r\n\r\nРезервная копия мафайлов сохранена в файле: {4}",
           "zh": "总文件数: {0}\r\n重命名: {1}\r\n冲突: {2}\r\n错误: {3}\r\n\r\n文件备份已保存至: {4}",
-          "ua": "Всього мафайлів: {0}\r\nПерейменовано: {1}\r\nКонфлікти: {2}\r\nПомилок: {3}\r\n\r\nРезервна копія мафайлів збережена у файлі: {4}",
-          "fr": "Total des mafiles: {0}\r\nRenommés: {1}\r\nConflits: {2}\r\nErreurs: {3}\r\n\r\nBackup des mafiles enregistré dans le fichier: {4}"
+          "ua":
+            "Всього мафайлів: {0}\r\nПерейменовано: {1}\r\nКонфлікти: {2}\r\nПомилок: {3}\r\n\r\nРезервна копія мафайлів збережена у файлі: {4}",
+          "fr":
+            "Total des mafiles: {0}\r\nRenommés: {1}\r\nConflits: {2}\r\nErreurs: {3}\r\n\r\nBackup des mafiles enregistré dans le fichier: {4}"
         }
       }
     },
@@ -2002,13 +2254,70 @@
         "ua": "Успішно: {0}, Не знайдено: {1}, Помилки: {2}",
         "fr": "Succès: {0}, Non trouvé: {1}, Erreurs: {2}"
       }
+    },
+    "MafileExporter": {
+      "InvalidPath": {
+        "ru": "Указан некорректный путь для экспорта.",
+        "en": "The specified export path is invalid.",
+        "ua": "Вказано некоректний шлях для експорту.",
+        "fr": "Le chemin d’exportation spécifié est invalide.",
+        "zh": "指定的导出路径无效。"
+      },
+      "NebulaUtilizedDirectory": {
+        "ru":
+          "Невозможно выполнить экспорт в папку, которая используется приложением. Рекомендуется выбрать отдельную директорию.",
+        "en":
+          "Cannot export to a directory that is currently used by the application. Please choose a separate folder.",
+        "ua":
+          "Неможливо виконати експорт у папку, яка використовується застосунком. Рекомендується вибрати окрему директорію.",
+        "fr": "Impossible d’exporter vers un dossier utilisé par l’application. Veuillez choisir un dossier distinct.",
+        "zh": "无法导出到应用程序正在使用的文件夹。请选择一个单独的目录。"
+      },
+      "AccessDenied": {
+        "ru": "Недостаточно прав для записи в указанную папку. Проверьте права доступа или выберите другой путь.",
+        "en":
+          "Insufficient permissions to write to the specified directory. Please check access rights or choose another path.",
+        "ua": "Недостатньо прав для запису в указану папку. Перевірте права доступу або виберіть інший шлях.",
+        "fr":
+          "Autorisation insuffisante pour écrire dans le dossier spécifié. Vérifiez les droits d’accès ou choisissez un autre chemin.",
+        "zh": "没有权限写入指定的文件夹。请检查访问权限或选择其他路径。"
+      }
+    },
+    "MafileExporterVM": {
+      "Result": {
+        "Exported": {
+          "ru": "Экспортировано: {0}",
+          "en": "Exported: {0}",
+          "ua": "Експортовано: {0}",
+          "fr": "Exporté : {0}",
+          "zh": "已导出：{0}"
+        },
+        "NotFound": {
+          "ru": ". Не найдено: {0}",
+          "en": ". Not found: {0}",
+          "ua": ". Не знайдено: {0}",
+          "fr": ". Introuvable : {0}",
+          "zh": "。未找到：{0}"
+        },
+        "Conflict": {
+          "ru": ". Конфликты: {0}",
+          "en": ". Conflicts: {0}",
+          "ua": ". Конфлікти: {0}",
+          "fr": ". Conflits : {0}",
+          "zh": "。冲突：{0}"
+        }
+      }
     }
   },
   "CantAlignTimeError": {
-    "ru": "Не удается синхронизировать время со Steam. Возможно отсутствует подключение к интернету или Steam недоступен. Подробная ошибка сохранена в log.log",
-    "en": "Can't align time with Steam. Maybe no internet connection or Steam is unavailable. Detailed error saved in log.log",
+    "ru":
+      "Не удается синхронизировать время со Steam. Возможно отсутствует подключение к интернету или Steam недоступен. Подробная ошибка сохранена в log.log",
+    "en":
+      "Can't align time with Steam. Maybe no internet connection or Steam is unavailable. Detailed error saved in log.log",
     "zh": "无法与 Steam 对齐时间。可能没有互联网连接或 Steam 不可用。详细错误已保存到 log.log 中",
-    "ua": "Не вдається синхронізувати час з Steam. Можливо відсутнє підключення до інтернету або Steam недоступний. Детальна помилка збережена в log.log",
-    "fr": "Impossible de synchroniser l'heure avec Steam. Peut-être qu'il n'y a pas de connexion internet ou Steam est indisponible. Détails de l'erreur enregistrés dans log.log"
+    "ua":
+      "Не вдається синхронізувати час з Steam. Можливо відсутнє підключення до інтернету або Steam недоступний. Детальна помилка збережена в log.log",
+    "fr":
+      "Impossible de synchroniser l'heure avec Steam. Peut-être qu'il n'y a pas de connexion internet ou Steam est indisponible. Détails de l'erreur enregistrés dans log.log"
   }
 }

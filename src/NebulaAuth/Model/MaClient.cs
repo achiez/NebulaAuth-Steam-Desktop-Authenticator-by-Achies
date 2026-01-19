@@ -153,7 +153,7 @@ public static class MaClient
         if (mafile.SessionData.RefreshToken.IsExpired)
             throw new SessionPermanentlyExpiredException();
 
-        if (ignoreAccessToken == false)
+        if (!ignoreAccessToken)
         {
             var access = mafile.SessionData.GetMobileToken();
             if (access == null || access.Value.IsExpired)

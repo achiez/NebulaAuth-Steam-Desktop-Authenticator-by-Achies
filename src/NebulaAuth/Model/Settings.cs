@@ -25,7 +25,7 @@ public partial class Settings : ObservableObject
 
     static Settings()
     {
-        if (File.Exists("settings.json") == false)
+        if (!File.Exists("settings.json"))
         {
             Instance = new Settings();
             Instance.PropertyChanged += SettingsOnPropertyChanged;

@@ -1,6 +1,12 @@
 ﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using NebulaAuth.Core;
 using NebulaAuth.Model.Exceptions;
+using NebulaAuth.Model.MAAC;
+using NebulaAuth.Model.MafileExport;
+using NebulaAuth.Model.Mafiles;
 using NLog;
 using NLog.Extensions.Logging;
 using SteamLib.Core;
@@ -14,8 +20,11 @@ public static class Shell
     public static Logger Logger { get; private set; } = null!;
     public static ILogger ExtensionsLogger { get; private set; } = null!;
 
-    public static void Initialize()
+    public static async Task Initialize()
     {
+        File.Delete("log.log");
+        LocManager.Init();
+        LocManager.SetApplicationLocalization(Settings.Instance.Language);
         Logger = LogManager.GetLogger("Logger");
         var lp = new NLogLoggerProvider();
         var logger = lp.CreateLogger("SteamLib");
@@ -27,12 +36,17 @@ public static class Shell
 
         try
         {
-            TimeAligner.AlignTime();
+            await TimeAligner.AlignTimeAsync();
         }
         catch (Exception ex)
         {
             throw new CantAlignTimeException("", ex);
         }
+
+        var threads = Environment.ProcessorCount > 0 ? Environment.ProcessorCount : 1;
+        await Storage.Initialize(threads);
+        MAACStorage.Initialize();
+        MafileExporterStorage.Initialize();
 
         ExtensionsLogger.LogDebug("Application started");
     }

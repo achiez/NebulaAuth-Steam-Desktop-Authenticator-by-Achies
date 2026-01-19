@@ -38,7 +38,7 @@ public static class NebulaSerializer
         var data = Serializer.Deserialize(cont);
         var mobileData = data.Data;
         var info = data.Info;
-        if (info.IsExtended == false)
+        if (!info.IsExtended)
             throw new FormatException("Mafile is not extended data");
 
 
@@ -58,7 +58,7 @@ public static class NebulaSerializer
 
     private static T? GetPropertyValue<T>(string name, Dictionary<string, JProperty> dictionary)
     {
-        if (dictionary.TryGetValue(name, out var prop) == false) return default;
+        if (!dictionary.TryGetValue(name, out var prop)) return default;
         var value = prop.Value;
         try
         {

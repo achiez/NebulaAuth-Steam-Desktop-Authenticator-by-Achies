@@ -12,7 +12,6 @@ using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Model.Mafiles;
 using NebulaAuth.Utility;
-using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;
 using SteamLib.SteamMobile;
 using SteamLibForked.Exceptions.Authorization;
@@ -22,7 +21,6 @@ namespace NebulaAuth.ViewModel;
 public partial class MainVM : ObservableObject
 {
     [UsedImplicitly] public SnackbarMessageQueue MessageQueue => SnackbarController.MessageQueue;
-
 
     public Mafile? SelectedMafile
     {
@@ -50,9 +48,7 @@ public partial class MainVM : ObservableObject
     [RelayCommand]
     public async Task Debug()
     {
-        await DialogsController.ShowSetAccountsPasswordDialog();
     }
-
 
     private void SetMafile(Mafile? mafile)
     {
@@ -136,12 +132,6 @@ public partial class MainVM : ObservableObject
     }
 
     [RelayCommand]
-    public async Task LinkAccount()
-    {
-        await DialogsController.ShowLinkerDialog();
-    }
-
-    [RelayCommand]
     public async Task MoveAccount()
     {
         await DialogsController.ShowMafileMoverDialog();
@@ -217,16 +207,6 @@ public partial class MainVM : ObservableObject
             Shell.Logger.Error(ex);
         }
     }
-
-    [RelayCommand]
-    private async Task OpenLinksView()
-    {
-        CurrentDialogHost.CloseOnClickAway = true;
-        var view = new LinksView();
-        await DialogHost.Show(view);
-        CurrentDialogHost.CloseOnClickAway = false;
-    }
-
 
     private static string GetLocalization(string key)
     {
