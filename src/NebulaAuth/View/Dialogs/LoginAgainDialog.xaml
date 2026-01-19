@@ -58,7 +58,7 @@
                      materialDesign:HintAssist.IsFloating="False"
                      materialDesign:TextFieldAssist.LeadingIcon="Key"
                      materialDesign:TextFieldAssist.HasLeadingIcon="True" />
-            <CheckBox FontSize="15" Grid.Row="1" Margin="10,10,10,0"
+            <CheckBox FontSize="15" Grid.Row="1" Margin="10,5,10,0"
                       IsEnabled="{Binding Source={x:Static model:PHandler.IsPasswordSet}}"
                       IsChecked="{Binding SavePassword}" Content="{Tr LoginAgainDialog.SaveEncryptedPassword}" />
             <Grid Grid.Row="2" Margin="10,10,10,0">
