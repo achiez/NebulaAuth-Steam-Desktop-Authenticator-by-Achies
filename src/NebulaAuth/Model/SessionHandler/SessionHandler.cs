@@ -34,37 +34,28 @@ public static partial class SessionHandler
         string? snackbarPrefix = null)
     {
         using var scope = Shell.Logger.PushScopeProperty("Scope", "SessionHandler");
-        var mobileTokenExpired = MobileTokenExpired(mafile);
-        var refreshTokenExpired = RefreshTokenExpired(mafile);
-        var password = GetPassword(mafile);
+        Exception? currentException = null;
 
-        if (!mobileTokenExpired)
+        if (!mafile.MobileTokenExpired())
         {
             try
             {
                 return await func();
             }
             catch (SessionInvalidException ex)
-                when (refreshTokenExpired == false || password != null)
             {
-                if (ex is SessionPermanentlyExpiredException)
-                {
-                    Shell.Logger.Debug(ex, "RefreshToken on mafile {name} {steamid} is expired", mafile.AccountName,
-                        mafile.SessionData?.SteamId);
-                    refreshTokenExpired = true;
-                }
-                else
-                {
-                    Shell.Logger.Debug(ex, "MobileToken on mafile {name} {steamid} is expired", mafile.AccountName,
-                        mafile.SessionData?.SteamId);
-                }
+                Shell.Logger.Warn(ex, "Session on mafile {name} {steamid} is invalid when mobile token is not expired",
+                    mafile.AccountName, mafile.SessionData?.SteamId);
+                currentException = ex;
             }
         }
 
-
-        //State: mobileToken invalid/expired, refreshToken maybe not expired
-        if (!refreshTokenExpired)
+        if (!mafile.RefreshTokenExpired())
         {
+            Shell.Logger.Info("Trying to refresh session on mafile {name} {steamid} using refresh token",
+                mafile.AccountName,
+                mafile.SessionData?.SteamId);
+
             var refreshed = await RefreshInternal(chp, mafile);
             if (refreshed)
             {
@@ -77,19 +68,14 @@ public static partial class SessionHandler
                 }
                 catch (SessionInvalidException ex)
                 {
-                    Shell.Logger.Info(ex, "MobileToken on {name} {steamid} was refreshed but after it, error occured",
+                    Shell.Logger.Warn(ex, "MobileToken on {name} {steamid} was refreshed but after it, error occured",
                         mafile.AccountName, mafile.SessionData?.SteamId);
-                    if (password == null)
-                        throw;
+                    currentException = ex;
                 }
             }
         }
 
-        Shell.Logger.Debug("Session on mafile {name} {steamid} is invalid/expired", mafile.AccountName,
-            mafile.SessionData?.SteamId);
-
-        //State: mobileToken invalid/expired, refreshToken invalid/expired
-        if (password != null)
+        if (mafile.HasPassword(out var password))
         {
             var logged = await LoginAgainInternal(chp, mafile, password, true);
             if (logged)
@@ -100,40 +86,9 @@ public static partial class SessionHandler
             }
         }
 
-        //Nothing to do more, everything is expired
-        throw new SessionPermanentlyExpiredException(SessionPermanentlyExpiredException.SESSION_EXPIRED_MSG);
+        throw new SessionPermanentlyExpiredException(SessionPermanentlyExpiredException.SESSION_EXPIRED_MSG,
+            currentException);
     }
-
-
-    private static bool MobileTokenExpired(Mafile mafile)
-    {
-        var mobileToken = mafile.SessionData?.GetMobileToken();
-        return mobileToken == null || mobileToken.Value.IsExpired;
-    }
-
-    private static bool RefreshTokenExpired(Mafile mafile)
-    {
-        var refreshToken = mafile.SessionData?.RefreshToken;
-        return refreshToken == null || refreshToken.Value.IsExpired;
-    }
-
-    private static string? GetPassword(Mafile mafile)
-    {
-        try
-        {
-            if (PHandler.IsPasswordSet && !string.IsNullOrWhiteSpace(mafile.Password))
-            {
-                return PHandler.Decrypt(mafile.Password);
-            }
-        }
-        catch
-        {
-            // ignored
-        }
-
-        return null;
-    }
-
 
     private static async Task<bool> RefreshInternal(HttpClientHandlerPair chp, Mafile mafile)
     {

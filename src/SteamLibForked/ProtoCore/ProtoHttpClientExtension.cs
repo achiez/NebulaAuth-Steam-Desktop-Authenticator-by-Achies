@@ -11,7 +11,7 @@ public static class ProtoHttpClientExtension
         this HttpClient client, Uri uri, HttpMethod method, string? protoMsg, CancellationToken cancellationToken)
         where TProtoResponse : class, IProtoMsg
     {
-        var resp = await SendProto(client, uri, method, protoMsg, cancellationToken);
+        var resp = await client.SendProto(uri, method, protoMsg, cancellationToken);
         return await ProtoResponse<TProtoResponse>.FromHttpResponseAsync(resp, cancellationToken);
     }
 
@@ -19,7 +19,7 @@ public static class ProtoHttpClientExtension
         string? protoMsg,
         CancellationToken cancellationToken)
     {
-        var resp = await SendProto(client, uri, method, protoMsg, cancellationToken);
+        var resp = await client.SendProto(uri, method, protoMsg, cancellationToken);
         resp.EnsureSuccessStatusCode();
         return ProtoHelpers.GetEResult(resp);
     }
@@ -97,7 +97,7 @@ public static class ProtoHttpClientExtension
         CancellationToken cancellationToken = default) where TProtoResponse : class, IProtoMsg
     {
         var str = ProtoHelpers.ProtoToString(request);
-        return SendProtoWithResponse<TProtoResponse>(client, uri, HttpMethod.Post, str, cancellationToken);
+        return client.SendProtoWithResponse<TProtoResponse>(uri, HttpMethod.Post, str, cancellationToken);
     }
 
     public static Task<ProtoResponse<TProtoResponse>> PostProtoMsg<TProtoResponse>(this HttpClient client, string uri,
@@ -105,7 +105,7 @@ public static class ProtoHttpClientExtension
         CancellationToken cancellationToken = default) where TProtoResponse : class, IProtoMsg
     {
         var str = ProtoHelpers.ProtoToString(request);
-        return SendProtoWithResponse<TProtoResponse>(client, new Uri(uri), HttpMethod.Post, str, cancellationToken);
+        return client.SendProtoWithResponse<TProtoResponse>(new Uri(uri), HttpMethod.Post, str, cancellationToken);
     }
 
     #endregion
@@ -117,7 +117,7 @@ public static class ProtoHttpClientExtension
         CancellationToken cancellationToken = default) where TProtoResponse : class, IProtoMsg
     {
         var str = ProtoHelpers.ProtoToString(request);
-        var res = await SendProtoWithResponse<TProtoResponse>(client, uri, HttpMethod.Post, str, cancellationToken);
+        var res = await client.SendProtoWithResponse<TProtoResponse>(uri, HttpMethod.Post, str, cancellationToken);
         return res.GetResponseEnsureSuccess();
     }
 
@@ -126,7 +126,7 @@ public static class ProtoHttpClientExtension
         CancellationToken cancellationToken = default) where TProtoResponse : class, IProtoMsg
     {
         var str = ProtoHelpers.ProtoToString(request);
-        var res = await SendProtoWithResponse<TProtoResponse>(client, new Uri(uri), HttpMethod.Post, str,
+        var res = await client.SendProtoWithResponse<TProtoResponse>(new Uri(uri), HttpMethod.Post, str,
             cancellationToken);
         return res.GetResponseEnsureSuccess();
     }
@@ -179,7 +179,7 @@ public static class ProtoHttpClientExtension
         CancellationToken cancellationToken = default) where TProtoResponse : class, IProtoMsg
     {
         var str = ProtoHelpers.ProtoToString(request);
-        return SendProtoWithResponse<TProtoResponse>(client, uri, HttpMethod.Get, str, cancellationToken);
+        return client.SendProtoWithResponse<TProtoResponse>(uri, HttpMethod.Get, str, cancellationToken);
     }
 
     public static Task<ProtoResponse<TProtoResponse>> GetProtoMsg<TProtoResponse>(this HttpClient client, string uri,
@@ -187,7 +187,7 @@ public static class ProtoHttpClientExtension
         CancellationToken cancellationToken = default) where TProtoResponse : class, IProtoMsg
     {
         var str = ProtoHelpers.ProtoToString(request);
-        return SendProtoWithResponse<TProtoResponse>(client, new Uri(uri), HttpMethod.Get, str, cancellationToken);
+        return client.SendProtoWithResponse<TProtoResponse>(new Uri(uri), HttpMethod.Get, str, cancellationToken);
     }
 
     #endregion
@@ -199,7 +199,7 @@ public static class ProtoHttpClientExtension
         CancellationToken cancellationToken = default) where TProtoResponse : class, IProtoMsg
     {
         var str = ProtoHelpers.ProtoToString(request);
-        var res = await SendProtoWithResponse<TProtoResponse>(client, uri, HttpMethod.Get, str, cancellationToken);
+        var res = await client.SendProtoWithResponse<TProtoResponse>(uri, HttpMethod.Get, str, cancellationToken);
         res.Result.EnsureSuccessEResult();
 
         return res.ResponseMsg ?? throw new NullReferenceException("ProtoMsg in response was null");
@@ -210,7 +210,7 @@ public static class ProtoHttpClientExtension
         CancellationToken cancellationToken = default) where TProtoResponse : class, IProtoMsg
     {
         var str = ProtoHelpers.ProtoToString(request);
-        var res = await SendProtoWithResponse<TProtoResponse>(client, new Uri(uri), HttpMethod.Get, str,
+        var res = await client.SendProtoWithResponse<TProtoResponse>(new Uri(uri), HttpMethod.Get, str,
             cancellationToken);
         res.Result.EnsureSuccessEResult();
         return res.ResponseMsg ?? throw new NullReferenceException("ProtoMsg in response was null");

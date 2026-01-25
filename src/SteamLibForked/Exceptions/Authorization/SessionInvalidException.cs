@@ -16,7 +16,7 @@ public class SessionInvalidException : Exception
     {
     }
 
-    public SessionInvalidException(string message, Exception? inner) : base(message, inner)
+    public SessionInvalidException(string? message, Exception? inner) : base(message, inner)
     {
     }
 }

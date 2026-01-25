@@ -5,8 +5,8 @@ using AchiesUtilities.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
-using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
+using NebulaAuth.Model.Mafiles;
 
 namespace NebulaAuth.ViewModel;
 
@@ -88,7 +88,7 @@ public partial class MainVM //Groups
         Storage.UpdateMafile(mafile);
         OnPropertyChanged(nameof(SelectedMafile)); //For bindings
         QueryGroups();
-        if (Groups.All(g => g.Equals(mafGroup) == false))
+        if (Groups.All(g => !g.Equals(mafGroup)))
         {
             SelectedGroup = null;
         }
@@ -104,7 +104,7 @@ public partial class MainVM //Groups
     private void QueryGroups()
     {
         var groups = Storage.MaFiles
-            .Where(m => string.IsNullOrWhiteSpace(m.Group) == false)
+            .Where(m => !string.IsNullOrWhiteSpace(m.Group))
             .Select(m => m.Group)
             .Distinct()
             .Order()

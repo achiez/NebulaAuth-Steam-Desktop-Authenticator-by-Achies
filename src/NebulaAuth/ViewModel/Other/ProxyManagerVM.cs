@@ -61,7 +61,7 @@ public partial class ProxyManagerVM : ObservableObject
 
         var split = input
             .Split(Environment.NewLine)
-            .Where(s => string.IsNullOrWhiteSpace(s) == false)
+            .Where(s => !string.IsNullOrWhiteSpace(s))
             .Select(x => x.Trim())
             .ToArray();
 
@@ -72,7 +72,7 @@ public partial class ProxyManagerVM : ObservableObject
         var i = 0;
 
 
-        foreach (var s in split.Where(s => string.IsNullOrWhiteSpace(s) == false))
+        foreach (var s in split.Where(s => !string.IsNullOrWhiteSpace(s)))
         {
             i++;
             var str = s;

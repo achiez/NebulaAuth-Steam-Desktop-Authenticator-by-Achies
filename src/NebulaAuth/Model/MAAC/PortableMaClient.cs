@@ -11,11 +11,9 @@ using AchiesUtilities.Web.Proxy;
 using CommunityToolkit.Mvvm.ComponentModel;
 using NebulaAuth.Core;
 using NebulaAuth.Model.Entities;
-using NebulaAuth.Utility;
 using SteamLib.Api.Mobile;
 using SteamLib.Api.Trade;
 using SteamLib.Authentication;
-using SteamLib.Exceptions.Authorization;
 using SteamLib.SteamMobile.Confirmations;
 using SteamLib.Web;
 using SteamLibForked.Abstractions;
@@ -34,7 +32,7 @@ public partial class PortableMaClient : ObservableObject, IDisposable
     [ObservableProperty] private bool _autoConfirmMarket;
 
     [ObservableProperty] private bool _autoConfirmTrades;
-    [ObservableProperty] private bool _isError;
+    [ObservableProperty] private PortableMaClientStatus _status = PortableMaClientStatus.Ok();
 
     public PortableMaClient(Mafile mafile)
     {
@@ -46,6 +44,7 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         ClientHandler = pair.Handler;
         UpdateCookies(mafile.SessionData);
         Mafile.PropertyChanged += Mafile_PropertyChanged;
+        SetStatus(PortableMaClientStatus.Ok());
     }
 
     private void Mafile_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -56,37 +55,21 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         }
     }
 
-
     private void UpdateCookies(IMobileSessionData? sessionData)
     {
-        Application.Current.Dispatcher.Invoke(() => IsError = sessionData == null);
+        var newStatus = MAACRequestHandler.ClearErrors(Mafile);
+        if (!newStatus.Equals(Status))
+            SetStatus(newStatus);
+
         ClientHandler.CookieContainer.ClearAllCookies();
-        if (sessionData != null)
-        {
-            ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(sessionData);
-        }
-        else
-        {
-            ClientHandler.CookieContainer.ClearSteamCookies();
-            ClientHandler.CookieContainer.AddMinimalMobileCookies();
-            AdmissionHelper.TransferCommunityCookies(ClientHandler.CookieContainer);
-        }
+        ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(sessionData);
     }
 
 
     public async Task<int> Confirm()
     {
         Proxy.SetData(Mafile.Proxy?.Data ?? MaClient.DefaultProxy);
-        List<Confirmation> conf;
-        try
-        {
-            conf = (await HandleTimerRequest(GetConfirmations)).ToList();
-        }
-        catch (ApplicationException ex)
-        {
-            Shell.Logger.Warn(ex, "Timer {accountName}: Error GetConf in timer.", Mafile.AccountName);
-            return 0;
-        }
+        var conf = (await GetConfirmations()).ToList();
 
         var toConfirm = new List<Confirmation>();
         if (AutoConfirmMarket)
@@ -103,20 +86,12 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         }
 
         if (toConfirm.Count == 0) return 0;
-        try
-        {
-            Shell.Logger.Debug("Timer {accountName}: Sending confirmations. Count: {count}", Mafile.AccountName,
-                toConfirm.Count);
-            var success = await HandleTimerRequest(() => SendConfirmations(toConfirm));
-            //TODO: handle success == false
-            Shell.Logger.Debug("Timer {accountName}: Confirmation sent: {confirmResult}", Mafile.AccountName, success);
-            return toConfirm.Count;
-        }
-        catch (ApplicationException ex)
-        {
-            Shell.Logger.Warn(ex, "Timer {accountName}: MultiConf error in Timer.", Mafile.AccountName);
-            return 0;
-        }
+        Shell.Logger.Debug("Timer {accountName}: Sending confirmations. Count: {count}", Mafile.AccountName,
+            toConfirm.Count);
+        var success = await SendConfirmations(toConfirm);
+        //TODO: handle success == false
+        Shell.Logger.Debug("Timer {accountName}: Confirmation sent: {confirmResult}", Mafile.AccountName, success);
+        return toConfirm.Count;
     }
 
 
@@ -148,58 +123,7 @@ public partial class PortableMaClient : ObservableObject, IDisposable
             Mafile.SessionData!.SteamId, Mafile, true, _cts.Token);
     }
 
-    private async Task<T> HandleTimerRequest<T>(Func<Task<T>> func)
-    {
-        Exception innerException;
-        try
-        {
-            return await SessionHandler.Handle(func, Mafile, Chp(), GetTimerPrefix());
-        }
-        catch (OperationCanceledException ex)
-        {
-            innerException = ex; //Ignored
-        }
-        catch (SessionInvalidException ex)
-        {
-            if (IgnoreTimerErrors())
-            {
-                Shell.Logger.Warn(
-                    "Timer {accountName}: Session error while requesting in timer. Ignored due to IgnorePatchTuesdayErrors setting",
-                    Mafile.AccountName);
-            }
-            else
-            {
-                Shell.Logger.Warn("Timer {accountName}: Session error while requesting in timer. Timer disabled",
-                    Mafile.AccountName);
-                SetError();
-            }
-
-            innerException = ex;
-        }
-        catch (Exception ex) when (ExceptionHandler.Handle(ex, GetTimerPrefix()))
-        {
-            innerException = ex;
-        }
-
-        throw new ApplicationException("Swallowed", innerException);
-    }
-
-
-    private bool IgnoreTimerErrors()
-    {
-        if (Settings.Instance.IgnorePatchTuesdayErrors == false) return false;
-
-        var pstZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
-        var pstNow = TimeZoneInfo.ConvertTime(DateTime.UtcNow, pstZone);
-
-        var startTime = pstNow.Date.AddHours(15).AddMinutes(55); // 15:55 PST //22:55 GMT //00:55 GMT+2
-        var endTime = pstNow.Date.AddHours(17).AddMinutes(15); // 17:15 PST //00:15 GMT //02:15 GMT+2
-
-        return pstNow.DayOfWeek == DayOfWeek.Tuesday && pstNow >= startTime && pstNow <= endTime;
-    }
-
-
-    private HttpClientHandlerPair Chp()
+    public HttpClientHandlerPair Chp()
     {
         return new HttpClientHandlerPair(Client, ClientHandler);
     }
@@ -214,11 +138,14 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         return GetLocalization("TimerPrefix") + Mafile.AccountName + ": ";
     }
 
-    public void SetError()
+    public void SetStatus(PortableMaClientStatus status)
     {
-        Application.Current.Dispatcher.Invoke(() => IsError = true);
-        Shell.Logger.Warn("Timer {accountName}: disabled due to error.", Mafile.AccountName);
-        SnackbarController.SendSnackbar(GetTimerPrefix() + GetLocalization("TimerSessionError"));
+        Application.Current.Dispatcher.Invoke(() => Status = status);
+        if (status.StatusType == PortableMaClientStatusType.Error)
+        {
+            Shell.Logger.Warn("Timer {accountName}: disabled due to error.", Mafile.AccountName);
+            SnackbarController.SendSnackbar(GetTimerPrefix() + status.Message);
+        }
     }
 
     public void Dispose()

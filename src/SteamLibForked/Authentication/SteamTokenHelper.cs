@@ -44,7 +44,7 @@ public static class SteamTokenHelper
     {
         result = default;
         var match = SteamTokenRegex.Match(input);
-        if (match.Success == false)
+        if (!match.Success)
         {
             if (trying) return false;
             throw new ArgumentException("Provided Token is not valid SteamLoginSecure or SteamAccess token");
@@ -64,7 +64,7 @@ public static class SteamTokenHelper
         }
 
         var steamIdStr = jwt.Subject;
-        if (steamIdStr == null || long.TryParse(steamIdStr, out var steamId) == false || steamId < SteamId64.SEED)
+        if (steamIdStr == null || !long.TryParse(steamIdStr, out var steamId) || steamId < SteamId64.SEED)
         {
             if (trying) return false;
             throw new ArgumentException(
@@ -101,7 +101,7 @@ public static class SteamTokenHelper
         if (jwt.Audiences.ToList().Count > 0)
         {
             var aud = audiences[0];
-            if (AudDomains.TryGetValue(aud, out domain) == false && aud != "web")
+            if (!AudDomains.TryGetValue(aud, out domain) && aud != "web")
             {
                 if (trying)
                 {
@@ -180,13 +180,13 @@ public static class SteamTokenHelper
 
     internal static string CombineLoginValueIfNeeded(long steamId, string loginValue)
     {
-        return CheckIfProperLoginValue(loginValue) == false ? CombineJwtWithSteamId(steamId, loginValue) : loginValue;
+        return !CheckIfProperLoginValue(loginValue) ? CombineJwtWithSteamId(steamId, loginValue) : loginValue;
     }
 
     public static string ExtractJwtToken(string steamLoginSecure)
     {
         var match = SteamTokenRegex.Match(steamLoginSecure);
-        if (match.Success == false) throw new ArgumentException("Can't extract JWT Access Token from steamLoginSecure");
+        if (!match.Success) throw new ArgumentException("Can't extract JWT Access Token from steamLoginSecure");
         return match.Groups["jwt"].Value;
     }
 }

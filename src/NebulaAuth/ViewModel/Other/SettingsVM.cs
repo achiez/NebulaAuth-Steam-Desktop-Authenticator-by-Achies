@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
+using NebulaAuth.Model.Mafiles;
 
 namespace NebulaAuth.ViewModel.Other;
 
@@ -53,7 +54,7 @@ public partial class SettingsVM : ObservableObject
         var targetValue = UseAccountNameAsMafileNamePreview;
         if (UseAccountNameAsMafileName == targetValue) return;
         RenameMafilesProgress = 0;
-        Storage.MafileRenameResult? result = null;
+        MafilesBulkRenameResult? result = null;
         try
         {
             result = await Storage.RenameMafiles(targetValue, new Progress<double>(p => RenameMafilesProgress = p));
@@ -85,7 +86,7 @@ public partial class SettingsVM : ObservableObject
         {
             var l = GetLoc("PartialSuccess");
             RenameResultText =
-                string.Format(l, result.Total, result.Renamed, result.Errors, result.Conflict, result.BackupFileName);
+                string.Format(l, result.Total, result.Renamed, result.Conflict, result.Errors, result.BackupFileName);
         }
 
         string GetLoc(string key)
@@ -127,7 +128,9 @@ public partial class SettingsVM : ObservableObject
     {
         {LocalizationLanguage.English, "English"},
         {LocalizationLanguage.Russian, "Русский"},
-        {LocalizationLanguage.Ukrainian, "Українська"}
+        {LocalizationLanguage.Ukrainian, "Українська"},
+        {LocalizationLanguage.ChineseSimplified, "简体中文"},
+        {LocalizationLanguage.French, "Français"}
     };
 
     public Color? IconColor
@@ -141,7 +144,7 @@ public partial class SettingsVM : ObservableObject
         get => IconColor != null;
         set
         {
-            if (value == false)
+            if (!value)
                 IconColor = null;
             else
                 IconColor = Color.FromRgb(202, 39, 39);
@@ -182,12 +185,6 @@ public partial class SettingsVM : ObservableObject
             Settings.UseAccountNameAsMafileName = value;
             ApplyRenameSettingCommand.NotifyCanExecuteChanged();
         }
-    }
-
-    public bool IgnorePatchTuesdayErrors
-    {
-        get => Settings.IgnorePatchTuesdayErrors;
-        set => Settings.IgnorePatchTuesdayErrors = value;
     }
 
     #endregion

@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
+using NebulaAuth.Model.Mafiles;
 
 namespace NebulaAuth.ViewModel;
 
@@ -68,13 +69,20 @@ public partial class MainVM
         CheckProxyExist();
     }
 
-    [RelayCommand]
-    private void RemoveProxy()
+    [RelayCommand(CanExecute = nameof(RemoveProxyCanExecute))]
+    private void RemoveProxy(Mafile? mafile)
     {
-        if (SelectedProxy == null) return;
-        if (SelectedMafile == null) return;
-        SelectedMafile.Proxy = null;
-        SetProxy(null, false); //Not system, triggered by user
+        mafile ??= SelectedMafile;
+        if (mafile?.Proxy == null) return;
+        mafile.Proxy = null;
+        if (mafile == SelectedMafile)
+            SetProxy(null, false); //Not system, triggered by user
+    }
+
+    private bool RemoveProxyCanExecute(Mafile? mafile)
+    {
+        mafile ??= SelectedMafile;
+        return mafile is { Proxy: not null };
     }
 
     private void CheckProxyExist()

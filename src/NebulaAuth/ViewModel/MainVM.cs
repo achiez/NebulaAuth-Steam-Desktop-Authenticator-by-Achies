@@ -10,8 +10,8 @@ using MaterialDesignThemes.Wpf;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
+using NebulaAuth.Model.Mafiles;
 using NebulaAuth.Utility;
-using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;
 using SteamLib.SteamMobile;
 using SteamLibForked.Exceptions.Authorization;
@@ -22,7 +22,6 @@ public partial class MainVM : ObservableObject
 {
     [UsedImplicitly] public SnackbarMessageQueue MessageQueue => SnackbarController.MessageQueue;
 
-
     public Mafile? SelectedMafile
     {
         get => _selectedMafile;
@@ -32,7 +31,7 @@ public partial class MainVM : ObservableObject
     public bool IsMafileSelected => SelectedMafile != null;
     public DialogHost CurrentDialogHost { get; set; } = null!;
 
-    [ObservableProperty] private ObservableCollection<Mafile> _maFiles = Storage.MaFiles;
+    [ObservableProperty] private ObservableCollection<Mafile> _maFiles = new(Storage.MaFiles);
 
     private Mafile? _selectedMafile;
 
@@ -49,9 +48,7 @@ public partial class MainVM : ObservableObject
     [RelayCommand]
     public async Task Debug()
     {
-        await DialogsController.ShowSetAccountsPasswordDialog();
     }
-
 
     private void SetMafile(Mafile? mafile)
     {
@@ -71,7 +68,9 @@ public partial class MainVM : ObservableObject
             LoginAgainCommand.NotifyCanExecuteChanged();
             RemoveAuthenticatorCommand.NotifyCanExecuteChanged();
             ConfirmLoginCommand.NotifyCanExecuteChanged();
+            RemoveProxyCommand.NotifyCanExecuteChanged();
         }
+
     }
 
 
@@ -114,7 +113,7 @@ public partial class MainVM : ObservableObject
 
     private void MaFilesOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        SearchText = string.Empty;
+        PerformQuery();
     }
 
 
@@ -132,12 +131,6 @@ public partial class MainVM : ObservableObject
         {
             Shell.Logger.Error(ex);
         }
-    }
-
-    [RelayCommand]
-    public async Task LinkAccount()
-    {
-        await DialogsController.ShowLinkerDialog();
     }
 
     [RelayCommand]
@@ -172,7 +165,6 @@ public partial class MainVM : ObservableObject
                 if (result.Success)
                 {
                     Storage.MoveToRemoved(selectedMafile);
-                    MaFiles.Remove(selectedMafile);
                 }
             }
             else
@@ -217,16 +209,6 @@ public partial class MainVM : ObservableObject
             Shell.Logger.Error(ex);
         }
     }
-
-    [RelayCommand]
-    private async Task OpenLinksView()
-    {
-        CurrentDialogHost.CloseOnClickAway = true;
-        var view = new LinksView();
-        await DialogHost.Show(view);
-        CurrentDialogHost.CloseOnClickAway = false;
-    }
-
 
     private static string GetLocalization(string key)
     {

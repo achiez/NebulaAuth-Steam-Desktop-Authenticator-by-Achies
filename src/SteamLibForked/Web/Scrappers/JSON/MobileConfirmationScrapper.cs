@@ -39,7 +39,7 @@ public static class MobileConfirmationScrapper
             throw new SessionInvalidException();
         }
 
-        if (conf.Success == false)
+        if (!conf.Success)
         {
             var error = LoadConfirmationsError.Unknown;
             if (conf.Message != null && ErrorMessages.TryGetValue(conf.Message, out var e))

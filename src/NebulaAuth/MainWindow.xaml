@@ -73,7 +73,7 @@
                                  Kind="FileReplaceOutline" />
 
                 </StackPanel>
-                <ToolBarTray>
+                <ToolBarTray Grid.Row="0">
                     <ToolBar ClipToBounds="True" HorizontalContentAlignment="Stretch"
                              Style="{StaticResource MaterialDesignToolBar}" FontSize="16">
                         <Menu FontSize="16">
@@ -92,7 +92,9 @@
                                 <MenuItem IsEnabled="False" Header="⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯" Height="15" />
                                 <MenuItem Header="{Tr MainWindow.Menu.File.Other.Title}">
                                     <MenuItem Header="{Tr MainWindow.Menu.File.Other.SetPasswords}"
-                                              Command="{Binding DebugCommand}" />
+                                              Command="{Binding OpenSetPasswordsDialogCommand}" />
+                                    <MenuItem Header="{Tr MainWindow.Menu.File.Other.OpenExport}"
+                                              Command="{Binding OpenExporterDialogCommand}" />
                                 </MenuItem>
                             </MenuItem>
                         </Menu>
@@ -292,18 +294,42 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock HorizontalAlignment="Stretch" Text="{Binding AccountName}">
-                                                    <TextBlock.Resources>
-                                                        <SolidColorBrush x:Key="BaseContentBrushProxy"
-                                                                         Color="{DynamicResource BaseContentColor}" />
-                                                    </TextBlock.Resources>
+                                                <TextBlock HorizontalAlignment="Stretch"
+                                                           Text="{Binding AccountName}"
+                                                           ToolTip="{Binding LinkedClient.Status.Message, FallbackValue={x:Null}}">
 
-                                                    <TextBlock.Foreground>
-                                                        <Binding Path="LinkedClient.IsError"
-                                                                 Converter="{StaticResource PortableMaClientStatusToColorConverter}"
-                                                                 FallbackValue="{StaticResource BaseContentBrushProxy}" />
-                                                    </TextBlock.Foreground>
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Foreground"
+                                                                    Value="{DynamicResource BaseContentBrush}" />
+
+                                                            <Style.Triggers>
+                                                                <DataTrigger
+                                                                    Binding="{Binding LinkedClient.Status.StatusType}"
+                                                                    Value="Ok">
+                                                                    <Setter Property="Foreground"
+                                                                            Value="{DynamicResource SuccessBrush}" />
+                                                                </DataTrigger>
+
+                                                                <DataTrigger
+                                                                    Binding="{Binding LinkedClient.Status.StatusType}"
+                                                                    Value="Warning">
+                                                                    <Setter Property="Foreground"
+                                                                            Value="{DynamicResource WarningBrush}" />
+                                                                </DataTrigger>
+
+                                                                <DataTrigger
+                                                                    Binding="{Binding LinkedClient.Status.StatusType}"
+                                                                    Value="Error">
+                                                                    <Setter Property="Foreground"
+                                                                            Value="{DynamicResource ErrorBrush}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+
                                                 </TextBlock>
+
                                                 <StackPanel
                                                     Visibility="{Binding LinkedClient, Converter={StaticResource NullableToVisibilityConverter}}"
                                                     Grid.Column="1" Orientation="Horizontal">
@@ -356,7 +382,7 @@
                                                                         <ColumnDefinition Width="*" />
                                                                     </Grid.ColumnDefinitions>
                                                                     <md:PackIcon Kind="PlusCircle"
-                                                                        VerticalAlignment="Center" />
+                                                                            VerticalAlignment="Center" />
                                                                     <TextBlock VerticalAlignment="Center"
                                                                                Margin="5,0,0,0" Grid.Column="1"
                                                                                Text="{Tr MainWindow.ContextMenus.Mafile.CreateGroup}" />
@@ -391,7 +417,9 @@
                                             <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.RemoveFromGroup}"
                                                       Command="{Binding Path=RemoveGroupCommand}"
                                                       CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
-
+                                            <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.UnattachProxy}"
+                                                      Command="{Binding RemoveProxyCommand}"
+                                                      CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                                         </ContextMenu>
                                     </FrameworkElement.ContextMenu>
 

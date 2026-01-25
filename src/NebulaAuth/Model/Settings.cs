@@ -25,7 +25,7 @@ public partial class Settings : ObservableObject
 
     static Settings()
     {
-        if (File.Exists("settings.json") == false)
+        if (!File.Exists("settings.json"))
         {
             Instance = new Settings();
             Instance.PropertyChanged += SettingsOnPropertyChanged;
@@ -94,7 +94,6 @@ public partial class Settings : ObservableObject
     [ObservableProperty] private bool _legacyMode = true;
     [ObservableProperty] private bool _allowAutoUpdate;
     [ObservableProperty] private bool _useAccountNameAsMafileName;
-    [ObservableProperty] private bool _ignorePatchTuesdayErrors;
 
     [ObservableProperty] private BackgroundMode _backgroundMode = BackgroundMode.Default;
     [ObservableProperty] private double _leftOpacity = 0.4;
@@ -107,6 +106,9 @@ public partial class Settings : ObservableObject
     [ObservableProperty] private bool _rippleDisabled;
     [ObservableProperty] private bool _proxyManagerDisplayProtocol;
     [ObservableProperty] private bool _proxyManagerDisplayCredentials;
+
+    [ObservableProperty] private TimeSpan _maacErrorThreshold = TimeSpan.FromHours(3);
+    [ObservableProperty] private TimeSpan _maacRetryInterval = TimeSpan.FromMinutes(15);
 
     #endregion
 }

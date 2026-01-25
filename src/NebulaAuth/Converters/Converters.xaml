@@ -12,7 +12,6 @@
     <converters:MultiCommandParameterConverter x:Key="MultiCommandParameterConverter" />
     <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
     <converters:AnyMafilesToVisibilityConverter x:Key="AnyMafilesToVisibilityConverter" />
-    <converters:PortableMaClientStatusToColorConverter x:Key="PortableMaClientStatusToColorConverter" />
     <converters:BoolToMafileNamingConverter x:Key="BoolToMafileNamingConverter" />
     <converters:BoolToValueConverter x:Key="BoolToValueConverter" />
     <converters:NullableToBooleanConverter x:Key="NullableToBooleanConverter" />
@@ -23,6 +22,7 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <materialDesign:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
 
+    <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
 
     <system:Boolean x:Key="True">True</system:Boolean>
     <system:Boolean x:Key="False">False</system:Boolean>

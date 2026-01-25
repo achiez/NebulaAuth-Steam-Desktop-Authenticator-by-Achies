@@ -44,10 +44,15 @@ public static class AdmissionHelper
     /// <summary>
     ///     Clear and set new session
     /// </summary>
-    public static void SetSteamCookies(this CookieContainer container, ISessionData sessionData,
+    public static void SetSteamCookies(this CookieContainer container, ISessionData? sessionData,
         string setLanguage = "english")
     {
         container.ClearSteamCookies(setLanguage);
+        if (sessionData == null)
+        {
+            TransferCommunityCookies(container);
+            return;
+        }
 
 
         AddRefreshToken(container, sessionData.RefreshToken);
@@ -68,7 +73,7 @@ public static class AdmissionHelper
     {
         var uri = SteamDomains.GetDomainUri(domain);
         foreach (var cookie in container.GetCookies(uri)
-                     .Where(c => c.Expired == false && c.Name.EqualsIgnoreCase(ACCESS_COOKIE_NAME)))
+                     .Where(c => !c.Expired && c.Name.EqualsIgnoreCase(ACCESS_COOKIE_NAME)))
         {
             cookie.Expired = true;
         }
@@ -79,11 +84,16 @@ public static class AdmissionHelper
     /// <summary>
     ///     Clear and set new session
     /// </summary>
-    public static void SetSteamMobileCookies(this CookieContainer container, ISessionData mobileSession,
+    public static void SetSteamMobileCookies(this CookieContainer container, ISessionData? mobileSession,
         string setLanguage = "english")
     {
         container.ClearSteamCookies(setLanguage);
         container.AddMinimalMobileCookies();
+        if (mobileSession == null)
+        {
+            TransferCommunityCookies(container);
+            return;
+        }
 
         AddRefreshToken(container, mobileSession.RefreshToken);
 
@@ -106,11 +116,18 @@ public static class AdmissionHelper
     ///     Market, Trading and other pages won't be authorized
     /// </summary>
     public static void SetSteamMobileCookiesWithMobileToken(this CookieContainer container,
-        IMobileSessionData mobileSession,
+        IMobileSessionData? mobileSession,
         string setLanguage = "english")
     {
         container.ClearSteamCookies(setLanguage);
         container.AddMinimalMobileCookies();
+
+        if (mobileSession == null)
+        {
+            TransferCommunityCookies(container);
+            return;
+        }
+
 
         AddRefreshToken(container, mobileSession.RefreshToken);
 
@@ -131,7 +148,7 @@ public static class AdmissionHelper
         }
 
         var mobileToken = mobileSession.GetMobileToken();
-        if (domainCookieSet == false && mobileToken is {IsExpired: false})
+        if (!domainCookieSet && mobileToken is {IsExpired: false})
         {
             var domain = SteamDomains.GetDomainUri(SteamDomain.Community);
             container.Add(domain, new Cookie(ACCESS_COOKIE_NAME, mobileToken.Value.SignedToken)
@@ -193,7 +210,7 @@ public static class AdmissionHelper
 
         foreach (Cookie cookie in cookies)
         {
-            if (cookie.Domain.Contains("steamcommunity.com") == false || cookie.Expired ||
+            if (!cookie.Domain.Contains("steamcommunity.com") || cookie.Expired ||
                 cookie.Name.EqualsIgnoreCase(ACCESS_COOKIE_NAME)) continue;
 
 
@@ -253,7 +270,7 @@ public static class AdmissionHelper
         var cookies = container.GetAllCookies();
         return cookies
             .FirstOrDefault(c => c.Name.Equals(SESSION_ID_COOKIE_NAME, StringComparison.InvariantCultureIgnoreCase)
-                                 && c.Expired == false
+                                 && !c.Expired
                                  && c.Domain.Contains(domain, StringComparison.InvariantCultureIgnoreCase))?
             .Value;
     }

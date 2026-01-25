@@ -17,7 +17,7 @@ public class SessionPermanentlyExpiredException : SessionInvalidException
     {
     }
 
-    public SessionPermanentlyExpiredException(string message, Exception inner) : base(message, inner)
+    public SessionPermanentlyExpiredException(string? message, Exception? inner) : base(message, inner)
     {
     }
 }

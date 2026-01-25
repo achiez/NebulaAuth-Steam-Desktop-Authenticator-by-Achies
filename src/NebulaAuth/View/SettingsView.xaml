@@ -55,27 +55,19 @@
                                   ItemsSource="{Binding Languages}" DisplayMemberPath="Value" SelectedValuePath="Key"
                                   SelectedValue="{Binding  Language}"
                                   materialDesign:HintAssist.Hint="{Tr LanguageWord}" />
-                        <CheckBox Margin="0,18,0,0" IsChecked="{Binding HideToTray}"
+                        <CheckBox Margin="0,5,0,0" IsChecked="{Binding HideToTray}"
                                   Content="{Tr SettingsDialog.MinimizeToTray}" />
 
 
-                        <CheckBox Margin="0,18,0,0" IsChecked="{Binding LegacyMode}"
+                        <CheckBox Margin="0,5,0,0" IsChecked="{Binding LegacyMode}"
                                   Content="{Tr SettingsDialog.LegacyMafileMode}"
                                   ToolTip="{Tr SettingsDialog.LegacyMafileModeHint}" />
                         <!--<CheckBox IsEnabled="False"  Margin="0,10,0,0"  FontSize="16" IsChecked="{Binding AllowAutoUpdate}" Content="{Tr SettingsDialog.AllowAutoUpdate}"/>-->
-                        <CheckBox Style="{StaticResource MaterialDesignCheckBox}" BorderBrush="AliceBlue"
-                                  Margin="0,18,0,0"
-                                  BorderThickness="2"
-                                  IsChecked="{Binding IgnorePatchTuesdayErrors}"
-                                  ToolTip="{Tr SettingsDialog.IgnorePatchTuesdayErrorsHint}">
-                            <TextBlock TextWrapping="WrapWithOverflow"
-                                       Text="{Tr SettingsDialog.IgnorePatchTuesdayErrors}" />
-                        </CheckBox>
 
                         <!--<CheckBox Margin="0,12,0,0"  IsChecked="{Binding UseAccountNameAsMafileName}">
                             <TextBlock TextWrapping="WrapWithOverflow" Text="{Tr SettingsDialog.UseAccountName}" />
                         </CheckBox>-->
-                        <CheckBox Margin="0,20,0,0" IsChecked="{Binding UseIcon}"
+                        <CheckBox Margin="0,5,0,0" IsChecked="{Binding UseIcon}"
                                   Content="{Tr SettingsDialog.UseIndicator}"
                                   ToolTip="{Tr SettingsDialog.UseIndicatorHint}" />
                         <materialDesign:ColorPicker Margin="-5,0,-5,0" IsEnabled="{Binding UseIcon}"
@@ -191,10 +183,10 @@
                                 PreviewMouseUp="Slider_OnMouseUp" />
 
 
-                        <CheckBox Margin="0,15,0,0" Content="{Tr SettingsDialog.Theme.DialogBlur}"
+                        <CheckBox Margin="0,0,0,0" Content="{Tr SettingsDialog.Theme.DialogBlur}"
                                   IsChecked="{Binding ApplyBlurBackground}"
                                   FontSize="15" />
-                        <CheckBox Margin="0,15,0,0" Content="{Tr SettingsDialog.Theme.RippleDisabled}"
+                        <CheckBox Margin="0,0,0,0" Content="{Tr SettingsDialog.Theme.RippleDisabled}"
                                   FontSize="15"
                                   IsChecked="{Binding RippleDisabled}" />
                         <Button Margin="0,15,0,0" Command="{Binding ResetThemeDefaultsCommand}"

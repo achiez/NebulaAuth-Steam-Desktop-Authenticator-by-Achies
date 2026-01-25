@@ -38,17 +38,7 @@ public static class MaClient
     {
         ClientHandler.CookieContainer.ClearAllCookies();
         if (account == null) return;
-        if (account.SessionData != null)
-        {
-            ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(account.SessionData);
-        }
-        else
-        {
-            ClientHandler.CookieContainer.ClearSteamCookies();
-            ClientHandler.CookieContainer.AddMinimalMobileCookies();
-            AdmissionHelper.TransferCommunityCookies(ClientHandler.CookieContainer);
-        }
-
+        ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(account.SessionData);
         Proxy.SetData(account.Proxy?.Data);
     }
 
@@ -153,7 +143,7 @@ public static class MaClient
         if (mafile.SessionData.RefreshToken.IsExpired)
             throw new SessionPermanentlyExpiredException();
 
-        if (ignoreAccessToken == false)
+        if (!ignoreAccessToken)
         {
             var access = mafile.SessionData.GetMobileToken();
             if (access == null || access.Value.IsExpired)

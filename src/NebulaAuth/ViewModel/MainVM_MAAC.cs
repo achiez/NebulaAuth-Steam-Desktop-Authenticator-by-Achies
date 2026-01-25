@@ -130,7 +130,7 @@ public partial class MainVM //MAAC
     {
         mafiles = mafiles.ToArray();
 
-        var turnOn = mafiles.All(m => m.LinkedClient == null || GetCurrentMode(m.LinkedClient) == false);
+        var turnOn = mafiles.All(m => m.LinkedClient == null || !GetCurrentMode(m.LinkedClient));
         if (turnOn)
         {
             foreach (var mafile in mafiles)

@@ -1,25 +1,19 @@
 ﻿using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media;
 
 namespace NebulaAuth.Converters;
 
-public class PortableMaClientStatusToColorConverter : IValueConverter
+public class InverseBooleanToVisibilityConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is false)
-        {
-            return new SolidColorBrush(Color.FromRgb(187, 224, 139));
-        }
-
-
-        return new SolidColorBrush(Color.FromRgb(224, 139, 139));
+        return value is bool b && !b ? Visibility.Visible : Visibility.Collapsed;
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        throw new NotSupportedException();
+        return value is Visibility v && v != Visibility.Visible;
     }
 }

@@ -113,6 +113,16 @@ public static class DialogsController
         await DialogHost.Show(dialog);
     }
 
+    public static async Task ShowExportDialog()
+    {
+        var vm = new MafileExporterVM();
+        var dialog = new MafileExporterView
+        {
+            DataContext = vm
+        };
+        await DialogHost.Show(dialog);
+    }
+
     #region CommonDialogs
 
     public static async Task<bool> ShowConfirmCancelDialog(string? msg = null)

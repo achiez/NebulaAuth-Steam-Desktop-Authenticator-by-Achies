@@ -30,7 +30,7 @@ public partial class MainWindow
     private async void OnApplicationStarted(object? sender, EventArgs e)
     {
         ((MainVM) DataContext).CurrentDialogHost = DialogHostInstance;
-        if (Settings.Instance.IsPasswordSet == false) return;
+        if (!Settings.Instance.IsPasswordSet) return;
         Topmost = false;
         await Dispatcher.InvokeAsync(ShowSetPasswordDialog, DispatcherPriority.ContextIdle);
     }
@@ -46,7 +46,7 @@ public partial class MainWindow
 
         var result = await DialogHost.Show(dialog);
         var pass = vm.Password;
-        if (result is true && string.IsNullOrWhiteSpace(pass) == false)
+        if (result is true && !string.IsNullOrWhiteSpace(pass))
         {
             PHandler.SetPassword(pass);
         }
@@ -79,12 +79,12 @@ public partial class MainWindow
 
     private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
     {
-        if (int.TryParse(e.Text, out _) == false) e.Handled = true;
+        if (!int.TryParse(e.Text, out _)) e.Handled = true;
     }
 
     private void Rectangle_DragEnter(object sender, DragEventArgs e)
     {
-        if (e.Data.GetDataPresent(DataFormats.FileDrop) == false)
+        if (!e.Data.GetDataPresent(DataFormats.FileDrop))
         {
             e.Handled = true;
             return;
@@ -96,7 +96,7 @@ public partial class MainWindow
 
     private async void Rectangle_Drop(object sender, DragEventArgs e)
     {
-        if (e.Data.GetDataPresent(DataFormats.FileDrop) == false) return;
+        if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
         var filePaths = (string[]) e.Data.GetData(DataFormats.FileDrop)!;
         if (filePaths.Length == 0) return;
         if (DataContext is MainVM mainVm)

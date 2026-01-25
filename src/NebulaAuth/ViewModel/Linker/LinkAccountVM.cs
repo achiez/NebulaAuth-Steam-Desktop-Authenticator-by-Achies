@@ -12,6 +12,7 @@ using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
+using NebulaAuth.Model.Mafiles;
 using NebulaAuth.Utility;
 using NLog;
 using SteamLib;
@@ -224,7 +225,7 @@ public partial class LinkAccountVM : ObservableObject, ISmsCodeProvider, IPhoneN
             Logger.Error(ex, "Error during saving Nebula data to mafile");
         }
 
-        Storage.SaveMafile(mafile);
+        await Storage.SaveMafileAsync(mafile);
         await Done(mafile.RevocationCode ?? string.Empty, mafile.SteamId.Steam64.ToString(), login);
     }
 
