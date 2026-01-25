@@ -187,12 +187,6 @@ public partial class SettingsVM : ObservableObject
         }
     }
 
-    public bool IgnorePatchTuesdayErrors
-    {
-        get => Settings.IgnorePatchTuesdayErrors;
-        set => Settings.IgnorePatchTuesdayErrors = value;
-    }
-
     #endregion
 
     #region Theme

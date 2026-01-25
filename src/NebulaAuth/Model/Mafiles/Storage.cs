@@ -67,7 +67,6 @@ public static class Storage
         }, token);
 
         MaFiles = new ObservableCollection<Mafile>(localList.OrderBy(m => m.AccountName));
-     
     }
 
     /// <summary>

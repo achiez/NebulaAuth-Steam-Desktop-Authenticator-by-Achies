@@ -469,6 +469,13 @@
           "zh": "复制密码",
           "ua": "Скопіювати пароль",
           "fr": "Copier le mot de passe"
+        },
+        "UnattachProxy": {
+          "en": "Unattach proxy",
+          "ru": "Открепить прокси",
+          "zh": "取消代理绑定",
+          "ua": "Відкріпити проксі",
+          "fr": "Détacher le proxy"
         }
       },
       "Proxy": {
@@ -2190,6 +2197,15 @@
         "zh": "无法加载自动确认计时器。文件似乎已损坏",
         "ua": "Не вдалося завантажити таймери авто-підтверджень. Файл, схоже, пошкоджено",
         "fr": "Impossible de charger les timers d'auto-confirmation. Le fichier semble être corrompu"
+      },
+      "PortableMaClientStatus": {
+        "SessionError": {
+          "ru": "Ошибка сессии. Нужно обновить сессию или перелогиниться",
+          "en": "Session error. Need to refresh session or relogin",
+          "zh": "会话错误。需要刷新会话或重新登录",
+          "ua": "Помилка сесії. Потрібно оновити сесію або перелогінитися",
+          "fr": "Erreur de session. Il faut rafraîchir la session ou se reconnecter"
+        }
       }
     },
     "SettingsVM": {

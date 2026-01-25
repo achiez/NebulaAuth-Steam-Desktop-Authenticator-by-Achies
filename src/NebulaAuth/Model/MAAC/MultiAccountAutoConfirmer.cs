@@ -59,7 +59,8 @@ public static class MultiAccountAutoConfirmer
     private static async Task TimerConfirmInternal()
     {
         var clients = Lock.ReadLock(() => Clients.ToArray());
-        var enabledClients = clients.Where(x => x.LinkedClient is {IsError: false}).ToArray();
+        var enabledClients = clients.Where(x => x.LinkedClient is {Status.StatusType: PortableMaClientStatusType.Ok})
+            .ToArray();
         enabledClients = DistributeEvenly(enabledClients).ToArray();
         var confirmed = 0;
         await Task.Run(async () =>
@@ -69,7 +70,8 @@ public static class MultiAccountAutoConfirmer
                 var conf = 0;
                 try
                 {
-                    conf = await client.LinkedClient!.Confirm();
+                    conf = await MAACRequestHandler.HandleRequest(client.LinkedClient!,
+                        () => client.LinkedClient!.Confirm());
                 }
                 catch (ObjectDisposedException)
                 {
@@ -114,7 +116,6 @@ public static class MultiAccountAutoConfirmer
         }
     }
 
-
     public static bool TryAddToConfirm(Mafile mafile)
     {
         return Lock.WriteLock(() =>
@@ -122,6 +123,7 @@ public static class MultiAccountAutoConfirmer
             if (Clients.Contains(mafile)) return false;
             mafile.LinkedClient = new PortableMaClient(mafile);
             Clients.Add(mafile);
+            MAACRequestHandler.Register(mafile);
             return true;
         });
     }
@@ -134,6 +136,7 @@ public static class MultiAccountAutoConfirmer
             Clients.Remove(mafile);
             mafile.LinkedClient?.Dispose();
             mafile.LinkedClient = null;
+            MAACRequestHandler.Unregister(mafile);
         });
     }
 

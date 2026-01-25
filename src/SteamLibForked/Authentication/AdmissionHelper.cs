@@ -44,10 +44,15 @@ public static class AdmissionHelper
     /// <summary>
     ///     Clear and set new session
     /// </summary>
-    public static void SetSteamCookies(this CookieContainer container, ISessionData sessionData,
+    public static void SetSteamCookies(this CookieContainer container, ISessionData? sessionData,
         string setLanguage = "english")
     {
         container.ClearSteamCookies(setLanguage);
+        if (sessionData == null)
+        {
+            TransferCommunityCookies(container);
+            return;
+        }
 
 
         AddRefreshToken(container, sessionData.RefreshToken);
@@ -79,11 +84,16 @@ public static class AdmissionHelper
     /// <summary>
     ///     Clear and set new session
     /// </summary>
-    public static void SetSteamMobileCookies(this CookieContainer container, ISessionData mobileSession,
+    public static void SetSteamMobileCookies(this CookieContainer container, ISessionData? mobileSession,
         string setLanguage = "english")
     {
         container.ClearSteamCookies(setLanguage);
         container.AddMinimalMobileCookies();
+        if (mobileSession == null)
+        {
+            TransferCommunityCookies(container);
+            return;
+        }
 
         AddRefreshToken(container, mobileSession.RefreshToken);
 
@@ -106,11 +116,18 @@ public static class AdmissionHelper
     ///     Market, Trading and other pages won't be authorized
     /// </summary>
     public static void SetSteamMobileCookiesWithMobileToken(this CookieContainer container,
-        IMobileSessionData mobileSession,
+        IMobileSessionData? mobileSession,
         string setLanguage = "english")
     {
         container.ClearSteamCookies(setLanguage);
         container.AddMinimalMobileCookies();
+
+        if (mobileSession == null)
+        {
+            TransferCommunityCookies(container);
+            return;
+        }
+
 
         AddRefreshToken(container, mobileSession.RefreshToken);
 

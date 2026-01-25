@@ -12,7 +12,6 @@
     <converters:MultiCommandParameterConverter x:Key="MultiCommandParameterConverter" />
     <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
     <converters:AnyMafilesToVisibilityConverter x:Key="AnyMafilesToVisibilityConverter" />
-    <converters:PortableMaClientStatusToColorConverter x:Key="PortableMaClientStatusToColorConverter" />
     <converters:BoolToMafileNamingConverter x:Key="BoolToMafileNamingConverter" />
     <converters:BoolToValueConverter x:Key="BoolToValueConverter" />
     <converters:NullableToBooleanConverter x:Key="NullableToBooleanConverter" />

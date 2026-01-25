@@ -6,6 +6,7 @@ using AchiesUtilities.Extensions;
 using NebulaAuth.Core;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Model.Mafiles;
+using SteamLibForked.Models.Session;
 using SteamLibForked.Models.SteamIds;
 
 namespace NebulaAuth.Model.MafileExport;
@@ -71,6 +72,12 @@ public static class MafileExporter
 
     private static async Task<string?> ExportMafile(string path, MafileExportTemplate template, Mafile mafile)
     {
+        // We preserve SteamId even if other info is not included
+        var session = template.IncludeSessionData
+            ? mafile.SessionData
+            : new MobileSessionData(null!, mafile.SteamId, default, null, tokens: null);
+
+
         var serializeMaf = new Mafile
         {
             SharedSecret = template.IncludeSharedSecret ? mafile.SharedSecret : null!,
@@ -78,7 +85,7 @@ public static class MafileExporter
             DeviceId = template.IncludeIdentitySecret ? mafile.DeviceId : null!,
             RevocationCode = template.IncludeRCode ? mafile.RevocationCode : null!,
             AccountName = mafile.AccountName,
-            SessionData = template.IncludeSessionData ? mafile.SessionData : null!,
+            SessionData = session,
             SteamId = mafile.SteamId,
             ServerTime = template.IncludeOtherInfo ? mafile.ServerTime : 0,
             SerialNumber = template.IncludeOtherInfo ? mafile.SerialNumber : 0,

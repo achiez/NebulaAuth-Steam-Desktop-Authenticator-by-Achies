@@ -28,7 +28,6 @@ public partial class SessionHandler //API
         mafile.SessionData.SetMobileToken(newToken);
 
         //Trigger PropertyChanged event for PortableMaClient handling session updated from MaClient
-        //RETHINK: it makes double operation when session handled from PortableMaClient (more often scenario) which is unwanted behaviour
         mafile.SetSessionData(mafile.SessionData);
         await Storage.UpdateMafileAsync(mafile);
         chp.Handler.CookieContainer.SetSteamMobileCookiesWithMobileToken(mafile.SessionData);
@@ -50,7 +49,6 @@ public partial class SessionHandler //API
         AdmissionHelper.TransferCommunityCookies(chp.Handler.CookieContainer);
 
         //Triggers PropertyChanged event for PortableMaClient handling session updated from MaClient
-        //RETHINK: it makes double operation when session handled from PortableMaClient (more often scenario) which is unwanted behaviour
         mafile.SetSessionData((MobileSessionData) result);
         if (PHandler.IsPasswordSet)
             mafile.Password = savePassword ? PHandler.Encrypt(password) : null;
