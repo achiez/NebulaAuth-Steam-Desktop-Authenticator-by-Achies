@@ -148,6 +148,12 @@ public static class MAACRequestHandler
         return false;
     }
 
+    public static bool IsReady(Mafile maf)
+    {
+        if (maf.LinkedClient is {Status.StatusType: PortableMaClientStatusType.Ok}) return true;
+        return maf.LinkedClient is {Status.StatusType: PortableMaClientStatusType.Warning}
+               && maf.LastErrorWasAtLeast(Settings.Instance.MaacRetryInterval);
+    }
 
     private static string GetTimerPrefix(Mafile mafile)
     {
@@ -161,6 +167,8 @@ public static class MAACRequestHandler
 
     private static string GetPortableMaClientStatus(string key)
     {
-        return LocManager.GetCodeBehindOrDefault(key, LOC_PATH, key);
+        return LocManager.GetCodeBehindOrDefault(key, LOC_PATH, "PortableMaClientStatus", key);
     }
+
+
 }

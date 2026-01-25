@@ -59,8 +59,7 @@ public static class MultiAccountAutoConfirmer
     private static async Task TimerConfirmInternal()
     {
         var clients = Lock.ReadLock(() => Clients.ToArray());
-        var enabledClients = clients.Where(x => x.LinkedClient is {Status.StatusType: PortableMaClientStatusType.Ok})
-            .ToArray();
+        var enabledClients = GetReadyAccounts();
         enabledClients = DistributeEvenly(enabledClients).ToArray();
         var confirmed = 0;
         await Task.Run(async () =>
@@ -116,6 +115,21 @@ public static class MultiAccountAutoConfirmer
         }
     }
 
+    private static IEnumerable<Mafile> GetReadyAccounts()
+    {
+        var clients = Lock.ReadLock(() => Clients.ToArray());
+        var res = new List<Mafile>();
+        foreach (var maf in clients)
+        {
+            if(maf.LinkedClient == null) continue;
+            if (MAACRequestHandler.IsReady(maf))
+            {
+                res.Add(maf);
+            }
+        }
+        return res;
+
+    }
     public static bool TryAddToConfirm(Mafile mafile)
     {
         return Lock.WriteLock(() =>

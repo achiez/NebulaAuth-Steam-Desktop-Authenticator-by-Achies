@@ -44,7 +44,7 @@ public partial class PortableMaClient : ObservableObject, IDisposable
         ClientHandler = pair.Handler;
         UpdateCookies(mafile.SessionData);
         Mafile.PropertyChanged += Mafile_PropertyChanged;
-        SetStatus(PortableMaClientStatus.Error("123123"));
+        SetStatus(PortableMaClientStatus.Ok());
     }
 
     private void Mafile_PropertyChanged(object? sender, PropertyChangedEventArgs e)
