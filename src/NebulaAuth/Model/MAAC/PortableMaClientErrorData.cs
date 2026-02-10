@@ -23,10 +23,13 @@ public sealed class PortableMaClientErrorData
             Values[DateTime.UtcNow] = ex;
     }
 
-    public void Clear()
+    public bool Clear()
     {
+        if (NoErrors) return false;
         lock (_lock)
             Values.Clear();
+
+        return true;
     }
 
     public TimeSpan? GetTimeFromLastError()
