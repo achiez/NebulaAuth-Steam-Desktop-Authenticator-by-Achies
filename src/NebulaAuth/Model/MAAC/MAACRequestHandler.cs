@@ -94,11 +94,16 @@ public static class MAACRequestHandler
 
     private static void InformRequestSuccessful(Mafile mafile)
     {
-        if (_errors.TryGetValue(mafile, out var data))
+        if (_errors.TryGetValue(mafile, out var data) && data.Clear())
         {
-            Shell.Logger.Info("MAAC request for {name} MAAC account succeeded, clearing error history.",
+            Shell.Logger.Info("MAAC request for {name} MAAC account succeeded, error history cleared",
                 mafile.AccountName);
-            data.Clear();
+        }
+
+        var client = mafile.LinkedClient;
+        if (client != null && client.Status.StatusType != PortableMaClientStatusType.Ok)
+        {
+            client.SetStatus(PortableMaClientStatus.Ok());
         }
     }
 
@@ -169,6 +174,4 @@ public static class MAACRequestHandler
     {
         return LocManager.GetCodeBehindOrDefault(key, LOC_PATH, "PortableMaClientStatus", key);
     }
-
-
 }
