@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:confirmations="clr-namespace:SteamLib.SteamMobile.Confirmations;assembly=SteamLibForked"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -6,6 +6,7 @@
                     xmlns:entities="clr-namespace:NebulaAuth.Model.Entities"
                     xmlns:vm="clr-namespace:NebulaAuth.ViewModel">
 
+    <converters:MultiCommandParameterConverter x:Key="MultiCommandParameterConverter" />
 
     <DataTemplate DataType="{x:Type confirmations:Confirmation}">
         <Grid>
@@ -175,36 +176,110 @@
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type entities:MarketMultiConfirmation}">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Kind="CartArrowUp"
-                                     Margin="0,0,10,0" />
-            <TextBlock VerticalAlignment="Center" Grid.Column="1">
-                <Run Text="{Tr MainWindow.ConfirmationTemplates.Market, IsDynamic=False}" />
-                <Run Text="{Binding Confirmations.Count, Mode=OneWay}" />
-                <Run Text="{Tr Common.Abbreviations.Count.Items, IsDynamic=False}" />
-            </TextBlock>
+        <Expander>
+            <Expander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon VerticalAlignment="Center" Width="20" Height="20" Kind="CartArrowUp"
+                                             Margin="0,0,10,0" />
+                    <TextBlock VerticalAlignment="Center" Grid.Column="1">
+                        <Run Text="{Tr MainWindow.ConfirmationTemplates.Market, IsDynamic=False}" />
+                        <Run Text="{Binding Confirmations.Count, Mode=OneWay}" />
+                        <Run Text="{Tr Common.Abbreviations.Count.Items, IsDynamic=False}" />
+                    </TextBlock>
 
-            <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Left" Margin="5,0,0,0"
-                       Text="{Binding Time, StringFormat=t}" />
-            <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="3"
-                    Style="{StaticResource MaterialDesignIconButton}"
-                    Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.ConfirmCommand)}"
-                    CommandParameter="{Binding }">
-                <materialDesign:PackIcon Kind="Check" />
-            </Button>
-            <Button Grid.Column="4" Style="{StaticResource MaterialDesignIconButton}"
-                    Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.CancelCommand)}"
-                    CommandParameter="{Binding }">
-                <materialDesign:PackIcon Kind="Close" />
-            </Button>
-        </Grid>
+                    <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Left" Margin="5,0,0,0"
+                               Text="{Binding Time, StringFormat=t}" />
+
+                    <!-- Reveal items -->
+                    <ToggleButton Grid.Column="3" Margin="5,0,0,0" VerticalAlignment="Center"
+                                  IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource AncestorType=Expander}, Mode=TwoWay}"
+                                  Style="{StaticResource MaterialDesignIconButton}">
+                        <materialDesign:PackIcon Kind="EyeOutline" />
+                    </ToggleButton>
+
+                    <!-- Confirm all -->
+                    <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="4"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            ToolTip="{Tr MainWindow.ConfirmationTemplates.ConfirmAll}"
+                            Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.ConfirmCommand)}"
+                            CommandParameter="{Binding }">
+                        <materialDesign:PackIcon Kind="CheckAll" />
+                    </Button>
+                    <!-- Cancel all -->
+                    <Button Grid.Column="5" Style="{StaticResource MaterialDesignIconButton}"
+                            ToolTip="{Tr MainWindow.ConfirmationTemplates.CancelAll}"
+                            Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.CancelCommand)}"
+                            CommandParameter="{Binding }">
+                        <materialDesign:PackIcon Kind="Close" />
+                    </Button>
+                </Grid>
+            </Expander.Header>
+
+            <Border Margin="30,6,0,0" Padding="6" Background="{DynamicResource MaterialDesignPaper}" CornerRadius="4">
+                <ItemsControl ItemsSource="{Binding Confirmations}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type confirmations:MarketConfirmation}">
+                            <Grid Margin="0,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Background="{DynamicResource MaterialDesignPaper}" MaxHeight="32"
+                                        HorizontalAlignment="Center" BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                                        BorderThickness="0.6" Margin="0,0,10,0">
+                                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="28" MaxHeight="28"
+                                           Source="{Binding ItemImageUri}" />
+                                </Border>
+
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding ItemName}" />
+                                    <TextBlock Foreground="LightGray" FontSize="11" Text="{Binding PriceString}" />
+                                </StackPanel>
+
+                                <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Left" Margin="8,0,0,0"
+                                           Text="{Binding Time, StringFormat=t}" />
+
+                                <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="3"
+                                        Style="{StaticResource MaterialDesignIconButton}"
+                                        ToolTip="{Tr MainWindow.ConfirmationTemplates.ConfirmOne}"
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.ConfirmMarketItemCommand)}">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource MultiCommandParameterConverter}">
+                                            <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}" Path="DataContext" />
+                                            <Binding />
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
+                                    <materialDesign:PackIcon Kind="Check" />
+                                </Button>
+                                <Button Grid.Column="4" Style="{StaticResource MaterialDesignIconButton}"
+                                        ToolTip="{Tr MainWindow.ConfirmationTemplates.CancelOne}"
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.CancelMarketItemCommand)}">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource MultiCommandParameterConverter}">
+                                            <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}" Path="DataContext" />
+                                            <Binding />
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
+                                    <materialDesign:PackIcon Kind="Close" />
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+        </Expander>
     </DataTemplate>
     <DataTemplate DataType="{x:Type confirmations:PurchaseConfirmation}">
         <Grid>

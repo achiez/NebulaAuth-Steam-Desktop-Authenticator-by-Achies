@@ -410,6 +410,34 @@
         "zh": "购买",
         "ua": "Покупка",
         "fr": "Acheter"
+      },
+      "ConfirmAll": {
+        "en": "Confirm all",
+        "ru": "Подтвердить все",
+        "zh": "全部确认",
+        "ua": "Підтвердити все",
+        "fr": "Tout confirmer"
+      },
+      "CancelAll": {
+        "en": "Cancel all",
+        "ru": "Отклонить все",
+        "zh": "全部取消",
+        "ua": "Відхилити все",
+        "fr": "Tout annuler"
+      },
+      "ConfirmOne": {
+        "en": "Confirm this item",
+        "ru": "Подтвердить этот предмет",
+        "zh": "确认此物品",
+        "ua": "Підтвердити цей предмет",
+        "fr": "Confirmer cet objet"
+      },
+      "CancelOne": {
+        "en": "Cancel this item",
+        "ru": "Отклонить этот предмет",
+        "zh": "取消此物品",
+        "ua": "Відхилити цей предмет",
+        "fr": "Annuler cet objet"
       }
     },
     "CodeCopied": {

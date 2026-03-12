@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -76,6 +76,24 @@ public partial class MainVM //Confirmations
         return SendConfirmation(SelectedMafile, confirmation, false);
     }
 
+    [RelayCommand]
+    private Task ConfirmMarketItem(object? commandParameter)
+    {
+        if (SelectedMafile == null) return Task.CompletedTask;
+        if (!TryParseMarketItemCommandParameter(commandParameter, out var parent, out var item))
+            return Task.CompletedTask;
+        return SendMarketItemConfirmation(SelectedMafile, parent, item, true);
+    }
+
+    [RelayCommand]
+    private Task CancelMarketItem(object? commandParameter)
+    {
+        if (SelectedMafile == null) return Task.CompletedTask;
+        if (!TryParseMarketItemCommandParameter(commandParameter, out var parent, out var item))
+            return Task.CompletedTask;
+        return SendMarketItemConfirmation(SelectedMafile, parent, item, false);
+    }
+
     private async Task SendConfirmation(Mafile mafile, Confirmation confirmation, bool confirm)
     {
         bool result;
@@ -104,5 +122,66 @@ public partial class MainVM //Confirmations
         {
             SnackbarController.SendSnackbar(GetLocalization("ConfirmationError"));
         }
+    }
+
+    private async Task SendMarketItemConfirmation(Mafile mafile, MarketMultiConfirmation parent,
+        MarketConfirmation item, bool confirm)
+    {
+        bool result;
+        try
+        {
+            result = await MaClient.SendConfirmation(mafile, item, confirm);
+        }
+        catch (Exception ex)
+            when (ExceptionHandler.Handle(ex))
+        {
+            return;
+        }
+
+        if (!result)
+        {
+            SnackbarController.SendSnackbar(GetLocalization("ConfirmationError"));
+            return;
+        }
+
+        // Update parent group after a successful per-item action
+        parent.Confirmations.Remove(item);
+
+        if (parent.Confirmations.Count == 0)
+        {
+            Confirmations.Remove(parent);
+            return;
+        }
+
+        if (parent.Confirmations.Count == 1)
+        {
+            var remaining = parent.Confirmations[0];
+            var idx = Confirmations.IndexOf(parent);
+            if (idx >= 0)
+            {
+                Confirmations[idx] = remaining;
+            }
+            else
+            {
+                Confirmations.Add(remaining);
+            }
+            return;
+        }
+
+        parent.Time = parent.Confirmations.FirstOrDefault()?.Time ?? parent.Time;
+    }
+
+    private static bool TryParseMarketItemCommandParameter(object? commandParameter,
+        out MarketMultiConfirmation parent,
+        out MarketConfirmation item)
+    {
+        parent = null!;
+        item = null!;
+        if (commandParameter is not object[] values || values.Length < 2)
+            return false;
+
+        parent = values[0] as MarketMultiConfirmation ?? null!;
+        item = values[1] as MarketConfirmation ?? null!;
+        return parent != null && item != null;
     }
 }
