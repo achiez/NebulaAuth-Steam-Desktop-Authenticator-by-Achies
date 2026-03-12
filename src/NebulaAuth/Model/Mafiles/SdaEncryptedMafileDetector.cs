@@ -1,8 +1,8 @@
 using System;
 using System.IO;
 using AchiesUtilities.Extensions;
+using NebulaAuth.Model.MafilesLegacy;
 using Newtonsoft.Json;
-using NebulaAuth.LegacyConverter;
 
 namespace NebulaAuth.Model.Mafiles;
 
@@ -20,13 +20,13 @@ public static class SdaEncryptedMafileDetector
     /// </summary>
     public sealed class SdaEncryptedResult
     {
-        public Manifest Manifest { get; }
-        public Entry Entry { get; }
+        public SDAManifest SdaManifest { get; }
+        public SDAManifestEntry SdaManifestEntry { get; }
 
-        public SdaEncryptedResult(Manifest manifest, Entry entry)
+        public SdaEncryptedResult(SDAManifest sdaManifest, SDAManifestEntry sdaManifestEntry)
         {
-            Manifest = manifest;
-            Entry = entry;
+            SdaManifest = sdaManifest;
+            SdaManifestEntry = sdaManifestEntry;
         }
     }
 
@@ -62,25 +62,25 @@ public static class SdaEncryptedMafileDetector
         return TryDetect(mafilePath, manifest);
     }
 
-    public static SdaEncryptedResult? TryDetect(string mafilePath, Manifest manifest)
+    public static SdaEncryptedResult? TryDetect(string mafilePath, SDAManifest sdaManifest)
     {
         if (string.IsNullOrWhiteSpace(mafilePath))
             return null;
-        if (manifest == null || !manifest.Encrypted || manifest.Entries == null || manifest.Entries.Length == 0)
+        if (sdaManifest == null || !sdaManifest.Encrypted || sdaManifest.Entries == null || sdaManifest.Entries.Length == 0)
             return null;
 
         var fileName = Path.GetFileName(mafilePath);
         if (string.IsNullOrWhiteSpace(fileName))
             return null;
 
-        var entry = FindEntry(manifest, fileName);
+        var entry = FindEntry(sdaManifest, fileName);
         if (entry == null)
             return null;
 
-        return new SdaEncryptedResult(manifest, entry);
+        return new SdaEncryptedResult(sdaManifest, entry);
     }
 
-    public static Manifest? TryReadEncryptedManifestFromPath(string manifestPath)
+    public static SDAManifest? TryReadEncryptedManifestFromPath(string manifestPath)
     {
         if (string.IsNullOrWhiteSpace(manifestPath))
             return null;
@@ -105,9 +105,9 @@ public static class SdaEncryptedMafileDetector
         return null;
     }
 
-    private static Entry? FindEntry(Manifest manifest, string fileName)
+    private static SDAManifestEntry? FindEntry(SDAManifest sdaManifest, string fileName)
     {
-        return Array.Find(manifest.Entries, e =>
+        return Array.Find(sdaManifest.Entries, e =>
         {
             if (string.IsNullOrWhiteSpace(e.Filename))
                 return false;
@@ -129,12 +129,12 @@ public static class SdaEncryptedMafileDetector
         });
     }
 
-    private static Manifest? TryReadEncryptedManifest(string manifestPath)
+    private static SDAManifest? TryReadEncryptedManifest(string manifestPath)
     {
         try
         {
             var manifestText = File.ReadAllText(manifestPath);
-            var manifest = JsonConvert.DeserializeObject<Manifest>(manifestText);
+            var manifest = JsonConvert.DeserializeObject<SDAManifest>(manifestText);
             if (manifest == null || !manifest.Encrypted || manifest.Entries == null || manifest.Entries.Length == 0)
                 return null;
             return manifest;

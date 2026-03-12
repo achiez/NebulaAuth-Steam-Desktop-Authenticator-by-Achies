@@ -1,7 +1,9 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.IO;
+using System.Security.Cryptography;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-namespace NebulaAuth.LegacyConverter;
+namespace NebulaAuth.Model.MafilesLegacy;
 
 #pragma warning disable all
 #pragma warning disable SYSLIB0023

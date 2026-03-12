@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.4.33205.214
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11520.95 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "changelog", "changelog", "{161BFADE-FCF3-45D1-82EA-8A1B187529F7}"
 	ProjectSection(SolutionItems) = preProject
@@ -30,8 +30,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "changelog", "changelog", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamLibForked", "src\SteamLibForked\SteamLibForked.csproj", "{224F9DB0-3D20-A614-BA2A-12F22B13A2C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NebulaAuth.LegacyConverter", "src\NebulaAuth.LegacyConverter\NebulaAuth.LegacyConverter.csproj", "{C8235305-E5C4-155B-C718-C0F239CA3AB7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NebulaAuth", "src\NebulaAuth\NebulaAuth.csproj", "{C42F63B6-32F7-ED08-5B86-CD51989761AD}"
 EndProject
 Global
@@ -44,10 +42,6 @@ Global
 		{224F9DB0-3D20-A614-BA2A-12F22B13A2C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{224F9DB0-3D20-A614-BA2A-12F22B13A2C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{224F9DB0-3D20-A614-BA2A-12F22B13A2C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8235305-E5C4-155B-C718-C0F239CA3AB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8235305-E5C4-155B-C718-C0F239CA3AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8235305-E5C4-155B-C718-C0F239CA3AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8235305-E5C4-155B-C718-C0F239CA3AB7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C42F63B6-32F7-ED08-5B86-CD51989761AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C42F63B6-32F7-ED08-5B86-CD51989761AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C42F63B6-32F7-ED08-5B86-CD51989761AD}.Release|Any CPU.ActiveCfg = Release|Any CPU

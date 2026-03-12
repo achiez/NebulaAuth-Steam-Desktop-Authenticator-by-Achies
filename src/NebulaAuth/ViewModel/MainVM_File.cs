@@ -15,11 +15,11 @@ using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.Model.Exceptions;
 using NebulaAuth.Model.Mafiles;
+using NebulaAuth.Model.MafilesLegacy;
 using NebulaAuth.Utility;
 using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;
 using NebulaAuth.ViewModel.Other;
-using NebulaAuth.LegacyConverter;
 using SteamLibForked.Exceptions.Authorization;
 
 namespace NebulaAuth.ViewModel;
@@ -252,7 +252,7 @@ public partial class MainVM //File //TODO: Refactor
             return new SdaImportResult { Handled = true, Errors = 1 };
         }
 
-        var plainText = SDAEncryptor.DecryptData(password, sdaResult.Entry.EncryptionSalt, sdaResult.Entry.EncryptionIv, fileContent);
+        var plainText = SDAEncryptor.DecryptData(password, sdaResult.SdaManifestEntry.EncryptionSalt, sdaResult.SdaManifestEntry.EncryptionIv, fileContent);
         if (string.IsNullOrEmpty(plainText))
         {
             SnackbarController.SendSnackbar(GetLocalization("SdaWrongPassword"), TimeSpan.FromSeconds(3));
