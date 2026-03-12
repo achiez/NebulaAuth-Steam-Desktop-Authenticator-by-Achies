@@ -221,7 +221,12 @@ public partial class MafileExporterVM : ObservableObject
             return;
         }
 
-        var split = Regex.Split(lines, "\r\n|\r|\n").Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+        var split = Regex
+            .Split(lines, "\r\n|\r|\n")
+            .Select(x => x.Trim())
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .ToArray();
+
         ResetHintText();
         ExportResult res;
         try
