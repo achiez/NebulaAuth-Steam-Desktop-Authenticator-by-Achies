@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
 using NebulaAuth.View;
@@ -49,6 +50,39 @@ public static class DialogsController
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// Shows the SDA encryption password dialog for unlocking SDA-encrypted mafiles.
+    /// </summary>
+    /// <returns>The entered password if user clicked OK, otherwise null.</returns>
+    public static async Task<string?> ShowSdaPasswordDialog()
+    {
+        var vm = new SdaPasswordDialogVM();
+        var content = new SdaPasswordDialog
+        {
+            DataContext = vm
+        };
+        var result = await DialogHost.Show(content);
+        if (result is true)
+        {
+            return vm.Password;
+        }
+
+        return null;
+    }
+
+    public static string? PickSdaManifestPath()
+    {
+        var openFileDialog = new OpenFileDialog
+        {
+            Filter = "manifest.json|manifest.json|JSON|*.json",
+            Multiselect = false
+        };
+
+        var res = openFileDialog.ShowDialog();
+        if (res != true) return null;
+        return openFileDialog.FileName;
     }
 
     public static async Task<bool> ShowProxyManager()

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -108,6 +108,39 @@ public static class Storage
             throw new IOException("File already exist and overwrite is False"); //TODO: Custom Exception
         }
 
+
+        await SaveMafileAsync(data);
+    }
+
+    /// <summary>
+    /// Adds an already-deserialized mafile (e.g. after SDA decryption) to storage and saves it to the app maFiles folder.
+    /// </summary>
+    /// <param name="data">The mafile data. Filename will be set by the helper.</param>
+    /// <param name="overwrite">Whether to overwrite if a file with the same identity already exists.</param>
+    /// <exception cref="FormatException">When data is invalid or code generation fails.</exception>
+    /// <exception cref="IOException">When file already exists and overwrite is false.</exception>
+    public static async Task AddNewMafileFromData(Mafile data, bool overwrite)
+    {
+        if (data == null)
+            throw new ArgumentNullException(nameof(data));
+
+        if (string.IsNullOrWhiteSpace(data.AccountName))
+            throw new FormatException("File data is not valid. Missing AccountName");
+
+        try
+        {
+            _ = SteamGuardCodeGenerator.GenerateCode(data.SharedSecret);
+        }
+        catch (Exception ex)
+        {
+            throw new FormatException("Can't generate code on this mafile", ex);
+        }
+
+        data.Filename = null;
+        if (!overwrite && File.Exists(MafilesStorageHelper.GetOrUpdateMafilePath(data)))
+        {
+            throw new IOException("File already exist and overwrite is False"); //TODO: Custom Exception
+        }
 
         await SaveMafileAsync(data);
     }

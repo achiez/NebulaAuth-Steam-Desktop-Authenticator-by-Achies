@@ -46,11 +46,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\NebulaAuth.LegacyConverter\NebulaAuth.LegacyConverter.csproj" />
 		<ProjectReference Include="..\SteamLibForked\SteamLibForked.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Update="View\Dialogs\LoginAgainOnImportDialog.xaml.cs">
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="View\Dialogs\SdaPasswordDialog.xaml.cs">
 			<SubType>Code</SubType>
 		</Compile>
 	</ItemGroup>
