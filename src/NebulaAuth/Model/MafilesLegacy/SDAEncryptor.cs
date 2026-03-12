@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
 
@@ -82,6 +83,20 @@ public static class SDAEncryptor
                new Rfc2898DeriveBytes(password, Convert.FromBase64String(salt), PBKDF2_ITERATIONS))
         {
             return pbkdf2.GetBytes(KEY_SIZE_BYTES);
+        }
+    }
+
+    public static bool TryDecryptData(string password, string passwordSalt, string IV, string encryptedData, [NotNullWhen(true)] out string? plaintext)
+    {
+        plaintext = null;
+        try
+        {
+            plaintext = DecryptData(password, passwordSalt, IV, encryptedData);
+            return plaintext != null;
+        }
+        catch (Exception)
+        {
+            return false;
         }
     }
 

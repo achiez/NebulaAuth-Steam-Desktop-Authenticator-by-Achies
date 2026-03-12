@@ -73,59 +73,46 @@ public static class Storage
     /// </summary>
     /// <param name="path"></param>
     /// <param name="overwrite"></param>
-    /// <exception cref="FormatException"></exception>
+    /// <returns> Result of adding mafile</returns>
     /// <exception cref="SessionInvalidException"></exception>
-    /// <exception cref="IOException"></exception>
-    public static async Task AddNewMafile(string path, bool overwrite)
+    public static async Task<AddMafileResult> AddNewMafile(string path, bool overwrite)
     {
         Mafile data;
+
         try
         {
             data = await ReadMafileAsync(path);
-            data.Filename = null;
         }
-        catch (Exception ex)
-            when (ex is not MafileNeedReloginException)
+        catch (Exception ex) when (ex is not MafileNeedReloginException)
         {
             Shell.Logger.Warn(ex, "Can't load mafile");
             throw new FormatException("File data is not valid", ex);
         }
 
-        if (string.IsNullOrWhiteSpace(data.AccountName))
-            throw new FormatException("File data is not valid. Missing AccountName");
-
-        try
-        {
-            _ = SteamGuardCodeGenerator.GenerateCode(data.SharedSecret);
-        }
-        catch (Exception ex)
-        {
-            throw new FormatException("Can't generate code on this mafile", ex);
-        }
-
-        if (!overwrite && File.Exists(MafilesStorageHelper.GetOrUpdateMafilePath(data)))
-        {
-            throw new IOException("File already exist and overwrite is False"); //TODO: Custom Exception
-        }
-
-
-        await SaveMafileAsync(data);
+        await AddNewMafileInternal(data, overwrite);
+        return AddMafileResult.Added;
     }
 
     /// <summary>
-    /// Adds an already-deserialized mafile (e.g. after SDA decryption) to storage and saves it to the app maFiles folder.
     /// </summary>
-    /// <param name="data">The mafile data. Filename will be set by the helper.</param>
-    /// <param name="overwrite">Whether to overwrite if a file with the same identity already exists.</param>
-    /// <exception cref="FormatException">When data is invalid or code generation fails.</exception>
-    /// <exception cref="IOException">When file already exists and overwrite is false.</exception>
-    public static async Task AddNewMafileFromData(Mafile data, bool overwrite)
+    /// <param name="data"></param>
+    /// <param name="overwrite"></param>
+    /// <returns> Result of adding mafile</returns>
+    /// <exception cref="SessionInvalidException"></exception>
+    public static Task<AddMafileResult> AddNewMafileFromData(Mafile data, bool overwrite)
     {
-        if (data == null)
-            throw new ArgumentNullException(nameof(data));
+        return AddNewMafileInternal(data, overwrite);
+    }
+
+    private static async Task<AddMafileResult> AddNewMafileInternal(Mafile data, bool overwrite)
+    {
+        ArgumentNullException.ThrowIfNull(data);
 
         if (string.IsNullOrWhiteSpace(data.AccountName))
-            throw new FormatException("File data is not valid. Missing AccountName");
+        {
+            Shell.Logger.Warn("Mafile account name is empty");
+            return AddMafileResult.Error;
+        }
 
         try
         {
@@ -133,16 +120,19 @@ public static class Storage
         }
         catch (Exception ex)
         {
-            throw new FormatException("Can't generate code on this mafile", ex);
+            Shell.Logger.Error(ex, "Can't generate code for mafile {accountName}", data.AccountName);
+            return AddMafileResult.Error;
         }
 
         data.Filename = null;
+
         if (!overwrite && File.Exists(MafilesStorageHelper.GetOrUpdateMafilePath(data)))
         {
-            throw new IOException("File already exist and overwrite is False"); //TODO: Custom Exception
+            return AddMafileResult.AlreadyExist;
         }
 
         await SaveMafileAsync(data);
+        return AddMafileResult.Added;
     }
 
     public static async Task<Mafile> ReadMafileAsync(string path)

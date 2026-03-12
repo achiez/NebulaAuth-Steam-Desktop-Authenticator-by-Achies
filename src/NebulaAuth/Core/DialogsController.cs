@@ -71,20 +71,6 @@ public static class DialogsController
 
         return null;
     }
-
-    public static string? PickSdaManifestPath()
-    {
-        var openFileDialog = new OpenFileDialog
-        {
-            Filter = "manifest.json|manifest.json|JSON|*.json",
-            Multiselect = false
-        };
-
-        var res = openFileDialog.ShowDialog();
-        if (res != true) return null;
-        return openFileDialog.FileName;
-    }
-
     public static async Task<bool> ShowProxyManager()
     {
         var vm = new ProxyManagerVM();

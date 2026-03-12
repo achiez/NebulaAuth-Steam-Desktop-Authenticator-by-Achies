@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
@@ -27,6 +26,7 @@ namespace NebulaAuth.ViewModel;
 public partial class MainVM //File //TODO: Refactor
 {
     public Settings Settings => Settings.Instance;
+
 
     [RelayCommand]
     private void OpenMafileFolder()
@@ -60,62 +60,50 @@ public partial class MainVM //File //TODO: Refactor
     [RelayCommand]
     private Task AddMafile()
     {
-        var openFileDialog = new OpenFileDialog
+        var dialog = new OpenFileDialog
         {
             Filter = "Mafile|*.mafile;*.maFile",
             Multiselect = false
         };
-        var fs = openFileDialog.ShowDialog();
-        if (fs != true) return Task.CompletedTask;
-        var path = openFileDialog.FileName;
-        return AddMafile([path]);
+
+        return dialog.ShowDialog() == true
+            ? AddMafile([dialog.FileName])
+            : Task.CompletedTask;
     }
 
     public async Task AddMafile(string[] path)
     {
         bool? confirmOverwrite = null;
-        var added = 0;
-        var notAdded = 0;
-        var errors = 0;
-        var sdaPasswordByDirectory = new Dictionary<string, string?>(StringComparer.OrdinalIgnoreCase);
-
+        var summary = new MafileImportSummary();
+        SDAEncryptionHelper.Context? sdaContext = null;
+        var sdaPasswordPrompted = false;
         foreach (var str in path)
         {
             try
             {
-                await Storage.AddNewMafile(str, confirmOverwrite ?? false);
-                added++;
+                var (mafile, passwordPrompted, context) = await TryReadMafile(str, sdaContext, sdaPasswordPrompted);
+                sdaContext = context;
+                sdaPasswordPrompted = passwordPrompted;
+                if (mafile == null)
+                {
+                    summary.ErrorOne();
+                    continue;
+                }
+
+                var overwrite = confirmOverwrite ?? false;
+                var res = await Storage.AddNewMafileFromData(mafile, overwrite);
+                if (res == AddMafileResult.AlreadyExist && confirmOverwrite == null)
+                {
+                    confirmOverwrite =
+                        await DialogsController.ShowConfirmCancelDialog(GetLocalization("ConfirmMafileOverwrite"));
+                    res = await Storage.AddNewMafileFromData(mafile, confirmOverwrite.Value);
+                }
+
+                summary.Apply(res);
             }
             catch (FormatException)
             {
-                var sdaResult = await TryImportSdaEncryptedMafile(str, sdaPasswordByDirectory, confirmOverwrite);
-                if (!sdaResult.Handled)
-                {
-                    errors++;
-                }
-                else
-                {
-                    if (sdaResult.ConfirmOverwrite != null)
-                        confirmOverwrite = sdaResult.ConfirmOverwrite;
-                    added += sdaResult.Added;
-                    notAdded += sdaResult.NotAdded;
-                    errors += sdaResult.Errors;
-                }
-            }
-            catch (IOException)
-            {
-                confirmOverwrite ??=
-                    await DialogsController.ShowConfirmCancelDialog(GetLocalization("ConfirmMafileOverwrite"));
-
-                if (confirmOverwrite == true)
-                {
-                    await Storage.AddNewMafile(str, true);
-                    added++;
-                }
-                else if (confirmOverwrite == false)
-                {
-                    notAdded++;
-                }
+                summary.ErrorOne();
             }
             catch (MafileNeedReloginException ex)
             {
@@ -124,11 +112,11 @@ public partial class MainVM //File //TODO: Refactor
                     var mafile = ex.Mafile;
                     if (await HandleAddMafileWithoutSession(mafile))
                     {
-                        added++;
+                        summary.AddedOne();
                     }
                     else
                     {
-                        errors++;
+                        summary.ErrorOne();
                     }
                 }
                 else
@@ -140,208 +128,50 @@ public partial class MainVM //File //TODO: Refactor
             }
         }
 
-        var msg = GetLocalization("Import");
-        if (added > 0)
-        {
-            msg += $" {GetLocalization("ImportAdded")} {added}.";
-        }
-
-        if (notAdded > 0)
-        {
-            msg += $" {GetLocalization("ImportSkipped")} {notAdded}.";
-        }
-
-        if (errors > 0)
-        {
-            msg += $" {GetLocalization("ImportErrors")} {errors}.";
-        }
-
-        SnackbarController.SendSnackbar(msg, TimeSpan.FromSeconds(2));
+        ShowImportSummary(summary);
     }
 
-    /// <summary>
-    /// Result of trying to import an SDA-encrypted mafile. When Handled is true, apply the counts and optional ConfirmOverwrite to the caller's state.
-    /// </summary>
-    private sealed class SdaImportResult
+
+    private async Task<MafileReadResult> TryReadMafile(string path, SDAEncryptionHelper.Context? sdaContext,
+        bool sdaPasswordPrompted)
     {
-        public bool Handled { get; init; }
-        public bool? ConfirmOverwrite { get; init; }
-        public int Added { get; init; }
-        public int NotAdded { get; init; }
-        public int Errors { get; init; }
-    }
-
-    /// <summary>
-    /// Tries to detect SDA-encrypted mafile, prompt for password if needed, decrypt and import.
-    /// </summary>
-    /// <returns>Result with Handled=true if SDA-encrypted and processed; apply Added/NotAdded/Errors and ConfirmOverwrite (if set) to caller state. Handled=false if not SDA-encrypted.</returns>
-    private async Task<SdaImportResult> TryImportSdaEncryptedMafile(
-        string mafilePath,
-        Dictionary<string, string?> sdaPasswordByDirectory,
-        bool? confirmOverwrite)
-    {
-        var sdaResult = SdaEncryptedMafileDetector.TryDetect(mafilePath);
-        if (sdaResult == null)
-        {
-            // If the user only has an encrypted .mafile (common), ask them to locate SDA manifest.json.
-            // Without it, SDA decryption is cryptographically impossible (salt + IV are stored there).
-            string encryptedBlob;
-            try
-            {
-                encryptedBlob = await File.ReadAllTextAsync(mafilePath);
-            }
-            catch
-            {
-                return new SdaImportResult { Handled = false };
-            }
-
-            if (LooksLikeSdaEncryptedBlob(encryptedBlob))
-            {
-                var proceed = await DialogsController.ShowConfirmCancelDialog(GetLocalization("SdaManifestMissing"));
-                if (!proceed)
-                    return new SdaImportResult { Handled = true, NotAdded = 1 };
-
-                var manifestPath = DialogsController.PickSdaManifestPath();
-                if (string.IsNullOrWhiteSpace(manifestPath))
-                    return new SdaImportResult { Handled = true, NotAdded = 1 };
-
-                var manifest = SdaEncryptedMafileDetector.TryReadEncryptedManifestFromPath(manifestPath);
-                if (manifest == null)
-                    return new SdaImportResult { Handled = true, Errors = 1 };
-
-                sdaResult = SdaEncryptedMafileDetector.TryDetect(mafilePath, manifest);
-                if (sdaResult == null)
-                {
-                    SnackbarController.SendSnackbar(GetLocalization("SdaManifestEntryNotFound"),
-                        TimeSpan.FromSeconds(5));
-                    return new SdaImportResult { Handled = true, Errors = 1 };
-                }
-            }
-            else
-            {
-                return new SdaImportResult { Handled = false };
-            }
-        }
-
-        var dir = Path.GetDirectoryName(mafilePath);
-        if (string.IsNullOrEmpty(dir))
-            return new SdaImportResult { Handled = false };
-
-        if (!sdaPasswordByDirectory.TryGetValue(dir, out var password))
-        {
-            password = await DialogsController.ShowSdaPasswordDialog();
-            if (string.IsNullOrEmpty(password))
-            {
-                // User cancelled password prompt -> treat as skipped, not an error.
-                return new SdaImportResult { Handled = true, NotAdded = 1 };
-            }
-
-            sdaPasswordByDirectory[dir] = password;
-        }
-
-        string fileContent;
         try
         {
-            fileContent = await File.ReadAllTextAsync(mafilePath);
-        }
-        catch (Exception ex)
-        {
-            Shell.Logger.Warn(ex, "Could not read mafile for SDA decrypt");
-            SnackbarController.SendSnackbar($"{GetLocalization("MafileImportError")} {Path.GetFileName(mafilePath)}",
-                TimeSpan.FromSeconds(3));
-            return new SdaImportResult { Handled = true, Errors = 1 };
-        }
-
-        var plainText = SDAEncryptor.DecryptData(password, sdaResult.SdaManifestEntry.EncryptionSalt, sdaResult.SdaManifestEntry.EncryptionIv, fileContent);
-        if (string.IsNullOrEmpty(plainText))
-        {
-            SnackbarController.SendSnackbar(GetLocalization("SdaWrongPassword"), TimeSpan.FromSeconds(3));
-            sdaPasswordByDirectory.Remove(dir);
-            return new SdaImportResult { Handled = true, Errors = 1 };
-        }
-
-        Mafile data;
-        try
-        {
-            data = NebulaSerializer.Deserialize(plainText, mafilePath);
-        }
-        catch (MafileNeedReloginException ex) when (ex.Mafile != null)
-        {
-            data = ex.Mafile;
-        }
-        catch (Exception ex)
-        {
-            Shell.Logger.Warn(ex, "Could not deserialize decrypted SDA mafile");
-            SnackbarController.SendSnackbar($"{GetLocalization("MafileImportError")} {Path.GetFileName(mafilePath)}",
-                TimeSpan.FromSeconds(3));
-            return new SdaImportResult { Handled = true, Errors = 1 };
-        }
-
-        try
-        {
-            await Storage.AddNewMafileFromData(data, confirmOverwrite ?? false);
-            return new SdaImportResult { Handled = true, Added = 1 };
-        }
-        catch (IOException)
-        {
-            var newOverwrite = await DialogsController.ShowConfirmCancelDialog(GetLocalization("ConfirmMafileOverwrite"));
-            if (newOverwrite == true)
+            var content = await File.ReadAllTextAsync(path);
+            Mafile mafile;
+            if (!SDAEncryptionHelper.LooksLikeSdaEncryptedBlob(content))
             {
-                try
-                {
-                    await Storage.AddNewMafileFromData(data, true);
-                    return new SdaImportResult { Handled = true, ConfirmOverwrite = true, Added = 1 };
-                }
-                catch (Exception ex)
-                {
-                    Shell.Logger.Warn(ex, "Could not save decrypted mafile");
-                    SnackbarController.SendSnackbar($"{GetLocalization("MafileImportError")} {Path.GetFileName(mafilePath)}",
-                        TimeSpan.FromSeconds(3));
-                    return new SdaImportResult { Handled = true, Errors = 1 };
-                }
+                mafile = NebulaSerializer.Deserialize(content, path);
+                return new MafileReadResult(mafile, sdaPasswordPrompted, sdaContext);
             }
 
-            if (newOverwrite == false)
-                return new SdaImportResult { Handled = true, ConfirmOverwrite = false, NotAdded = 1 };
-            return new SdaImportResult { Handled = true, ConfirmOverwrite = newOverwrite };
+            // Looks like encrypted, let's see if we have manifest
+            sdaContext ??= SDAEncryptionHelper.TryDetect(path, sdaContext?.SdaManifest);
+            if (sdaContext != null)
+            {
+                // We have manifest, but we must ensure we have password
+                if (sdaContext.Password == null && !sdaPasswordPrompted)
+                {
+                    sdaPasswordPrompted = true;
+                    var password = await DialogsController.ShowSdaPasswordDialog();
+                    sdaContext = sdaContext.WithPassword(password);
+                }
+
+                var decrypted = SDAEncryptionHelper.TryDecrypt(content, path, sdaContext);
+                if (decrypted == null) return new MafileReadResult(null, sdaPasswordPrompted, sdaContext);
+                content = decrypted;
+            }
+
+            // If we are here, it means that either file is not encrypted, or we successfully decrypted it
+            mafile = NebulaSerializer.Deserialize(content, path);
+            return new MafileReadResult(mafile, sdaPasswordPrompted, sdaContext);
         }
         catch (Exception ex)
+            when (ex is not MafileNeedReloginException)
         {
-            Shell.Logger.Warn(ex, "Could not save decrypted mafile");
-            SnackbarController.SendSnackbar($"{GetLocalization("MafileImportError")} {Path.GetFileName(mafilePath)}",
-                TimeSpan.FromSeconds(3));
-            return new SdaImportResult { Handled = true, Errors = 1 };
+            Shell.Logger.Warn(ex, "Failed to import mafile");
+            throw new FormatException($"Failed to read mafile {Path.GetFileName(path)}", ex);
         }
-    }
-
-    private static bool LooksLikeSdaEncryptedBlob(string content)
-    {
-        if (string.IsNullOrWhiteSpace(content))
-            return false;
-
-        var trimmed = content.Trim();
-        // Plain mafile JSON starts with {, SDA encrypted mafile is base64 blob text.
-        if (trimmed.StartsWith("{"))
-            return false;
-
-        // Cheap heuristic: mostly base64 chars and long enough.
-        if (trimmed.Length < 64)
-            return false;
-
-        for (var i = 0; i < trimmed.Length; i++)
-        {
-            var c = trimmed[i];
-            var isBase64 =
-                (c >= 'A' && c <= 'Z') ||
-                (c >= 'a' && c <= 'z') ||
-                (c >= '0' && c <= '9') ||
-                c == '+' || c == '/' || c == '=' ||
-                c == '\r' || c == '\n';
-            if (!isBase64)
-                return false;
-        }
-
-        return true;
     }
 
     private async Task<bool> HandleAddMafileWithoutSession(Mafile data)
@@ -391,6 +221,28 @@ public partial class MainVM //File //TODO: Refactor
         } //As this operation used only for 1 mafile at time, we can safely assume that we can select it for convenience
         return result;
     }
+
+    private static void ShowImportSummary(MafileImportSummary summary)
+    {
+        var msg = GetLocalization("Import");
+        if (summary.Added > 0)
+        {
+            msg += $" {GetLocalization("ImportAdded")} {summary.Added}.";
+        }
+
+        if (summary.NotAdded > 0)
+        {
+            msg += $" {GetLocalization("ImportSkipped")} {summary.NotAdded}.";
+        }
+
+        if (summary.Errors > 0)
+        {
+            msg += $" {GetLocalization("ImportErrors")} {summary.Errors}.";
+        }
+
+        SnackbarController.SendSnackbar(msg, TimeSpan.FromSeconds(2));
+    }
+
 
     [RelayCommand]
     private async Task RemoveMafile()
@@ -495,4 +347,9 @@ public partial class MainVM //File //TODO: Refactor
         if (mafile is not Mafile maf) return false;
         return maf.Password != null && PHandler.IsPasswordSet;
     }
+
+    private record MafileReadResult(
+        Mafile? Mafile,
+        bool SdaPasswordPrompted,
+        SDAEncryptionHelper.Context? SdaContext);
 }
