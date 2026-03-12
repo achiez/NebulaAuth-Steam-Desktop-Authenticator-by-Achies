@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MaterialDesignThemes.Wpf;
 using NebulaAuth.Model;
@@ -130,7 +130,7 @@ public static class DialogsController
         var content = msg == null ? new ConfirmCancelDialog() : new ConfirmCancelDialog(msg);
 
         var result = await DialogHost.Show(content);
-        return result != null && (bool) result;
+        return result != null && (bool)result;
     }
 
     public static async Task<string?> ShowTextFieldDialog(string? title = null, string? msg = null)
