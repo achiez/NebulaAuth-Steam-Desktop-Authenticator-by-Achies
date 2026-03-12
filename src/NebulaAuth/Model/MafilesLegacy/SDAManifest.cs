@@ -4,15 +4,15 @@
 //Pragma disable for legacy code
 
 
-namespace NebulaAuth.LegacyConverter;
+namespace NebulaAuth.Model.MafilesLegacy;
 
-public class Manifest
+public class SDAManifest
 {
     [JsonProperty("encrypted")] public bool Encrypted { get; set; }
 
     [JsonProperty("first_run")] public bool FirstRun { get; set; }
 
-    [JsonProperty("entries")] public Entry[] Entries { get; set; }
+    [JsonProperty("entries")] public SDAManifestEntry[] Entries { get; set; }
 
     [JsonProperty("periodic_checking")] public bool PeriodicChecking { get; set; }
 
@@ -28,7 +28,7 @@ public class Manifest
     [JsonProperty("auto_confirm_trades")] public bool AutoConfirmTrades { get; set; }
 }
 
-public class Entry
+public class SDAManifestEntry
 {
     [JsonProperty("encryption_iv")] public string EncryptionIv { get; set; }
 
