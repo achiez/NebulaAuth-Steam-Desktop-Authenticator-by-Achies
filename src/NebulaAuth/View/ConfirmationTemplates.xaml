@@ -286,7 +286,7 @@
                 <materialDesign:PackIcon Kind="Check" />
             </Button>
             <Button Grid.Column="4" Style="{StaticResource MaterialDesignIconButton}"
-                    Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.ConfirmCommand)}"
+                    Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.CancelCommand)}"
                     CommandParameter="{Binding }">
                 <materialDesign:PackIcon Kind="Close" />
             </Button>
