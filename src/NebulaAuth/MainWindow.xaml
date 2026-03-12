@@ -519,16 +519,32 @@
                                        Text="{Binding SelectedMafile.AccountName, TargetNullValue=' ', FallbackValue=' ', Mode=OneWay}" />
                             <!--<Button Command="{Binding DebugCommand}">Debug</Button>-->
                         </ToolBarPanel>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"
-                                   Margin="0,0,10,0">
-                            <Hyperlink
-                                NavigateUri="https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies"
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <md:PackIcon x:Name="UpdateBadgeIcon"
+                                         Kind="BellAlert" Width="15" Height="15"
+                                         HorizontalAlignment="Right"
+                                         VerticalAlignment="Center"
+                                         Margin="0,0,5,0"
+                                         Visibility="Collapsed"
+                                         ToolTip="{Tr CodeBehind.UpdateService.UpdateIndicatorHint}">
+                                <md:PackIcon.Foreground>
+                                    <SolidColorBrush x:Name="UpdateBadgeBrush" Color="DodgerBlue" />
+                                </md:PackIcon.Foreground>
+                            </md:PackIcon>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"
+                                       Margin="0,0,10,0">
+                                <Hyperlink
+                                    NavigateUri="https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies"
 
-                                Foreground="{DynamicResource AccentBrush}"
-                                Command="{Binding OpenLinksViewCommand}">
-                                by achies
-                            </Hyperlink>
-                        </TextBlock>
+
+                                    Command="{Binding OpenLinksViewCommand}">
+                                    <Hyperlink.Foreground>
+                                        <SolidColorBrush x:Name="ByAchiesBrush" Color="DodgerBlue" />
+                                    </Hyperlink.Foreground>
+                                    by achies
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
                     </Grid>
                 </Border>
                 <md:Snackbar Grid.Row="1" MessageQueue="{Binding MessageQueue}" />

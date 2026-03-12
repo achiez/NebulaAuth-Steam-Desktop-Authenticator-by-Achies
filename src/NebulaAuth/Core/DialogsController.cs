@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoUpdaterDotNET;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
+using NebulaAuth.Model.Update;
 using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;
 using NebulaAuth.ViewModel.Linker;
@@ -137,6 +139,17 @@ public static class DialogsController
     {
         var vm = new MafileExporterVM();
         var dialog = new MafileExporterView
+        {
+            DataContext = vm
+        };
+        await DialogHost.Show(dialog);
+    }
+
+    public static async Task ShowUpdateDialog(UpdateInfoEventArgs args, ChangelogEntry? changelog,
+        string? htmlFallbackUrl)
+    {
+        var vm = new UpdateDialogVM(args, changelog, htmlFallbackUrl);
+        var dialog = new UpdateDialog
         {
             DataContext = vm
         };

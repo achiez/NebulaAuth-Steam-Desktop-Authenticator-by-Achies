@@ -1,0 +1,218 @@
+name: Build and Publish Release
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/NebulaAuth/NebulaAuth.csproj'
+      - 'changelog/*.json'
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+
+      # --------------------------------------------------------
+      # Checkout
+      # --------------------------------------------------------
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+
+      # --------------------------------------------------------
+      # Setup .NET
+      # --------------------------------------------------------
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # --------------------------------------------------------
+      # Extract version via MSBuild
+      # --------------------------------------------------------
+
+      - name: Extract version from csproj
+        id: ver
+        run: |
+          VERSION=$(dotnet msbuild src/NebulaAuth/NebulaAuth.csproj -getProperty:AssemblyVersion)
+          echo "Detected version $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      # --------------------------------------------------------
+      # Validate JSON changelog
+      # --------------------------------------------------------
+
+      - name: Validate changelog JSON
+        run: |
+          VERSION="${{ steps.ver.outputs.version }}"
+          FILE="changelog/${VERSION}.json"
+
+          echo "Checking changelog file $FILE"
+
+          if [ ! -f "$FILE" ]; then
+            echo "ERROR: changelog JSON not found"
+            exit 1
+          fi
+
+          jq empty "$FILE"
+
+      # --------------------------------------------------------
+      # Generate HTML changelog (legacy AutoUpdater)
+      # --------------------------------------------------------
+
+      - name: Generate HTML changelog
+        run: |
+          VERSION="${{ steps.ver.outputs.version }}"
+          JSON="changelog/${VERSION}.json"
+          HTML="changelog/${VERSION}.html"
+
+          echo "Generating HTML changelog"
+
+          jq -r '
+            "<!DOCTYPE html>",
+            "<html>",
+            "<head>",
+            "<meta charset=\"UTF-8\">",
+            "<title>Changelog</title>",
+            "<style>",
+            "body { font-family: Segoe UI, sans-serif; background:#eeeeee; padding:20px; }",
+            ".change { background:white; padding:25px; border-radius:10px; }",
+            "li { margin-bottom:6px; }",
+            "</style>",
+            "</head>",
+            "<body>",
+            "<div class=\"change\">",
+            "<ul>",
+            (.changes[] |
+              "<li><b>\(.type):</b> \(.text)" +
+              (if .link then " <a href=\"\(.link)\">details</a>" else "" end) +
+              "</li>"
+            ),
+            "</ul>",
+            "</div>",
+            "</body>",
+            "</html>"
+          ' "$JSON" > "$HTML"
+
+          echo "Generated $HTML"
+
+      # --------------------------------------------------------
+      # Build application
+      # --------------------------------------------------------
+
+      - name: Build NebulaAuth
+        run: |
+          dotnet publish src/NebulaAuth/NebulaAuth.csproj \
+            -c Release \
+            -o build \
+            -p:EnableWindowsTargeting=true
+
+      # --------------------------------------------------------
+      # Package ZIP
+      # --------------------------------------------------------
+
+      - name: Package release
+        run: |
+          cd build
+          zip -r ../NebulaAuth.${{ steps.ver.outputs.version }}.zip *
+
+      # --------------------------------------------------------
+      # Generate SHA256 checksum
+      # --------------------------------------------------------
+
+      - name: Generate checksum
+        id: checksum
+        run: |
+          FILE="NebulaAuth.${{ steps.ver.outputs.version }}.zip"
+          HASH=$(sha256sum "$FILE" | awk '{print $1}')
+          echo "checksum=$HASH" >> $GITHUB_OUTPUT
+
+      # --------------------------------------------------------
+      # Generate update.xml
+      # --------------------------------------------------------
+
+      - name: Generate update.xml
+        run: |
+          VERSION="${{ steps.ver.outputs.version }}"
+          CHECKSUM="${{ steps.checksum.outputs.checksum }}"
+
+          cat > NebulaAuth/update.xml <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <item>
+            <version>$VERSION</version>
+            <url>https://github.com/${{ github.repository }}/releases/download/$VERSION/NebulaAuth.$VERSION.zip</url>
+            <changelog>https://achiez.github.io/${{ github.event.repository.name }}/changelog/$VERSION.html</changelog>
+            <mandatory>false</mandatory>
+            <checksum algorithm="SHA256">$CHECKSUM</checksum>
+          </item>
+          EOF
+
+          echo "Generated update.xml"
+          cat NebulaAuth/update.xml
+
+      # --------------------------------------------------------
+      # Generate GitHub Release Notes
+      # --------------------------------------------------------
+
+      - name: Generate release notes
+        id: notes
+        run: |
+          VERSION="${{ steps.ver.outputs.version }}"
+          FILE="changelog/${VERSION}.json"
+
+          BODY=$(jq -r '
+            .changes[] |
+            "- **\(.type):** \(.text)" +
+            (if .link then " (\(.link))" else "" end)
+          ' "$FILE")
+
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "$BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      # --------------------------------------------------------
+      # Commit generated files
+      # --------------------------------------------------------
+
+      - name: Commit generated files
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git add NebulaAuth/update.xml
+          git add changelog/*.html
+
+          git commit -m "chore(release): ${{ steps.ver.outputs.version }}" || echo "No changes"
+          git push
+
+      # --------------------------------------------------------
+      # Create git tag
+      # --------------------------------------------------------
+
+      - name: Create tag
+        run: |
+          VERSION="${{ steps.ver.outputs.version }}"
+          git tag -a "$VERSION" -m "Release $VERSION"
+          git push origin "$VERSION"
+
+      # --------------------------------------------------------
+      # Publish GitHub Release
+      # --------------------------------------------------------
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.ver.outputs.version }}
+          name: Release ${{ steps.ver.outputs.version }}
+          body: ${{ steps.notes.outputs.body }}
+          files: |
+            NebulaAuth.${{ steps.ver.outputs.version }}.zip
