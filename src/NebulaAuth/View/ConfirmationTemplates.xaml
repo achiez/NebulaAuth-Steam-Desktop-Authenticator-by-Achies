@@ -6,8 +6,6 @@
                     xmlns:entities="clr-namespace:NebulaAuth.Model.Entities"
                     xmlns:vm="clr-namespace:NebulaAuth.ViewModel">
 
-    <converters:MultiCommandParameterConverter x:Key="MultiCommandParameterConverter" />
-
     <DataTemplate DataType="{x:Type confirmations:Confirmation}">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -176,9 +174,9 @@
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type entities:MarketMultiConfirmation}">
-        <Expander>
+        <Expander Padding="0" Background="Transparent" materialDesign:ExpanderAssist.ExpanderButtonPosition="Start" materialDesign:ExpanderAssist.HorizontalHeaderPadding="0" HorizontalAlignment="Stretch">
             <Expander.Header>
-                <Grid>
+                <Grid HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
@@ -195,15 +193,8 @@
                         <Run Text="{Tr Common.Abbreviations.Count.Items, IsDynamic=False}" />
                     </TextBlock>
 
-                    <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Left" Margin="5,0,0,0"
+                    <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Center" Margin="5,0,0,0"
                                Text="{Binding Time, StringFormat=t}" />
-
-                    <!-- Reveal items -->
-                    <ToggleButton Grid.Column="3" Margin="5,0,0,0" VerticalAlignment="Center"
-                                  IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource AncestorType=Expander}, Mode=TwoWay}"
-                                  Style="{StaticResource MaterialDesignIconButton}">
-                        <materialDesign:PackIcon Kind="EyeOutline" />
-                    </ToggleButton>
 
                     <!-- Confirm all -->
                     <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="4"
@@ -223,7 +214,7 @@
                 </Grid>
             </Expander.Header>
 
-            <Border Margin="30,6,0,0" Padding="6" Background="{DynamicResource MaterialDesignPaper}" CornerRadius="4">
+            <Border Margin="30,6,0,0" Background="{DynamicResource MaterialDesignPaper}" CornerRadius="4">
                 <ScrollViewer VerticalScrollBarVisibility="Auto"
                               HorizontalScrollBarVisibility="Disabled"
                               MaxHeight="320">
@@ -239,17 +230,13 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <Border Background="{DynamicResource MaterialDesignPaper}" MaxHeight="32"
-                                            HorizontalAlignment="Center" BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                                            BorderThickness="0.6" Margin="0,0,10,0">
-                                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="28"
-                                               MaxHeight="28"
-                                               Source="{Binding ItemImageUri}" />
-                                    </Border>
+                                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="32"
+                                           MaxHeight="32" Margin="0,0,10,0"
+                                           Source="{Binding ItemImageUri}" />
 
-                                    <StackPanel Grid.Column="1">
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                         <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding ItemName}" />
-                                        <TextBlock Foreground="LightGray" FontSize="11" Text="{Binding PriceString}" />
+                                       
                                     </StackPanel>
 
                                     <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Left"
@@ -259,26 +246,15 @@
                                     <Button Margin="5,0,0,0" VerticalAlignment="Center" Grid.Column="3"
                                             Style="{StaticResource MaterialDesignIconButton}"
                                             ToolTip="{Tr MainWindow.ConfirmationTemplates.ConfirmOne}"
-                                            Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.ConfirmMarketItemCommand)}">
-                                        <Button.CommandParameter>
-                                            <MultiBinding Converter="{StaticResource MultiCommandParameterConverter}">
-                                                <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}"
-                                                         Path="DataContext" />
-                                                <Binding />
-                                            </MultiBinding>
-                                        </Button.CommandParameter>
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.ConfirmCommand)}"
+                                            CommandParameter="{Binding}">
+
                                         <materialDesign:PackIcon Kind="Check" />
                                     </Button>
                                     <Button Grid.Column="4" Style="{StaticResource MaterialDesignIconButton}"
                                             ToolTip="{Tr MainWindow.ConfirmationTemplates.CancelOne}"
-                                            Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.CancelMarketItemCommand)}">
-                                        <Button.CommandParameter>
-                                            <MultiBinding Converter="{StaticResource MultiCommandParameterConverter}">
-                                                <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}"
-                                                         Path="DataContext" />
-                                                <Binding />
-                                            </MultiBinding>
-                                        </Button.CommandParameter>
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.CancelCommand)}"
+                                            CommandParameter="{Binding}">
                                         <materialDesign:PackIcon Kind="Close" />
                                     </Button>
                                 </Grid>
@@ -310,7 +286,7 @@
                 <materialDesign:PackIcon Kind="Check" />
             </Button>
             <Button Grid.Column="4" Style="{StaticResource MaterialDesignIconButton}"
-                    Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.CancelCommand)}"
+                    Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.(vm:MainVM.ConfirmCommand)}"
                     CommandParameter="{Binding }">
                 <materialDesign:PackIcon Kind="Close" />
             </Button>

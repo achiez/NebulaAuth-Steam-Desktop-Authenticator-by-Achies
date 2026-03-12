@@ -1061,44 +1061,6 @@
       "fr": "Confirmer l'action"
     }
   },
-  "SdaPasswordDialog": {
-    "Title": {
-      "en": "SDA encryption password",
-      "ru": "Пароль шифрования SDA",
-      "ua": "Пароль шифрування SDA",
-      "fr": "Mot de passe de chiffrement SDA"
-    },
-    "Message": {
-      "en": "This mafile is encrypted with Steam Desktop Authenticator. Enter your SDA encryption password to import it.",
-      "ru": "Этот mafile зашифрован Steam Desktop Authenticator. Введите пароль шифрования SDA для импорта.",
-      "ua": "Цей mafile зашифровано Steam Desktop Authenticator. Введіть пароль шифрування SDA для імпорту.",
-      "fr": "Ce mafile est chiffré avec Steam Desktop Authenticator. Entrez votre mot de passe SDA pour l'importer."
-    },
-    "PasswordHint": {
-      "en": "SDA encryption password",
-      "ru": "Пароль шифрования SDA",
-      "ua": "Пароль шифрування SDA",
-      "fr": "Mot de passe de chiffrement SDA"
-    },
-    "WrongPassword": {
-      "en": "Wrong SDA password. Please try again.",
-      "ru": "Неверный пароль SDA. Попробуйте снова.",
-      "ua": "Невірний пароль SDA. Спробуйте ще раз.",
-      "fr": "Mauvais mot de passe SDA. Veuillez réessayer."
-    },
-    "ManifestMissing": {
-      "en": "This mafile looks like it was encrypted by SDA, but manifest.json was not found. Please select your SDA manifest.json to continue.",
-      "ru": "Похоже, этот mafile зашифрован SDA, но manifest.json не найден. Выберите manifest.json от SDA, чтобы продолжить.",
-      "ua": "Схоже, цей mafile зашифровано SDA, але manifest.json не знайдено. Виберіть manifest.json від SDA, щоб продовжити.",
-      "fr": "Ce mafile semble chiffré par SDA, mais manifest.json est introuvable. Sélectionnez manifest.json de SDA pour continuer."
-    },
-    "ManifestEntryNotFound": {
-      "en": "Selected manifest.json does not contain an entry for this mafile.",
-      "ru": "Выбранный manifest.json не содержит запись для этого mafile.",
-      "ua": "Вибраний manifest.json не містить запису для цього mafile.",
-      "fr": "Le manifest.json sélectionné ne contient pas d'entrée pour ce mafile."
-    }
-  },
   "TextFieldDialog": {
     "Title": {
       "ru": "Введите значение",
@@ -1444,24 +1406,6 @@
         "zh": "导入文件错误",
         "ua": "Помилка імпорту мафайла",
         "fr": "Erreur d'importation du mafile"
-      },
-      "SdaManifestMissing": {
-        "en": "This .mafile is encrypted by Steam Desktop Authenticator (SDA).\r\n\r\nTo import it, select the .mafile from the SDA folder (so Nebula can find the matching manifest.json), or click OK and manually select SDA's manifest.json.\r\n\r\nWithout manifest.json, decrypting is impossible because it contains the encryption salt and IV.",
-        "ru": "Этот .mafile зашифрован Steam Desktop Authenticator (SDA).\r\n\r\nЧтобы импортировать его, выберите .mafile из папки SDA (чтобы Nebula нашла соответствующий manifest.json), либо нажмите OK и вручную выберите manifest.json от SDA.\r\n\r\nБез manifest.json расшифровка невозможна, так как в нём хранятся salt и IV.",
-        "ua": "Цей .mafile зашифровано Steam Desktop Authenticator (SDA).\r\n\r\nЩоб імпортувати його, виберіть .mafile з папки SDA (щоб Nebula знайшла відповідний manifest.json), або натисніть OK і вручну виберіть manifest.json від SDA.\r\n\r\nБез manifest.json розшифрування неможливе, бо там зберігаються salt та IV.",
-        "fr": "Ce .mafile est chiffré par Steam Desktop Authenticator (SDA).\r\n\r\nPour l'importer, sélectionnez le .mafile depuis le dossier SDA (afin que Nebula trouve le manifest.json correspondant), ou cliquez sur OK et sélectionnez manuellement le manifest.json de SDA.\r\n\r\nSans manifest.json, le déchiffrement est impossible car il contient le sel et l'IV."
-      },
-      "SdaManifestEntryNotFound": {
-        "en": "The selected manifest.json does not contain an entry for this .mafile.",
-        "ru": "Выбранный manifest.json не содержит запись для этого .mafile.",
-        "ua": "Вибраний manifest.json не містить запису для цього .mafile.",
-        "fr": "Le manifest.json sélectionné ne contient pas d'entrée pour ce .mafile."
-      },
-      "SdaWrongPassword": {
-        "en": "Wrong SDA password. Please try again.",
-        "ru": "Неверный пароль SDA. Попробуйте снова.",
-        "ua": "Невірний пароль SDA. Спробуйте ще раз.",
-        "fr": "Mauvais mot de passe SDA. Veuillez réessayer."
       },
       "MissingSessionInMafile": {
         "ru": ". У него отсутствует сессия. Добавьте этот файл отдельно от остальных",

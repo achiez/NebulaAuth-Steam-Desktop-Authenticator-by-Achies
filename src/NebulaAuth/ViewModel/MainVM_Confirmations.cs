@@ -76,61 +76,28 @@ public partial class MainVM //Confirmations
         return SendConfirmation(SelectedMafile, confirmation, false);
     }
 
-    [RelayCommand]
-    private Task ConfirmMarketItem(object? commandParameter)
-    {
-        if (SelectedMafile == null) return Task.CompletedTask;
-        if (!TryParseMarketItemCommandParameter(commandParameter, out var parent, out var item))
-            return Task.CompletedTask;
-        return SendMarketItemConfirmation(SelectedMafile, parent, item, true);
-    }
 
-    [RelayCommand]
-    private Task CancelMarketItem(object? commandParameter)
-    {
-        if (SelectedMafile == null) return Task.CompletedTask;
-        if (!TryParseMarketItemCommandParameter(commandParameter, out var parent, out var item))
-            return Task.CompletedTask;
-        return SendMarketItemConfirmation(SelectedMafile, parent, item, false);
-    }
 
     private async Task SendConfirmation(Mafile mafile, Confirmation confirmation, bool confirm)
     {
         bool result;
+
         try
         {
-            if (confirmation is MarketMultiConfirmation multi)
+            switch (confirmation)
             {
-                result = await MaClient.SendMultipleConfirmation(mafile, multi.Confirmations, confirm);
-            }
-            else
-            {
-                result = await MaClient.SendConfirmation(mafile, confirmation, confirm);
-            }
-        }
-        catch (Exception ex)
-            when (ExceptionHandler.Handle(ex))
-        {
-            return;
-        }
+                case MarketMultiConfirmation multi:
+                    result = await MaClient.SendMultipleConfirmation(mafile, multi.Confirmations, confirm);
+                    break;
 
-        if (result)
-        {
-            Confirmations.Remove(confirmation);
-        }
-        else
-        {
-            SnackbarController.SendSnackbar(GetLocalization("ConfirmationError"));
-        }
-    }
+                case MarketConfirmation market:
+                    result = await MaClient.SendConfirmation(mafile, market, confirm);
+                    break;
 
-    private async Task SendMarketItemConfirmation(Mafile mafile, MarketMultiConfirmation parent,
-        MarketConfirmation item, bool confirm)
-    {
-        bool result;
-        try
-        {
-            result = await MaClient.SendConfirmation(mafile, item, confirm);
+                default:
+                    result = await MaClient.SendConfirmation(mafile, confirmation, confirm);
+                    break;
+            }
         }
         catch (Exception ex)
             when (ExceptionHandler.Handle(ex))
@@ -144,44 +111,43 @@ public partial class MainVM //Confirmations
             return;
         }
 
-        // Update parent group after a successful per-item action
-        parent.Confirmations.Remove(item);
-
-        if (parent.Confirmations.Count == 0)
-        {
-            Confirmations.Remove(parent);
-            return;
-        }
-
-        if (parent.Confirmations.Count == 1)
-        {
-            var remaining = parent.Confirmations[0];
-            var idx = Confirmations.IndexOf(parent);
-            if (idx >= 0)
-            {
-                Confirmations[idx] = remaining;
-            }
-            else
-            {
-                Confirmations.Add(remaining);
-            }
-            return;
-        }
-
-        parent.Time = parent.Confirmations.FirstOrDefault()?.Time ?? parent.Time;
+        UpdateConfirmationState(confirmation);
     }
 
-    private static bool TryParseMarketItemCommandParameter(object? commandParameter,
-        out MarketMultiConfirmation parent,
-        out MarketConfirmation item)
+    private void UpdateConfirmationState(Confirmation confirmation)
     {
-        parent = null!;
-        item = null!;
-        if (commandParameter is not object[] values || values.Length < 2)
-            return false;
+        if (confirmation is MarketConfirmation item)
+        {
+            var parent = Confirmations
+                .OfType<MarketMultiConfirmation>()
+                .FirstOrDefault(p => p.Confirmations.Contains(item));
 
-        parent = values[0] as MarketMultiConfirmation ?? null!;
-        item = values[1] as MarketConfirmation ?? null!;
-        return parent != null && item != null;
+            if (parent == null)
+            {
+                Confirmations.Remove(item);
+                return;
+            }
+
+            parent.Confirmations.Remove(item);
+
+            if (parent.Confirmations.Count == 0)
+            {
+                Confirmations.Remove(parent);
+                return;
+            }
+
+            if (parent.Confirmations.Count == 1)
+            {
+                var remaining = parent.Confirmations[0];
+                var idx = Confirmations.IndexOf(parent);
+                Confirmations[idx] = remaining;
+                return;
+            }
+
+            parent.Time = parent.Confirmations.FirstOrDefault()?.Time ?? parent.Time;
+            return;
+        }
+
+        Confirmations.Remove(confirmation);
     }
 }
