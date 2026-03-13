@@ -1,0 +1,160 @@
+{
+  "LanguageName": {
+    "en": "English",
+    "ru": "Русский",
+    "zh": "简体中文",
+    "uk": "Українська",
+    "fr": "Français",
+    "es": "Español",
+    "tr": "Türkçe",
+    "kk": "Қазақша"
+  },
+  "LanguageWord": {
+    "en": "Language/语言",
+    "ru": "Language/语言",
+    "zh": "Language/语言",
+    "uk": "Language/语言",
+    "fr": "Language/语言",
+    "es": "Language/语言",
+    "tr": "Language/语言",
+    "kk": "Language/语言"
+  },
+  "Common": {
+    "No": {
+      "en": "No",
+      "ru": "Нет",
+      "zh": "否",
+      "uk": "Ні",
+      "fr": "Non",
+      "es": "No",
+      "tr": "Hayır",
+      "kk": "Жоқ"
+    },
+    "Yes": {
+      "en": "Yes",
+      "ru": "Да",
+      "zh": "是",
+      "uk": "Так",
+      "fr": "Oui",
+      "es": "Sí",
+      "tr": "Evet",
+      "kk": "Иә"
+    },
+    "Error": {
+      "en": "Error",
+      "ru": "Ошибка",
+      "zh": "错误",
+      "uk": "Помилка",
+      "fr": "Erreur",
+      "es": "Error",
+      "tr": "Hata",
+      "kk": "Қате"
+    },
+    "RequestError": {
+      "en": "Request error",
+      "ru": "Ошибка запроса",
+      "zh": "请求错误",
+      "uk": "Помилка запиту",
+      "fr": "Erreur de requête",
+      "es": "Error de solicitud",
+      "tr": "İstek hatası",
+      "kk": "Сұраныс қатесі"
+    },
+    "Canceled": {
+      "en": "Canceled",
+      "ru": "Отменено",
+      "zh": "已取消",
+      "uk": "Скасовано",
+      "fr": "Annulé",
+      "es": "Cancelado",
+      "tr": "İptal edildi",
+      "kk": "Болдырылмады"
+    },
+    "Proxy": {
+      "en": "Proxy",
+      "ru": "Прокси",
+      "zh": "代理",
+      "uk": "Проксі",
+      "fr": "Proxy",
+      "es": "Proxy",
+      "tr": "Proxy",
+      "kk": "Прокси"
+    },
+    "Delete": {
+      "en": "Delete",
+      "ru": "Удалить",
+      "zh": "删除",
+      "uk": "Видалити",
+      "fr": "Supprimer",
+      "es": "Eliminar",
+      "tr": "Sil",
+      "kk": "Жою"
+    },
+    "Cancel": {
+      "en": "Cancel",
+      "ru": "Отмена",
+      "zh": "取消",
+      "uk": "Скасувати",
+      "fr": "Annuler",
+      "es": "Cancelar",
+      "tr": "İptal",
+      "kk": "Болдырмау"
+    },
+    "OK": {
+      "en": "OK",
+      "ru": "ОК",
+      "zh": "确定",
+      "uk": "ОК",
+      "fr": "OK",
+      "es": "OK",
+      "tr": "Tamam",
+      "kk": "OK"
+    },
+    "Save": {
+      "en": "Save",
+      "ru": "Сохранить",
+      "zh": "保存",
+      "uk": "Зберегти",
+      "fr": "Enregistrer",
+      "es": "Guardar",
+      "tr": "Kaydet",
+      "kk": "Сақтау"
+    },
+    "Abbreviations": {
+      "Time": {
+        "Seconds": {
+          "en": "sec",
+          "ru": "сек",
+          "zh": "秒",
+          "uk": "сек",
+          "fr": "sec",
+          "es": "seg",
+          "tr": "sn",
+          "kk": "сек"
+        }
+      },
+      "Count": {
+        "Items": {
+          "en": "pcs",
+          "ru": "шт",
+          "zh": "物品",
+          "uk": "шт",
+          "fr": "élém",
+          "es": "uds",
+          "tr": "adet",
+          "kk": "дана"
+        }
+      }
+    }
+  },
+  "CantAlignTimeError": {
+    "ru": "Не удается синхронизировать время со Steam. Возможно отсутствует подключение к интернету или Steam недоступен. Подробная ошибка сохранена в log.log",
+    "en": "Can't align time with Steam. Maybe no internet connection or Steam is unavailable. Detailed error saved in log.log",
+    "zh": "无法与 Steam 对齐时间。可能没有互联网连接或 Steam 不可用。详细错误已保存到 log.log 中",
+    "uk": "Не вдається синхронізувати час з Steam. Можливо відсутнє підключення до інтернету або Steam недоступний. Детальна помилка збережена в log.log",
+    "fr": "Impossible de synchroniser l'heure avec Steam. Peut-être qu'il n'y a pas de connexion internet ou Steam est indisponible. Détails de l'erreur enregistrés dans log.log",
+    "es": "No se puede sincronizar la hora con Steam. Puede que no haya conexión a Internet o que Steam no esté disponible. El error detallado se guardó en log.log",
+    "tr": "Steam ile zaman senkronize edilemiyor. İnternet bağlantısı olmayabilir veya Steam kullanılamıyor olabilir. Ayrıntılı hata log.log dosyasına kaydedildi",
+    "kk": "Уақытты Steam-мен синхрондау мүмкін емес. Интернет байланысы жоқ болуы мүмкін немесе Steam қолжетімсіз. Толық қате log.log файлына сақталды"
+  }
+}

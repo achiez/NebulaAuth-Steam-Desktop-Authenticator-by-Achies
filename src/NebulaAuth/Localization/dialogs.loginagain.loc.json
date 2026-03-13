@@ -1,0 +1,84 @@
+{
+  "LoginAgainDialog": {
+    "Title": {
+      "en": "Login",
+      "ru": "Вход",
+      "zh": "登录",
+      "uk": "Вхід",
+      "fr": "Connexion",
+      "es": "Inicio de sesión",
+      "tr": "Giriş",
+      "kk": "Кіру"
+    },
+    "LoginFor": {
+      "en": "Login for",
+      "ru": "Войти в",
+      "zh": "登录为",
+      "uk": "Увійти в",
+      "fr": "Se connecter à",
+      "es": "Iniciar sesión en",
+      "tr": "Şunun için giriş",
+      "kk": "Мынаға кіру"
+    },
+    "LoginButton": {
+      "en": "Login",
+      "ru": "Войти",
+      "zh": "登录",
+      "uk": "Увійти",
+      "fr": "Se connecter",
+      "es": "Iniciar sesión",
+      "tr": "Giriş yap",
+      "kk": "Кіру"
+    },
+    "CancelButton": {
+      "en": "Cancel",
+      "ru": "Отмена",
+      "zh": "取消",
+      "uk": "Відміна",
+      "fr": "Annuler",
+      "es": "Cancelar",
+      "tr": "İptal",
+      "kk": "Болдырмау"
+    },
+    "PasswordBox": {
+      "en": "Password",
+      "ru": "Пароль",
+      "zh": "密码",
+      "uk": "Пароль",
+      "fr": "Mot de passe",
+      "es": "Contraseña",
+      "tr": "Parola",
+      "kk": "Құпиясөз"
+    },
+    "SaveEncryptedPassword": {
+      "en": "Save encrypted password to mafile",
+      "ru": "Сохранить зашифрованный пароль в мафайл",
+      "zh": "将加密密码保存到 mafile",
+      "uk": "Зберегти зашифрований пароль в мафайлі",
+      "fr": "Enregistrer le mot de passe chiffré dans le mafile",
+      "es": "Guardar contraseña cifrada en el mafile",
+      "tr": "Şifrelenmiş parolayı mafile içine kaydet",
+      "kk": "Шифрланған құпиясөзді mafile ішіне сақтау"
+    },
+    "UseMafileProxy": {
+      "en": "Use mafile proxy",
+      "ru": "Использовать прокси из мафайла",
+      "zh": "使用 mafile 代理",
+      "uk": "Використовувати проксі з мафайла",
+      "fr": "Utiliser le proxy du mafile",
+      "es": "Usar proxy del mafile",
+      "tr": "Mafile proxy kullan",
+      "kk": "Mafile проксиді қолдану"
+    },
+    "ProxyToolTip": {
+      "en": "Press 'DEL' to remove",
+      "ru": "Нажмите 'DEL' для удаления",
+      "zh": "按 'DEL' 键删除",
+      "uk": "Натисніть 'DEL' для видалення",
+      "fr": "Appuyez sur 'DEL' pour supprimer",
+      "es": "Pulsa 'DEL' para eliminar",
+      "tr": "Silmek için 'DEL' tuşuna bas",
+      "kk": "Жою үшін 'DEL' пернесін басыңыз"
+    }
+  }
+}

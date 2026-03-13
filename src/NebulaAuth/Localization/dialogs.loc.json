@@ -1,0 +1,39 @@
+{
+
+  "WaitLoginDialog": {
+    "Text": {
+      "en": "Login in progress. Please wait",
+      "ru": "Производится логин. Ожидайте",
+      "zh": "正在登录。请稍候...",
+      "uk": "Виконується вхід. Зачекайте",
+      "fr": "Connexion en cours. Veuillez patienter",
+      "es": "Inicio de sesión en curso. Por favor espere",
+      "tr": "Giriş yapılıyor. Lütfen bekleyin",
+      "kk": "Кіру орындалуда. Күте тұрыңыз"
+    }
+  },
+  "ConfirmCancelDialog": {
+    "Title": {
+      "ru": "Подтвердите действие",
+      "en": "Confirm action",
+      "zh": "确认操作",
+      "uk": "Підтвердіть дію",
+      "fr": "Confirmer l'action",
+      "es": "Confirmar acción",
+      "tr": "İşlemi onayla",
+      "kk": "Әрекетті растаңыз"
+    }
+  },
+  "TextFieldDialog": {
+    "Title": {
+      "ru": "Введите значение",
+      "en": "Enter value",
+      "zh": "请输入数值",
+      "uk": "Введіть значення",
+      "fr": "Entrer la valeur",
+      "es": "Introducir valor",
+      "tr": "Değer girin",
+      "kk": "Мән енгізіңіз"
+    }
+  }
+}

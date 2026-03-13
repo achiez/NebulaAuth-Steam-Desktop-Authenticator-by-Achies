@@ -20,7 +20,8 @@ public partial class SettingsVM : ObservableObject
 
     [ObservableProperty] private string? _renameResultText;
 
-    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ApplyRenameSettingCommand))]
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(ApplyRenameSettingCommand))]
     private bool _useAccountNameAsMafileNamePreview;
 
     public SettingsVM()
@@ -130,7 +131,10 @@ public partial class SettingsVM : ObservableObject
         {LocalizationLanguage.Russian, "Русский"},
         {LocalizationLanguage.Ukrainian, "Українська"},
         {LocalizationLanguage.ChineseSimplified, "简体中文"},
-        {LocalizationLanguage.French, "Français"}
+        {LocalizationLanguage.French, "Français"},
+        {LocalizationLanguage.Spanish, "Español"},
+        {LocalizationLanguage.Turkish, "Türkçe"},
+        {LocalizationLanguage.Kazakh, "Қазақша"}
     };
 
     public Color? IconColor

@@ -1,0 +1,85 @@
+{
+  "LinksView": {
+    "UsefulLinks": {
+      "en": "Useful links",
+      "ru": "Полезные ссылки",
+      "zh": "相关链接",
+      "uk": "Корисні посилання",
+      "fr": "Liens utiles"
+    },
+    "Documentation": {
+      "en": "Documentation",
+      "ru": "Документация",
+      "zh": "文档",
+      "uk": "Документація",
+      "fr": "Documentation"
+    },
+    "CheckForUpdates": {
+      "en": "Check for updates",
+      "ru": "Проверить обновления",
+      "zh": "检查更新",
+      "uk": "Перевірити оновлення",
+      "fr": "Vérifier les mises à jour"
+    }
+  },
+  "MafileMoverView": {
+    "Title": {
+      "en": "Move Steam Guard",
+      "ru": "Перенести Steam Guard",
+      "zh": "转移Steam手机令牌",
+      "uk": "Перенести Steam Guard",
+      "fr": "Déplacer Steam Guard"
+    },
+    "Done": {
+      "en": "Steam Guard moved",
+      "ru": "Steam Guard перенесен",
+      "zh": "Steam手机令牌已迁移",
+      "uk": "Steam Guard перенесено",
+      "fr": "Steam Guard déplacé"
+    }
+  },
+  "SetAccountPasswordsView": {
+    "Title": {
+      "en": "Set passwords",
+      "ru": "Назначить пароли",
+      "zh": "设置密码",
+      "uk": "Призначити паролі",
+      "fr": "Définir les mots de passe"
+    },
+    "EncryptionPassword": {
+      "en": "Encryption password:",
+      "ru": "Пароль шифрования:",
+      "zh": "加密密码：",
+      "uk": "Пароль шифрування:",
+      "fr": "Mot de passe de chiffrement:"
+    },
+    "EnterPassword": {
+      "en": "Enter password",
+      "ru": "Введите пароль",
+      "zh": "输入密码",
+      "uk": "Введіть пароль",
+      "fr": "Entrer le mot de passe"
+    },
+    "Status": {
+      "en": "Status:",
+      "ru": "Статус:",
+      "zh": "状态：",
+      "uk": "Статус:",
+      "fr": "Statut:"
+    },
+    "EncryptionHint": {
+      "en": "All passwords in mafiles will be encrypted using the encryption password.",
+      "ru": "Все пароли в мафайлах будут зашифрованы с помощью пароля шифрования.",
+      "zh": "mafiles 中的所有密码都将使用加密密码加密。",
+      "uk": "Всі паролі в мафайлах будуть зашифровані за допомогою пароля шифрування.",
+      "fr": "Tous les mots de passe dans les mafiles seront chiffrés à l'aide du mot de passe de chiffrement."
+    },
+    "InputFormat": {
+      "en": "Supported formats:\r\n\r\nlogin:password\r\nsteamid:password",
+      "ru": "Поддерживаемые форматы:\r\n\r\nlogin:password\r\nsteamid:password",
+      "zh": "支持的格式：\r\n\r\n登录名:密码\r\nSteamID:密码",
+      "uk": "Підтримувані формати:\r\n\r\nlogin:password\r\nsteamid:password",
+      "fr": "Formats pris en charge:\r\n\r\nlogin:password\r\nsteamid:password"
+    }
+  }
+}

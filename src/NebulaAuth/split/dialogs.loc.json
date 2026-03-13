@@ -1,0 +1,820 @@
+{
+  "SettingsDialog": {
+    "Title": {
+      "en": "Settings",
+      "ru": "Настройки",
+      "zh": "设置",
+      "uk": "Налаштування",
+      "fr": "Paramètres"
+    },
+    "MainSettings": {
+      "en": "Main",
+      "ru": "Основные",
+      "zh": "主要",
+      "uk": "Основні",
+      "fr": "Général"
+    },
+    "ThemeSettings": {
+      "en": "Theme",
+      "ru": "Тема",
+      "zh": "主题",
+      "uk": "Тема",
+      "fr": "Thème"
+    },
+    "Theme": {
+      "BackgroundBlur": {
+        "en": "Background Blur",
+        "ru": "Размытие фона",
+        "zh": "背景模糊",
+        "uk": "Розмиття фону",
+        "fr": "Flou de l'arrière-plan"
+      },
+      "BackgroundOpacity": {
+        "en": "Background Opacity",
+        "ru": "Непрозрачность фона",
+        "zh": "背景不透明度",
+        "uk": "Непрозорість фону",
+        "fr": "Opacité de l'arrière-plan"
+      },
+      "Gamma": {
+        "en": "Gamma",
+        "ru": "Гамма",
+        "zh": "伽马",
+        "uk": "Гама",
+        "fr": "Gamma"
+      },
+      "LeftOpacity": {
+        "en": "Left Opacity",
+        "ru": "Непрозрачность слева",
+        "zh": "左透明度",
+        "uk": "Непрозорість зліва",
+        "fr": "Opacité à gauche"
+      },
+      "RightOpacity": {
+        "en": "Right Opacity",
+        "ru": "Непрозрачность справа",
+        "zh": "右透明度",
+        "uk": "Непрозорість справа",
+        "fr": "Opacité à droite"
+      },
+      "CurrentTheme": {
+        "en": "Current Theme",
+        "ru": "Текущая тема",
+        "zh": "当前主题",
+        "uk": "Поточна тема",
+        "fr": "Thème actuel"
+      },
+      "DialogBlur": {
+        "en": "Blur on Dialog",
+        "ru": "Размытие при открытии диалог. окна",
+        "zh": "打开对话窗口时的模糊效果",
+        "uk": "Розмиття при відкритті діалог. вікна",
+        "fr": "Flou derrière la boîte de dialogue"
+      },
+      "RippleDisabled": {
+        "en": "Disable ripple animations",
+        "ru": "Отключить анимации «ripple»",
+        "zh": "禁用波纹动画",
+        "uk": "Вимкнути анімації «ripple»",
+        "fr": "Désactiver les animations ripple"
+      },
+      "Reset": {
+        "en": "Reset",
+        "ru": "Сбросить",
+        "zh": "重置",
+        "uk": "Скинути",
+        "fr": "Réinitialiser"
+      }
+    },
+    "BackgroundHint": {
+      "en": "Background",
+      "ru": "Фон",
+      "zh": "背景",
+      "uk": "Фон",
+      "fr": "Arrière-plan"
+    },
+    "BackgroundMode": {
+      "Default": {
+        "en": "Default",
+        "ru": "По умолчанию",
+        "zh": "默认",
+        "uk": "За замовчуванням",
+        "fr": "Par défaut"
+      },
+      "Custom": {
+        "en": "Custom",
+        "ru": "Свой",
+        "zh": "自定义",
+        "uk": "Свій",
+        "fr": "Personnalisé"
+      },
+      "NoBackground": {
+        "en": "No background",
+        "ru": "Без фона",
+        "zh": "无背景",
+        "uk": "Без фону",
+        "fr": "Aucun fond"
+      }
+    },
+    "MinimizeToTray": {
+      "en": "Minimize to tray",
+      "ru": "Сворачивать в трей",
+      "zh": "最小化到托盘",
+      "uk": "Згортати в трей",
+      "fr": "Minimiser dans la barre des tâches"
+    },
+    "UseIndicator": {
+      "en": "Use color indicator in taskbar",
+      "ru": "Цветной индикатор в панели задач",
+      "zh": "在任务栏中使用颜色指示器",
+      "uk": "Кольоровий індикатор в панелі завдань",
+      "fr": "Utiliser un indicateur de couleur dans la barre des tâches"
+    },
+    "UseIndicatorHint": {
+      "en": "Small color indicator in windows toolbar to identify program instance",
+      "ru": "Маленький цветной индикатор в панели задач для идентификации экземпляра программы",
+      "zh": "Windows 工具栏中的小颜色指示器，用于识别程序实例",
+      "uk": "Малий кольоровий індикатор в панелі завдань для ідентифікації екземпляра програми",
+      "fr": "Petit indicateur de couleur dans la barre des tâches pour identifier l'instance du programme"
+    },
+    "UseCustomColor": {
+      "en": "Custom window color",
+      "ru": "Свой цвет окна",
+      "zh": "自定义窗口颜色",
+      "uk": "Свій колір вікна",
+      "fr": "Couleur personnalisée de la fenêtre"
+    },
+    "PasswordBox": {
+      "CurrentCryptPassword": {
+        "en": "Current encryption password",
+        "ru": "Текущий пароль шифрования",
+        "zh": "当前加密密码",
+        "uk": "Поточний пароль шифрування",
+        "fr": "Mot de passe de chiffrement actuel"
+      },
+      "Hint": {
+        "en": "Not saved to disk",
+        "ru": "Не сохраняется в системе",
+        "zh": "未保存到磁盘",
+        "uk": "Не зберігається у системі",
+        "fr": "Non sauvegardé sur le disque"
+      }
+    },
+    "LegacyMafileMode": {
+      "en": "Common mafiles format",
+      "ru": "Общепринятый формат мафайлов",
+      "zh": "常见的邮件文件格式",
+      "uk": "Загальноприйнятий формат мафайлів",
+      "fr": "Format de mafiles commun"
+    },
+    "LegacyMafileModeHint": {
+      "en": "Save mafiles in compatibility format with Steam Desktop Authenticator and other applications",
+      "ru": "Сохранять мафайлы в старом формате для совместимости со Steam Desktop Authenticator и другими приложениями",
+      "zh": "以与 Steam 桌面认证器及其他应用程序兼容的格式保存 mafiles",
+      "uk": "Зберігати мафайли у старому форматі для сумісності зі Steam Desktop Authenticator та іншими додатками",
+      "fr": "Enregistrer les mafiles dans un format compatible avec Steam Desktop Authenticator et d'autres applications"
+    },
+    "AllowAutoUpdate": {
+      "en": "Allow auto update",
+      "ru": "Разрешить автообновление",
+      "zh": "允许自动更新",
+      "uk": "Дозволити автооновлення",
+      "fr": "Autoriser la mise à jour auto"
+    },
+    "MafileNamingMode": {
+      "en": "Mafile naming mode",
+      "ru": "Режим именования мафайлов",
+      "zh": "Mafile 命名模式",
+      "uk": "Режим іменування мафайлів",
+      "fr": "Format du nommage des mafiles"
+    },
+    "ApplyNamingMode": {
+      "en": "Apply and rename",
+      "ru": "Применить и переименовать",
+      "zh": "应用并重命名",
+      "uk": "Застосувати та перейменувати",
+      "fr": "Appliquer et renommer"
+    },
+    "IgnorePatchTuesdayErrors": {
+      "en": "Ignore Patch Tuesday errors in timer (exp.)",
+      "ru": "Игнорировать ошибки Patch Tuesday в таймере (эксп.)",
+      "zh": "忽略 Patch Tuesday 中计时器的错误（实验性",
+      "uk": "Ігнорувати помилки Patch Tuesday у таймері (експ.)",
+      "fr": "Ignorer les erreurs dues à la maintenance Steam du mardi soir dans le timer (exp.)"
+    },
+    "IgnorePatchTuesdayErrorsHint": {
+      "en": "Ignore errors that occur every Tuesday (Wednesday night in GMT) when Steam doing technical works and auto-confirm timers turns off unnecessarily",
+      "ru": "Игнорировать ошибки, которые возникают каждый вторник (ночь среды по GMT) когда Steam проводит технические работы и автоподтверждения отключаются без надобности",
+      "zh": "忽略每周三（格林尼治标准时间周三夜间）发生的错误，因为 Steam 进行技术维护时自动确认功能会被无故关闭",
+      "uk": "Ігнорувати помилки, які виникають щосереди (ніч середи за GMT) коли Steam проводить технічні роботи і автопідтвердження вимикаються без потреби",
+      "fr": "Ignorer les erreurs dues à la maintenance Steam du mardi soir (Mercredi à minuit en GMT)"
+    }
+  },
+  "LoginAgainDialog": {
+    "Title": {
+      "en": "Login",
+      "ru": "Вход",
+      "zh": "登录",
+      "uk": "Вхід",
+      "fr": "Connexion"
+    },
+    "LoginFor": {
+      "en": "Login for",
+      "ru": "Войти в",
+      "zh": "登录为",
+      "uk": "Увійти в",
+      "fr": "Se connecter à"
+    },
+    "LoginButton": {
+      "en": "Login",
+      "ru": "Войти",
+      "zh": "登录",
+      "uk": "Увійти",
+      "fr": "Se connecter"
+    },
+    "CancelButton": {
+      "en": "Cancel",
+      "ru": "Отмена",
+      "zh": "取消",
+      "uk": "Відміна",
+      "fr": "Annuler"
+    },
+    "PasswordBox": {
+      "en": "Password",
+      "ru": "Пароль",
+      "zh": "密码",
+      "uk": "Пароль",
+      "fr": "Mot de passe"
+    },
+    "SaveEncryptedPassword": {
+      "en": "Save encrypted password to mafile",
+      "ru": "Сохранить зашифрованный пароль в мафайл",
+      "zh": "将加密密码保存到 mafile",
+      "uk": "Зберегти зашифрований пароль в мафайлі",
+      "fr": "Enregistrer le mot de passe chiffré dans le mafile"
+    },
+    "UseMafileProxy": {
+      "en": "Use mafile proxy",
+      "ru": "Использовать прокси из мафайла",
+      "zh": "使用 mafile 代理",
+      "uk": "Використовувати проксі з мафайла",
+      "fr": "Utiliser le proxy du mafile"
+    },
+    "ProxyToolTip": {
+      "en": "Press 'DEL' to remove",
+      "ru": "Нажмите 'DEL' для удаления",
+      "zh": "按 'DEL' 键删除",
+      "uk": "Натисніть 'DEL' для видалення",
+      "fr": "Appuyez sur 'DEL' pour supprimer"
+    }
+  },
+  "ProxyManagerDialog": {
+    "Title": {
+      "en": "Proxy manager",
+      "ru": "Менеджер прокси",
+      "zh": "代理管理器",
+      "uk": "Менеджер проксі",
+      "fr": "Gestionnaire de proxy"
+    },
+    "DefaultProxy": {
+      "en": "Default proxy:",
+      "ru": "Прокси по умолчанию:",
+      "zh": "默认代理：",
+      "uk": "Проксі за замовчуванням:",
+      "fr": "Proxy par défaut:"
+    },
+    "UseRandomDefaultProxy": {
+      "en": "Use random default proxy",
+      "ru": "Cлучайный прокси по умолчанию",
+      "zh": "默认随机代理",
+      "uk": "Випадковий проксі за замовчуванням",
+      "fr": "Proxy aléatoire par défaut"
+    },
+    "DisplayProxyProtocol": {
+      "en": "Display protocol",
+      "ru": "Отображать протокол",
+      "zh": "显示协议",
+      "uk": "Відображати протокол",
+      "fr": "Afficher le protocole"
+    },
+    "DisplayProxyCredentials": {
+      "en": "Display credentials",
+      "ru": "Отображать логин и пароль",
+      "zh": "显示凭证",
+      "uk": "Відображати логін та пароль",
+      "fr": "Afficher le login et le mot de passe"
+    }
+  },
+  "WaitLoginDialog": {
+    "Text": {
+      "en": "Login in progress. Please wait",
+      "ru": "Производится логин. Ожидайте",
+      "zh": "正在登录。请稍候...",
+      "uk": "Виконується вхід. Зачекайте",
+      "fr": "Connexion en cours. Veuillez patienter"
+    }
+  },
+  "LinkerDialog": {
+    "Title": {
+      "en": "Linker",
+      "ru": "Привязка",
+      "zh": "绑定",
+      "uk": "Прив'язка",
+      "fr": "Liaison"
+    },
+    "GotErrorHyperlinkText": {
+      "en": "(getting error?)",
+      "ru": "(возникает ошибка?)",
+      "zh": "(出现错误？)",
+      "uk": "(виникає помилка?)",
+      "fr": "(erreur?)"
+    },
+    "Proxy": {
+      "en": "Proxy",
+      "ru": "Прокси",
+      "zh": "代理",
+      "uk": "Проксі",
+      "fr": "Proxy"
+    },
+    "Authorization": {
+      "en": "Authorization",
+      "ru": "Вход в аккаунт",
+      "zh": "账户登录",
+      "uk": "Вхід в акаунт",
+      "fr": "Connectez-vous à votre compte"
+    },
+    "EmailCode": {
+      "en": "Email code",
+      "ru": "Код из письма",
+      "zh": "来自邮件的代码",
+      "uk": "Код з листа",
+      "fr": "Code email"
+    },
+    "PhoneNumber": {
+      "en": "Phone number",
+      "ru": "Номер телефона",
+      "zh": "电话号码",
+      "uk": "Номер телефону",
+      "fr": "Numéro de téléphone"
+    },
+    "EmailLink": {
+      "en": "EMail link",
+      "ru": "Ссылка из email",
+      "zh": "电子邮件中的链接",
+      "uk": "Посилання з email",
+      "fr": "Lien email"
+    },
+    "SmsOrCode": {
+      "en": "SMS or code",
+      "ru": "СМС или код",
+      "zh": "短信验证码",
+      "uk": "СМС або код",
+      "fr": "SMS ou code"
+    },
+    "Completed": {
+      "en": "Completed",
+      "ru": "Завершено",
+      "zh": "已完成",
+      "uk": "Завершено",
+      "fr": "Terminé"
+    },
+    "Message": {
+      "en": "Message:",
+      "ru": "Сообщение:",
+      "zh": "消息:",
+      "uk": "Повідомлення:",
+      "fr": "Message:"
+    },
+    "ProceedButton": {
+      "en": "Proceed",
+      "ru": "Продолжить",
+      "zh": "继续",
+      "uk": "Продовжити",
+      "fr": "Continuer"
+    },
+    "CancelButton": {
+      "en": "Cancel",
+      "ru": "Отмена",
+      "zh": "取消",
+      "uk": "Відміна",
+      "fr": "Annuler"
+    },
+    "MafileLinked": {
+      "en": "Mafile successfully linked",
+      "ru": "Мафайл успешно привязан",
+      "zh": "文件已成功绑定",
+      "uk": "Мафайл успішно прив'язано",
+      "fr": "Mafile lié avec succès"
+    },
+    "FinishButton": {
+      "en": "Finish",
+      "ru": "Завершить",
+      "zh": "完成",
+      "uk": "Завершити",
+      "fr": "Terminer"
+    },
+    "CopyRCodeButton": {
+      "en": "Copy RCode",
+      "ru": "Скопировать RCode",
+      "zh": "复制响应代码",
+      "uk": "Скопіювати RCode",
+      "fr": "Copier RCode"
+    },
+    "Login": {
+      "en": "Login",
+      "ru": "Логин",
+      "zh": "登录",
+      "uk": "Логін",
+      "fr": "Identifiant"
+    },
+    "Password": {
+      "en": "Password",
+      "ru": "Пароль",
+      "zh": "密码",
+      "uk": "Пароль",
+      "fr": "Mot de passe"
+    },
+    "Code": {
+      "en": "Code",
+      "ru": "Код",
+      "zh": "验证码",
+      "uk": "Код",
+      "fr": "Code"
+    },
+    "SmsCode": {
+      "en": "SMS code",
+      "ru": "СМС код",
+      "zh": "短信验证码",
+      "uk": "СМС код",
+      "fr": "Code SMS"
+    }
+  },
+  "SetEncryptionPasswordDialog": {
+    "Title": {
+      "en": "Encryption password",
+      "ru": "Пароль шифрования",
+      "zh": "加密密码",
+      "uk": "Пароль шифрування",
+      "fr": "Mot de passe de chiffrement"
+    },
+    "DialogText": {
+      "en": "You have previously set an encryption password for passwords in mafiles, specify it so that the application can automatically log in in case of problems with the session.\r\n(Optional)",
+      "ru": "Ранее вы устанавливали пароль шифрования для паролей в мафайлах, укажите его, чтобы приложение могло автоматически авторизоваться в случае проблем с сессией.\r\n(Не обязательно)",
+      "zh": "之前您为密码文件设置了加密密码，请输入它，以便应用程序在会话出现问题时可以自动登录。\r\n（非必填）",
+      "uk": "Раніше ви встановлювали пароль шифрування для паролів в мафайлах, вкажіть його, щоб додаток міг автоматично авторизуватися у випадку проблем з сесією.\r\n(Не обов'язково)",
+      "fr": "Vous avez déjà défini un mot de passe de chiffrement pour les mots de passe des mafiles, spécifiez-le pour que l'appli puisse se connecter automatiquement en cas de problèmes avec la session.\r\n(Facultatif)"
+    },
+    "Ok": {
+      "en": "Ok",
+      "ru": "Ок",
+      "zh": "确定",
+      "uk": "Ок",
+      "fr": "Ok"
+    },
+    "Cancel": {
+      "en": "Cancel",
+      "ru": "Отмена",
+      "zh": "取消",
+      "uk": "Відміна",
+      "fr": "Annuler"
+    },
+    "Password": {
+      "en": "Password",
+      "ru": "Пароль",
+      "zh": "密码",
+      "uk": "Пароль",
+      "fr": "Mot de passe"
+    }
+  },
+  "ConfirmCancelDialog": {
+    "Title": {
+      "ru": "Подтвердите действие",
+      "en": "Confirm action",
+      "zh": "确认操作",
+      "uk": "Підтвердіть дію",
+      "fr": "Confirmer l'action"
+    }
+  },
+  "SdaPasswordDialog": {
+    "Title": {
+      "en": "SDA encryption password",
+      "ru": "Пароль шифрования SDA",
+      "zh": "SDA 加密密码",
+      "uk": "Пароль шифрування SDA",
+      "fr": "Mot de passe de chiffrement SDA"
+    },
+    "Message": {
+      "en": "This mafile is encrypted with Steam Desktop Authenticator. Enter your SDA encryption password to import it.",
+      "ru": "Этот mafile зашифрован Steam Desktop Authenticator. Введите пароль шифрования SDA для импорта.",
+      "zh": "此 mafile 由 Steam Desktop Authenticator 加密。请输入 SDA 加密密码以导入。",
+      "uk": "Цей mafile зашифровано Steam Desktop Authenticator. Введіть пароль шифрування SDA для імпорту.",
+      "fr": "Ce mafile est chiffré avec Steam Desktop Authenticator. Entrez votre mot de passe SDA pour l'importer."
+    },
+    "PasswordHint": {
+      "en": "SDA encryption password",
+      "ru": "Пароль шифрования SDA",
+      "zh": "SDA 加密密码",
+      "uk": "Пароль шифрування SDA",
+      "fr": "Mot de passe de chiffrement SDA"
+    },
+    "WrongPassword": {
+      "en": "Wrong SDA password. Please try again.",
+      "ru": "Неверный пароль SDA. Попробуйте снова.",
+      "zh": "SDA 密码错误。请重试。",
+      "uk": "Невірний пароль SDA. Спробуйте ще раз.",
+      "fr": "Mauvais mot de passe SDA. Veuillez réessayer."
+    },
+    "ManifestMissing": {
+      "en": "This mafile looks like it was encrypted by SDA, but manifest.json was not found. Please select your SDA manifest.json to continue.",
+      "ru": "Похоже, этот mafile зашифрован SDA, но manifest.json не найден. Выберите manifest.json от SDA, чтобы продолжить.",
+      "zh": "此 mafile 看起来由 SDA 加密，但未找到 manifest.json。请选择 SDA 的 manifest.json 以继续。",
+      "uk": "Схоже, цей mafile зашифровано SDA, але manifest.json не знайдено. Виберіть manifest.json від SDA, щоб продовжити.",
+      "fr": "Ce mafile semble chiffré par SDA, mais manifest.json est introuvable. Sélectionnez manifest.json de SDA pour continuer."
+    },
+    "ManifestEntryNotFound": {
+      "en": "Selected manifest.json does not contain an entry for this mafile.",
+      "ru": "Выбранный manifest.json не содержит запись для этого mafile.",
+      "zh": "所选的 manifest.json 不包含此 mafile 的条目。",
+      "uk": "Вибраний manifest.json не містить запису для цього mafile.",
+      "fr": "Le manifest.json sélectionné ne contient pas d'entrée pour ce mafile."
+    }
+  },
+  "TextFieldDialog": {
+    "Title": {
+      "ru": "Введите значение",
+      "en": "Enter value",
+      "zh": "请输入数值",
+      "uk": "Введіть значення",
+      "fr": "Entrer la valeur"
+    }
+  },
+  "ExportDialog": {
+    "ExportTitle": {
+      "ru": "Экспорт",
+      "en": "Export",
+      "uk": "Експорт",
+      "fr": "Exportation",
+      "zh": "导出"
+    },
+    "ExportButton": {
+      "ru": "Экспорт",
+      "en": "Export",
+      "uk": "Експорт",
+      "fr": "Exporter",
+      "zh": "导出"
+    },
+    "TemplateHint": {
+      "ru": "Шаблон",
+      "en": "Template",
+      "uk": "Шаблон",
+      "fr": "Modèle",
+      "zh": "模板"
+    },
+    "SelectPathHint": {
+      "ru": "Выберите путь",
+      "en": "Select path",
+      "uk": "Виберіть шлях",
+      "fr": "Sélectionner le chemin",
+      "zh": "选择路径"
+    },
+    "ExportSettingsHeader": {
+      "ru": "Настройки экспорта",
+      "en": "Export settings",
+      "uk": "Налаштування експорту",
+      "fr": "Paramètres d’exportation",
+      "zh": "导出设置"
+    },
+    "ExportSettingsCommon": {
+      "ru": "Основные:",
+      "en": "General:",
+      "uk": "Основні:",
+      "fr": "Général :",
+      "zh": "常规："
+    },
+    "ExportSettingsNebula": {
+      "ru": "Nebula:",
+      "en": "Nebula:",
+      "uk": "Nebula:",
+      "fr": "Nebula :",
+      "zh": "Nebula："
+    },
+    "ExportOptions": {
+      "UseLoginAsMafileName": {
+        "ru": "Использовать логин как имя mafile",
+        "en": "Use login as mafile name",
+        "uk": "Використовувати логін як ім’я mafile",
+        "fr": "Utiliser le login comme nom de mafile",
+        "zh": "使用登录名作为 mafile 名称"
+      },
+      "IncludeSharedSecret": {
+        "ru": "Включать shared secret",
+        "en": "Include shared secret",
+        "uk": "Включати shared secret",
+        "fr": "Inclure le secret partagé",
+        "zh": "包含 shared secret"
+      },
+      "IncludeIdentitySecret": {
+        "ru": "Включать identity secret",
+        "en": "Include identity secret",
+        "uk": "Включати identity secret",
+        "fr": "Inclure le secret d’identité",
+        "zh": "包含 identity secret"
+      },
+      "IncludeRCode": {
+        "ru": "Включать RCode",
+        "en": "Include RCode",
+        "uk": "Включати RCode",
+        "fr": "Inclure RCode",
+        "zh": "包含 RCode"
+      },
+      "IncludeSessionData": {
+        "ru": "Включать данные сессии",
+        "en": "Include session data",
+        "uk": "Включати дані сесії",
+        "fr": "Inclure les données de session",
+        "zh": "包含会话数据"
+      },
+      "IncludeOtherInfo": {
+        "ru": "Включать прочую информацию",
+        "en": "Include other info",
+        "uk": "Включати іншу інформацію",
+        "fr": "Inclure d’autres informations",
+        "zh": "包含其他信息"
+      },
+      "NebulaProxy": {
+        "ru": "Прокси",
+        "en": "Proxy",
+        "uk": "Проксі",
+        "fr": "Proxy",
+        "zh": "代理"
+      },
+      "NebulaPassword": {
+        "ru": "Пароль",
+        "en": "Password",
+        "uk": "Пароль",
+        "fr": "Mot de passe",
+        "zh": "密码"
+      },
+      "NebulaGroup": {
+        "ru": "Группа",
+        "en": "Group",
+        "uk": "Група",
+        "fr": "Groupe",
+        "zh": "组"
+      }
+    },
+    "Tooltips": {
+      "UseLoginAsMafileName": {
+        "ru": "Использовать логин аккаунта в качестве имени mafile.",
+        "en": "Use the account login as the mafile name.",
+        "uk": "Використовувати логін акаунта як ім’я mafile.",
+        "fr": "Utiliser le login du compte comme nom du mafile.",
+        "zh": "使用账户登录名作为 mafile 的名称。"
+      },
+      "IncludeSharedSecret": {
+        "ru": "Позволяет генерировать коды подтверждения и входить в аккаунт при наличии пароля или активной сессии.",
+        "en": "Allows generating confirmation codes and logging into the account if a password or active session is available.",
+        "uk": "Дозволяє генерувати коди підтвердження та входити в акаунт за наявності пароля або активної сесії.",
+        "fr": "Permet de générer des codes de confirmation et de se connecter au compte si un mot de passe ou une session active est disponible.",
+        "zh": "允许生成确认代码，并在有密码或活动会话的情况下登录账户。"
+      },
+      "IncludeIdentitySecret": {
+        "ru": "Включает identity_secret и device_id. Необходимы для отправки подтверждений и дают доступ к трейдам и торговой площадке.",
+        "en": "Includes identity_secret and device_id. Required for confirmations and provides access to trades and the market.",
+        "uk": "Включає identity_secret і device_id. Потрібні для надсилання підтверджень і надають доступ до трейдів та торгового майданчика.",
+        "fr": "Inclut identity_secret et device_id. Nécessaires pour les confirmations et donnent accès aux échanges et au marché.",
+        "zh": "包含 identity_secret 和 device_id。用于发送确认，并可访问交易和市场。"
+      },
+      "IncludeRCode": {
+        "ru": "Код восстановления. Позволяет отвязать Steam Guard от аккаунта в случае потери доступа.",
+        "en": "Recovery code. Allows removing Steam Guard from the account if access is lost.",
+        "uk": "Код відновлення. Дозволяє відв’язати Steam Guard від акаунта у разі втрати доступу.",
+        "fr": "Code de récupération. Permet de supprimer Steam Guard du compte en cas de perte d’accès.",
+        "zh": "恢复代码。在失去访问权限时可将 Steam Guard 与账户解绑。"
+      },
+      "IncludeSessionData": {
+        "ru": "Включает данные текущей сессии. Если сессия активна и не истекла, позволяет получить доступ к аккаунту без ввода пароля с помощью mafile.",
+        "en": "Includes current session data. If the session is active and valid, allows accessing the account without entering a password using the mafile.",
+        "uk": "Включає дані поточної сесії. Якщо сесія активна й не прострочена, дозволяє отримати доступ до акаунта без введення пароля за допомогою mafile.",
+        "fr": "Inclut les données de la session actuelle. Si la session est active et valide, permet d’accéder au compte sans saisir de mot de passe via le mafile.",
+        "zh": "包含当前会话数据。如果会话处于活动状态且未过期，可通过 mafile 在无需输入密码的情况下访问账户。"
+      },
+      "IncludeOtherInfo": {
+        "ru": "Включает дополнительные необязательные поля, которые в данный момент не используются Steam, но могут применяться в будущем и содержать чувствительную информацию.",
+        "en": "Includes additional optional fields not currently used by Steam, but potentially usable in the future and may contain sensitive information.",
+        "uk": "Включає додаткові необов’язкові поля, які наразі не використовуються Steam, але можуть бути задіяні в майбутньому та містити чутливу інформацію.",
+        "fr": "Inclut des champs supplémentaires optionnels actuellement non utilisés par Steam, mais susceptibles d’être exploités à l’avenir et de contenir des informations sensibles.",
+        "zh": "包含目前未被 Steam 使用的可选附加字段，这些字段将来可能会被使用，并可能包含敏感信息。"
+      },
+      "NebulaProxy": {
+        "ru": "Включить Nebula-совместимые данные прокси.",
+        "en": "Include Nebula-compatible proxy data.",
+        "uk": "Увімкнути Nebula-сумісні дані проксі.",
+        "fr": "Inclure les données de proxy compatibles avec Nebula.",
+        "zh": "包含与 Nebula 兼容的代理数据。"
+      },
+      "NebulaPassword": {
+        "ru": "Включить Nebula-совместимые данные пароля.",
+        "en": "Include Nebula-compatible password data.",
+        "uk": "Увімкнути Nebula-сумісні дані пароля.",
+        "fr": "Inclure les données de mot de passe compatibles avec Nebula.",
+        "zh": "包含与 Nebula 兼容的密码数据。"
+      },
+      "NebulaGroup": {
+        "ru": "Включить Nebula-совместимые данные группы.",
+        "en": "Include Nebula-compatible group data.",
+        "uk": "Увімкнути Nebula-сумісні дані групи.",
+        "fr": "Inclure les données de groupe compatibles avec Nebula.",
+        "zh": "包含与 Nebula 兼容的组数据。"
+      }
+    },
+    "ExportAccountsPlaceholder": {
+      "ru": "Введите логины аккаунтов или SteamID (по одному на строку) для экспорта в выбранную директорию.",
+      "en": "Enter account logins or SteamIDs (one per line) to export to the selected directory.",
+      "uk": "Введіть логіни акаунтів або SteamID (по одному на рядок) для експорту у вибрану директорію.",
+      "fr": "Entrez les identifiants de compte ou les SteamID (un par ligne) pour exporter vers le répertoire sélectionné.",
+      "zh": "输入要导出到所选目录的账户登录名或 SteamID（每行一个）。"
+    }
+  },
+  "UpdateDialog": {
+    "Title": {
+      "en": "New version available:",
+      "ru": "Доступна новая версия:",
+      "zh": "有新版本可用：",
+      "uk": "Доступна нова версія:",
+      "fr": "Nouvelle version disponible :"
+    },
+    "Changelog": {
+      "en": "What's new",
+      "ru": "Что нового",
+      "zh": "更新内容",
+      "uk": "Що нового",
+      "fr": "Quoi de neuf"
+    },
+    "NoChangelog": {
+      "en": "No changelog available",
+      "ru": "Нет информации об изменениях",
+      "zh": "暂无更新日志",
+      "uk": "Немає інформації про зміни",
+      "fr": "Aucun journal des modifications disponible"
+    },
+    "UpdateNow": {
+      "en": "Update now",
+      "ru": "Обновить сейчас",
+      "zh": "立即更新",
+      "uk": "Оновити зараз",
+      "fr": "Mettre à jour maintenant"
+    },
+    "RemindLater": {
+      "en": "Remind later",
+      "ru": "Напомнить позже",
+      "zh": "稍后提醒",
+      "uk": "Нагадати пізніше",
+      "fr": "Rappeler plus tard"
+    },
+    "SkipVersion": {
+      "en": "Skip version",
+      "ru": "Пропустить версию",
+      "zh": "跳过此版本",
+      "uk": "Пропустити версію",
+      "fr": "Ignorer cette version"
+    },
+    "RemindAfter": {
+      "en": "Remind after:",
+      "ru": "Напомнить через:",
+      "zh": "提醒时间：",
+      "uk": "Нагадати через:",
+      "fr": "Rappeler après :"
+    },
+    "RemindOptions": {
+      "1Hour": {
+        "en": "1 hour",
+        "ru": "1 час",
+        "zh": "1 小时",
+        "uk": "1 година",
+        "fr": "1 heure"
+      },
+      "1Day": {
+        "en": "1 day",
+        "ru": "1 день",
+        "zh": "1 天",
+        "uk": "1 день",
+        "fr": "1 jour"
+      },
+      "3Days": {
+        "en": "3 days",
+        "ru": "3 дня",
+        "zh": "3 天",
+        "uk": "3 дні",
+        "fr": "3 jours"
+      },
+      "7Days": {
+        "en": "7 days",
+        "ru": "7 дней",
+        "zh": "7 天",
+        "uk": "7 днів",
+        "fr": "7 jours"
+      }
+    }
+  }
+}

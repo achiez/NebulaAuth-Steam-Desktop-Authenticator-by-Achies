@@ -1,0 +1,564 @@
+{
+  "CodeBehind": {
+    "ErrorTranslator": {
+      "Login": {
+        "CaptchaRequired": {
+          "en": "Captcha",
+          "ru": "Капча",
+          "zh": "验证码",
+          "uk": "Капча",
+          "fr": "Captcha"
+        },
+        "InvalidCredentials": {
+          "en": "Invalid password",
+          "ru": "Неверный пароль",
+          "zh": "密码无效",
+          "uk": "Невірний пароль",
+          "fr": "Mot de passe invalide"
+        },
+        "EmailAuthRequired": {
+          "en": "Email code required",
+          "ru": "Требуется код с почты",
+          "zh": "需要电子邮件验证码",
+          "uk": "Потрібен код з пошти",
+          "fr": "Code email requis"
+        },
+        "InvalidEmailAuthCode": {
+          "en": "Invalid email code",
+          "ru": "Неверный код с почты",
+          "zh": "无效的电子邮件验证码",
+          "uk": "Невірний код з пошти",
+          "fr": "Code email invalide"
+        },
+        "InvalidTwoFactorCode": {
+          "en": "Invalid two factor code",
+          "ru": "Неверный двухфакторный код",
+          "zh": "无效的两步验证码",
+          "uk": "Невірний двофакторний код",
+          "fr": "Code 2FA invalide"
+        },
+        "UndefinedError": {
+          "en": "Undefined error",
+          "ru": "Неизвестная ошибка",
+          "zh": "未定义的错误",
+          "uk": "Невідома помилка",
+          "fr": "Erreur inconnue"
+        }
+      },
+      "EResult": {
+        "InvalidPassword": {
+          "ru": "Неверный пароль",
+          "en": "Invalid password",
+          "zh": "密码错误",
+          "uk": "Невірний пароль",
+          "fr": "Mot de passe invalide"
+        },
+        "InvalidState": {
+          "ru": "Неверное состояние (11)",
+          "en": "Invalid state (11)",
+          "zh": "无效状态 (11)",
+          "uk": "Невірний стан (11)",
+          "fr": "État invalide (11)"
+        },
+        "Timeout": {
+          "ru": "Таймаут (16)",
+          "en": "Timeout (16)",
+          "zh": "超时 (16)",
+          "uk": "Таймаут (16)",
+          "fr": "Timeout (16)"
+        },
+        "Banned": {
+          "ru": "Забанен (17)",
+          "en": "Banned (17)",
+          "zh": "被封禁 (17)",
+          "uk": "Забанений (17)",
+          "fr": "Banni (17)"
+        },
+        "AccountNotFound": {
+          "ru": "Аккаунт не найден (18)",
+          "en": "Account not found (18)",
+          "zh": "未找到账户 (18)",
+          "uk": "Акаунт не знайдено (18)",
+          "fr": "Compte non trouvé (18)"
+        },
+        "InvalidSteamID": {
+          "ru": "Неправильный SteamID (19)",
+          "en": "Invalid SteamID (19)",
+          "zh": "无效的 SteamID (19)",
+          "uk": "Неправильний SteamID (19)",
+          "fr": "SteamID invalide (19)"
+        },
+        "ServiceUnavailable": {
+          "ru": "Сервер не отвечает (20)",
+          "en": "Service unavailable (20)",
+          "zh": "服务器无响应 (20)",
+          "uk": "Сервер не відповідає (20)",
+          "fr": "Service indisponible (20)"
+        },
+        "Pending": {
+          "ru": "Ожидание (21)",
+          "en": "Pending (21)",
+          "zh": "等待 (21)",
+          "uk": "Очікування (21)",
+          "fr": "En attente (21)"
+        },
+        "LimitExceeded": {
+          "ru": "Лимит превышен (25)",
+          "en": "Limit exceeded (25)",
+          "zh": "超出限制 (25)",
+          "uk": "Ліміт перевищено (25)",
+          "fr": "Limite dépassée (25)"
+        },
+        "Expired": {
+          "ru": "Истекло (27)",
+          "en": "Expired (27)",
+          "zh": "有效期已过 (27)",
+          "uk": "Термін дії закінчився (27)",
+          "fr": "Expiré (27)"
+        },
+        "Blocked": {
+          "ru": "Заблокировано (40)",
+          "en": "Blocked (40)",
+          "zh": "已封锁 (40)",
+          "uk": "Заблоковано (40)",
+          "fr": "Bloqué (40)"
+        },
+        "AccountDisabled": {
+          "ru": "Аккаунт отключен (43)",
+          "en": "Account disabled (43)",
+          "zh": "账户已被禁用 (43)",
+          "uk": "Акаунт відключено (43)",
+          "fr": "Compte désactivé (43)"
+        },
+        "Suspended": {
+          "ru": "Отключено (Suspended 51)",
+          "en": "Suspended (51)",
+          "zh": "已停用（暂停 51）",
+          "uk": "Відключено (Suspended 51)",
+          "fr": "Suspendu (51)"
+        },
+        "Cancelled": {
+          "ru": "Отмена (52)",
+          "en": "Cancelled (52)",
+          "zh": "已取消 (52)",
+          "uk": "Скасовано (52)",
+          "fr": "Annulé (52)"
+        },
+        "InvalidLoginAuthCode": {
+          "ru": "Неверный код авторизации (65)",
+          "en": "Invalid login auth code (65)",
+          "zh": "无效的授权码 (65)",
+          "uk": "Невірний код авторизації (65)",
+          "fr": "Code d'authentification invalide (65)"
+        },
+        "ExpiredLoginAuthCode": {
+          "ru": "Истекло время кода (71)",
+          "en": "Expired login auth code (71)",
+          "zh": "验证码已过期 (71)",
+          "uk": "Термін дії коду закінчився (71)",
+          "fr": "Code d'authentification expiré (71)"
+        },
+        "AccountLockedDown": {
+          "ru": "Аккаунт заблокирован (КТ 73)",
+          "en": "Account locked down (73)",
+          "zh": "账户被封锁 (КТ 73)",
+          "uk": "Акаунт заблоковано (КТ 73)",
+          "fr": "Compte verrouillé (73)"
+        },
+        "UnexpectedError": {
+          "ru": "Неожиданная ошибка (79)",
+          "en": "Unexpected error (79)",
+          "zh": "不可预料的错误 (79)",
+          "uk": "Непередбачувана помилка (79)",
+          "fr": "Erreur inattendue (79)"
+        },
+        "Disabled": {
+          "ru": "Отключено (80)",
+          "en": "Disabled (80)",
+          "zh": "已关闭 (80)",
+          "uk": "Відключено (80)",
+          "fr": "Désactivé (80)"
+        },
+        "RegionLocked": {
+          "ru": "Регион заблокирован (83)",
+          "en": "Region locked (83)",
+          "zh": "该地区已被封锁 (83)",
+          "uk": "Регіон заблоковано (83)",
+          "fr": "Région bloquée (83)"
+        },
+        "RateLimitExceeded": {
+          "ru": "Слишком много запросов (84)",
+          "en": "Rate limit exceeded (84)",
+          "zh": "请求过多 (84)",
+          "uk": "Забагато запитів (84)",
+          "fr": "Limite de connexion dépassée (84)"
+        },
+        "TwoFactorCodeMismatch": {
+          "ru": "2FA код не подошел (88)",
+          "en": "2FA code mismatch (88)",
+          "zh": "双因素代码不正确 (88)",
+          "uk": "2FA код не підійшов (88)",
+          "fr": "Code 2FA invalide (88)"
+        },
+        "TwoFactorActivationCodeMismatch": {
+          "ru": "2FA код не прошел проверку (89)",
+          "en": "2FA activation code mismatch (89)",
+          "zh": "双因素认证代码未通过验证 (89)",
+          "uk": "2FA код не пройшов перевірку (89)",
+          "fr": "Code d'activation 2FA invalide (89)"
+        },
+        "TimeNotSynced": {
+          "ru": "Время не синхронизировано (93)",
+          "en": "Time not synced (93)",
+          "zh": "时间未同步 (93)",
+          "uk": "Час не синхронізовано (93)",
+          "fr": "Heure non synchronisée (93)"
+        },
+        "SMSCodeFailed": {
+          "ru": "Ошибка SMS-кода (94)",
+          "en": "SMS code failed (94)",
+          "zh": "短信验证码错误 (94)",
+          "uk": "Помилка SMS-коду (94)",
+          "fr": "Code SMS échoué (94)"
+        },
+        "AccountLimitExceeded": {
+          "ru": "Лимит аккаунта превышен (95)",
+          "en": "Account limit exceeded (95)",
+          "zh": "账户已超出限制 (95)",
+          "uk": "Ліміт акаунта перевищено (95)",
+          "fr": "Limite de compte dépassée (95)"
+        },
+        "EmailSendFailure": {
+          "ru": "Не удалось отправить письмо (99)",
+          "en": "Email send failure (99)",
+          "zh": "无法发送邮件 (99)",
+          "uk": "Не вдалося відправити лист (99)",
+          "fr": "Échec de l'envoi de l'email (99)"
+        },
+        "NeedCaptcha": {
+          "ru": "Капча (101)",
+          "en": "Need captcha (101)",
+          "zh": "验证码 (101)",
+          "uk": "Капча (101)",
+          "fr": "Captcha requis (101)"
+        },
+        "IPBanned": {
+          "ru": "IP заблокирован (105)",
+          "en": "IP banned (105)",
+          "zh": "IP被阻止 (105)",
+          "uk": "IP заблоковано (105)",
+          "fr": "IP bloquée (105)"
+        },
+        "LimitedUserAccount": {
+          "ru": "Аккаунт с лимитом (112)",
+          "en": "Limited user account (112)",
+          "zh": "限额账户 (112)",
+          "uk": "Акаунт з лімітом (112)",
+          "fr": "Compte utilisateur limité (112)"
+        },
+        "AccountDeleted": {
+          "ru": "Аккаунт удален (114)",
+          "en": "Account deleted (114)",
+          "zh": "账户已删除 (114)",
+          "uk": "Акаунт видалено (114)",
+          "fr": "Compte supprimé (114)"
+        },
+        "PhoneNumberIsVOIP": {
+          "ru": "Номера VOIP запрещены (127)",
+          "en": "Phone number is VOIP (127)",
+          "zh": "VOIP 号码被禁止 (127)",
+          "uk": "Номера VOIP заборонені (127)",
+          "fr": "Numéros VOIP interdits (127)"
+        }
+      },
+      "AuthenticatorLinkerError": {
+        "PhoneAlreadyAttached": {
+          "ru": "Телефон привязан, попробуйте через 20 минут",
+          "en": "Phone already attached, try again in 20 minutes",
+          "zh": "手机已绑定，请在20分钟后重试",
+          "uk": "Телефон прив'язано, спробуйте через 20 хвилин",
+          "fr": "Téléphone déjà attaché, réessayer dans 20 minutes"
+        },
+        "InvalidPhoneNumber": {
+          "ru": "Неверный номер телефона",
+          "en": "Invalid phone number",
+          "zh": "无效的电话号码",
+          "uk": "Невірний номер телефону",
+          "fr": "Numéro de téléphone invalide"
+        },
+        "CantAttachPhone": {
+          "ru": "Не удается привязать телефон",
+          "en": "Can't attach phone",
+          "zh": "无法绑定手机",
+          "uk": "Не вдається прив'язати телефон",
+          "fr": "Impossible d'attacher le téléphone"
+        },
+        "CantConfirmAttachingEmail": {
+          "ru": "Не удалось подтвердить письмо",
+          "en": "Can't confirm attaching email",
+          "zh": "无法确认邮件",
+          "uk": "Не вдалося підтвердити лист",
+          "fr": "Impossible de confirmer l'attachement de l'email"
+        },
+        "CantSendSms": {
+          "ru": "Не удалось отправить SMS",
+          "en": "Can't send SMS",
+          "zh": "无法发送短信",
+          "uk": "Не вдалося відправити SMS",
+          "fr": "Impossible d'envoyer SMS"
+        },
+        "AuthenticatorPresent": {
+          "ru": "Аутентификатор привязан",
+          "en": "Authenticator present",
+          "zh": "身份验证器已绑定",
+          "uk": "Аутентифікатор прив'язано",
+          "fr": "Authenticateur présent"
+        },
+        "BadConfirmationCode": {
+          "ru": "Код не подошел",
+          "en": "Bad confirmation code",
+          "zh": "代码不正确",
+          "uk": "Код не підійшов",
+          "fr": "Code de confirmation invalide"
+        },
+        "UnableToGenerateCorrectCodes": {
+          "ru": "Не удается сгенерировать коды",
+          "en": "Unable to generate correct codes",
+          "zh": "无法生成代码",
+          "uk": "Не вдається згенерувати коди",
+          "fr": "Impossible de générer des codes corrects"
+        },
+        "InvalidStateWithStatus2": {
+          "ru": "Неверное состояние (InvalidState) со статусом 2. Откройте ссылку на руководство сверху этого окна.",
+          "en": "Invalid state (InvalidState) with status 2. Open link to the troubleshooting guide at the top of this window.",
+          "zh": "状态无效（InvalidState），状态码为 2. 请打开本窗口顶部的故障排除指南链接。",
+          "uk": "Невірний стан (InvalidState) зі статусом 2. Відкрийте посилання на посібник з усунення несправностей у верхній частині цього вікна.",
+          "fr": "État invalide (InvalidState) avec le statut 2. Ouvrez le lien vers le guide de dépannage en haut de cette fenêtre."
+        },
+        "GeneralFailure": {
+          "ru": "General Failure",
+          "en": "General Failure",
+          "zh": "一般故障",
+          "uk": "General Failure",
+          "fr": "Échec général"
+        }
+      }
+    },
+    "ExceptionHandler": {
+      "SessionInvalidException": {
+        "ru": "Сессия истекла. Попробуйте обновить ее или залогиниться заново (Аккаунт → войти)",
+        "en": "Session expired. Try to refresh it or login again (Account → Login)",
+        "zh": "会话已过期。请通过菜单尝试刷新，或重新登录（账户 → 登录）",
+        "uk": "Сесія прострочена. Спробуйте оновити її через меню або залогінитися знову (Акаунт → Увійти)",
+        "fr": "Session expirée. Essayez de la rafraîchir ou de vous reconnecter à nouveau (Compte → Se connecter)"
+      },
+      "SessionExpiredException": {
+        "ru": "Сессия полностью истекла. Нужно залогиниться заново (Аккаунт → Войти)",
+        "en": "Session fully expired. Need to login again (Account → Login)",
+        "zh": "会话已完全过期。需要重新登录（账户 → 登录）",
+        "uk": "Сесія повніст'ю прострочена'. Потрібно залогінитися знову (Акаунт → Увійти)",
+        "fr": "Session entièrement expirée. Vous devez vous reconnecter à nouveau (Compte → Se connecter)"
+      },
+      "TaskCanceledException": {
+        "ru": "Произошла отмена операции",
+        "en": "Operation canceled",
+        "zh": "操作已取消",
+        "uk": "Операція скасована",
+        "fr": "Opération annulée"
+      },
+      "TimeoutException": {
+        "ru": "Таймаут подключения. Проверьте ваше соединение с Proxy или интернетом",
+        "en": "Connection timeout. Check your connection with Proxy or internet",
+        "zh": "连接超时。请检查您的代理或互联网连接。",
+        "uk": "Таймаут підключення. Перевірте ваше з'єднання з Proxy або інтернетом",
+        "fr": "Timeout de connexion. Vérifiez votre connexion avec Proxy ou internet"
+      },
+      "UnsupportedResponseException": {
+        "ru": "Получен неожиданный ответ от Steam. Результат сохранен в log.log. Свяжитесь с разработчиком",
+        "en": "Unexpected response from Steam. Result saved in log.log. Contact developer",
+        "zh": "从 Steam 收到意外响应。结果已保存到 log.log。请联系开发者",
+        "uk": "Отримано неочікувану відповідь від Steam. Результат збережено в log.log. Зв'яжіться з розробником",
+        "fr": "Réponse inattendue de Steam. Résultat enregistré dans log.log. Contactez le développeur"
+      },
+      "LoginException": {
+        "ru": "Ошибка входа: ",
+        "en": "Login error: ",
+        "zh": "登录错误：",
+        "uk": "Помилка входу: ",
+        "fr": "Erreur de connexion: "
+      },
+      "UnsupportedAuthTypeException": {
+        "Mail": {
+          "ru": "Ошибка: Был запрошен код с почты. Steam Guard не активирован",
+          "en": "Error: Email code was requested. Steam Guard is not activated",
+          "zh": "错误：已请求电子邮件验证码。令牌未激活",
+          "uk": "Помилка: Був запрошений код з пошти. Steam Guard не активовано",
+          "fr": "Erreur: Code email était demandé. Steam Guard non activé"
+        },
+        "Guard": {
+          "ru": "Ошибка: Был запрошен вход с помощью Steam Guard. На аккаунте уже активирован мобильный аутентификатор",
+          "en": "Error: Login with Steam Guard was requested. Mobile authenticator is already activated on the account",
+          "zh": "错误：请求使用令牌登录。该账户已激活移动验证器",
+          "uk": "Помилка: Був запрошений вхід за допомогою Steam Guard. На акаунті вже активовано мобільний автентифікатор",
+          "fr": "Erreur: Connexion avec Steam Guard demandée. Authenticateur mobile est déjà activé sur le compte"
+        },
+        "Unknown": {
+          "ru": "Ошибка: Неизвестный тип аутентификации",
+          "en": "Error: Unknown authentication type",
+          "zh": "错误：未知的身份验证类型",
+          "uk": "Помилка: Невідомий тип автентифікації",
+          "fr": "Erreur: Type d'authentification inconnu"
+        }
+      },
+      "UnknownException": {
+        "ru": "Неизвестная ошибка: ",
+        "en": "Unknown error: ",
+        "zh": "未知错误：",
+        "uk": "Невідома помилка: ",
+        "fr": "Erreur inconnue: "
+      },
+      "CantLoadConfirmationsException": {
+        "Common": {
+          "ru": "Не удалось загрузить потверждения из-за ошибки Steam: ",
+          "en": "Can't load confirmations due to Steam error: ",
+          "zh": "由于 Steam 错误，无法下载确认信息：",
+          "uk": "Не вдалося завантажити підтвердження через помилку Steam: ",
+          "fr": "Impossible de charger les confirmations en raison de l'erreur Steam: "
+        },
+        "TryAgainLater": {
+          "ru": "Попробуйте позже",
+          "en": "Try again later",
+          "zh": "稍后再试",
+          "uk": "Спробуйте пізніше",
+          "fr": "Réessayer plus tard"
+        },
+        "NotSetupToReceiveConfirmations": {
+          "ru": "Аккаунт не настроен на получение подтверждений",
+          "en": "Account is not set up to receive confirmations",
+          "zh": "帐户未设置为接收确认",
+          "uk": "Акаунт не налаштований на отримання підтверджень",
+          "fr": "Le compte n'est pas configuré pour recevoir des confirmations"
+        }
+      }
+    },
+    "SessionHandler": {
+      "SessionWasRefreshedAutomatically": {
+        "ru": "Сессия была обновлена автоматически",
+        "en": "Session was refreshed automatically",
+        "zh": "会话已自动更新",
+        "uk": "Сесія була оновлена автоматично",
+        "fr": "La session a été rafraîchie automatiquement"
+      }
+    },
+    "MAAC": {
+      "TimerConfirmed": {
+        "ru": "Авто: подтверждено ",
+        "en": "Auto: confirmed ",
+        "zh": "自动：已确认 ",
+        "uk": "Авто: підтверджено ",
+        "fr": "Auto: confirmé "
+      },
+      "TimerNotConfirmed": {
+        "ru": "Авто: подтверждение не сработало",
+        "en": "Auto: confirmation was unsuccessful",
+        "zh": "自动：确认失败",
+        "uk": "Авто: підтвердження не спрацювало",
+        "fr": "Auto: la confirmation n'a pas fonctionné"
+      },
+      "TimerSessionError": {
+        "ru": "необходимо обновить сессию или перелогиниться",
+        "en": "need to refresh session or relogin",
+        "zh": "需要刷新会话或重新登录",
+        "uk": "необхідно оновити сесію або перелогінитися",
+        "fr": "il faut rafraîchir la session ou se reconnecter"
+      },
+      "TimerPrefix": {
+        "ru": "Авто ",
+        "en": "Auto ",
+        "zh": "自动 ",
+        "uk": "Авто ",
+        "fr": "Auto "
+      },
+      "TimerPreventedOverlap": {
+        "ru": "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
+        "en": "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
+        "zh": "自动: 确认计时器在前一个周期尚未完成时尝试启动新周期。我们建议增加延迟。",
+        "uk": "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку",
+        "fr": "Auto: le timer de confirmation a tenté de démarrer un nouveau cycle alors que le précédent n'était pas encore terminé. Nous recommandons d'augmenter le délai"
+      },
+      "FailedToLoadStorage": {
+        "en": "Failed to load auto-confirm timers. File seems to be corrupted",
+        "ru": "Не удалось загрузить таймеры авто-подтверждений. Файл, похоже, поврежден",
+        "zh": "无法加载自动确认计时器。文件似乎已损坏",
+        "uk": "Не вдалося завантажити таймери авто-підтверджень. Файл, схоже, пошкоджено",
+        "fr": "Impossible de charger les timers d'auto-confirmation. Le fichier semble être corrompu"
+      },
+      "PortableMaClientStatus": {
+        "SessionError": {
+          "ru": "Ошибка сессии. Нужно обновить сессию или перелогиниться",
+          "en": "Session error. Need to refresh session or relogin",
+          "zh": "会话错误。需要刷新会话或重新登录",
+          "uk": "Помилка сесії. Потрібно оновити сесію або перелогінитися",
+          "fr": "Erreur de session. Il faut rafraîchir la session ou se reconnecter"
+        }
+      }
+    },
+    "ProxyStorage": {
+      "ErrorWhileLoadingProxies": {
+        "en": "Error while loading proxies",
+        "ru": "Ошибка при загрузке прокси",
+        "zh": "加载代理时出错",
+        "uk": "Помилка при завантаженні проксі",
+        "fr": "Erreur lors du chargement des proxies"
+      }
+    },
+    "Settings": {
+      "ErrorWhileLoadingSettings": {
+        "en": "Error while loading settings. Settings were reset",
+        "ru": "Ошибка при загрузке настроек. Настройки были сброшены",
+        "zh": "加载设置时出错。设置已重置",
+        "uk": "Помилка при завантаженні налаштувань. Налаштування були скинуті",
+        "fr": "Erreur lors du chargement des paramètres. Les paramètres ont été réinitialisés"
+      }
+    },
+    "MafileExporter": {
+      "InvalidPath": {
+        "ru": "Указан некорректный путь для экспорта.",
+        "en": "The specified export path is invalid.",
+        "uk": "Вказано некоректний шлях для експорту.",
+        "fr": "Le chemin d’exportation spécifié est invalide.",
+        "zh": "指定的导出路径无效。"
+      },
+      "NebulaUtilizedDirectory": {
+        "ru": "Невозможно выполнить экспорт в папку, которая используется приложением. Рекомендуется выбрать отдельную директорию.",
+        "en": "Cannot export to a directory that is currently used by the application. Please choose a separate folder.",
+        "uk": "Неможливо виконати експорт у папку, яка використовується застосунком. Рекомендується вибрати окрему директорію.",
+        "fr": "Impossible d’exporter vers un dossier utilisé par l’application. Veuillez choisir un dossier distinct.",
+        "zh": "无法导出到应用程序正在使用的文件夹。请选择一个单独的目录。"
+      },
+      "AccessDenied": {
+        "ru": "Недостаточно прав для записи в указанную папку. Проверьте права доступа или выберите другой путь.",
+        "en": "Insufficient permissions to write to the specified directory. Please check access rights or choose another path.",
+        "uk": "Недостатньо прав для запису в указану папку. Перевірте права доступу або виберіть інший шлях.",
+        "fr": "Autorisation insuffisante pour écrire dans le dossier spécifié. Vérifiez les droits d’accès ou choisissez un autre chemin.",
+        "zh": "没有权限写入指定的文件夹。请检查访问权限或选择其他路径。"
+      }
+    },
+    "UpdateService": {
+      "LatestVersion": {
+        "en": "You are using the latest version",
+        "ru": "У вас установлена последняя версия",
+        "zh": "您正在使用最新版本",
+        "uk": "У вас встановлена остання версія",
+        "fr": "Vous utilisez la dernière version"
+      },
+      "UpdateIndicatorHint": {
+        "en": "Update available. Click 'by achies' to check",
+        "ru": "Доступно обновление. Нажмите 'by achies' для проверки",
+        "zh": "有可用更新。点击 'by achies' 进行检查",
+        "uk": "Доступне оновлення. Натисніть 'by achies', щоб перевірити",
+        "fr": "Une mise à jour est disponible. Cliquez sur 'by achies' pour vérifier"
+      }
+    }
+  }
+}

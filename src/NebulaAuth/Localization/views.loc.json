@@ -1,0 +1,34 @@
+{
+  "LinksView": {
+    "UsefulLinks": {
+      "en": "Useful links",
+      "ru": "Полезные ссылки",
+      "zh": "相关链接",
+      "uk": "Корисні посилання",
+      "fr": "Liens utiles",
+      "es": "Enlaces útiles",
+      "tr": "Faydalı bağlantılar",
+      "kk": "Пайдалы сілтемелер"
+    },
+    "Documentation": {
+      "en": "Documentation",
+      "ru": "Документация",
+      "zh": "文档",
+      "uk": "Документація",
+      "fr": "Documentation",
+      "es": "Documentación",
+      "tr": "Dokümantasyon",
+      "kk": "Құжаттама"
+    },
+    "CheckForUpdates": {
+      "en": "Check for updates",
+      "ru": "Проверить обновления",
+      "zh": "检查更新",
+      "uk": "Перевірити оновлення",
+      "fr": "Vérifier les mises à jour",
+      "es": "Buscar actualizaciones",
+      "tr": "Güncellemeleri kontrol et",
+      "kk": "Жаңартуларды тексеру"
+    }
+  }
+}

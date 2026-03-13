@@ -1,0 +1,98 @@
+{
+  "CodeBehind": {
+    "ProxyManagerVM": {
+      "WrongFormatSomeIdsMissing": {
+        "ru": "Неверный формат. Некоторые прокси не имеют ID",
+        "en": "Wrong format. Some proxies have no ID",
+        "zh": "格式不正确。某些代理没有ID",
+        "uk": "Невірний формат. Деякі проксі не мають ID",
+        "fr": "Format incorrect. Certains proxies n'ont pas d'ID",
+        "es": "Formato incorrecto. Algunos proxies no tienen ID",
+        "tr": "Yanlış format. Bazı proxylerin ID'si yok",
+        "kk": "Қате формат. Кейбір проксилерде ID жоқ"
+      },
+      "DuplicateId": {
+        "ru": "Прокси с ID {0} добавлен несколько раз",
+        "en": "Proxy with ID {0} added multiple times",
+        "zh": "具有 ID {0} 的代理已被多次添加",
+        "uk": "Проксі з ID {0} додано декілька разів",
+        "fr": "Proxy avec ID {0} ajouté plusieurs fois",
+        "es": "El proxy con ID {0} fue añadido varias veces",
+        "tr": "ID {0} olan proxy birden fazla kez eklendi",
+        "kk": "{0} ID бар прокси бірнеше рет қосылды"
+      },
+      "WrongFormatOnLine": {
+        "ru": "Прокси на строке {0} имеет неверный формат.",
+        "en": "Proxy on line {0} has wrong format.",
+        "zh": "第 {0} 行的代理格式不正确。",
+        "uk": "Проксі на строці {0} має невірний формат.",
+        "fr": "Proxy sur la ligne {0} a un format incorrect.",
+        "es": "El proxy en la línea {0} tiene un formato incorrecto",
+        "tr": "{0}. satırdaki proxy yanlış formatta",
+        "kk": "{0} жолындағы прокси қате форматта"
+      },
+      "WrongFormat": {
+        "ru": "Прокси имеет неверный формат.",
+        "en": "Proxy has wrong format.",
+        "zh": "代理格式不正确。",
+        "uk": "Проксі має невірний формат.",
+        "fr": "Format incorrect du proxy.",
+        "es": "El proxy tiene un formato incorrecto",
+        "tr": "Proxy yanlış formatta",
+        "kk": "Прокси қате форматта"
+      }
+    }
+  },
+  "ProxyManagerDialog": {
+    "Title": {
+      "en": "Proxy manager",
+      "ru": "Менеджер прокси",
+      "zh": "代理管理器",
+      "uk": "Менеджер проксі",
+      "fr": "Gestionnaire de proxy",
+      "es": "Administrador de proxy",
+      "tr": "Proxy yöneticisi",
+      "kk": "Прокси менеджері"
+    },
+    "DefaultProxy": {
+      "en": "Default proxy:",
+      "ru": "Прокси по умолчанию:",
+      "zh": "默认代理：",
+      "uk": "Проксі за замовчуванням:",
+      "fr": "Proxy par défaut:",
+      "es": "Proxy predeterminado:",
+      "tr": "Varsayılan proxy:",
+      "kk": "Әдепкі прокси:"
+    },
+    "UseRandomDefaultProxy": {
+      "en": "Use random default proxy",
+      "ru": "Cлучайный прокси по умолчанию",
+      "zh": "默认随机代理",
+      "uk": "Випадковий проксі за замовчуванням",
+      "fr": "Proxy aléatoire par défaut",
+      "es": "Usar proxy predeterminado aleatorio",
+      "tr": "Rastgele varsayılan proxy kullan",
+      "kk": "Кездейсоқ әдепкі проксиді қолдану"
+    },
+    "DisplayProxyProtocol": {
+      "en": "Display protocol",
+      "ru": "Отображать протокол",
+      "zh": "显示协议",
+      "uk": "Відображати протокол",
+      "fr": "Afficher le protocole",
+      "es": "Mostrar protocolo",
+      "tr": "Protokolü göster",
+      "kk": "Протоколды көрсету"
+    },
+    "DisplayProxyCredentials": {
+      "en": "Display credentials",
+      "ru": "Отображать логин и пароль",
+      "zh": "显示凭证",
+      "uk": "Відображати логін та пароль",
+      "fr": "Afficher le login et le mot de passe",
+      "es": "Mostrar credenciales",
+      "tr": "Kimlik bilgilerini göster",
+      "kk": "Тіркелгі деректерін көрсету"
+    }
+  }
+}

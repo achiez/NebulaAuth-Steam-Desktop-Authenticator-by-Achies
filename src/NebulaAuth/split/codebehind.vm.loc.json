@@ -1,0 +1,477 @@
+{
+  "CodeBehind": {
+    "MainVM": {
+      "SuccessfulLogin": {
+        "en": "Successful login",
+        "ru": "Успешный вход",
+        "zh": "登录成功",
+        "uk": "Успішний вхід",
+        "fr": "Connexion réussie"
+      },
+      "SessionRefreshed": {
+        "en": "Session refreshed",
+        "ru": "Сессия обновлена",
+        "zh": "会话已更新",
+        "uk": "Сесія оновлена",
+        "fr": "Session actualisée"
+      },
+      "MissingRCode": {
+        "en": "Missing RCode",
+        "ru": "Отсутствует RCode",
+        "zh": "缺少响应代码",
+        "uk": "Відсутній RCode",
+        "fr": "RCode manquant"
+      },
+      "ConfirmRemovingAuthenticator": {
+        "ru": "Вы точно уверены, что хотите удалить аутентификатор?\r\nПосле этого вы не сможете обмениваться, использовать торговую площадку 15 дней. Мафайл будет удалён навсегда",
+        "en": "Are you sure you want to remove the authenticator?\r\nAfter that, you will not be able to trade or use the marketplace for 15 days. Mafile will be deleted permanently",
+        "zh": "您确定要移除身份验证器吗？\r\n之后，您将在15天内无法进行交易或使用市场。Mafile 将被永久删除。",
+        "uk": "Ви точно впевнені, що хочете видалити автентифікатор?\r\nПісля цього ви не зможете обмінюватися, використовувати торгову площадку 15 днів. Мафайл буде видалено назавжди",
+        "fr": "Êtes-vous sûr de vouloir supprimer l'authenticateur?\r\nAprès cela, vous ne pourrez pas échanger ou utiliser le marché pendant 15 jours. Le mafile sera supprimé définitivement"
+      },
+      "AuthenticatorRemoved": {
+        "ru": "Аутентификатор удален",
+        "en": "Authenticator removed",
+        "zh": "身份验证器已删除",
+        "uk": "Аутентифікатор видалено",
+        "fr": "Authenticateur supprimé"
+      },
+      "AuthenticatorNotRemoved": {
+        "ru": "Что-то пошло не так",
+        "en": "Something went wrong",
+        "zh": "出了点问题",
+        "uk": "Щось пішло не так",
+        "fr": "Quelque chose s'est mal passé"
+      },
+      "ConfirmLoginSuccess": {
+        "ru": "Вход осуществлен:",
+        "en": "Login success:",
+        "zh": "已登录：",
+        "uk": "Вхід здійснено:",
+        "fr": "Connexion réussie:"
+      },
+      "ConfirmLoginFailedNoRequests": {
+        "ru": "Запросов на вход не обнаружено",
+        "en": "No login requests found",
+        "zh": "未检测到输入请求",
+        "uk": "Запитів на вхід не виявлено",
+        "fr": "Aucune demande de connexion trouvée"
+      },
+      "ConfirmLoginFailedMoreThanOneRequest": {
+        "ru": "Обнаружено несколько запросов на вход. В целях безопасности операция отменена",
+        "en": "Multiple login requests found. For security reasons, the operation is canceled",
+        "zh": "检测到多个输入请求。出于安全考虑，操作已取消",
+        "uk": "Виявлено декілька запитів на вхід. З метою безпеки операція скасована",
+        "fr": "Plusieurs demandes de connexion trouvées. Pour des raisons de sécurité, l'opération est annulée"
+      },
+      "ConfirmationError": {
+        "ru": "Ошибка подтверждения",
+        "en": "Confirmation error",
+        "zh": "确认错误",
+        "uk": "Помилка підтвердження",
+        "fr": "Erreur de confirmation"
+      },
+      "ConfirmMafileOverwrite": {
+        "ru": "Внимание, мафайл(-ы) уже присутствует в папке mafiles.\r\nПерезаписать мафайлы, которые конфликтуют?",
+        "en": "Attention, mafile(-s) already exists in mafiles folder.\r\nOverwrite conflicting mafiles?",
+        "zh": "注意，mafile 已经存在于 mafiles 文件夹中。\r\n覆盖冲突的 mafiles 吗？",
+        "uk": "Увага, мафайл(-и) вже присутній у папці mafiles.\r\nПерезаписати мафайли, які конфліктують?",
+        "fr": "Attention, mafiles déjà présents dans le dossier mafiles.\r\nRemplacer les mafiles en conflit?"
+      },
+      "MafileImportError": {
+        "ru": "Ошибка при импорте мафайла",
+        "en": "Mafile import error",
+        "zh": "导入文件错误",
+        "uk": "Помилка імпорту мафайла",
+        "fr": "Erreur d'importation du mafile"
+      },
+      "SdaManifestMissing": {
+        "en": "This .mafile is encrypted by Steam Desktop Authenticator (SDA).\r\n\r\nTo import it, select the .mafile from the SDA folder (so Nebula can find the matching manifest.json), or click OK and manually select SDA's manifest.json.\r\n\r\nWithout manifest.json, decrypting is impossible because it contains the encryption salt and IV.",
+        "ru": "Этот .mafile зашифрован Steam Desktop Authenticator (SDA).\r\n\r\nЧтобы импортировать его, выберите .mafile из папки SDA (чтобы Nebula нашла соответствующий manifest.json), либо нажмите OK и вручную выберите manifest.json от SDA.\r\n\r\nБез manifest.json расшифровка невозможна, так как в нём хранятся salt и IV.",
+        "zh": "此 .mafile 由 Steam Desktop Authenticator (SDA) 加密。\r\n\r\n要导入它，请从 SDA 文件夹中选择该 .mafile（这样 Nebula 才能找到对应的 manifest.json），或者点击 OK 手动选择 SDA 的 manifest.json。\r\n\r\n没有 manifest.json 无法解密，因为其中包含加密所需的 salt 和 IV。",
+        "uk": "Цей .mafile зашифровано Steam Desktop Authenticator (SDA).\r\n\r\nЩоб імпортувати його, виберіть .mafile з папки SDA (щоб Nebula знайшла відповідний manifest.json), або натисніть OK і вручну виберіть manifest.json від SDA.\r\n\r\nБез manifest.json розшифрування неможливе, бо там зберігаються salt та IV.",
+        "fr": "Ce .mafile est chiffré par Steam Desktop Authenticator (SDA).\r\n\r\nPour l'importer, sélectionnez le .mafile depuis le dossier SDA (afin que Nebula trouve le manifest.json correspondant), ou cliquez sur OK et sélectionnez manuellement le manifest.json de SDA.\r\n\r\nSans manifest.json, le déchiffrement est impossible car il contient le sel et l'IV."
+      },
+      "SdaManifestEntryNotFound": {
+        "en": "The selected manifest.json does not contain an entry for this .mafile.",
+        "ru": "Выбранный manifest.json не содержит запись для этого .mafile.",
+        "zh": "所选的 manifest.json 不包含此 .mafile 的条目。",
+        "uk": "Вибраний manifest.json не містить запису для цього .mafile.",
+        "fr": "Le manifest.json sélectionné ne contient pas d'entrée pour ce .mafile."
+      },
+      "SdaWrongPassword": {
+        "en": "Wrong SDA password. Please try again.",
+        "ru": "Неверный пароль SDA. Попробуйте снова.",
+        "zh": "SDA 密码错误。请重试。",
+        "uk": "Невірний пароль SDA. Спробуйте ще раз.",
+        "fr": "Mauvais mot de passe SDA. Veuillez réessayer."
+      },
+      "MissingSessionInMafile": {
+        "ru": ". У него отсутствует сессия. Добавьте этот файл отдельно от остальных",
+        "en": ". It has no session. Add this file separately from the others",
+        "zh": ". 他没有会话。请将此文件与其他文件分开添加",
+        "uk": ". В нього відсутня сесія. Додайте цей файл окремо від інших",
+        "fr": ". Pas de session dans le mafile. Ajoutez ce fichier séparément des autres"
+      },
+      "Import": {
+        "ru": "Импорт",
+        "en": "Import",
+        "zh": "导入",
+        "uk": "Імпорт",
+        "fr": "Importer"
+      },
+      "ImportAdded": {
+        "ru": "добавлено:",
+        "en": "added:",
+        "zh": "已添加：",
+        "uk": "додано:",
+        "fr": "ajouté:"
+      },
+      "ImportSkipped": {
+        "ru": "пропущено:",
+        "en": "skipped:",
+        "zh": "跳过：",
+        "uk": "пропущено:",
+        "fr": "passé:"
+      },
+      "ImportErrors": {
+        "ru": "ошибки:",
+        "en": "errors:",
+        "zh": "错误：",
+        "uk": "помилки:",
+        "fr": "erreurs:"
+      },
+      "RemoveMafileConfirmation": {
+        "ru": "Удалить mafile?\r\nМафайл будет перемещен в папку 'mafiles_removed'\r\nЭто действие НЕ удаляет Steam Guard с аккаунта",
+        "en": "Remove mafile?\r\nMafile will be moved to 'mafiles_removed' directory\r\nThis action will NOT remove the Steam Guard from the account",
+        "zh": "是否删除mafile？\r\nMafile将被移动到“mafiles_removed”目录\r\n此操作不会从账户中移除令牌",
+        "uk": "Видалити mafile?\r\nМафайл буде переміщено у каталог 'mafiles_removed'\r\nЦя дія НЕ видаляє автентифікатор з облікового запису",
+        "fr": "Supprimer le mafile?\r\nLe mafile sera déplacé dans le dossier 'mafiles_removed'\r\nCette action NE SUPPRIME PAS le Steam Guard du compte"
+      },
+      "CantRemoveAlreadyExist": {
+        "ru": "Не удалось переместить mafile, возможно в папке уже существует мафайл с таким именем.",
+        "en": "Can't move mafile, maybe mafile with same name already exists in mafiles_removed folder.",
+        "zh": "无法移动 mafile，可能 mafiles_removed 文件夹中已存在同名的 mafile。",
+        "uk": "Не вдалося перемістити mafile, можливо в папці вже існує мафайл з таким іменем.",
+        "fr": "Impossible de déplacer le mafile, probablement déjà existant dans le dossier mafiles_removed."
+      },
+      "CantRemoveMafile": {
+        "ru": "Не удалось удалить (переместить) мафайл:",
+        "en": "Can't remove mafile:",
+        "zh": "无法删除（移动）我的文件：",
+        "uk": "Не вдалося видалити (перемістити) мафайл:",
+        "fr": "Impossible de supprimer (déplacer) le mafile:"
+      },
+      "TimerTooFast": {
+        "ru": "Слишком быстрый таймер.",
+        "en": "Too fast timer.",
+        "zh": "计时器太快。",
+        "uk": "Занадто швидкий таймер.",
+        "fr": "Timer trop rapide."
+      },
+      "TimerChanged": {
+        "en": "Timer changed",
+        "ru": "Таймер изменен",
+        "zh": "计时器已更改",
+        "uk": "Таймер змінено",
+        "fr": "Timer modifié"
+      },
+      "CantRetrieveSteamIDToUpdate": {
+        "ru": "Не удалось получить SteamID из мафайла и сохранить изменения. Необходимо сделать релогин. Отменено",
+        "en": "Can't retrieve SteamID from mafile to save changes. Need to relogin. Canceled",
+        "zh": "无法从配置文件获取 SteamID 并保存更改。需要重新登录。已取消",
+        "uk": "Не вдалося отримати SteamID з мафайла та зберегти зміни. Потрібно зробити релогін. Скасовано",
+        "fr": "Impossible de récupérer le SteamID du mafile pour sauvegarder les modifications. Reconnexion nécessaire. Annulé"
+      },
+      "LoginCopied": {
+        "en": "Login copied",
+        "ru": "Логин скопирован",
+        "zh": "登录已复制",
+        "uk": "Логін скопійовано",
+        "fr": "Login copié"
+      },
+      "SteamIdCopied": {
+        "en": "SteamID copied",
+        "ru": "SteamID скопирован",
+        "zh": "SteamID 已复制",
+        "uk": "SteamID скопійовано",
+        "fr": "SteamID copié"
+      },
+      "MafileCopied": {
+        "en": "Mafile copied",
+        "ru": "Мафайл скопирован",
+        "zh": "文件已复制",
+        "uk": "Мафайл скопійовано",
+        "fr": "Mafile copié"
+      },
+      "MafileNotCopied": {
+        "en": "Mafile not copied",
+        "ru": "Мафайл не скопирован",
+        "zh": "文件未被复制",
+        "uk": "Мафайл не скопійовано",
+        "fr": "Mafile non copié"
+      },
+      "PasswordCopied": {
+        "en": "Password copied",
+        "ru": "Пароль скопирован",
+        "zh": "密码已复制",
+        "uk": "Пароль скопійовано",
+        "fr": "Mot de passe copié"
+      },
+      "CantDecryptPassword": {
+        "en": "Can't decrypt password. Maybe password from this mafile was encrypted with another encryption password",
+        "ru": "Не удалось расшифровать пароль. Возможно пароль из этого мафайла был зашифрован другим паролем шифрования",
+        "zh": "无法解密密码。可能此文件中的密码是用其他加密密码加密的。",
+        "uk": "Не вдалося розшифрувати пароль. Можливо пароль з цього мафайла був зашифрований іншим паролем шифрування",
+        "fr": "Impossible de déchiffrer le mot de passe. Le mot de passe de chiffrement est peut-être différent"
+      },
+      "CreateGroupTitle": {
+        "en": "New group",
+        "ru": "Новая группа",
+        "zh": "新群组",
+        "uk": "Нова група",
+        "fr": "Nouveau groupe"
+      },
+      "CreateGroupInput": {
+        "en": "Enter group name",
+        "ru": "Введите имя группы",
+        "zh": "输入群组名称",
+        "uk": "Введіть назву групи",
+        "fr": "Entrer le nom du groupe"
+      },
+      "CreateGroupSuccess": {
+        "en": "Group created",
+        "ru": "Группа создана",
+        "zh": "群组已创建",
+        "uk": "Групу створено",
+        "fr": "Groupe créé"
+      }
+    },
+    "ProxyManagerVM": {
+      "WrongFormatSomeIdsMissing": {
+        "ru": "Неверный формат. Некоторые прокси не имеют ID",
+        "en": "Wrong format. Some proxies have no ID",
+        "zh": "格式不正确。某些代理没有ID",
+        "uk": "Невірний формат. Деякі проксі не мають ID",
+        "fr": "Format incorrect. Certains proxies n'ont pas d'ID"
+      },
+      "DuplicateId": {
+        "ru": "Прокси с ID {0} добавлен несколько раз",
+        "en": "Proxy with ID {0} added multiple times",
+        "zh": "具有 ID {0} 的代理已被多次添加",
+        "uk": "Проксі з ID {0} додано декілька разів",
+        "fr": "Proxy avec ID {0} ajouté plusieurs fois"
+      },
+      "WrongFormatOnLine": {
+        "ru": "Прокси на строке {0} имеет неверный формат.",
+        "en": "Proxy on line {0} has wrong format.",
+        "zh": "第 {0} 行的代理格式不正确。",
+        "uk": "Проксі на строці {0} має невірний формат.",
+        "fr": "Proxy sur la ligne {0} a un format incorrect."
+      },
+      "WrongFormat": {
+        "ru": "Прокси имеет неверный формат.",
+        "en": "Proxy has wrong format.",
+        "zh": "代理格式不正确。",
+        "uk": "Проксі має невірний формат.",
+        "fr": "Format incorrect du proxy."
+      }
+    },
+    "LinkVM": {
+      "EnterLoginAndPassword": {
+        "ru": "Введите логин и пароль",
+        "en": "Enter login and password",
+        "zh": "请输入用户名和密码",
+        "uk": "Введіть логін і пароль",
+        "fr": "Entrez le login et le mot de passe"
+      },
+      "CantLogin": {
+        "ru": "Не удалось залогиниться: ",
+        "en": "Can't login: ",
+        "zh": "无法登录：",
+        "uk": "Не вдалося залогінитися: ",
+        "fr": "Impossible de se connecter: "
+      },
+      "UnsupportedGuardType": {
+        "ru": "Steam Guard уже активирован. Был запрошен код с мобильного устройства",
+        "en": "Steam Guard already activated. Mobile device code was requested",
+        "zh": "令牌已激活。已从移动设备请求验证码",
+        "uk": "Steam Guard вже активовано. Був запрошений код з мобільного пристрою",
+        "fr": "Steam Guard déjà activé. Code de l'appareil mobile demandé"
+      },
+      "MafileLinked": {
+        "ru": "RCode: {0}\r\nИмя файла: {1}.mafile",
+        "en": "RCode: {0}\r\nFile name: {1}.mafile",
+        "zh": "响应代码: {0}\r\n文件名: {1}.mafile",
+        "uk": "RCode: {0}\r\nІм'я файлу: {1}.mafile",
+        "fr": "RCode: {0}\r\nNom du fichier: {1}.mafile"
+      },
+      "ErrorWithCode": {
+        "ru": "Ошибка с кодом: ",
+        "en": "Error with code: ",
+        "zh": "错误代码：",
+        "uk": "Помилка з кодом: ",
+        "fr": "Erreur avec le code: "
+      },
+      "UnknownError": {
+        "ru": "Неизвестная ошибка: ",
+        "en": "Unknown error: ",
+        "zh": "未知错误：",
+        "uk": "Невідома помилка: ",
+        "fr": "Erreur inconnue: "
+      },
+      "EnterEmailCode": {
+        "ru": "Введите код, отправленный на вашу почту",
+        "en": "Enter the code sent to your email",
+        "zh": "请输入发送到您邮箱的验证码",
+        "uk": "Введіть код, надісланий на вашу пошту",
+        "fr": "Entrez le code envoyé à votre email"
+      },
+      "ClickOnEmailLink": {
+        "ru": "На почту было отправлено письмо, откройте ссылку из письма, а затем нажмите — 'Продолжить'",
+        "en": "An email has been sent. Open the link from the email, then click 'Proceed'",
+        "zh": "电子邮件已发送。请打开邮件中的链接，然后点击——“继续”",
+        "uk": "На пошту надіслано лист. Відкрийте посилання з листа, а потім натисніть — 'Продовжити'",
+        "fr": "Un email a été envoyé. Ouvrez le lien de l'email, puis cliquez sur 'Continuer'"
+      },
+      "ClickOnEmailLinkRetry": {
+        "ru": "Не удалось подтвердить переход по ссылке. Убедитесь, что вы открыли ссылку из письма, затем нажмите — 'Продолжить'",
+        "en": "We couldn’t verify that you clicked the link. Make sure you opened the link from the email, then click 'Proceed'",
+        "zh": "无法确认通过链接的跳转。请确保您是从邮件中打开的链接，然后点击——“继续”",
+        "uk": "Не вдалося підтвердити перехід за посиланням. Переконайтесь, що ви відкрили посилання з листа, а потім натисніть — 'Продовжити'",
+        "fr": "Nous n'avons pas pu vérifier que vous avez cliqué sur le lien. Assurez-vous d'avoir ouvert le lien de l'email, puis cliquez sur 'Continuer'"
+      },
+      "PhoneHint": {
+        "ru": "На телефон {0} была отправлена СМС",
+        "en": "SMS was sent to phone {0}",
+        "zh": "短信已发送到手机 {0}",
+        "uk": "На телефон {0} було відправлено СМС",
+        "fr": "SMS envoyé au téléphone {0}"
+      },
+      "EnterPhoneNumber": {
+        "ru": "Введите номер в международном формате, только цифры (без '+', пробелов и скобок), или оставьте поле пустым, чтобы привязать без номера",
+        "en": "Enter number in international format, digits only (no '+', spaces or brackets), or leave the field empty to link without a number",
+        "zh": "请输入国际格式的号码，仅数字（不含空格和括号），或留空以绑定无号码",
+        "uk": "Введіть номер у міжнародному форматі, лише цифри (без '+', пробілів і дужок), або залиште поле порожнім, щоб прив’язати без номера",
+        "fr": "Entrez un numéro au format international, uniquement des chiffres (sans '+', espaces ou parenthèses), ou laissez le champ vide pour lier sans numéro"
+      }
+    },
+    "MafileMoverVM": {
+      "EnterGuardCode": {
+        "en": "Enter Steam Guard code or confirm login and click 'Proceed'",
+        "ru": "Введите код Steam Guard либо подтвердите вход и нажмите \"Продолжить\"",
+        "zh": "请输入令牌代码或确认登录，然后点击“继续”",
+        "uk": "Введіть код Steam Guard або підтвердіть вхід і натисніть 'Продовжити'",
+        "fr": "Entrez le code Steam Guard ou confirmez la connexion et cliquez sur 'Continuer'"
+      },
+      "EnterGuardCodeRetrying": {
+        "en": "Failed to confirm login. Enter Steam Guard code or try again",
+        "ru": "Не удалось подтвердить вход. Введите код Steam Guard или попробуйте еще раз",
+        "zh": "无法登录。请输入Steam令牌代码或重试",
+        "uk": "Не вдалося підтвердити вхід. Введіть код Steam Guard або спробуйте ще раз",
+        "fr": "Impossible de confirmer la connexion. Entrez le code Steam Guard ou réessayer"
+      },
+      "SmsCodeStepTip": {
+        "en": "Enter the code from the SMS sent to your phone number",
+        "ru": "Введите код из СМС, отправленный на ваш номер телефона",
+        "zh": "请输入发送到您手机号码的短信验证码",
+        "uk": "Введіть код з СМС, надісланий на ваш номер телефону",
+        "fr": "Entrez le code du SMS envoyé à votre numéro de téléphone"
+      },
+      "DoneStepTip": {
+        "ru": "RCode: {0}\r\nИмя файла: {1}.mafile",
+        "en": "RCode: {0}\r\nFile name: {1}.mafile",
+        "zh": "响应代码: {0}\r\n文件名: {1}.mafile",
+        "uk": "RCode: {0}\r\nІм'я файлу: {1}.mafile",
+        "fr": "RCode: {0}\r\nNom du fichier: {1}.mafile"
+      },
+      "GuardIsNotActive": {
+        "ru": "Steam Guard установлен на данном аккаунте. Чтобы привязать mafile к аккаунту, воспользуйтесь окном \"Привязать\"",
+        "en": "Steam Guard is set on this account. To link mafile to the account, use the 'Link' window",
+        "zh": "此账户已启用令牌。要将 mafile 绑定到此账户，请使用“绑定”窗口。",
+        "uk": "Steam Guard встановлено на цьому акаунті. Щоб прив'язати mafile до акаунту, скористайтеся вікном 'Прив'язати'",
+        "fr": "Steam Guard est configuré sur ce compte. Pour lier mafile au compte, utilisez la fenêtre 'Lien'"
+      },
+      "SeemsNoPhoneNumber": {
+        "en": "The account has no phone number linked, returned Fail code (2)",
+        "ru": "На аккаунте не привязан номер телефона, был возвращен код Fail (2)",
+        "zh": "账户未绑定电话号码，返回代码失败 (2)",
+        "uk": "На акаунті не прив'язано номер телефону, повернуто код Fail (2)",
+        "fr": "Le compte n'a pas de numéro de téléphone lié, code Fail (2) retourné"
+      },
+      "SmsCodeFailed": {
+        "en": "SMS code failed, try again",
+        "ru": "Ошибка SMS-кода, попробуйте еще раз",
+        "zh": "短信验证码错误，请再试一次",
+        "uk": "Помилка SMS-коду, спробуйте ще раз",
+        "fr": "Code SMS échoué, veuillez réessayer"
+      }
+    },
+    "SettingsVM": {
+      "MafileRenaming": {
+        "Error": {
+          "en": "Error while renaming mafiles. It was saved in log",
+          "ru": "Ошибка при переименовании мафайлов. Она была сохранена в log",
+          "zh": "重命名 mafiles 时出错。已记录在日志中",
+          "uk": "Помилка при перейменуванні мафайлів. Вона була збережена в log",
+          "fr": "Erreur lors du renommage des mafiles. Détails enregistrés dans le fichier log"
+        },
+        "AllRenamed": {
+          "ru": "Все мафайлы успешно переименованы ({0}).\r\nБыла создана резервная копия: {1}",
+          "en": "All mafiles successfully renamed ({0}).\r\nBackup was created: {1}",
+          "zh": "所有文件已成功重命名（{0}）。\r\n备份已创建：{1}",
+          "uk": "Всі мафайли успішно перейменовані ({0}).\r\nБуло створено резервну копію: {1}",
+          "fr": "Tous les mafiles ont été renommés avec succès ({0}).\r\nUn backup a été créé: {1}"
+        },
+        "PartialSuccess": {
+          "en": "Total mafiles: {0}\r\nRenamed: {1}\r\nConflicts: {2}\r\nErrors: {3}\r\n\r\nBackup of mafiles saved in file: {4}",
+          "ru": "Всего мафайлов: {0}\r\nПереименовано: {1}\r\nКонфликты: {2}\r\nОшибок: {3}\r\n\r\nРезервная копия мафайлов сохранена в файле: {4}",
+          "zh": "总文件数: {0}\r\n重命名: {1}\r\n冲突: {2}\r\n错误: {3}\r\n\r\n文件备份已保存至: {4}",
+          "uk": "Всього мафайлів: {0}\r\nПерейменовано: {1}\r\nКонфлікти: {2}\r\nПомилок: {3}\r\n\r\nРезервна копія мафайлів збережена у файлі: {4}",
+          "fr": "Total des mafiles: {0}\r\nRenommés: {1}\r\nConflits: {2}\r\nErreurs: {3}\r\n\r\nBackup des mafiles enregistré dans le fichier: {4}"
+        }
+      }
+    },
+    "SetAccountPasswordsVM": {
+      "Success": {
+        "en": "Passwords successfully set for {0} mafiles",
+        "ru": "Пароли успешно установлены для {0} мафайлов",
+        "zh": "已成功为 {0} 个文件设置密码",
+        "uk": "Паролі успішно встановлені для {0} мафайлів",
+        "fr": "Les mots de passe ont été définis avec succès pour {0} mafiles"
+      },
+      "PartialSuccess": {
+        "en": "Success: {0}, Not found: {1}, Errors: {2}",
+        "ru": "Успешно: {0}, Не найдено: {1}, Ошибки: {2}",
+        "zh": "成功：{0}，未找到：{1}，错误：{2}",
+        "uk": "Успішно: {0}, Не знайдено: {1}, Помилки: {2}",
+        "fr": "Succès: {0}, Non trouvé: {1}, Erreurs: {2}"
+      }
+    },
+    "MafileExporterVM": {
+      "Result": {
+        "Exported": {
+          "ru": "Экспортировано: {0}",
+          "en": "Exported: {0}",
+          "uk": "Експортовано: {0}",
+          "fr": "Exporté : {0}",
+          "zh": "已导出：{0}"
+        },
+        "NotFound": {
+          "ru": ". Не найдено: {0}",
+          "en": ". Not found: {0}",
+          "uk": ". Не знайдено: {0}",
+          "fr": ". Introuvable : {0}",
+          "zh": "。未找到：{0}"
+        },
+        "Conflict": {
+          "ru": ". Конфликты: {0}",
+          "en": ". Conflicts: {0}",
+          "uk": ". Конфлікти: {0}",
+          "fr": ". Conflits : {0}",
+          "zh": "。冲突：{0}"
+        }
+      }
+    }
+  }
+}

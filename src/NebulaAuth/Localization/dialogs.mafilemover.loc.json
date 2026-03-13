@@ -1,0 +1,98 @@
+{
+  "CodeBehind": {
+    "MafileMoverVM": {
+      "EnterGuardCode": {
+        "en": "Enter Steam Guard code or confirm login and click 'Proceed'",
+        "ru": "Введите код Steam Guard либо подтвердите вход и нажмите \"Продолжить\"",
+        "zh": "请输入令牌代码或确认登录，然后点击“继续”",
+        "uk": "Введіть код Steam Guard або підтвердіть вхід і натисніть 'Продовжити'",
+        "fr": "Entrez le code Steam Guard ou confirmez la connexion et cliquez sur 'Continuer'",
+        "es": "Introduce el código de Steam Guard o confirma el inicio de sesión y haz clic en 'Continuar'",
+        "tr": "Steam Guard kodunu girin veya girişi onaylayıp 'Devam' butonuna tıklayın",
+        "kk": "Steam Guard кодын енгізіңіз немесе кіруді растаңыз да 'Жалғастыру' түймесін басыңыз"
+      },
+      "EnterGuardCodeRetrying": {
+        "en": "Failed to confirm login. Enter Steam Guard code or try again",
+        "ru": "Не удалось подтвердить вход. Введите код Steam Guard или попробуйте еще раз",
+        "zh": "无法登录。请输入Steam令牌代码或重试",
+        "uk": "Не вдалося підтвердити вхід. Введіть код Steam Guard або спробуйте ще раз",
+        "fr": "Impossible de confirmer la connexion. Entrez le code Steam Guard ou réessayez",
+        "es": "No se pudo confirmar el inicio de sesión. Introduce el código de Steam Guard o inténtalo de nuevo",
+        "tr": "Giriş doğrulanamadı. Steam Guard kodunu girin veya tekrar deneyin",
+        "kk": "Кіруді растау мүмкін болмады. Steam Guard кодын енгізіңіз немесе қайтадан көріңіз"
+      },
+      "SmsCodeStepTip": {
+        "en": "Enter the code from the SMS sent to your phone number",
+        "ru": "Введите код из СМС, отправленный на ваш номер телефона",
+        "zh": "请输入发送到您手机号码的短信验证码",
+        "uk": "Введіть код з СМС, надісланий на ваш номер телефону",
+        "fr": "Entrez le code du SMS envoyé à votre numéro de téléphone",
+        "es": "Introduce el código del SMS enviado a tu número de teléfono",
+        "tr": "Telefon numaranıza gönderilen SMS kodunu girin",
+        "kk": "Телефон нөміріңізге жіберілген SMS кодын енгізіңіз"
+      },
+      "DoneStepTip": {
+        "ru": "RCode: {0}\r\nИмя файла: {1}.mafile",
+        "en": "RCode: {0}\r\nFile name: {1}.mafile",
+        "zh": "响应代码: {0}\r\n文件名: {1}.mafile",
+        "uk": "RCode: {0}\r\nІм'я файлу: {1}.mafile",
+        "fr": "RCode: {0}\r\nNom du fichier: {1}.mafile",
+        "es": "RCode: {0}\r\nNombre del archivo: {1}.mafile",
+        "tr": "RCode: {0}\r\nDosya adı: {1}.mafile",
+        "kk": "RCode: {0}\r\nФайл атауы: {1}.mafile"
+      },
+      "GuardIsNotActive": {
+        "ru": "Steam Guard установлен на данном аккаунте. Чтобы привязать mafile к аккаунту, воспользуйтесь окном \"Привязать\"",
+        "en": "Steam Guard is set on this account. To link mafile to the account, use the 'Link' window",
+        "zh": "此账户已启用令牌。要将 mafile 绑定到此账户，请使用“绑定”窗口。",
+        "uk": "Steam Guard встановлено на цьому акаунті. Щоб прив'язати mafile до акаунту, скористайтеся вікном 'Прив'язати'",
+        "fr": "Steam Guard est configuré sur ce compte. Pour lier mafile au compte, utilisez la fenêtre 'Lien'",
+        "es": "Steam Guard está activado en esta cuenta. Para vincular el mafile a la cuenta, usa la ventana 'Vincular'",
+        "tr": "Steam Guard bu hesapta zaten etkin. Mafile'ı hesaba bağlamak için 'Bağla' penceresini kullanın",
+        "kk": "Бұл аккаунтта Steam Guard орнатылған. Mafile-ды аккаунтқа байланыстыру үшін 'Байланыстыру' терезесін пайдаланыңыз"
+      },
+      "SeemsNoPhoneNumber": {
+        "en": "The account has no phone number linked, returned Fail code (2)",
+        "ru": "На аккаунте не привязан номер телефона, был возвращен код Fail (2)",
+        "zh": "账户未绑定电话号码，返回代码失败 (2)",
+        "uk": "На акаунті не прив'язано номер телефону, повернуто код Fail (2)",
+        "fr": "Le compte n'a pas de numéro de téléphone lié, code Fail (2) retourné",
+        "es": "La cuenta no tiene número de teléfono vinculado, se devolvió el código Fail (2)",
+        "tr": "Hesaba bağlı telefon numarası yok, Fail kodu (2) döndü",
+        "kk": "Аккаунтқа телефон нөмірі байланыстырылмаған, Fail коды (2) қайтарылды"
+      },
+      "SmsCodeFailed": {
+        "en": "SMS code failed, try again",
+        "ru": "Ошибка SMS-кода, попробуйте еще раз",
+        "zh": "短信验证码错误，请再试一次",
+        "uk": "Помилка SMS-коду, спробуйте ще раз",
+        "fr": "Code SMS échoué, veuillez réessayer",
+        "es": "El código SMS falló, inténtalo de nuevo",
+        "tr": "SMS kodu başarısız, tekrar deneyin",
+        "kk": "SMS коды қате, қайтадан көріңіз"
+      }
+    }
+  },
+  "MafileMoverView": {
+    "Title": {
+      "en": "Move Steam Guard",
+      "ru": "Перенести Steam Guard",
+      "zh": "转移Steam手机令牌",
+      "uk": "Перенести Steam Guard",
+      "fr": "Déplacer Steam Guard",
+      "es": "Mover Steam Guard",
+      "tr": "Steam Guard'ı taşı",
+      "kk": "Steam Guard-ты көшіру"
+    },
+    "Done": {
+      "en": "Steam Guard moved",
+      "ru": "Steam Guard перенесен",
+      "zh": "Steam手机令牌已迁移",
+      "uk": "Steam Guard перенесено",
+      "fr": "Steam Guard déplacé",
+      "es": "Steam Guard movido",
+      "tr": "Steam Guard taşındı",
+      "kk": "Steam Guard көшірілді"
+    }
+  }
+}
