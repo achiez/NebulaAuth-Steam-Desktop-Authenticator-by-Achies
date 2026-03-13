@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoUpdaterDotNET;
 using MaterialDesignThemes.Wpf;
 using NebulaAuth.Model;
 using NebulaAuth.Model.Entities;
+using NebulaAuth.Model.Update;
 using NebulaAuth.View;
 using NebulaAuth.View.Dialogs;
 using NebulaAuth.ViewModel.Linker;
@@ -46,6 +48,26 @@ public static class DialogsController
         if (result is true)
         {
             return vm;
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    ///     Shows the SDA encryption password dialog for unlocking SDA-encrypted mafiles.
+    /// </summary>
+    /// <returns>The entered password if user clicked OK, otherwise null.</returns>
+    public static async Task<string?> ShowSdaPasswordDialog()
+    {
+        var vm = new SdaPasswordDialogVM();
+        var content = new SdaPasswordDialog
+        {
+            DataContext = vm
+        };
+        var result = await DialogHost.Show(content);
+        if (result is true)
+        {
+            return vm.Password;
         }
 
         return null;
@@ -117,6 +139,17 @@ public static class DialogsController
     {
         var vm = new MafileExporterVM();
         var dialog = new MafileExporterView
+        {
+            DataContext = vm
+        };
+        await DialogHost.Show(dialog);
+    }
+
+    public static async Task ShowUpdateDialog(UpdateInfoEventArgs args, ChangelogEntry? changelog,
+        string? htmlFallbackUrl)
+    {
+        var vm = new UpdateDialogVM(args, changelog, htmlFallbackUrl);
+        var dialog = new UpdateDialog
         {
             DataContext = vm
         };

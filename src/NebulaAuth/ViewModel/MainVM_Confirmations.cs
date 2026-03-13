@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -76,18 +76,26 @@ public partial class MainVM //Confirmations
         return SendConfirmation(SelectedMafile, confirmation, false);
     }
 
+
     private async Task SendConfirmation(Mafile mafile, Confirmation confirmation, bool confirm)
     {
         bool result;
+
         try
         {
-            if (confirmation is MarketMultiConfirmation multi)
+            switch (confirmation)
             {
-                result = await MaClient.SendMultipleConfirmation(mafile, multi.Confirmations, confirm);
-            }
-            else
-            {
-                result = await MaClient.SendConfirmation(mafile, confirmation, confirm);
+                case MarketMultiConfirmation multi:
+                    result = await MaClient.SendMultipleConfirmation(mafile, multi.Confirmations, confirm);
+                    break;
+
+                case MarketConfirmation market:
+                    result = await MaClient.SendConfirmation(mafile, market, confirm);
+                    break;
+
+                default:
+                    result = await MaClient.SendConfirmation(mafile, confirmation, confirm);
+                    break;
             }
         }
         catch (Exception ex)
@@ -96,13 +104,49 @@ public partial class MainVM //Confirmations
             return;
         }
 
-        if (result)
-        {
-            Confirmations.Remove(confirmation);
-        }
-        else
+        if (!result)
         {
             SnackbarController.SendSnackbar(GetLocalization("ConfirmationError"));
+            return;
         }
+
+        UpdateConfirmationState(confirmation);
+    }
+
+    private void UpdateConfirmationState(Confirmation confirmation)
+    {
+        if (confirmation is MarketConfirmation item)
+        {
+            var parent = Confirmations
+                .OfType<MarketMultiConfirmation>()
+                .FirstOrDefault(p => p.Confirmations.Contains(item));
+
+            if (parent == null)
+            {
+                Confirmations.Remove(item);
+                return;
+            }
+
+            parent.Confirmations.Remove(item);
+
+            if (parent.Confirmations.Count == 0)
+            {
+                Confirmations.Remove(parent);
+                return;
+            }
+
+            if (parent.Confirmations.Count == 1)
+            {
+                var remaining = parent.Confirmations[0];
+                var idx = Confirmations.IndexOf(parent);
+                Confirmations[idx] = remaining;
+                return;
+            }
+
+            parent.Time = parent.Confirmations.FirstOrDefault()?.Time ?? parent.Time;
+            return;
+        }
+
+        Confirmations.Remove(confirmation);
     }
 }

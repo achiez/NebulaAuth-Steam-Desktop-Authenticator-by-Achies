@@ -58,7 +58,7 @@
             </Button>
 
             <Button Margin="0,0,0,5" FontSize="18" Style="{StaticResource MaterialDesignFlatButton}"
-                    Click="Website_Click" IsEnabled="False">
+                    Click="Documentation_Click" IsEnabled="False">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Viewbox Width="22" Height="22" Margin="0 0 8 0">
                         <Canvas Width="22" Height="22">
@@ -69,6 +69,15 @@
                         </Canvas>
                     </Viewbox>
                     <TextBlock Text="{Tr LinksView.Documentation}" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+
+            <Button Margin="0,5,0,5" FontSize="18" Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="CheckForUpdates_Click">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <materialDesign:PackIcon Kind="Update" Width="22" Height="22" Margin="0 0 8 0"
+                                             Foreground="{DynamicResource MaterialDesign.Brush.Primary}" />
+                    <TextBlock Text="{Tr LinksView.CheckForUpdates}" VerticalAlignment="Center" />
                 </StackPanel>
             </Button>
 

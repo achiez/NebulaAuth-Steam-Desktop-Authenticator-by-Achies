@@ -1,0 +1,308 @@
+{
+  "CodeBehind": {
+    "LinkVM": {
+      "EnterLoginAndPassword": {
+        "ru": "Введите логин и пароль",
+        "en": "Enter login and password",
+        "zh": "请输入用户名和密码",
+        "uk": "Введіть логін і пароль",
+        "fr": "Entrez le login et le mot de passe",
+        "es": "Introduce el usuario y la contraseña",
+        "tr": "Giriş adı ve şifre girin",
+        "kk": "Логин мен құпиясөзді енгізіңіз"
+      },
+      "CantLogin": {
+        "ru": "Не удалось залогиниться: ",
+        "en": "Can't login: ",
+        "zh": "无法登录：",
+        "uk": "Не вдалося залогінитися: ",
+        "fr": "Impossible de se connecter: ",
+        "es": "No se pudo iniciar sesión: ",
+        "tr": "Giriş yapılamadı: ",
+        "kk": "Кіру мүмкін болмады: "
+      },
+      "UnsupportedGuardType": {
+        "ru": "Steam Guard уже активирован. Был запрошен код с мобильного устройства",
+        "en": "Steam Guard already activated. Mobile device code was requested",
+        "zh": "令牌已激活。已从移动设备请求验证码",
+        "uk": "Steam Guard вже активовано. Був запрошений код з мобільного пристрою",
+        "fr": "Steam Guard déjà activé. Code de l'appareil mobile demandé",
+        "es": "Steam Guard ya está activado. Se solicitó un código del dispositivo móvil",
+        "tr": "Steam Guard zaten etkin. Mobil cihaz kodu istendi",
+        "kk": "Steam Guard бұрыннан белсенді. Мобильді құрылғы коды сұралды"
+      },
+      "MafileLinked": {
+        "ru": "RCode: {0}\r\nИмя файла: {1}.mafile",
+        "en": "RCode: {0}\r\nFile name: {1}.mafile",
+        "zh": "响应代码: {0}\r\n文件名: {1}.mafile",
+        "uk": "RCode: {0}\r\nІм'я файлу: {1}.mafile",
+        "fr": "RCode: {0}\r\nNom du fichier: {1}.mafile",
+        "es": "RCode: {0}\r\nNombre del archivo: {1}.mafile",
+        "tr": "RCode: {0}\r\nDosya adı: {1}.mafile",
+        "kk": "RCode: {0}\r\nФайл атауы: {1}.mafile"
+      },
+      "ErrorWithCode": {
+        "ru": "Ошибка с кодом: ",
+        "en": "Error with code: ",
+        "zh": "错误代码：",
+        "uk": "Помилка з кодом: ",
+        "fr": "Erreur avec le code: ",
+        "es": "Error con código: ",
+        "tr": "Kodlu hata: ",
+        "kk": "Кодпен қате: "
+      },
+      "UnknownError": {
+        "ru": "Неизвестная ошибка: ",
+        "en": "Unknown error: ",
+        "zh": "未知错误：",
+        "uk": "Невідома помилка: ",
+        "fr": "Erreur inconnue: ",
+        "es": "Error desconocido: ",
+        "tr": "Bilinmeyen hata: ",
+        "kk": "Белгісіз қате: "
+      },
+      "EnterEmailCode": {
+        "ru": "Введите код, отправленный на вашу почту",
+        "en": "Enter the code sent to your email",
+        "zh": "请输入发送到您邮箱的验证码",
+        "uk": "Введіть код, надісланий на вашу пошту",
+        "fr": "Entrez le code envoyé à votre email",
+        "es": "Introduce el código enviado a tu correo",
+        "tr": "E-postanıza gönderilen kodu girin",
+        "kk": "Поштаңызға жіберілген кодты енгізіңіз"
+      },
+      "ClickOnEmailLink": {
+        "ru": "На почту было отправлено письмо, откройте ссылку из письма, а затем нажмите — 'Продолжить'",
+        "en": "An email has been sent. Open the link from the email, then click 'Proceed'",
+        "zh": "电子邮件已发送。请打开邮件中的链接，然后点击——“继续”",
+        "uk": "На пошту надіслано лист. Відкрийте посилання з листа, а потім натисніть — 'Продовжити'",
+        "fr": "Un email a été envoyé. Ouvrez le lien de l'email, puis cliquez sur 'Continuer'",
+        "es": "Se envió un correo. Abre el enlace del correo y luego haz clic en 'Continuar'",
+        "tr": "Bir e-posta gönderildi. E-postadaki bağlantıyı açın ve ardından 'Devam et' düğmesine basın",
+        "kk": "Электрондық хат жіберілді. Хаттағы сілтемені ашып, кейін 'Жалғастыру' түймесін басыңыз"
+      },
+      "ClickOnEmailLinkRetry": {
+        "ru": "Не удалось подтвердить переход по ссылке. Убедитесь, что вы открыли ссылку из письма, затем нажмите — 'Продолжить'",
+        "en": "We couldn’t verify that you clicked the link. Make sure you opened the link from the email, then click 'Proceed'",
+        "zh": "无法确认通过链接的跳转。请确保您是从邮件中打开的链接，然后点击——“继续”",
+        "uk": "Не вдалося підтвердити перехід за посиланням. Переконайтесь, що ви відкрили посилання з листа, а потім натисніть — 'Продовжити'",
+        "fr": "Nous n'avons pas pu vérifier que vous avez cliqué sur le lien. Assurez-vous d'avoir ouvert le lien de l'email, puis cliquez sur 'Continuer'",
+        "es": "No pudimos verificar que abriste el enlace. Asegúrate de abrirlo desde el correo y luego haz clic en 'Continuar'",
+        "tr": "Bağlantıya tıkladığınızı doğrulayamadık. E-postadaki bağlantıyı açtığınızdan emin olun ve ardından 'Devam et' düğmesine basın",
+        "kk": "Сілтемеге өткеніңізді тексере алмадық. Хаттағы сілтемені ашқаныңызға көз жеткізіп, кейін 'Жалғастыру' түймесін басыңыз"
+      },
+      "PhoneHint": {
+        "ru": "На телефон {0} была отправлена СМС",
+        "en": "SMS was sent to phone {0}",
+        "zh": "短信已发送到手机 {0}",
+        "uk": "На телефон {0} було відправлено СМС",
+        "fr": "SMS envoyé au téléphone {0}",
+        "es": "Se envió un SMS al teléfono {0}",
+        "tr": "{0} numaralı telefona SMS gönderildi",
+        "kk": "{0} телефонына SMS жіберілді"
+      },
+      "EnterPhoneNumber": {
+        "ru": "Введите номер в международном формате, только цифры (без '+', пробелов и скобок), или оставьте поле пустым, чтобы привязать без номера",
+        "en": "Enter number in international format, digits only (no '+', spaces or brackets), or leave the field empty to link without a number",
+        "zh": "请输入国际格式的号码，仅数字（不含空格和括号），或留空以绑定无号码",
+        "uk": "Введіть номер у міжнародному форматі, лише цифри (без '+', пробілів і дужок), або залиште поле порожнім, щоб прив’язати без номера",
+        "fr": "Entrez un numéro au format international, uniquement des chiffres (sans '+', espaces ou parenthèses), ou laissez le champ vide pour lier sans numéro",
+        "es": "Introduce el número en formato internacional, solo dígitos (sin '+', espacios ni paréntesis), o deja el campo vacío para vincular sin número",
+        "tr": "Numarayı uluslararası formatta girin, yalnızca rakamlar ( '+', boşluk veya parantez yok ) veya numarasız bağlamak için alanı boş bırakın",
+        "kk": "Нөмірді халықаралық форматта енгізіңіз, тек сандар ('+', бос орын және жақша жоқ) немесе нөмірсіз байланыстыру үшін өрісті бос қалдырыңыз"
+      }
+    }
+  },
+  "LinkerDialog": {
+    "Title": {
+      "en": "Linker",
+      "ru": "Привязка",
+      "zh": "绑定",
+      "uk": "Прив'язка",
+      "fr": "Liaison",
+      "es": "Vinculación",
+      "tr": "Bağlayıcı",
+      "kk": "Байланыстыру"
+    },
+    "GotErrorHyperlinkText": {
+      "en": "(getting error?)",
+      "ru": "(возникает ошибка?)",
+      "zh": "(出现错误？)",
+      "uk": "(виникає помилка?)",
+      "fr": "(erreur ?)",
+      "es": "(¿ocurre un error?)",
+      "tr": "(hata mı alıyorsunuz?)",
+      "kk": "(қате шығып жатыр ма?)"
+    },
+    "Proxy": {
+      "en": "Proxy",
+      "ru": "Прокси",
+      "zh": "代理",
+      "uk": "Проксі",
+      "fr": "Proxy",
+      "es": "Proxy",
+      "tr": "Proxy",
+      "kk": "Прокси"
+    },
+    "Authorization": {
+      "en": "Authorization",
+      "ru": "Вход в аккаунт",
+      "zh": "账户登录",
+      "uk": "Вхід в акаунт",
+      "fr": "Connexion au compte",
+      "es": "Inicio de sesión",
+      "tr": "Hesaba giriş",
+      "kk": "Аккаунтқа кіру"
+    },
+    "EmailCode": {
+      "en": "Email code",
+      "ru": "Код из письма",
+      "zh": "来自邮件的代码",
+      "uk": "Код з листа",
+      "fr": "Code email",
+      "es": "Código del correo",
+      "tr": "E-posta kodu",
+      "kk": "Email коды"
+    },
+    "PhoneNumber": {
+      "en": "Phone number",
+      "ru": "Номер телефона",
+      "zh": "电话号码",
+      "uk": "Номер телефону",
+      "fr": "Numéro de téléphone",
+      "es": "Número de teléfono",
+      "tr": "Telefon numarası",
+      "kk": "Телефон нөмірі"
+    },
+    "EmailLink": {
+      "en": "Email link",
+      "ru": "Ссылка из email",
+      "zh": "电子邮件中的链接",
+      "uk": "Посилання з email",
+      "fr": "Lien email",
+      "es": "Enlace del correo",
+      "tr": "E-posta bağlantısı",
+      "kk": "Email сілтемесі"
+    },
+    "SmsOrCode": {
+      "en": "SMS or code",
+      "ru": "СМС или код",
+      "zh": "短信验证码",
+      "uk": "СМС або код",
+      "fr": "SMS ou code",
+      "es": "SMS o código",
+      "tr": "SMS veya kod",
+      "kk": "SMS немесе код"
+    },
+    "Completed": {
+      "en": "Completed",
+      "ru": "Завершено",
+      "zh": "已完成",
+      "uk": "Завершено",
+      "fr": "Terminé",
+      "es": "Completado",
+      "tr": "Tamamlandı",
+      "kk": "Аяқталды"
+    },
+    "Message": {
+      "en": "Message:",
+      "ru": "Сообщение:",
+      "zh": "消息:",
+      "uk": "Повідомлення:",
+      "fr": "Message:",
+      "es": "Mensaje:",
+      "tr": "Mesaj:",
+      "kk": "Хабар:"
+    },
+    "ProceedButton": {
+      "en": "Proceed",
+      "ru": "Продолжить",
+      "zh": "继续",
+      "uk": "Продовжити",
+      "fr": "Continuer",
+      "es": "Continuar",
+      "tr": "Devam et",
+      "kk": "Жалғастыру"
+    },
+    "CancelButton": {
+      "en": "Cancel",
+      "ru": "Отмена",
+      "zh": "取消",
+      "uk": "Відміна",
+      "fr": "Annuler",
+      "es": "Cancelar",
+      "tr": "İptal",
+      "kk": "Бас тарту"
+    },
+    "MafileLinked": {
+      "en": "Mafile successfully linked",
+      "ru": "Мафайл успешно привязан",
+      "zh": "文件已成功绑定",
+      "uk": "Мафайл успішно прив'язано",
+      "fr": "Mafile lié avec succès",
+      "es": "Mafile vinculado correctamente",
+      "tr": "Mafile başarıyla bağlandı",
+      "kk": "Mafile сәтті байланыстырылды"
+    },
+    "FinishButton": {
+      "en": "Finish",
+      "ru": "Завершить",
+      "zh": "完成",
+      "uk": "Завершити",
+      "fr": "Terminer",
+      "es": "Finalizar",
+      "tr": "Bitir",
+      "kk": "Аяқтау"
+    },
+    "CopyRCodeButton": {
+      "en": "Copy RCode",
+      "ru": "Скопировать RCode",
+      "zh": "复制响应代码",
+      "uk": "Скопіювати RCode",
+      "fr": "Copier RCode",
+      "es": "Copiar RCode",
+      "tr": "RCode kopyala",
+      "kk": "RCode көшіру"
+    },
+    "Login": {
+      "en": "Login",
+      "ru": "Логин",
+      "zh": "登录",
+      "uk": "Логін",
+      "fr": "Identifiant",
+      "es": "Usuario",
+      "tr": "Giriş",
+      "kk": "Логин"
+    },
+    "Password": {
+      "en": "Password",
+      "ru": "Пароль",
+      "zh": "密码",
+      "uk": "Пароль",
+      "fr": "Mot de passe",
+      "es": "Contraseña",
+      "tr": "Şifre",
+      "kk": "Құпиясөз"
+    },
+    "Code": {
+      "en": "Code",
+      "ru": "Код",
+      "zh": "验证码",
+      "uk": "Код",
+      "fr": "Code",
+      "es": "Código",
+      "tr": "Kod",
+      "kk": "Код"
+    },
+    "SmsCode": {
+      "en": "SMS code",
+      "ru": "СМС код",
+      "zh": "短信验证码",
+      "uk": "СМС код",
+      "fr": "Code SMS",
+      "es": "Código SMS",
+      "tr": "SMS kodu",
+      "kk": "SMS коды"
+    }
+  }
+}

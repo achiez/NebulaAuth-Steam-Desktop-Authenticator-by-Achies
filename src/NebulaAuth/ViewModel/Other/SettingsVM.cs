@@ -130,7 +130,10 @@ public partial class SettingsVM : ObservableObject
         {LocalizationLanguage.Russian, "Русский"},
         {LocalizationLanguage.Ukrainian, "Українська"},
         {LocalizationLanguage.ChineseSimplified, "简体中文"},
-        {LocalizationLanguage.French, "Français"}
+        {LocalizationLanguage.French, "Français"},
+        {LocalizationLanguage.Spanish, "Español"},
+        {LocalizationLanguage.Turkish, "Türkçe"},
+        {LocalizationLanguage.Kazakh, "Қазақша"}
     };
 
     public Color? IconColor

@@ -1,0 +1,628 @@
+{
+  "CodeBehind": {
+    "ErrorTranslator": {
+      "Login": {
+        "CaptchaRequired": {
+          "en": "Captcha",
+          "ru": "Капча",
+          "zh": "验证码",
+          "uk": "Капча",
+          "fr": "Captcha",
+          "es": "Captcha",
+          "tr": "Captcha",
+          "kk": "Капча"
+        },
+        "InvalidCredentials": {
+          "en": "Invalid password",
+          "ru": "Неверный пароль",
+          "zh": "密码无效",
+          "uk": "Невірний пароль",
+          "fr": "Mot de passe invalide",
+          "es": "Contraseña inválida",
+          "tr": "Geçersiz şifre",
+          "kk": "Қате құпиясөз"
+        },
+        "EmailAuthRequired": {
+          "en": "Email code required",
+          "ru": "Требуется код с почты",
+          "zh": "需要电子邮件验证码",
+          "uk": "Потрібен код з пошти",
+          "fr": "Code email requis",
+          "es": "Se requiere código de correo electrónico",
+          "tr": "E-posta kodu gerekli",
+          "kk": "Электрондық пошта коды қажет"
+        },
+        "InvalidEmailAuthCode": {
+          "en": "Invalid email code",
+          "ru": "Неверный код с почты",
+          "zh": "无效的电子邮件验证码",
+          "uk": "Невірний код з пошти",
+          "fr": "Code email invalide",
+          "es": "Código de correo electrónico inválido",
+          "tr": "Geçersiz e-posta kodu",
+          "kk": "Қате электрондық пошта коды"
+        },
+        "InvalidTwoFactorCode": {
+          "en": "Invalid two factor code",
+          "ru": "Неверный двухфакторный код",
+          "zh": "无效的两步验证码",
+          "uk": "Невірний двофакторний код",
+          "fr": "Code 2FA invalide",
+          "es": "Código de verificación en dos pasos inválido",
+          "tr": "Geçersiz iki faktörlü kod",
+          "kk": "Қате екі факторлы код"
+        },
+        "UndefinedError": {
+          "en": "Undefined error",
+          "ru": "Неизвестная ошибка",
+          "zh": "未定义的错误",
+          "uk": "Невідома помилка",
+          "fr": "Erreur inconnue",
+          "es": "Error desconocido",
+          "tr": "Bilinmeyen hata",
+          "kk": "Белгісіз қате"
+        }
+      },
+      "EResult": {
+        "InvalidPassword": {
+          "ru": "Неверный пароль",
+          "en": "Invalid password",
+          "zh": "密码错误",
+          "uk": "Невірний пароль",
+          "fr": "Mot de passe invalide",
+          "es": "Contraseña inválida",
+          "tr": "Geçersiz şifre",
+          "kk": "Қате құпиясөз"
+        },
+        "InvalidState": {
+          "ru": "Неверное состояние (11)",
+          "en": "Invalid state (11)",
+          "zh": "无效状态 (11)",
+          "uk": "Невірний стан (11)",
+          "fr": "État invalide (11)",
+          "es": "Estado inválido (11)",
+          "tr": "Geçersiz durum (11)",
+          "kk": "Жарамсыз күй (11)"
+        },
+        "Timeout": {
+          "ru": "Таймаут (16)",
+          "en": "Timeout (16)",
+          "zh": "超时 (16)",
+          "uk": "Таймаут (16)",
+          "fr": "Timeout (16)",
+          "es": "Tiempo de espera agotado (16)",
+          "tr": "Zaman aşımı (16)",
+          "kk": "Уақыт аяқталды (16)"
+        },
+        "Banned": {
+          "ru": "Забанен (17)",
+          "en": "Banned (17)",
+          "zh": "被封禁 (17)",
+          "uk": "Забанений (17)",
+          "fr": "Banni (17)",
+          "es": "Prohibido (17)",
+          "tr": "Yasaklandı (17)",
+          "kk": "Бұғатталған (17)"
+        },
+        "AccountNotFound": {
+          "ru": "Аккаунт не найден (18)",
+          "en": "Account not found (18)",
+          "zh": "未找到账户 (18)",
+          "uk": "Акаунт не знайдено (18)",
+          "fr": "Compte non trouvé (18)",
+          "es": "Cuenta no encontrada (18)",
+          "tr": "Hesap bulunamadı (18)",
+          "kk": "Аккаунт табылмады (18)"
+        },
+        "InvalidSteamID": {
+          "ru": "Неправильный SteamID (19)",
+          "en": "Invalid SteamID (19)",
+          "zh": "无效的 SteamID (19)",
+          "uk": "Неправильний SteamID (19)",
+          "fr": "SteamID invalide (19)",
+          "es": "SteamID inválido (19)",
+          "tr": "Geçersiz SteamID (19)",
+          "kk": "Жарамсыз SteamID (19)"
+        },
+        "ServiceUnavailable": {
+          "ru": "Сервер не отвечает (20)",
+          "en": "Service unavailable (20)",
+          "zh": "服务器无响应 (20)",
+          "uk": "Сервер не відповідає (20)",
+          "fr": "Service indisponible (20)",
+          "es": "Servicio no disponible (20)",
+          "tr": "Servis kullanılamıyor (20)",
+          "kk": "Қызмет қолжетімсіз (20)"
+        },
+        "Pending": {
+          "ru": "Ожидание (21)",
+          "en": "Pending (21)",
+          "zh": "等待 (21)",
+          "uk": "Очікування (21)",
+          "fr": "En attente (21)",
+          "es": "Pendiente (21)",
+          "tr": "Beklemede (21)",
+          "kk": "Күту (21)"
+        },
+        "LimitExceeded": {
+          "ru": "Лимит превышен (25)",
+          "en": "Limit exceeded (25)",
+          "zh": "超出限制 (25)",
+          "uk": "Ліміт перевищено (25)",
+          "fr": "Limite dépassée (25)",
+          "es": "Límite excedido (25)",
+          "tr": "Limit aşıldı (25)",
+          "kk": "Лимит асылды (25)"
+        },
+        "Expired": {
+          "ru": "Истекло (27)",
+          "en": "Expired (27)",
+          "zh": "有效期已过 (27)",
+          "uk": "Термін дії закінчився (27)",
+          "fr": "Expiré (27)",
+          "es": "Expirado (27)",
+          "tr": "Süresi doldu (27)",
+          "kk": "Мерзімі аяқталды (27)"
+        },
+        "Blocked": {
+          "ru": "Заблокировано (40)",
+          "en": "Blocked (40)",
+          "zh": "已封锁 (40)",
+          "uk": "Заблоковано (40)",
+          "fr": "Bloqué (40)",
+          "es": "Bloqueado (40)",
+          "tr": "Engellendi (40)",
+          "kk": "Блокталған (40)"
+        },
+        "AccountDisabled": {
+          "ru": "Аккаунт отключен (43)",
+          "en": "Account disabled (43)",
+          "zh": "账户已被禁用 (43)",
+          "uk": "Акаунт відключено (43)",
+          "fr": "Compte désactivé (43)",
+          "es": "Cuenta deshabilitada (43)",
+          "tr": "Hesap devre dışı (43)",
+          "kk": "Аккаунт өшірілген (43)"
+        },
+        "Suspended": {
+          "ru": "Отключено (Suspended 51)",
+          "en": "Suspended (51)",
+          "zh": "已停用（暂停 51）",
+          "uk": "Відключено (Suspended 51)",
+          "fr": "Suspendu (51)",
+          "es": "Suspendido (51)",
+          "tr": "Askıya alındı (51)",
+          "kk": "Тоқтатылған (51)"
+        },
+        "Cancelled": {
+          "ru": "Отмена (52)",
+          "en": "Cancelled (52)",
+          "zh": "已取消 (52)",
+          "uk": "Скасовано (52)",
+          "fr": "Annulé (52)",
+          "es": "Cancelado (52)",
+          "tr": "İptal edildi (52)",
+          "kk": "Бас тартылды (52)"
+        },
+        "InvalidLoginAuthCode": {
+          "ru": "Неверный код авторизации (65)",
+          "en": "Invalid login auth code (65)",
+          "zh": "无效的授权码 (65)",
+          "uk": "Невірний код авторизації (65)",
+          "fr": "Code d'authentification invalide (65)",
+          "es": "Código de autenticación inválido (65)",
+          "tr": "Geçersiz giriş doğrulama kodu (65)",
+          "kk": "Жарамсыз авторизация коды (65)"
+        },
+        "ExpiredLoginAuthCode": {
+          "ru": "Истекло время кода (71)",
+          "en": "Expired login auth code (71)",
+          "zh": "验证码已过期 (71)",
+          "uk": "Термін дії коду закінчився (71)",
+          "fr": "Code d'authentification expiré (71)",
+          "es": "Código de autenticación expirado (71)",
+          "tr": "Giriş doğrulama kodunun süresi doldu (71)",
+          "kk": "Авторизация кодының мерзімі аяқталды (71)"
+        },
+        "AccountLockedDown": {
+          "ru": "Аккаунт заблокирован (КТ 73)",
+          "en": "Account locked down (73)",
+          "zh": "账户被封锁 (КТ 73)",
+          "uk": "Акаунт заблоковано (КТ 73)",
+          "fr": "Compte verrouillé (73)",
+          "es": "Cuenta bloqueada (73)",
+          "tr": "Hesap kilitlendi (73)",
+          "kk": "Аккаунт бұғатталған (73)"
+        },
+        "UnexpectedError": {
+          "ru": "Неожиданная ошибка (79)",
+          "en": "Unexpected error (79)",
+          "zh": "不可预料的错误 (79)",
+          "uk": "Непередбачувана помилка (79)",
+          "fr": "Erreur inattendue (79)",
+          "es": "Error inesperado (79)",
+          "tr": "Beklenmeyen hata (79)",
+          "kk": "Күтпеген қате (79)"
+        },
+        "Disabled": {
+          "ru": "Отключено (80)",
+          "en": "Disabled (80)",
+          "zh": "已关闭 (80)",
+          "uk": "Відключено (80)",
+          "fr": "Désactivé (80)",
+          "es": "Deshabilitado (80)",
+          "tr": "Devre dışı (80)",
+          "kk": "Өшірілген (80)"
+        },
+        "RegionLocked": {
+          "ru": "Регион заблокирован (83)",
+          "en": "Region locked (83)",
+          "zh": "该地区已被封锁 (83)",
+          "uk": "Регіон заблоковано (83)",
+          "fr": "Région bloquée (83)",
+          "es": "Región bloqueada (83)",
+          "tr": "Bölge kilitli (83)",
+          "kk": "Аймақ бұғатталған (83)"
+        },
+        "RateLimitExceeded": {
+          "ru": "Слишком много запросов (84)",
+          "en": "Rate limit exceeded (84)",
+          "zh": "请求过多 (84)",
+          "uk": "Забагато запитів (84)",
+          "fr": "Limite de connexion dépassée (84)",
+          "es": "Límite de solicitudes excedido (84)",
+          "tr": "İstek limiti aşıldı (84)",
+          "kk": "Сұраныс лимиті асты (84)"
+        },
+        "TwoFactorCodeMismatch": {
+          "ru": "2FA код не подошел (88)",
+          "en": "2FA code mismatch (88)",
+          "zh": "双因素代码不正确 (88)",
+          "uk": "2FA код не підійшов (88)",
+          "fr": "Code 2FA invalide (88)",
+          "es": "Código 2FA incorrecto (88)",
+          "tr": "2FA kodu eşleşmedi (88)",
+          "kk": "2FA коды сәйкес келмеді (88)"
+        },
+        "TwoFactorActivationCodeMismatch": {
+          "ru": "2FA код не прошел проверку (89)",
+          "en": "2FA activation code mismatch (89)",
+          "zh": "双因素认证代码未通过验证 (89)",
+          "uk": "2FA код не пройшов перевірку (89)",
+          "fr": "Code d'activation 2FA invalide (89)",
+          "es": "Código de activación 2FA incorrecto (89)",
+          "tr": "2FA aktivasyon kodu eşleşmedi (89)",
+          "kk": "2FA активация коды сәйкес келмеді (89)"
+        },
+        "TimeNotSynced": {
+          "ru": "Время не синхронизировано (93)",
+          "en": "Time not synced (93)",
+          "zh": "时间未同步 (93)",
+          "uk": "Час не синхронізовано (93)",
+          "fr": "Heure non synchronisée (93)",
+          "es": "Hora no sincronizada (93)",
+          "tr": "Saat senkronize değil (93)",
+          "kk": "Уақыт синхрондалмаған (93)"
+        },
+        "SMSCodeFailed": {
+          "ru": "Ошибка SMS-кода (94)",
+          "en": "SMS code failed (94)",
+          "zh": "短信验证码错误 (94)",
+          "uk": "Помилка SMS-коду (94)",
+          "fr": "Code SMS échoué (94)",
+          "es": "Código SMS incorrecto (94)",
+          "tr": "SMS kodu hatalı (94)",
+          "kk": "SMS коды қате (94)"
+        },
+        "AccountLimitExceeded": {
+          "ru": "Лимит аккаунта превышен (95)",
+          "en": "Account limit exceeded (95)",
+          "zh": "账户已超出限制 (95)",
+          "uk": "Ліміт акаунта перевищено (95)",
+          "fr": "Limite de compte dépassée (95)",
+          "es": "Límite de cuenta excedido (95)",
+          "tr": "Hesap limiti aşıldı (95)",
+          "kk": "Аккаунт лимиті асты (95)"
+        },
+        "EmailSendFailure": {
+          "ru": "Не удалось отправить письмо (99)",
+          "en": "Email send failure (99)",
+          "zh": "无法发送邮件 (99)",
+          "uk": "Не вдалося відправити лист (99)",
+          "fr": "Échec de l'envoi de l'email (99)",
+          "es": "Error al enviar el correo (99)",
+          "tr": "E-posta gönderilemedi (99)",
+          "kk": "Электрондық хат жіберілмеді (99)"
+        },
+        "NeedCaptcha": {
+          "ru": "Капча (101)",
+          "en": "Need captcha (101)",
+          "zh": "验证码 (101)",
+          "uk": "Капча (101)",
+          "fr": "Captcha requis (101)",
+          "es": "Captcha requerido (101)",
+          "tr": "Captcha gerekli (101)",
+          "kk": "Капча қажет (101)"
+        },
+        "IPBanned": {
+          "ru": "IP заблокирован (105)",
+          "en": "IP banned (105)",
+          "zh": "IP被阻止 (105)",
+          "uk": "IP заблоковано (105)",
+          "fr": "IP bloquée (105)",
+          "es": "IP bloqueada (105)",
+          "tr": "IP yasaklandı (105)",
+          "kk": "IP бұғатталған (105)"
+        },
+        "LimitedUserAccount": {
+          "ru": "Аккаунт с лимитом (112)",
+          "en": "Limited user account (112)",
+          "zh": "限额账户 (112)",
+          "uk": "Акаунт з лімітом (112)",
+          "fr": "Compte utilisateur limité (112)",
+          "es": "Cuenta limitada (112)",
+          "tr": "Sınırlı kullanıcı hesabı (112)",
+          "kk": "Шектеулі аккаунт (112)"
+        },
+        "AccountDeleted": {
+          "ru": "Аккаунт удален (114)",
+          "en": "Account deleted (114)",
+          "zh": "账户已删除 (114)",
+          "uk": "Акаунт видалено (114)",
+          "fr": "Compte supprimé (114)",
+          "es": "Cuenta eliminada (114)",
+          "tr": "Hesap silindi (114)",
+          "kk": "Аккаунт жойылған (114)"
+        },
+        "PhoneNumberIsVOIP": {
+          "ru": "Номера VOIP запрещены (127)",
+          "en": "Phone number is VOIP (127)",
+          "zh": "VOIP 号码被禁止 (127)",
+          "uk": "Номера VOIP заборонені (127)",
+          "fr": "Numéros VOIP interdits (127)",
+          "es": "Los números VOIP no están permitidos (127)",
+          "tr": "VOIP numaralar yasaklı (127)",
+          "kk": "VOIP нөмірлеріне тыйым салынған (127)"
+        }
+      },
+      "AuthenticatorLinkerError": {
+        "PhoneAlreadyAttached": {
+          "ru": "Телефон привязан, попробуйте через 20 минут",
+          "en": "Phone already attached, try again in 20 minutes",
+          "zh": "手机已绑定，请在20分钟后重试",
+          "uk": "Телефон прив'язано, спробуйте через 20 хвилин",
+          "fr": "Téléphone déjà attaché, réessayer dans 20 minutes",
+          "es": "El teléfono ya está vinculado, inténtalo de nuevo en 20 minutos",
+          "tr": "Telefon zaten bağlı, 20 dakika sonra tekrar deneyin",
+          "kk": "Телефон бұрыннан тіркелген, 20 минуттан кейін қайта көріңіз"
+        },
+        "InvalidPhoneNumber": {
+          "ru": "Неверный номер телефона",
+          "en": "Invalid phone number",
+          "zh": "无效的电话号码",
+          "uk": "Невірний номер телефону",
+          "fr": "Numéro de téléphone invalide",
+          "es": "Número de teléfono inválido",
+          "tr": "Geçersiz telefon numarası",
+          "kk": "Жарамсыз телефон нөмірі"
+        },
+        "CantAttachPhone": {
+          "ru": "Не удается привязать телефон",
+          "en": "Can't attach phone",
+          "zh": "无法绑定手机",
+          "uk": "Не вдається прив'язати телефон",
+          "fr": "Impossible d'attacher le téléphone",
+          "es": "No se puede vincular el teléfono",
+          "tr": "Telefon bağlanamıyor",
+          "kk": "Телефонды тіркеу мүмкін емес"
+        },
+        "CantConfirmAttachingEmail": {
+          "ru": "Не удалось подтвердить письмо",
+          "en": "Can't confirm attaching email",
+          "zh": "无法确认邮件",
+          "uk": "Не вдалося підтвердити лист",
+          "fr": "Impossible de confirmer l'attachement de l'email",
+          "es": "No se pudo confirmar el correo electrónico",
+          "tr": "E-posta doğrulanamadı",
+          "kk": "Электрондық поштаны растау мүмкін болмады"
+        },
+        "CantSendSms": {
+          "ru": "Не удалось отправить SMS",
+          "en": "Can't send SMS",
+          "zh": "无法发送短信",
+          "uk": "Не вдалося відправити SMS",
+          "fr": "Impossible d'envoyer SMS",
+          "es": "No se pudo enviar el SMS",
+          "tr": "SMS gönderilemedi",
+          "kk": "SMS жіберу мүмкін болмады"
+        },
+        "AuthenticatorPresent": {
+          "ru": "Аутентификатор привязан",
+          "en": "Authenticator present",
+          "zh": "身份验证器已绑定",
+          "uk": "Аутентифікатор прив'язано",
+          "fr": "Authenticateur présent",
+          "es": "Autenticador ya vinculado",
+          "tr": "Kimlik doğrulayıcı zaten bağlı",
+          "kk": "Аутентификатор бұрыннан тіркелген"
+        },
+        "BadConfirmationCode": {
+          "ru": "Код не подошел",
+          "en": "Bad confirmation code",
+          "zh": "代码不正确",
+          "uk": "Код не підійшов",
+          "fr": "Code de confirmation invalide",
+          "es": "Código de confirmación incorrecto",
+          "tr": "Doğrulama kodu hatalı",
+          "kk": "Растау коды қате"
+        },
+        "UnableToGenerateCorrectCodes": {
+          "ru": "Не удается сгенерировать коды",
+          "en": "Unable to generate correct codes",
+          "zh": "无法生成代码",
+          "uk": "Не вдається згенерувати коди",
+          "fr": "Impossible de générer des codes corrects",
+          "es": "No se pueden generar códigos correctos",
+          "tr": "Doğru kodlar oluşturulamıyor",
+          "kk": "Дұрыс кодтарды генерациялау мүмкін емес"
+        },
+        "InvalidStateWithStatus2": {
+          "ru": "Неверное состояние (InvalidState) со статусом 2. Откройте ссылку на руководство сверху этого окна.",
+          "en": "Invalid state (InvalidState) with status 2. Open link to the troubleshooting guide at the top of this window.",
+          "zh": "状态无效（InvalidState），状态码为 2. 请打开本窗口顶部的故障排除指南链接。",
+          "uk": "Невірний стан (InvalidState) зі статусом 2. Відкрийте посилання на посібник з усунення несправностей у верхній частині цього вікна.",
+          "fr": "État invalide (InvalidState) avec le statut 2. Ouvrez le lien vers le guide de dépannage en haut de cette fenêtre.",
+          "es": "Estado inválido (InvalidState) con estado 2. Abre el enlace a la guía de solución de problemas en la parte superior de esta ventana.",
+          "tr": "Geçersiz durum (InvalidState) durum 2 ile. Bu pencerenin üst kısmındaki sorun giderme kılavuzu bağlantısını açın.",
+          "kk": "Жарамсыз күй (InvalidState), статус 2. Осы терезенің жоғарғы жағындағы ақауларды жою нұсқаулығының сілтемесін ашыңыз."
+        },
+        "GeneralFailure": {
+          "ru": "Общая ошибка",
+          "en": "General Failure",
+          "zh": "一般故障",
+          "uk": "Загальна помилка",
+          "fr": "Échec général",
+          "es": "Fallo general",
+          "tr": "Genel hata",
+          "kk": "Жалпы қате"
+        }
+      }
+    },
+    "ExceptionHandler": {
+      "SessionInvalidException": {
+        "ru": "Сессия истекла. Попробуйте обновить ее или залогиниться заново (Аккаунт → войти)",
+        "en": "Session expired. Try to refresh it or login again (Account → Login)",
+        "zh": "会话已过期。请通过菜单尝试刷新，或重新登录（账户 → 登录）",
+        "uk": "Сесія прострочена. Спробуйте оновити її через меню або залогінитися знову (Акаунт → Увійти)",
+        "fr": "Session expirée. Essayez de la rafraîchir ou de vous reconnecter à nouveau (Compte → Se connecter)",
+        "es": "La sesión ha expirado. Intenta actualizarla o iniciar sesión nuevamente (Cuenta → Iniciar sesión)",
+        "tr": "Oturum süresi doldu. Yenilemeyi deneyin veya tekrar giriş yapın (Hesap → Giriş)",
+        "kk": "Сессия мерзімі аяқталды. Оны жаңартып көріңіз немесе қайта кіріңіз (Аккаунт → Кіру)"
+      },
+      "SessionExpiredException": {
+        "ru": "Сессия полностью истекла. Нужно залогиниться заново (Аккаунт → Войти)",
+        "en": "Session fully expired. Need to login again (Account → Login)",
+        "zh": "会话已完全过期。需要重新登录（账户 → 登录）",
+        "uk": "Сесія повніст'ю прострочена'. Потрібно залогінитися знову (Акаунт → Увійти)",
+        "fr": "Session entièrement expirée. Vous devez vous reconnecter à nouveau (Compte → Se connecter)",
+        "es": "La sesión ha expirado completamente. Debes iniciar sesión nuevamente (Cuenta → Iniciar sesión)",
+        "tr": "Oturum tamamen sona erdi. Tekrar giriş yapmanız gerekiyor (Hesap → Giriş)",
+        "kk": "Сессия толық аяқталды. Қайта кіру қажет (Аккаунт → Кіру)"
+      },
+      "TaskCanceledException": {
+        "ru": "Произошла отмена операции",
+        "en": "Operation canceled",
+        "zh": "操作已取消",
+        "uk": "Операція скасована",
+        "fr": "Opération annulée",
+        "es": "Operación cancelada",
+        "tr": "İşlem iptal edildi",
+        "kk": "Операция тоқтатылды"
+      },
+      "TimeoutException": {
+        "ru": "Таймаут подключения. Проверьте ваше соединение с Proxy или интернетом",
+        "en": "Connection timeout. Check your connection with Proxy or internet",
+        "zh": "连接超时。请检查您的代理或互联网连接。",
+        "uk": "Таймаут підключення. Перевірте ваше з'єднання з Proxy або інтернетом",
+        "fr": "Timeout de connexion. Vérifiez votre connexion avec Proxy ou internet",
+        "es": "Tiempo de espera de conexión agotado. Verifica tu conexión con el proxy o Internet",
+        "tr": "Bağlantı zaman aşımına uğradı. Proxy veya internet bağlantınızı kontrol edin",
+        "kk": "Қосылу уақыты аяқталды. Proxy немесе интернет қосылымыңызды тексеріңіз"
+      },
+      "UnsupportedResponseException": {
+        "ru": "Получен неожиданный ответ от Steam. Результат сохранен в log.log. Свяжитесь с разработчиком",
+        "en": "Unexpected response from Steam. Result saved in log.log. Contact developer",
+        "zh": "从 Steam 收到意外响应。结果已保存到 log.log。请联系开发者",
+        "uk": "Отримано неочікувану відповідь від Steam. Результат збережено в log.log. Зв'яжіться з розробником",
+        "fr": "Réponse inattendue de Steam. Résultat enregistré dans log.log. Contactez le développeur",
+        "es": "Respuesta inesperada de Steam. El resultado se guardó en log.log. Contacta al desarrollador",
+        "tr": "Steam'den beklenmeyen bir yanıt alındı. Sonuç log.log dosyasına kaydedildi. Geliştiriciyle iletişime geçin",
+        "kk": "Steam-нан күтпеген жауап алынды. Нәтиже log.log файлына сақталды. Әзірлеушімен байланысыңыз"
+      },
+      "LoginException": {
+        "ru": "Ошибка входа: ",
+        "en": "Login error: ",
+        "zh": "登录错误：",
+        "uk": "Помилка входу: ",
+        "fr": "Erreur de connexion: ",
+        "es": "Error de inicio de sesión: ",
+        "tr": "Giriş hatası: ",
+        "kk": "Кіру қатесі: "
+      },
+      "UnsupportedAuthTypeException": {
+        "Mail": {
+          "ru": "Ошибка: Был запрошен код с почты. Steam Guard не активирован",
+          "en": "Error: Email code was requested. Steam Guard is not activated",
+          "zh": "错误：已请求电子邮件验证码。令牌未激活",
+          "uk": "Помилка: Був запрошений код з пошти. Steam Guard не активовано",
+          "fr": "Erreur: Code email était demandé. Steam Guard non activé",
+          "es": "Error: Se solicitó un código por correo electrónico. Steam Guard no está activado",
+          "tr": "Hata: E-posta kodu istendi. Steam Guard etkin değil",
+          "kk": "Қате: Электрондық пошта коды сұралды. Steam Guard белсендірілмеген"
+        },
+        "Guard": {
+          "ru": "Ошибка: Был запрошен вход с помощью Steam Guard. На аккаунте уже активирован мобильный аутентификатор",
+          "en": "Error: Login with Steam Guard was requested. Mobile authenticator is already activated on the account",
+          "zh": "错误：请求使用令牌登录。该账户已激活移动验证器",
+          "uk": "Помилка: Був запрошений вхід за допомогою Steam Guard. На акаунті вже активовано мобільний автентифікатор",
+          "fr": "Erreur: Connexion avec Steam Guard demandée. Authenticateur mobile est déjà activé sur le compte",
+          "es": "Error: Se solicitó iniciar sesión con Steam Guard. El autenticador móvil ya está activado en la cuenta",
+          "tr": "Hata: Steam Guard ile giriş istendi. Hesapta mobil doğrulayıcı zaten etkin",
+          "kk": "Қате: Steam Guard арқылы кіру сұралды. Аккаунтта мобильді аутентификатор әлдеқашан қосылған"
+        },
+        "Unknown": {
+          "ru": "Ошибка: Неизвестный тип аутентификации",
+          "en": "Error: Unknown authentication type",
+          "zh": "错误：未知的身份验证类型",
+          "uk": "Помилка: Невідомий тип автентифікації",
+          "fr": "Erreur: Type d'authentification inconnu",
+          "es": "Error: Tipo de autenticación desconocido",
+          "tr": "Hata: Bilinmeyen kimlik doğrulama türü",
+          "kk": "Қате: Белгісіз аутентификация түрі"
+        }
+      },
+      "UnknownException": {
+        "ru": "Неизвестная ошибка: ",
+        "en": "Unknown error: ",
+        "zh": "未知错误：",
+        "uk": "Невідома помилка: ",
+        "fr": "Erreur inconnue: ",
+        "es": "Error desconocido: ",
+        "tr": "Bilinmeyen hata: ",
+        "kk": "Белгісіз қате: "
+      },
+      "CantLoadConfirmationsException": {
+        "Common": {
+          "ru": "Не удалось загрузить потверждения из-за ошибки Steam: ",
+          "en": "Can't load confirmations due to Steam error: ",
+          "zh": "由于 Steam 错误，无法下载确认信息：",
+          "uk": "Не вдалося завантажити підтвердження через помилку Steam: ",
+          "fr": "Impossible de charger les confirmations en raison de l'erreur Steam: ",
+          "es": "No se pueden cargar las confirmaciones debido a un error de Steam: ",
+          "tr": "Steam hatası nedeniyle onaylar yüklenemedi: ",
+          "kk": "Steam қатесіне байланысты растауларды жүктеу мүмкін емес: "
+        },
+        "TryAgainLater": {
+          "ru": "Попробуйте позже",
+          "en": "Try again later",
+          "zh": "稍后再试",
+          "uk": "Спробуйте пізніше",
+          "fr": "Réessayer plus tard",
+          "es": "Inténtalo más tarde",
+          "tr": "Daha sonra tekrar deneyin",
+          "kk": "Кейінірек қайта көріңіз"
+        },
+        "NotSetupToReceiveConfirmations": {
+          "ru": "Аккаунт не настроен на получение подтверждений",
+          "en": "Account is not set up to receive confirmations",
+          "zh": "帐户未设置为接收确认",
+          "uk": "Акаунт не налаштований на отримання підтверджень",
+          "fr": "Le compte n'est pas configuré pour recevoir des confirmations",
+          "es": "La cuenta no está configurada para recibir confirmaciones",
+          "tr": "Hesap onayları almak için ayarlanmamış",
+          "kk": "Аккаунт растауларды алу үшін бапталмаған"
+        }
+      }
+    }
+  }
+}

@@ -11,6 +11,7 @@ public static class LocManager
 {
     public const string CODE_BEHIND_PATH_PART = "CodeBehind";
     public const string COMMON_PATH_PART = "Common";
+    private const string LOC_DIR = "Localization";
 
     public static void SetApplicationLocalization(LocalizationLanguage language)
     {
@@ -30,9 +31,12 @@ public static class LocManager
         {
             LocalizationLanguage.English => "en",
             LocalizationLanguage.Russian => "ru",
-            LocalizationLanguage.Ukrainian => "ua",
+            LocalizationLanguage.Ukrainian => "uk",
             LocalizationLanguage.ChineseSimplified => "zh",
             LocalizationLanguage.French => "fr",
+            LocalizationLanguage.Spanish => "es",
+            LocalizationLanguage.Turkish => "tr",
+            LocalizationLanguage.Kazakh => "kk",
             _ => throw new ArgumentOutOfRangeException(nameof(language), language, null)
         };
     }
@@ -49,10 +53,9 @@ public static class LocManager
 
     public static void ReloadFiles()
     {
-        var exampleFileFileName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!,
-            "localization.loc.json");
-        LocalizationLoader.Instance.ClearAllTranslations();
-        LocalizationLoader.Instance.AddFile(exampleFileFileName);
+        var baseDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+        var path = Path.Combine(baseDir, LOC_DIR);
+        LocalizationLoader.Instance.AddDirectory(path);
     }
 
     public static string? GetCodeBehind(params string[] path)
@@ -111,5 +114,8 @@ public enum LocalizationLanguage
     Russian,
     Ukrainian,
     ChineseSimplified,
-    French
+    French,
+    Spanish,
+    Turkish,
+    Kazakh
 }

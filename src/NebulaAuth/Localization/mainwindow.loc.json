@@ -1,0 +1,933 @@
+{
+  "CodeBehind": {
+    "MainVM": {
+      "SuccessfulLogin": {
+        "en": "Successful login",
+        "ru": "Успешный вход",
+        "zh": "登录成功",
+        "uk": "Успішний вхід",
+        "fr": "Connexion réussie",
+        "es": "Inicio de sesión exitoso",
+        "tr": "Giriş başarılı",
+        "kk": "Сәтті кіру"
+      },
+      "SessionRefreshed": {
+        "en": "Session refreshed",
+        "ru": "Сессия обновлена",
+        "zh": "会话已更新",
+        "uk": "Сесія оновлена",
+        "fr": "Session actualisée",
+        "es": "Sesión actualizada",
+        "tr": "Oturum yenilendi",
+        "kk": "Сессия жаңартылды"
+      },
+      "MissingRCode": {
+        "en": "Missing RCode",
+        "ru": "Отсутствует RCode",
+        "zh": "缺少响应代码",
+        "uk": "Відсутній RCode",
+        "fr": "RCode manquant",
+        "es": "Falta RCode",
+        "tr": "RCode eksik",
+        "kk": "RCode жоқ"
+      },
+      "ConfirmRemovingAuthenticator": {
+        "ru": "Вы точно уверены, что хотите удалить аутентификатор?\r\nПосле этого вы не сможете обмениваться, использовать торговую площадку 15 дней. Мафайл будет удалён навсегда",
+        "en": "Are you sure you want to remove the authenticator?\r\nAfter that, you will not be able to trade or use the marketplace for 15 days. Mafile will be deleted permanently",
+        "zh": "您确定要移除身份验证器吗？\r\n之后，您将在15天内无法进行交易或使用市场。Mafile 将被永久删除。",
+        "uk": "Ви точно впевнені, що хочете видалити автентифікатор?\r\nПісля цього ви не зможете обмінюватися, використовувати торгову площадку 15 днів. Мафайл буде видалено назавжди",
+        "fr": "Êtes-vous sûr de vouloir supprimer l'authenticateur?\r\nAprès cela, vous ne pourrez pas échanger ou utiliser le marché pendant 15 jours. Le mafile sera supprimé définitivement",
+        "es": "¿Seguro que quieres eliminar el autenticador?\r\nDespués no podrás comerciar ni usar el mercado durante 15 días. El mafile se eliminará permanentemente",
+        "tr": "Kimlik doğrulayıcıyı kaldırmak istediğinizden emin misiniz?\r\nBundan sonra 15 gün boyunca ticaret yapamaz veya pazarı kullanamazsınız. Mafile kalıcı olarak silinecek",
+        "kk": "Аутентификаторды жойғыңыз келетініне сенімдісіз бе?\r\nОсыдан кейін 15 күн бойы сауда жасай алмайсыз және нарықты пайдалана алмайсыз. Mafile біржола жойылады"
+      },
+      "AuthenticatorRemoved": {
+        "ru": "Аутентификатор удален",
+        "en": "Authenticator removed",
+        "zh": "身份验证器已删除",
+        "uk": "Аутентифікатор видалено",
+        "fr": "Authentificateur supprimé",
+        "es": "Autenticador eliminado",
+        "tr": "Kimlik doğrulayıcı kaldırıldı",
+        "kk": "Аутентификатор жойылды"
+      },
+      "AuthenticatorNotRemoved": {
+        "ru": "Что-то пошло не так",
+        "en": "Something went wrong",
+        "zh": "出了点问题",
+        "uk": "Щось пішло не так",
+        "fr": "Quelque chose s'est mal passé",
+        "es": "Algo salió mal",
+        "tr": "Bir şeyler ters gitti",
+        "kk": "Бірдеңе дұрыс болмады"
+      },
+      "ConfirmLoginSuccess": {
+        "ru": "Вход осуществлен:",
+        "en": "Login success:",
+        "zh": "已登录：",
+        "uk": "Вхід здійснено:",
+        "fr": "Connexion réussie:",
+        "es": "Inicio de sesión correcto:",
+        "tr": "Giriş başarılı:",
+        "kk": "Кіру сәтті:"
+      },
+      "ConfirmLoginFailedNoRequests": {
+        "ru": "Запросов на вход не обнаружено",
+        "en": "No login requests found",
+        "zh": "未检测到输入请求",
+        "uk": "Запитів на вхід не виявлено",
+        "fr": "Aucune demande de connexion trouvée",
+        "es": "No se encontraron solicitudes de inicio de sesión",
+        "tr": "Giriş isteği bulunamadı",
+        "kk": "Кіру сұраныстары табылмады"
+      },
+      "ConfirmLoginFailedMoreThanOneRequest": {
+        "ru": "Обнаружено несколько запросов на вход. В целях безопасности операция отменена",
+        "en": "Multiple login requests found. For security reasons, the operation is canceled",
+        "zh": "检测到多个输入请求。出于安全考虑，操作已取消",
+        "uk": "Виявлено декілька запитів на вхід. З метою безпеки операція скасована",
+        "fr": "Plusieurs demandes de connexion trouvées. Pour des raisons de sécurité, l'opération est annulée",
+        "es": "Se encontraron múltiples solicitudes de inicio de sesión. Por razones de seguridad, la operación fue cancelada",
+        "tr": "Birden fazla giriş isteği bulundu. Güvenlik nedeniyle işlem iptal edildi",
+        "kk": "Бірнеше кіру сұранысы табылды. Қауіпсіздік мақсатында операция тоқтатылды"
+      },
+      "ConfirmationError": {
+        "ru": "Ошибка подтверждения",
+        "en": "Confirmation error",
+        "zh": "确认错误",
+        "uk": "Помилка підтвердження",
+        "fr": "Erreur de confirmation",
+        "es": "Error de confirmación",
+        "tr": "Onay hatası",
+        "kk": "Растау қатесі"
+      },
+      "ConfirmMafileOverwrite": {
+        "ru": "Внимание, мафайл(-ы) уже присутствует в папке mafiles.\r\nПерезаписать мафайлы, которые конфликтуют?",
+        "en": "Attention, mafile(-s) already exists in mafiles folder.\r\nOverwrite conflicting mafiles?",
+        "zh": "注意，mafile 已经存在于 mafiles 文件夹中。\r\n覆盖冲突的 mafiles 吗？",
+        "uk": "Увага, мафайл(-и) вже присутній у папці mafiles.\r\nПерезаписати мафайли, які конфліктують?",
+        "fr": "Attention, mafiles déjà présents dans le dossier mafiles.\r\nRemplacer les mafiles en conflit?",
+        "es": "Atención, los mafiles ya existen en la carpeta mafiles.\r\n¿Sobrescribir los mafiles en conflicto?",
+        "tr": "Dikkat, mafile(ler) zaten mafiles klasöründe mevcut.\r\nÇakışan mafile'lar üzerine yazılsın mı?",
+        "kk": "Назар аударыңыз, mafile(дер) mafiles қалтасында бар.\r\nҚайшылық тудырған mafile файлдарының үстінен жазу керек пе?"
+      },
+      "MafileImportError": {
+        "ru": "Ошибка при импорте мафайла",
+        "en": "Mafile import error",
+        "zh": "导入文件错误",
+        "uk": "Помилка імпорту мафайла",
+        "fr": "Erreur d'importation du mafile",
+        "es": "Error al importar el mafile",
+        "tr": "Mafile içe aktarma hatası",
+        "kk": "Mafile импорттау қатесі"
+      },
+      "SdaManifestEntryNotFound": {
+        "en": "The selected manifest.json does not contain an entry for this .mafile.",
+        "ru": "Выбранный manifest.json не содержит запись для этого .mafile.",
+        "zh": "所选的 manifest.json 不包含此 .mafile 的条目。",
+        "uk": "Вибраний manifest.json не містить запису для цього .mafile.",
+        "fr": "Le manifest.json sélectionné ne contient pas d'entrée pour ce .mafile.",
+        "es": "El manifest.json seleccionado no contiene una entrada para este .mafile.",
+        "tr": "Seçilen manifest.json bu .mafile için bir kayıt içermiyor.",
+        "kk": "Таңдалған manifest.json бұл .mafile үшін жазба қамтымайды."
+      },
+      "SdaWrongPassword": {
+        "en": "Wrong SDA password. Please try again.",
+        "ru": "Неверный пароль SDA. Попробуйте снова.",
+        "zh": "SDA 密码错误。请重试。",
+        "uk": "Невірний пароль SDA. Спробуйте ще раз.",
+        "fr": "Mauvais mot de passe SDA. Veuillez réessayer.",
+        "es": "Contraseña SDA incorrecta. Inténtalo de nuevo.",
+        "tr": "Yanlış SDA parolası. Lütfen tekrar deneyin.",
+        "kk": "SDA құпиясөзі қате. Қайтадан көріңіз."
+      },
+      "MissingSessionInMafile": {
+        "ru": ". У него отсутствует сессия. Добавьте этот файл отдельно от остальных",
+        "en": ". It has no session. Add this file separately from the others",
+        "zh": ". 他没有会话。请将此文件与其他文件分开添加",
+        "uk": ". В нього відсутня сесія. Додайте цей файл окремо від інших",
+        "fr": ". Pas de session dans le mafile. Ajoutez ce fichier séparément des autres",
+        "es": ". No tiene sesión. Añada este archivo por separado de los demás",
+        "tr": ". Oturumu yok. Bu dosyayı diğerlerinden ayrı ekleyin",
+        "kk": ". Бұл файлда сессия жоқ. Оны басқа файлдардан бөлек қосыңыз"
+      },
+      "Import": {
+        "ru": "Импорт",
+        "en": "Import",
+        "zh": "导入",
+        "uk": "Імпорт",
+        "fr": "Importer",
+        "es": "Importar",
+        "tr": "İçe aktar",
+        "kk": "Импорт"
+      },
+      "ImportAdded": {
+        "ru": "добавлено:",
+        "en": "added:",
+        "zh": "已添加：",
+        "uk": "додано:",
+        "fr": "ajouté:",
+        "es": "añadido:",
+        "tr": "eklendi:",
+        "kk": "қосылды:"
+      },
+      "ImportSkipped": {
+        "ru": "пропущено:",
+        "en": "skipped:",
+        "zh": "跳过：",
+        "uk": "пропущено:",
+        "fr": "passé:",
+        "es": "omitido:",
+        "tr": "atlandı:",
+        "kk": "өткізілді:"
+      },
+      "ImportErrors": {
+        "ru": "ошибки:",
+        "en": "errors:",
+        "zh": "错误：",
+        "uk": "помилки:",
+        "fr": "erreurs:",
+        "es": "errores:",
+        "tr": "hatalar:",
+        "kk": "қателер:"
+      },
+      "RemoveMafileConfirmation": {
+        "ru": "Удалить mafile?\r\nМафайл будет перемещен в папку 'mafiles_removed'\r\nЭто действие НЕ удаляет Steam Guard с аккаунта",
+        "en": "Remove mafile?\r\nMafile will be moved to 'mafiles_removed' directory\r\nThis action will NOT remove the Steam Guard from the account",
+        "zh": "是否删除mafile？\r\nMafile将被移动到“mafiles_removed”目录\r\n此操作不会从账户中移除令牌",
+        "uk": "Видалити mafile?\r\nМафайл буде переміщено у каталог 'mafiles_removed'\r\nЦя дія НЕ видаляє автентифікатор з облікового запису",
+        "fr": "Supprimer le mafile?\r\nLe mafile sera déplacé dans le dossier 'mafiles_removed'\r\nCette action NE SUPPRIME PAS le Steam Guard du compte",
+        "es": "¿Eliminar mafile?\r\nEl mafile se moverá a la carpeta 'mafiles_removed'\r\nEsta acción NO elimina Steam Guard de la cuenta",
+        "tr": "Mafile silinsin mi?\r\nMafile 'mafiles_removed' klasörüne taşınacak\r\nBu işlem Steam Guard'ı hesaptan kaldırmaz",
+        "kk": "Mafile жойылсын ба?\r\nMafile 'mafiles_removed' қалтасына көшіріледі\r\nБұл әрекет Steam Guard-ты аккаунттан алып тастамайды"
+      },
+      "CantRemoveAlreadyExist": {
+        "ru": "Не удалось переместить mafile, возможно в папке уже существует мафайл с таким именем.",
+        "en": "Can't move mafile, maybe mafile with same name already exists in mafiles_removed folder.",
+        "zh": "无法移动 mafile，可能 mafiles_removed 文件夹中已存在同名的 mafile。",
+        "uk": "Не вдалося перемістити mafile, можливо в папці вже існує мафайл з таким іменем.",
+        "fr": "Impossible de déplacer le mafile, probablement déjà existant dans le dossier mafiles_removed.",
+        "es": "No se pudo mover el mafile, quizá ya existe un mafile con el mismo nombre en mafiles_removed.",
+        "tr": "Mafile taşınamadı, aynı isimde bir mafile zaten mafiles_removed klasöründe olabilir.",
+        "kk": "Mafile жылжыту мүмкін болмады, mafiles_removed қалтасында дәл осындай атаумен файл болуы мүмкін."
+      },
+      "CantRemoveMafile": {
+        "ru": "Не удалось удалить (переместить) мафайл:",
+        "en": "Can't remove mafile:",
+        "zh": "无法删除（移动）我的文件：",
+        "uk": "Не вдалося видалити (перемістити) мафайл:",
+        "fr": "Impossible de supprimer (déplacer) le mafile:",
+        "es": "No se pudo eliminar (mover) el mafile:",
+        "tr": "Mafile silinemedi (taşınamadı):",
+        "kk": "Mafile жою (көшіру) мүмкін болмады:"
+      },
+      "TimerTooFast": {
+        "ru": "Слишком быстрый таймер.",
+        "en": "Too fast timer.",
+        "zh": "计时器太快。",
+        "uk": "Занадто швидкий таймер.",
+        "fr": "Timer trop rapide.",
+        "es": "Temporizador demasiado rápido.",
+        "tr": "Zamanlayıcı çok hızlı.",
+        "kk": "Таймер тым жылдам."
+      },
+      "TimerChanged": {
+        "en": "Timer changed",
+        "ru": "Таймер изменен",
+        "zh": "计时器已更改",
+        "uk": "Таймер змінено",
+        "fr": "Timer modifié",
+        "es": "Temporizador cambiado",
+        "tr": "Zamanlayıcı değiştirildi",
+        "kk": "Таймер өзгертілді"
+      },
+      "CantRetrieveSteamIDToUpdate": {
+        "ru": "Не удалось получить SteamID из мафайла и сохранить изменения. Необходимо сделать релогин. Отменено",
+        "en": "Can't retrieve SteamID from mafile to save changes. Need to relogin. Canceled",
+        "zh": "无法从配置文件获取 SteamID 并保存更改。需要重新登录。已取消",
+        "uk": "Не вдалося отримати SteamID з мафайла та зберегти зміни. Потрібно зробити релогін. Скасовано",
+        "fr": "Impossible de récupérer le SteamID du mafile pour sauvegarder les modifications. Reconnexion nécessaire. Annulé",
+        "es": "No se pudo obtener el SteamID del mafile para guardar cambios. Se requiere volver a iniciar sesión. Cancelado",
+        "tr": "Değişiklikleri kaydetmek için mafile'dan SteamID alınamadı. Yeniden giriş yapılmalı. İptal edildi",
+        "kk": "Өзгерістерді сақтау үшін mafile-дан SteamID алу мүмкін болмады. Қайта кіру қажет. Болдырылды"
+      },
+      "LoginCopied": {
+        "en": "Login copied",
+        "ru": "Логин скопирован",
+        "zh": "登录已复制",
+        "uk": "Логін скопійовано",
+        "fr": "Login copié",
+        "es": "Login copiado",
+        "tr": "Giriş kopyalandı",
+        "kk": "Логин көшірілді"
+      },
+      "SteamIdCopied": {
+        "en": "SteamID copied",
+        "ru": "SteamID скопирован",
+        "zh": "SteamID 已复制",
+        "uk": "SteamID скопійовано",
+        "fr": "SteamID copié",
+        "es": "SteamID copiado",
+        "tr": "SteamID kopyalandı",
+        "kk": "SteamID көшірілді"
+      },
+      "MafileCopied": {
+        "en": "Mafile copied",
+        "ru": "Мафайл скопирован",
+        "zh": "文件已复制",
+        "uk": "Мафайл скопійовано",
+        "fr": "Mafile copié",
+        "es": "Mafile copiado",
+        "tr": "Mafile kopyalandı",
+        "kk": "Mafile көшірілді"
+      },
+      "MafileNotCopied": {
+        "en": "Mafile not copied",
+        "ru": "Мафайл не скопирован",
+        "zh": "文件未被复制",
+        "uk": "Мафайл не скопійовано",
+        "fr": "Mafile non copié",
+        "es": "Mafile no copiado",
+        "tr": "Mafile kopyalanamadı",
+        "kk": "Mafile көшірілмеді"
+      },
+      "PasswordCopied": {
+        "en": "Password copied",
+        "ru": "Пароль скопирован",
+        "zh": "密码已复制",
+        "uk": "Пароль скопійовано",
+        "fr": "Mot de passe copié",
+        "es": "Contraseña copiada",
+        "tr": "Parola kopyalandı",
+        "kk": "Құпиясөз көшірілді"
+      },
+      "CantDecryptPassword": {
+        "en": "Can't decrypt password. Maybe password from this mafile was encrypted with another encryption password",
+        "ru": "Не удалось расшифровать пароль. Возможно пароль из этого мафайла был зашифрован другим паролем шифрования",
+        "zh": "无法解密密码。可能此文件中的密码是用其他加密密码加密的。",
+        "uk": "Не вдалося розшифрувати пароль. Можливо пароль з цього мафайла був зашифрований іншим паролем шифрування",
+        "fr": "Impossible de déchiffrer le mot de passe. Le mot de passe de chiffrement est peut-être différent",
+        "es": "No se pudo descifrar la contraseña. Quizás fue cifrada con otra contraseña de cifrado",
+        "tr": "Parola çözülemedi. Bu mafile'daki parola farklı bir şifreleme parolasıyla şifrelenmiş olabilir",
+        "kk": "Құпиясөзді шифрдан шығару мүмкін болмады. Бұл mafile-дегі құпиясөз басқа шифрлау құпиясөзімен шифрланған болуы мүмкін"
+      },
+      "CreateGroupTitle": {
+        "en": "New group",
+        "ru": "Новая группа",
+        "zh": "新群组",
+        "uk": "Нова група",
+        "fr": "Nouveau groupe",
+        "es": "Nuevo grupo",
+        "tr": "Yeni grup",
+        "kk": "Жаңа топ"
+      },
+      "CreateGroupInput": {
+        "en": "Enter group name",
+        "ru": "Введите имя группы",
+        "zh": "输入群组名称",
+        "uk": "Введіть назву групи",
+        "fr": "Entrer le nom du groupe",
+        "es": "Ingrese el nombre del grupo",
+        "tr": "Grup adını girin",
+        "kk": "Топ атауын енгізіңіз"
+      },
+      "CreateGroupSuccess": {
+        "en": "Group created",
+        "ru": "Группа создана",
+        "zh": "群组已创建",
+        "uk": "Групу створено",
+        "fr": "Groupe créé",
+        "es": "Grupo creado",
+        "tr": "Grup oluşturuldu",
+        "kk": "Топ құрылды"
+      }
+
+    }
+  },
+  "MainWindow": {
+    "Global": {
+      "DragNDropHint": {
+        "en": "Release to import mafiles",
+        "ru": "Отпустите для импорта мафайлов",
+        "zh": "允许导入文件",
+        "uk": "Відпустіть для імпорту мафайлів",
+        "fr": "Lâchez pour importer les mafiles",
+        "es": "Suelta para importar mafiles",
+        "tr": "Mafile içe aktarmak için bırakın",
+        "kk": "Mafile импорттау үшін жіберіңіз"
+      },
+      "LoadingHint": {
+        "en": "Loading...",
+        "ru": "Загрузка...",
+        "zh": "加载中...",
+        "uk": "Завантаження...",
+        "fr": "Chargement...",
+        "es": "Cargando...",
+        "tr": "Yükleniyor...",
+        "kk": "Жүктелуде..."
+      }
+    },
+    "Menu": {
+      "File": {
+        "Caption": {
+          "en": "Menu",
+          "ru": "Меню",
+          "zh": "菜单",
+          "uk": "Меню",
+          "fr": "Menu",
+          "es": "Menú",
+          "tr": "Menü",
+          "kk": "Мәзір"
+        },
+        "Import": {
+          "en": "Import",
+          "ru": "Импорт",
+          "zh": "导入",
+          "uk": "Імпорт",
+          "fr": "Importer",
+          "es": "Importar",
+          "tr": "İçe aktar",
+          "kk": "Импорттау"
+        },
+        "Remove": {
+          "en": "Remove",
+          "ru": "Удалить",
+          "zh": "删除",
+          "uk": "Видалити",
+          "fr": "Supprimer",
+          "es": "Eliminar",
+          "tr": "Kaldır",
+          "kk": "Жою"
+        },
+        "OpenFolder": {
+          "en": "Open folder",
+          "ru": "Открыть папку",
+          "zh": "打开文件夹",
+          "uk": "Відкрити папку",
+          "fr": "Ouvrir le dossier",
+          "es": "Abrir carpeta",
+          "tr": "Klasörü aç",
+          "kk": "Қалтаны ашу"
+        },
+        "Settings": {
+          "en": "Settings",
+          "ru": "Настройки",
+          "zh": "设置",
+          "uk": "Налаштування",
+          "fr": "Paramètres",
+          "es": "Configuración",
+          "tr": "Ayarlar",
+          "kk": "Баптаулар"
+        },
+        "ProxyManager": {
+          "en": "Proxy manager",
+          "ru": "Менеджер прокси",
+          "zh": "代理管理器",
+          "uk": "Менеджер проксі",
+          "fr": "Gestionnaire de proxy",
+          "es": "Administrador de proxy",
+          "tr": "Proxy yöneticisi",
+          "kk": "Прокси менеджері"
+        },
+        "Other": {
+          "Title": {
+            "en": "Other",
+            "ru": "Прочее",
+            "zh": "其他",
+            "uk": "Інше",
+            "fr": "Divers",
+            "es": "Otros",
+            "tr": "Diğer",
+            "kk": "Басқа"
+          },
+          "SetPasswords": {
+            "en": "Set passwords",
+            "ru": "Назначить пароли",
+            "zh": "设置密码",
+            "uk": "Призначити паролі",
+            "fr": "Définir les mots de passe",
+            "es": "Establecer contraseñas",
+            "tr": "Parolaları ayarla",
+            "kk": "Құпиясөздерді орнату"
+          },
+          "OpenExport": {
+            "ru": "Экспорт",
+            "en": "Export",
+            "uk": "Експорт",
+            "fr": "Exporter",
+            "zh": "导出",
+            "es": "Exportar",
+            "tr": "Dışa aktar",
+            "kk": "Экспорт"
+          }
+        }
+      },
+      "Account": {
+        "Caption": {
+          "en": "Account",
+          "ru": "Аккаунт",
+          "zh": "账户",
+          "uk": "Акаунт",
+          "fr": "Compte",
+          "es": "Cuenta",
+          "tr": "Hesap",
+          "kk": "Тіркелгі"
+        },
+        "Link": {
+          "en": "Link",
+          "ru": "Привязать",
+          "zh": "绑定",
+          "uk": "Прив'язати",
+          "fr": "Lier",
+          "es": "Vincular",
+          "tr": "Bağla",
+          "kk": "Байлау"
+        },
+        "MoveSteamGuard": {
+          "en": "Move Steam Guard",
+          "ru": "Перенести Steam Guard",
+          "zh": "令牌",
+          "uk": "Перенести Steam Guard",
+          "fr": "Déplacer Steam Guard",
+          "es": "Mover Steam Guard",
+          "tr": "Steam Guard'ı taşı",
+          "kk": "Steam Guard-ты көшіру"
+        },
+        "Unlink": {
+          "en": "Unlink",
+          "ru": "Отвязать",
+          "zh": "解绑",
+          "uk": "Відв'язати",
+          "fr": "Délier",
+          "es": "Desvincular",
+          "tr": "Bağlantıyı kaldır",
+          "kk": "Байланысты үзу"
+        },
+        "RefreshSession": {
+          "en": "Refresh session",
+          "ru": "Обновить сессию",
+          "zh": "刷新",
+          "uk": "Оновити сесію",
+          "fr": "Actualiser la session",
+          "es": "Actualizar sesión",
+          "tr": "Oturumu yenile",
+          "kk": "Сессияны жаңарту"
+        },
+        "LoginAgain": {
+          "en": "Login",
+          "ru": "Войти",
+          "zh": "登录",
+          "uk": "Увійти",
+          "fr": "Se connecter",
+          "es": "Iniciar sesión",
+          "tr": "Giriş yap",
+          "kk": "Кіру"
+        }
+      }
+    },
+    "AppBar": {
+      "GroupsHint": {
+        "en": "Groups",
+        "ru": "Группы",
+        "zh": "群组",
+        "uk": "Групи",
+        "fr": "Groupes",
+        "es": "Grupos",
+        "tr": "Gruplar",
+        "kk": "Топтар"
+      },
+      "GroupToolTip": {
+        "ru": "Введите новую группу и нажмите Enter. Управление группой - ПКМ на аккаунте",
+        "en": "Enter new group and press Enter. Group management - RMB on account",
+        "zh": "输入新组并按回车键。管理组 - 在账户上右键点击",
+        "uk": "Введіть нову групу і натисніть Enter. Управління групою - ПКМ на акаунті",
+        "fr": "Entrez un nouveau groupe et appuyez sur Entrée. Gestion du groupe - clic droit sur le compte",
+        "es": "Introduce un nuevo grupo y pulsa Enter. Gestión del grupo: clic derecho en la cuenta",
+        "tr": "Yeni bir grup girin ve Enter'a basın. Grup yönetimi - hesap üzerinde sağ tık",
+        "kk": "Жаңа топ енгізіп, Enter басыңыз. Топты басқару — аккаунтта оң жақ батырма"
+      },
+      "Proxy": {
+        "ProxyHint": {
+          "en": "Proxy",
+          "ru": "Прокси",
+          "zh": "代理",
+          "uk": "Проксі",
+          "fr": "Proxy",
+          "es": "Proxy",
+          "tr": "Proxy",
+          "kk": "Прокси"
+        },
+        "ProxyOpenManagerHint": {
+          "en": "Open proxy manager",
+          "ru": "Открыть менеджер прокси",
+          "zh": "打开代理管理器",
+          "uk": "Відкрити менеджер проксі",
+          "fr": "Ouvrir le gestionnaire de proxy",
+          "es": "Abrir administrador de proxy",
+          "tr": "Proxy yöneticisini aç",
+          "kk": "Прокси менеджерін ашу"
+        },
+        "ProxyManipulateToolTip": {
+          "en": "Right-click to open menu. DEL to remove",
+          "ru": "Правый клик для открытия меню. DEL для удаления",
+          "zh": "右键点击以打开菜单。按 DEL 删除",
+          "uk": "Правий клік для відкриття меню. DEL для видалення",
+          "fr": "Clic droit pour ouvrir le menu. Touche Suppr pour supprimer",
+          "es": "Clic derecho para abrir el menú. DEL para eliminar",
+          "tr": "Menüyü açmak için sağ tık. Silmek için DEL",
+          "kk": "Мәзірді ашу үшін оң жақ батырма. Жою үшін DEL"
+        },
+        "ProxyAlert": {
+          "DefaultInUse": {
+            "en": "Default proxy is in use",
+            "ru": "Используется прокси по умолчанию",
+            "zh": "使用默认代理",
+            "uk": "Використовується проксі за замовчуванням",
+            "fr": "Proxy par défaut en cours d'utilisation",
+            "es": "Proxy predeterminado en uso",
+            "tr": "Varsayılan proxy kullanılıyor",
+            "kk": "Әдепкі прокси қолданылуда"
+          },
+          "MafileProxyInUse": {
+            "en": "Mafile proxy is in use",
+            "ru": "Используется прокси из мафайла",
+            "zh": "使用来自 mafile 的代理",
+            "uk": "Використовується проксі з мафайла",
+            "fr": "Proxy du mafile en cours d'utilisation",
+            "es": "Proxy del mafile en uso",
+            "tr": "Mafile proxy kullanılıyor",
+            "kk": "Mafile прокси қолданылуда"
+          }
+        }
+      },
+      "TradeTimerHint": {
+        "en": "Auto-confirm trades. RMC for mass control",
+        "ru": "Автоподтверждение трейдов. ПКМ для массового управления",
+        "zh": "自动确认交易。右键进行批量管理",
+        "uk": "Автопідтвердження трейдів. ПКМ для масового управління",
+        "fr": "Confirmation auto des échanges. Clic droit pour le contrôle en masse",
+        "es": "Confirmación automática de intercambios. Clic derecho para control masivo",
+        "tr": "Takasları otomatik onayla. Toplu kontrol için sağ tık",
+        "kk": "Саудаларды авторастау. Жаппай басқару үшін оң жақ батырма"
+      },
+      "MarketTimerHint": {
+        "en": "Auto-confirm market listings. RMC for mass control",
+        "ru": "Автоподтверждение лотов на маркете. ПКМ для массового управления",
+        "zh": "市场上拍品的自动确认。右键进行批量管理",
+        "uk": "Автопідтвердження лотів на маркеті. ПКМ для масового управління",
+        "fr": "Confirmation auto des offres du marché. Clic droit pour le contrôle en masse",
+        "es": "Confirmación automática de anuncios del mercado. Clic derecho para control masivo",
+        "tr": "Pazar ilanlarını otomatik onayla. Toplu kontrol için sağ tık",
+        "kk": "Маркет лоттарын авторастау. Жаппай басқару үшін оң жақ батырма"
+      },
+      "TimersContextMenu": {
+        "SwitchMAACGroup": {
+          "en": "Switch in group",
+          "ru": "Переключить в группе",
+          "zh": "切换到组",
+          "uk": "Перемкнути в групі",
+          "fr": "Basculer dans le groupe",
+          "es": "Cambiar en el grupo",
+          "tr": "Grup içinde değiştir",
+          "kk": "Топ ішінде ауыстыру"
+        },
+        "SwitchMAACAll": {
+          "en": "Switch all",
+          "ru": "Переключить все",
+          "zh": "切换全部",
+          "uk": "Перемкнути всі",
+          "fr": "Basculer tous",
+          "es": "Cambiar todo",
+          "tr": "Hepsini değiştir",
+          "kk": "Барлығын ауыстыру"
+        }
+      },
+      "ShowAutoConfirmAccountsHint": {
+        "en": "Show accounts with auto-confirmation enabled.",
+        "ru": "Показать аккаунты с включенным автоподтверждением.",
+        "zh": "显示已启用自动确认的账户。",
+        "uk": "Показати акаунти з включеним автопідтвердженням.",
+        "fr": "Afficher les comptes avec la confirmation auto activée.",
+        "es": "Mostrar cuentas con confirmación automática activada.",
+        "tr": "Otomatik onay etkin olan hesapları göster.",
+        "kk": "Авторастау қосылған аккаунттарды көрсету."
+      }
+    },
+
+
+    "LeftPart": {
+      "SearchBoxHint": {
+        "en": "Search",
+        "ru": "Поиск",
+        "zh": "搜索",
+        "uk": "Пошук",
+        "fr": "Rechercher",
+        "es": "Buscar",
+        "tr": "Ara",
+        "kk": "Іздеу"
+      },
+      "NoMafiles": {
+        "en": "No mafiles found..",
+        "ru": "Мафайлы не найдены..",
+        "zh": "未找到文件..",
+        "uk": "Мафайли не знайдено..",
+        "fr": "Aucun mafile trouvé..",
+        "es": "No se encontraron mafiles..",
+        "tr": "Mafile bulunamadı..",
+        "kk": "Mafile табылмады.."
+      }
+    },
+    "RightPart": {
+      "LoadConfirmations": {
+        "en": "Load confirmations",
+        "ru": "Загрузить подтверждения",
+        "zh": "下载确认",
+        "uk": "Завантажити підтвердження",
+        "fr": "Charger les confirmations",
+        "es": "Cargar confirmaciones",
+        "tr": "Onayları yükle",
+        "kk": "Растауларды жүктеу"
+      },
+      "ConfirmLogin": {
+        "en": "Confirm login",
+        "ru": "Подтвердить вход",
+        "zh": "确认登录",
+        "uk": "Підтвердити вхід",
+        "fr": "Confirmer la connexion",
+        "es": "Confirmar inicio de sesión",
+        "tr": "Girişi onayla",
+        "kk": "Кіруді растау"
+      }
+    },
+    "Footer": {
+      "AccountsCount": {
+        "en": "Accounts: ",
+        "ru": "Аккаунты: ",
+        "zh": "账户：",
+        "uk": "Акаунти: ",
+        "fr": "Comptes: ",
+        "es": "Cuentas: ",
+        "tr": "Hesaplar: ",
+        "kk": "Аккаунттар: "
+      },
+      "SelectedAccount": {
+        "en": "Current: ",
+        "ru": "Текущий: ",
+        "zh": "群组：",
+        "uk": "Поточний: ",
+        "fr": "Actuel: ",
+        "es": "Actual: ",
+        "tr": "Geçerli: ",
+        "kk": "Ағымдағы: "
+      }
+    },
+    "ConfirmationTemplates": {
+      "TradeWith": {
+        "en": "Trade with",
+        "ru": "Трейд с",
+        "zh": "交易与",
+        "uk": "Трейд з",
+        "fr": "Échanger avec",
+        "es": "Intercambiar con",
+        "tr": "Şununla takas",
+        "kk": "Мынамен сауда"
+      },
+      "Recovery": {
+        "en": "Recovery",
+        "ru": "Восстановление",
+        "zh": "恢复",
+        "uk": "Відновлення",
+        "fr": "Récupération",
+        "es": "Recuperación",
+        "tr": "Kurtarma",
+        "kk": "Қалпына келтіру"
+      },
+      "ApiKey": {
+        "en": "Api key",
+        "ru": "Api ключ",
+        "zh": "API 密钥",
+        "uk": "Api ключ",
+        "fr": "Clé API",
+        "es": "Clave API",
+        "tr": "API anahtarı",
+        "kk": "API кілті"
+      },
+      "Market": {
+        "en": "Sell",
+        "ru": "Продажа",
+        "zh": "售卖",
+        "uk": "Продаж",
+        "fr": "Vendre",
+        "es": "Vender",
+        "tr": "Sat",
+        "kk": "Сату"
+      },
+      "Purchase": {
+        "en": "Purchase",
+        "ru": "Покупка",
+        "zh": "购买",
+        "uk": "Покупка",
+        "fr": "Acheter",
+        "es": "Comprar",
+        "tr": "Satın al",
+        "kk": "Сатып алу"
+      },
+      "ConfirmAll": {
+        "en": "Confirm all",
+        "ru": "Подтвердить все",
+        "zh": "全部确认",
+        "uk": "Підтвердити все",
+        "fr": "Tout confirmer",
+        "es": "Confirmar todo",
+        "tr": "Hepsini onayla",
+        "kk": "Барлығын растау"
+      },
+      "CancelAll": {
+        "en": "Cancel all",
+        "ru": "Отклонить все",
+        "zh": "全部取消",
+        "uk": "Відхилити все",
+        "fr": "Tout annuler",
+        "es": "Cancelar todo",
+        "tr": "Hepsini iptal et",
+        "kk": "Барлығын болдырмау"
+      },
+      "ConfirmOne": {
+        "en": "Confirm this item",
+        "ru": "Подтвердить этот предмет",
+        "zh": "确认此物品",
+        "uk": "Підтвердити цей предмет",
+        "fr": "Confirmer cet objet",
+        "es": "Confirmar este objeto",
+        "tr": "Bu öğeyi onayla",
+        "kk": "Бұл затты растау"
+      },
+      "CancelOne": {
+        "en": "Cancel this item",
+        "ru": "Отклонить этот предмет",
+        "zh": "取消此物品",
+        "uk": "Відхилити цей предмет",
+        "fr": "Annuler cet objet",
+        "es": "Cancelar este objeto",
+        "tr": "Bu öğeyi iptal et",
+        "kk": "Бұл затты болдырмау"
+      }
+    },
+    "CodeCopied": {
+      "ru": "Скопировано",
+      "en": "Copied",
+      "zh": "已复制",
+      "uk": "Скопійовано",
+      "fr": "Copié",
+      "es": "Copiado",
+      "tr": "Kopyalandı",
+      "kk": "Көшірілді"
+    },
+    "ContextMenus": {
+      "Mafile": {
+        "CopyLogin": {
+          "en": "Copy login",
+          "ru": "Скопировать логин",
+          "zh": "复制登录名",
+          "uk": "Скопіювати логін",
+          "fr": "Copier le login",
+          "es": "Copiar login",
+          "tr": "Girişi kopyala",
+          "kk": "Логинді көшіру"
+        },
+        "CopyMafile": {
+          "en": "Copy mafile",
+          "ru": "Скопировать мафайл",
+          "zh": "复制我的文件",
+          "uk": "Скопіювати мафайл",
+          "fr": "Copier le mafile",
+          "es": "Copiar mafile",
+          "tr": "Mafile'ı kopyala",
+          "kk": "Mafile көшіру"
+        },
+        "CopySteamId": {
+          "en": "Copy SteamID",
+          "ru": "Скопировать SteamID",
+          "zh": "复制 Steam ID",
+          "uk": "Скопіювати SteamID",
+          "fr": "Copier SteamID",
+          "es": "Copiar SteamID",
+          "tr": "SteamID kopyala",
+          "kk": "SteamID көшіру"
+        },
+        "CreateGroup": {
+          "en": "Create group",
+          "ru": "Создать группу",
+          "zh": "创建群组",
+          "uk": "Створити групу",
+          "fr": "Créer un groupe",
+          "es": "Crear grupo",
+          "tr": "Grup oluştur",
+          "kk": "Топ құру"
+        },
+        "AddToGroup": {
+          "en": "Add to group",
+          "ru": "Добавить в группу",
+          "zh": "添加到群组",
+          "uk": "Додати в групу",
+          "fr": "Ajouter au groupe",
+          "es": "Agregar al grupo",
+          "tr": "Gruba ekle",
+          "kk": "Топқа қосу"
+        },
+        "RemoveFromGroup": {
+          "en": "Remove from group",
+          "ru": "Удалить из группы",
+          "zh": "从群组中删除",
+          "uk": "Видалити з групи",
+          "fr": "Supprimer du groupe",
+          "es": "Eliminar del grupo",
+          "tr": "Gruptan kaldır",
+          "kk": "Топтан шығару"
+        },
+        "CopyPassword": {
+          "en": "Copy password",
+          "ru": "Скопировать пароль",
+          "zh": "复制密码",
+          "uk": "Скопіювати пароль",
+          "fr": "Copier le mot de passe",
+          "es": "Copiar contraseña",
+          "tr": "Parolayı kopyala",
+          "kk": "Құпиясөзді көшіру"
+        },
+        "UnattachProxy": {
+          "en": "Unattach proxy",
+          "ru": "Открепить прокси",
+          "zh": "取消代理绑定",
+          "uk": "Відкріпити проксі",
+          "fr": "Détacher le proxy",
+          "es": "Desvincular proxy",
+          "tr": "Proxy bağlantısını kaldır",
+          "kk": "Проксиді ажырату"
+        }
+      },
+      "Proxy": {
+        "Copy": {
+          "en": "Copy",
+          "ru": "Скопировать",
+          "zh": "复制",
+          "uk": "Скопіювати",
+          "fr": "Copier",
+          "es": "Copiar",
+          "tr": "Kopyala",
+          "kk": "Көшіру"
+        },
+        "CopyAddress": {
+          "en": "Copy address",
+          "ru": "Скопировать адрес",
+          "zh": "复制地址",
+          "uk": "Скопіювати адресу",
+          "fr": "Copier l'adresse",
+          "es": "Copiar dirección",
+          "tr": "Adresi kopyala",
+          "kk": "Мекенжайды көшіру"
+        }
+      }
+    }
+  }
+}

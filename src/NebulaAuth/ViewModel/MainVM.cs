@@ -42,7 +42,7 @@ public partial class MainVM : ObservableObject
             new MaProxy(kvp.Key, kvp.Value)));
         Storage.MaFiles.CollectionChanged += MaFilesOnCollectionChanged;
         QueryGroups();
-        UpdateManager.CheckForUpdates();
+        UpdateManager.CheckForUpdates(false);
     }
 
     [RelayCommand]
@@ -70,7 +70,6 @@ public partial class MainVM : ObservableObject
             ConfirmLoginCommand.NotifyCanExecuteChanged();
             RemoveProxyCommand.NotifyCanExecuteChanged();
         }
-
     }
 
 

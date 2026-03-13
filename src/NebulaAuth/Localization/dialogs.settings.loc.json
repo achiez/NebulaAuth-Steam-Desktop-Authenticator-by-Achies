@@ -1,0 +1,336 @@
+{
+  "CodeBehind": {
+    "SettingsVM": {
+      "MafileRenaming": {
+        "Error": {
+          "en": "Error while renaming mafiles. It was saved in log",
+          "ru": "Ошибка при переименовании мафайлов. Она была сохранена в log",
+          "zh": "重命名 mafiles 时出错。已记录在日志中",
+          "uk": "Помилка при перейменуванні мафайлів. Вона була збережена в log",
+          "fr": "Erreur lors du renommage des mafiles. Détails enregistrés dans le fichier log",
+          "es": "Error al renombrar los mafiles. Se guardó en el log",
+          "tr": "Mafile yeniden adlandırılırken hata oluştu. Log dosyasına kaydedildi",
+          "kk": "Mafile атауын өзгерту кезінде қате болды. Ол log файлына сақталды"
+        },
+        "AllRenamed": {
+          "ru": "Все мафайлы успешно переименованы ({0}).\r\nБыла создана резервная копия: {1}",
+          "en": "All mafiles successfully renamed ({0}).\r\nBackup was created: {1}",
+          "zh": "所有文件已成功重命名（{0}）。\r\n备份已创建：{1}",
+          "uk": "Всі мафайли успішно перейменовані ({0}).\r\nБуло створено резервну копію: {1}",
+          "fr": "Tous les mafiles ont été renommés avec succès ({0}).\r\nUn backup a été créé: {1}",
+          "es": "Todos los mafiles se renombraron correctamente ({0}).\r\nSe creó una copia de seguridad: {1}",
+          "tr": "Tüm mafile'lar başarıyla yeniden adlandırıldı ({0}).\r\nYedek oluşturuldu: {1}",
+          "kk": "Барлық mafile сәтті қайта аталды ({0}).\r\nРезервтік көшірме жасалды: {1}"
+        },
+        "PartialSuccess": {
+          "en": "Total mafiles: {0}\r\nRenamed: {1}\r\nConflicts: {2}\r\nErrors: {3}\r\n\r\nBackup of mafiles saved in file: {4}",
+          "ru": "Всего мафайлов: {0}\r\nПереименовано: {1}\r\nКонфликты: {2}\r\nОшибок: {3}\r\n\r\nРезервная копия мафайлов сохранена в файле: {4}",
+          "zh": "总文件数: {0}\r\n重命名: {1}\r\n冲突: {2}\r\n错误: {3}\r\n\r\n文件备份已保存至: {4}",
+          "uk": "Всього мафайлів: {0}\r\nПерейменовано: {1}\r\nКонфлікти: {2}\r\nПомилок: {3}\r\n\r\nРезервна копія мафайлів збережена у файлі: {4}",
+          "fr": "Total des mafiles: {0}\r\nRenommés: {1}\r\nConflits: {2}\r\nErreurs: {3}\r\n\r\nBackup des mafiles enregistré dans le fichier: {4}",
+          "es": "Total de mafiles: {0}\r\nRenombrados: {1}\r\nConflictos: {2}\r\nErrores: {3}\r\n\r\nCopia de seguridad guardada en el archivo: {4}",
+          "tr": "Toplam mafile: {0}\r\nYeniden adlandırıldı: {1}\r\nÇakışmalar: {2}\r\nHatalar: {3}\r\n\r\nMafile yedeği dosyaya kaydedildi: {4}",
+          "kk": "Барлық mafile саны: {0}\r\nҚайта аталғаны: {1}\r\nҚайшылықтар: {2}\r\nҚателер: {3}\r\n\r\nMafile резервтік көшірмесі файлға сақталды: {4}"
+        }
+      }
+    }
+  },
+  "SettingsDialog": {
+    "Title": {
+      "en": "Settings",
+      "ru": "Настройки",
+      "zh": "设置",
+      "uk": "Налаштування",
+      "fr": "Paramètres",
+      "es": "Configuración",
+      "tr": "Ayarlar",
+      "kk": "Баптаулар"
+    },
+    "MainSettings": {
+      "en": "Main",
+      "ru": "Основные",
+      "zh": "主要",
+      "uk": "Основні",
+      "fr": "Général",
+      "es": "Principal",
+      "tr": "Genel",
+      "kk": "Негізгі"
+    },
+    "ThemeSettings": {
+      "en": "Theme",
+      "ru": "Тема",
+      "zh": "主题",
+      "uk": "Тема",
+      "fr": "Thème",
+      "es": "Tema",
+      "tr": "Tema",
+      "kk": "Тақырып"
+    },
+    "Theme": {
+      "BackgroundBlur": {
+        "en": "Background Blur",
+        "ru": "Размытие фона",
+        "zh": "背景模糊",
+        "uk": "Розмиття фону",
+        "fr": "Flou de l'arrière-plan",
+        "es": "Desenfoque de fondo",
+        "tr": "Arka plan bulanıklığı",
+        "kk": "Артқы фон бұлыңғырлығы"
+      },
+      "BackgroundOpacity": {
+        "en": "Background Opacity",
+        "ru": "Непрозрачность фона",
+        "zh": "背景不透明度",
+        "uk": "Непрозорість фону",
+        "fr": "Opacité de l'arrière-plan",
+        "es": "Opacidad del fondo",
+        "tr": "Arka plan opaklığı",
+        "kk": "Артқы фон мөлдірлігі"
+      },
+      "Gamma": {
+        "en": "Gamma",
+        "ru": "Гамма",
+        "zh": "伽马",
+        "uk": "Гама",
+        "fr": "Gamma",
+        "es": "Gamma",
+        "tr": "Gamma",
+        "kk": "Гамма"
+      },
+      "LeftOpacity": {
+        "en": "Left Opacity",
+        "ru": "Непрозрачность слева",
+        "zh": "左透明度",
+        "uk": "Непрозорість зліва",
+        "fr": "Opacité à gauche",
+        "es": "Opacidad izquierda",
+        "tr": "Sol opaklık",
+        "kk": "Сол жақ мөлдірлігі"
+      },
+      "RightOpacity": {
+        "en": "Right Opacity",
+        "ru": "Непрозрачность справа",
+        "zh": "右透明度",
+        "uk": "Непрозорість справа",
+        "fr": "Opacité à droite",
+        "es": "Opacidad derecha",
+        "tr": "Sağ opaklık",
+        "kk": "Оң жақ мөлдірлігі"
+      },
+      "CurrentTheme": {
+        "en": "Current Theme",
+        "ru": "Текущая тема",
+        "zh": "当前主题",
+        "uk": "Поточна тема",
+        "fr": "Thème actuel",
+        "es": "Tema actual",
+        "tr": "Geçerli tema",
+        "kk": "Ағымдағы тақырып"
+      },
+      "DialogBlur": {
+        "en": "Blur on Dialog",
+        "ru": "Размытие при открытии диалог. окна",
+        "zh": "打开对话窗口时的模糊效果",
+        "uk": "Розмиття при відкритті діалог. вікна",
+        "fr": "Flou derrière la boîte de dialogue",
+        "es": "Desenfoque en diálogo",
+        "tr": "Diyalog açıldığında bulanıklık",
+        "kk": "Диалог ашылғанда бұлыңғырлау"
+      },
+      "RippleDisabled": {
+        "en": "Disable ripple animations",
+        "ru": "Отключить анимации «ripple»",
+        "zh": "禁用波纹动画",
+        "uk": "Вимкнути анімації «ripple»",
+        "fr": "Désactiver les animations ripple",
+        "es": "Desactivar animaciones ripple",
+        "tr": "Ripple animasyonlarını kapat",
+        "kk": "Ripple анимацияларын өшіру"
+      },
+      "Reset": {
+        "en": "Reset",
+        "ru": "Сбросить",
+        "zh": "重置",
+        "uk": "Скинути",
+        "fr": "Réinitialiser",
+        "es": "Restablecer",
+        "tr": "Sıfırla",
+        "kk": "Қалпына келтіру"
+      }
+    },
+    "BackgroundHint": {
+      "en": "Background",
+      "ru": "Фон",
+      "zh": "背景",
+      "uk": "Фон",
+      "fr": "Arrière-plan",
+      "es": "Fondo",
+      "tr": "Arka plan",
+      "kk": "Фон"
+    },
+    "BackgroundMode": {
+      "Default": {
+        "en": "Default",
+        "ru": "По умолчанию",
+        "zh": "默认",
+        "uk": "За замовчуванням",
+        "fr": "Par défaut",
+        "es": "Predeterminado",
+        "tr": "Varsayılan",
+        "kk": "Әдепкі"
+      },
+      "Custom": {
+        "en": "Custom",
+        "ru": "Свой",
+        "zh": "自定义",
+        "uk": "Свій",
+        "fr": "Personnalisé",
+        "es": "Personalizado",
+        "tr": "Özel",
+        "kk": "Жеке"
+      },
+      "NoBackground": {
+        "en": "No background",
+        "ru": "Без фона",
+        "zh": "无背景",
+        "uk": "Без фону",
+        "fr": "Aucun fond",
+        "es": "Sin fondo",
+        "tr": "Arka plan yok",
+        "kk": "Фон жоқ"
+      }
+    },
+    "MinimizeToTray": {
+      "en": "Minimize to tray",
+      "ru": "Сворачивать в трей",
+      "zh": "最小化到托盘",
+      "uk": "Згортати в трей",
+      "fr": "Minimiser dans la barre des tâches",
+      "es": "Minimizar a la bandeja",
+      "tr": "Tepsiye küçült",
+      "kk": "Трейге кішірейту"
+    },
+    "UseIndicator": {
+      "en": "Use color indicator in taskbar",
+      "ru": "Цветной индикатор в панели задач",
+      "zh": "在任务栏中使用颜色指示器",
+      "uk": "Кольоровий індикатор в панелі завдань",
+      "fr": "Utiliser un indicateur de couleur dans la barre des tâches",
+      "es": "Usar indicador de color en la barra de tareas",
+      "tr": "Görev çubuğunda renk göstergesi kullan",
+      "kk": "Тапсырмалар жолағында түс индикаторын қолдану"
+    },
+    "UseIndicatorHint": {
+      "en": "Small color indicator in windows toolbar to identify program instance",
+      "ru": "Маленький цветной индикатор в панели задач для идентификации экземпляра программы",
+      "zh": "Windows 工具栏中的小颜色指示器，用于识别程序实例",
+      "uk": "Малий кольоровий індикатор в панелі завдань для ідентифікації екземпляра програми",
+      "fr": "Petit indicateur de couleur dans la barre des tâches pour identifier l'instance du programme",
+      "es": "Pequeño indicador de color en la barra de tareas para identificar la instancia del programa",
+      "tr": "Program örneğini tanımlamak için görev çubuğunda küçük renk göstergesi",
+      "kk": "Бағдарлама данасын анықтау үшін тапсырмалар жолағындағы шағын түс индикаторы"
+    },
+    "UseCustomColor": {
+      "en": "Custom window color",
+      "ru": "Свой цвет окна",
+      "zh": "自定义窗口颜色",
+      "uk": "Свій колір вікна",
+      "fr": "Couleur personnalisée de la fenêtre",
+      "es": "Color de ventana personalizado",
+      "tr": "Özel pencere rengi",
+      "kk": "Терезенің жеке түсі"
+    },
+    "PasswordBox": {
+      "CurrentCryptPassword": {
+        "en": "Current encryption password",
+        "ru": "Текущий пароль шифрования",
+        "zh": "当前加密密码",
+        "uk": "Поточний пароль шифрування",
+        "fr": "Mot de passe de chiffrement actuel",
+        "es": "Contraseña de cifrado actual",
+        "tr": "Geçerli şifreleme parolası",
+        "kk": "Ағымдағы шифрлау құпиясөзі"
+      },
+      "Hint": {
+        "en": "Not saved to disk",
+        "ru": "Не сохраняется в системе",
+        "zh": "未保存到磁盘",
+        "uk": "Не зберігається у системі",
+        "fr": "Non sauvegardé sur le disque",
+        "es": "No se guarda en el disco",
+        "tr": "Diske kaydedilmez",
+        "kk": "Дискке сақталмайды"
+      }
+    },
+    "LegacyMafileMode": {
+      "en": "Common mafiles format",
+      "ru": "Общепринятый формат мафайлов",
+      "zh": "常见的邮件文件格式",
+      "uk": "Загальноприйнятий формат мафайлів",
+      "fr": "Format de mafiles commun",
+      "es": "Formato común de mafiles",
+      "tr": "Ortak mafile formatı",
+      "kk": "Жалпы mafile форматы"
+    },
+    "LegacyMafileModeHint": {
+      "en": "Save mafiles in compatibility format with Steam Desktop Authenticator and other applications",
+      "ru": "Сохранять мафайлы в старом формате для совместимости со Steam Desktop Authenticator и другими приложениями",
+      "zh": "以与 Steam 桌面认证器及其他应用程序兼容的格式保存 mafiles",
+      "uk": "Зберігати мафайли у старому форматі для сумісності зі Steam Desktop Authenticator та іншими додатками",
+      "fr": "Enregistrer les mafiles dans un format compatible avec Steam Desktop Authenticator et d'autres applications",
+      "es": "Guardar mafiles en formato compatible con Steam Desktop Authenticator y otras aplicaciones",
+      "tr": "Mafile'ları Steam Desktop Authenticator ve diğer uygulamalarla uyumlu formatta kaydet",
+      "kk": "Mafile файлдарын Steam Desktop Authenticator және басқа қолданбалармен үйлесімді форматта сақтау"
+    },
+    "AllowAutoUpdate": {
+      "en": "Allow auto update",
+      "ru": "Разрешить автообновление",
+      "zh": "允许自动更新",
+      "uk": "Дозволити автооновлення",
+      "fr": "Autoriser la mise à jour auto",
+      "es": "Permitir actualización automática",
+      "tr": "Otomatik güncellemeye izin ver",
+      "kk": "Авто жаңартуға рұқсат беру"
+    },
+    "MafileNamingMode": {
+      "en": "Mafile naming mode",
+      "ru": "Режим именования мафайлов",
+      "zh": "Mafile 命名模式",
+      "uk": "Режим іменування мафайлів",
+      "fr": "Format du nommage des mafiles",
+      "es": "Modo de nombre de mafile",
+      "tr": "Mafile adlandırma modu",
+      "kk": "Mafile атау режимі"
+    },
+    "ApplyNamingMode": {
+      "en": "Apply and rename",
+      "ru": "Применить и переименовать",
+      "zh": "应用并重命名",
+      "uk": "Застосувати та перейменувати",
+      "fr": "Appliquer et renommer",
+      "es": "Aplicar y renombrar",
+      "tr": "Uygula ve yeniden adlandır",
+      "kk": "Қолдану және қайта атау"
+    },
+    "IgnorePatchTuesdayErrors": {
+      "en": "Ignore Patch Tuesday errors in timer (exp.)",
+      "ru": "Игнорировать ошибки Patch Tuesday в таймере (эксп.)",
+      "zh": "忽略 Patch Tuesday 中计时器的错误（实验性",
+      "uk": "Ігнорувати помилки Patch Tuesday у таймері (експ.)",
+      "fr": "Ignorer les erreurs dues à la maintenance Steam du mardi soir dans le timer (exp.)",
+      "es": "Ignorar errores de Patch Tuesday en el temporizador (exp.)",
+      "tr": "Patch Tuesday zamanlayıcı hatalarını yok say (deneysel)",
+      "kk": "Patch Tuesday таймер қателерін елемеу (эксп.)"
+    },
+    "IgnorePatchTuesdayErrorsHint": {
+      "en": "Ignore errors that occur every Tuesday (Wednesday night in GMT) when Steam doing technical works and auto-confirm timers turns off unnecessarily",
+      "ru": "Игнорировать ошибки, которые возникают каждый вторник (ночь среды по GMT) когда Steam проводит технические работы и автоподтверждения отключаются без надобности",
+      "zh": "忽略每周三（格林尼治标准时间周三夜间）发生的错误，因为 Steam 进行技术维护时自动确认功能会被无故关闭",
+      "uk": "Ігнорувати помилки, які виникають щосереди (ніч середи за GMT) коли Steam проводить технічні роботи і автопідтвердження вимикаються без потреби",
+      "fr": "Ignorer les erreurs dues à la maintenance Steam du mardi soir (Mercredi à minuit en GMT)",
+      "es": "Ignorar errores que ocurren cada martes (miércoles por la noche GMT) cuando Steam realiza mantenimiento técnico y los temporizadores de auto-confirmación se desactivan innecesariamente",
+      "tr": "Steam teknik bakım yaparken her Salı (GMT Çarşamba gecesi) oluşan ve otomatik onay zamanlayıcılarını gereksiz kapatan hataları yok say",
+      "kk": "Steam техникалық жұмыстар жүргізген кезде әр сейсенбіде (GMT бойынша сәрсенбі түні) пайда болатын және авторастау таймерлерін қажетсіз өшіретін қателерді елемеу"
+    }
+  }
+}

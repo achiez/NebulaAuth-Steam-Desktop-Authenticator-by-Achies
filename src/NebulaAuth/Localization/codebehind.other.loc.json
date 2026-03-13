@@ -1,0 +1,168 @@
+{
+  "CodeBehind": {
+    "SessionHandler": {
+      "SessionWasRefreshedAutomatically": {
+        "ru": "Сессия была обновлена автоматически",
+        "en": "Session was refreshed automatically",
+        "zh": "会话已自动更新",
+        "uk": "Сесія була оновлена автоматично",
+        "fr": "La session a été rafraîchie automatiquement",
+        "es": "La sesión se actualizó automáticamente",
+        "tr": "Oturum otomatik olarak yenilendi",
+        "kk": "Сессия автоматты түрде жаңартылды"
+      }
+    },
+    "MAAC": {
+      "TimerConfirmed": {
+        "ru": "Авто: подтверждено ",
+        "en": "Auto: confirmed ",
+        "zh": "自动：已确认 ",
+        "uk": "Авто: підтверджено ",
+        "fr": "Auto: confirmé ",
+        "es": "Auto: confirmado ",
+        "tr": "Otomatik: onaylandı ",
+        "kk": "Авто: расталды "
+      },
+      "TimerNotConfirmed": {
+        "ru": "Авто: подтверждение не сработало",
+        "en": "Auto: confirmation was unsuccessful",
+        "zh": "自动：确认失败",
+        "uk": "Авто: підтвердження не спрацювало",
+        "fr": "Auto: la confirmation n'a pas fonctionné",
+        "es": "Auto: la confirmación falló",
+        "tr": "Otomatik: doğrulama başarısız oldu",
+        "kk": "Авто: растау сәтсіз болды"
+      },
+      "TimerSessionError": {
+        "ru": "необходимо обновить сессию или перелогиниться",
+        "en": "need to refresh session or relogin",
+        "zh": "需要刷新会话或重新登录",
+        "uk": "необхідно оновити сесію або перелогінитися",
+        "fr": "il faut rafraîchir la session ou se reconnecter",
+        "es": "es necesario actualizar la sesión o volver a iniciar sesión",
+        "tr": "oturumu yenilemek veya tekrar giriş yapmak gerekiyor",
+        "kk": "сессияны жаңарту немесе қайта кіру қажет"
+      },
+      "TimerPrefix": {
+        "ru": "Авто ",
+        "en": "Auto ",
+        "zh": "自动 ",
+        "uk": "Авто ",
+        "fr": "Auto ",
+        "es": "Auto ",
+        "tr": "Otomatik ",
+        "kk": "Авто "
+      },
+      "TimerPreventedOverlap": {
+        "ru": "Авто: таймер подтверждений пытался начать новый цикл, когда предыдущий еще не завершился. Советуем увеличить задержку",
+        "en": "Auto: confirmation timer tried to start new cycle when previous one was not finished yet. We recommend to increase delay",
+        "zh": "自动: 确认计时器在前一个周期尚未完成时尝试启动新周期。我们建议增加延迟。",
+        "uk": "Авто: таймер підтверджень намагався запустити новий цикл, коли попередній ще не закінчився. Рекомендуємо збільшити затримку",
+        "fr": "Auto: le timer de confirmation a tenté de démarrer un nouveau cycle alors que le précédent n'était pas encore terminé. Nous recommandons d'augmenter le délai",
+        "es": "Auto: el temporizador de confirmación intentó iniciar un nuevo ciclo cuando el anterior aún no había terminado. Recomendamos aumentar el retraso",
+        "tr": "Otomatik: onay zamanlayıcısı önceki döngü bitmeden yeni bir döngü başlatmaya çalıştı. Gecikmeyi artırmanızı öneririz",
+        "kk": "Авто: растау таймері алдыңғы цикл аяқталмай тұрып жаңасын бастауға тырысты. Кідірісті арттыруды ұсынамыз"
+      },
+      "FailedToLoadStorage": {
+        "en": "Failed to load auto-confirm timers. File seems to be corrupted",
+        "ru": "Не удалось загрузить таймеры авто-подтверждений. Файл, похоже, поврежден",
+        "zh": "无法加载自动确认计时器。文件似乎已损坏",
+        "uk": "Не вдалося завантажити таймери авто-підтверджень. Файл, схоже, пошкоджено",
+        "fr": "Impossible de charger les timers d'auto-confirmation. Le fichier semble être corrompu",
+        "es": "No se pudieron cargar los temporizadores de auto-confirmación. El archivo parece estar dañado",
+        "tr": "Otomatik onay zamanlayıcıları yüklenemedi. Dosya bozulmuş görünüyor",
+        "kk": "Авто-растау таймерлерін жүктеу мүмкін болмады. Файл бүлінген сияқты"
+      },
+      "PortableMaClientStatus": {
+        "SessionError": {
+          "ru": "Ошибка сессии. Нужно обновить сессию или перелогиниться",
+          "en": "Session error. Need to refresh session or relogin",
+          "zh": "会话错误。需要刷新会话或重新登录",
+          "uk": "Помилка сесії. Потрібно оновити сесію або перелогінитися",
+          "fr": "Erreur de session. Il faut rafraîchir la session ou se reconnecter",
+          "es": "Error de sesión. Es necesario actualizar la sesión o volver a iniciar sesión",
+          "tr": "Oturum hatası. Oturumu yenilemek veya tekrar giriş yapmak gerekiyor",
+          "kk": "Сессия қатесі. Сессияны жаңарту немесе қайта кіру қажет"
+        }
+      }
+    },
+    "ProxyStorage": {
+      "ErrorWhileLoadingProxies": {
+        "en": "Error while loading proxies",
+        "ru": "Ошибка при загрузке прокси",
+        "zh": "加载代理时出错",
+        "uk": "Помилка при завантаженні проксі",
+        "fr": "Erreur lors du chargement des proxies",
+        "es": "Error al cargar los proxies",
+        "tr": "Proxy yüklenirken hata oluştu",
+        "kk": "Proxy жүктеу кезінде қате"
+      }
+    },
+    "Settings": {
+      "ErrorWhileLoadingSettings": {
+        "en": "Error while loading settings. Settings were reset",
+        "ru": "Ошибка при загрузке настроек. Настройки были сброшены",
+        "zh": "加载设置时出错。设置已重置",
+        "uk": "Помилка при завантаженні налаштувань. Налаштування були скинуті",
+        "fr": "Erreur lors du chargement des paramètres. Les paramètres ont été réinitialisés",
+        "es": "Error al cargar la configuración. Los ajustes fueron restablecidos",
+        "tr": "Ayarlar yüklenirken hata oluştu. Ayarlar sıfırlandı",
+        "kk": "Баптауларды жүктеу кезінде қате. Баптаулар қалпына келтірілді"
+      }
+    },
+    "MafileExporter": {
+      "InvalidPath": {
+        "ru": "Указан некорректный путь для экспорта.",
+        "en": "The specified export path is invalid.",
+        "uk": "Вказано некоректний шлях для експорту.",
+        "fr": "Le chemin d’exportation spécifié est invalide.",
+        "zh": "指定的导出路径无效。",
+        "es": "La ruta de exportación especificada no es válida.",
+        "tr": "Belirtilen dışa aktarma yolu geçersiz.",
+        "kk": "Көрсетілген экспорт жолы жарамсыз."
+      },
+      "NebulaUtilizedDirectory": {
+        "ru": "Невозможно выполнить экспорт в папку, которая используется приложением. Рекомендуется выбрать отдельную директорию.",
+        "en": "Cannot export to a directory that is currently used by the application. Please choose a separate folder.",
+        "uk": "Неможливо виконати експорт у папку, яка використовується застосунком. Рекомендується вибрати окрему директорію.",
+        "fr": "Impossible d’exporter vers un dossier utilisé par l’application. Veuillez choisir un dossier distinct.",
+        "zh": "无法导出到应用程序正在使用的文件夹。请选择一个单独的目录。",
+        "es": "No se puede exportar a una carpeta que está siendo usada por la aplicación. Elija una carpeta diferente.",
+        "tr": "Uygulama tarafından kullanılan bir klasöre dışa aktarma yapılamaz. Lütfen ayrı bir klasör seçin.",
+        "kk": "Қолданба пайдаланып жатқан қалтаға экспорт жасау мүмкін емес. Басқа қалтаны таңдаңыз."
+      },
+      "AccessDenied": {
+        "ru": "Недостаточно прав для записи в указанную папку. Проверьте права доступа или выберите другой путь.",
+        "en": "Insufficient permissions to write to the specified directory. Please check access rights or choose another path.",
+        "uk": "Недостатньо прав для запису в указану папку. Перевірте права доступу або виберіть інший шлях.",
+        "fr": "Autorisation insuffisante pour écrire dans le dossier spécifié. Vérifiez les droits d’accès ou choisissez un autre chemin.",
+        "zh": "没有权限写入指定的文件夹。请检查访问权限或选择其他路径。",
+        "es": "Permisos insuficientes para escribir en la carpeta especificada. Verifique los permisos o elija otra ruta.",
+        "tr": "Belirtilen klasöre yazmak için yeterli izin yok. Lütfen erişim haklarını kontrol edin veya başka bir yol seçin.",
+        "kk": "Көрсетілген қалтаға жазуға рұқсат жеткіліксіз. Қолжетімділік құқықтарын тексеріңіз немесе басқа жол таңдаңыз."
+      }
+    },
+    "UpdateService": {
+      "LatestVersion": {
+        "en": "You are using the latest version",
+        "ru": "У вас установлена последняя версия",
+        "zh": "您正在使用最新版本",
+        "uk": "У вас встановлена остання версія",
+        "fr": "Vous utilisez la dernière version",
+        "es": "Estás usando la última versión",
+        "tr": "En son sürümü kullanıyorsunuz",
+        "kk": "Сіз соңғы нұсқаны пайдаланып отырсыз"
+      },
+      "UpdateIndicatorHint": {
+        "en": "Update available. Click 'by achies' to check",
+        "ru": "Доступно обновление. Нажмите 'by achies' для проверки",
+        "zh": "有可用更新。点击 'by achies' 进行检查",
+        "uk": "Доступне оновлення. Натисніть 'by achies', щоб перевірити",
+        "fr": "Une mise à jour est disponible. Cliquez sur 'by achies' pour vérifier",
+        "es": "Actualización disponible. Haz clic en 'by achies' para comprobar",
+        "tr": "Güncelleme mevcut. Kontrol etmek için 'by achies' tıklayın",
+        "kk": "Жаңарту қолжетімді. Тексеру үшін 'by achies' басыңыз"
+      }
+    }
+  }
+}

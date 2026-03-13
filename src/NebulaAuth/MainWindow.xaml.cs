@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
 using NebulaAuth.Core;
@@ -25,6 +27,44 @@ public partial class MainWindow
         ThemeManager.InitializeTheme();
         Title = Title + " " + Assembly.GetExecutingAssembly().GetName().Version?.ToString(3);
         Loaded += OnApplicationStarted;
+        UpdateManager.PendingUpdateDetected += OnPendingUpdateDetected;
+    }
+
+    private void OnPendingUpdateDetected()
+    {
+        Dispatcher.BeginInvoke(StartUpdateBlink);
+    }
+
+    private void StartUpdateBlink()
+    {
+        UpdateBadgeIcon.Visibility = Visibility.Visible;
+        var baseColor = FindResource("AccentBrush") is SolidColorBrush accent
+            ? accent.Color
+            : ByAchiesBrush.Color;
+        var duration = new Duration(TimeSpan.FromSeconds(6));
+        var sb = new Storyboard();
+        sb.Children.Add(BuildBlinkAnimation(duration, "UpdateBadgeBrush"));
+        sb.Children.Add(BuildBlinkAnimation(duration, "ByAchiesBrush"));
+        sb.Completed += (_, _) =>
+        {
+            UpdateBadgeIcon.Visibility = Visibility.Collapsed;
+            ByAchiesBrush.Color = baseColor;
+        };
+        sb.Begin(this);
+    }
+
+    private static ColorAnimationUsingKeyFrames BuildBlinkAnimation(Duration duration, string targetName)
+    {
+        var anim = new ColorAnimationUsingKeyFrames {Duration = duration};
+        for (var i = 0; i <= 6; i++)
+        {
+            var color = i % 2 == 0 ? Colors.DodgerBlue : Colors.OrangeRed;
+            anim.KeyFrames.Add(new DiscreteColorKeyFrame(color, KeyTime.FromTimeSpan(TimeSpan.FromSeconds(i))));
+        }
+
+        Storyboard.SetTargetName(anim, targetName);
+        Storyboard.SetTargetProperty(anim, new PropertyPath(SolidColorBrush.ColorProperty));
+        return anim;
     }
 
     private async void OnApplicationStarted(object? sender, EventArgs e)

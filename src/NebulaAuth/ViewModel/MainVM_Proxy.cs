@@ -82,7 +82,7 @@ public partial class MainVM
     private bool RemoveProxyCanExecute(Mafile? mafile)
     {
         mafile ??= SelectedMafile;
-        return mafile is { Proxy: not null };
+        return mafile is {Proxy: not null};
     }
 
     private void CheckProxyExist()

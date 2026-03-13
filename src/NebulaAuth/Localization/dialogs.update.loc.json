@@ -1,0 +1,116 @@
+{
+  "UpdateDialog": {
+    "Title": {
+      "en": "New version available:",
+      "ru": "Доступна новая версия:",
+      "zh": "有新版本可用：",
+      "uk": "Доступна нова версія:",
+      "fr": "Nouvelle version disponible :",
+      "es": "Nueva versión disponible:",
+      "tr": "Yeni sürüm mevcut:",
+      "kk": "Жаңа нұсқа қолжетімді:"
+    },
+    "Changelog": {
+      "en": "What's new",
+      "ru": "Что нового",
+      "zh": "更新内容",
+      "uk": "Що нового",
+      "fr": "Quoi de neuf",
+      "es": "Novedades",
+      "tr": "Yenilikler",
+      "kk": "Не жаңалық"
+    },
+    "NoChangelog": {
+      "en": "No changelog available",
+      "ru": "Нет информации об изменениях",
+      "zh": "暂无更新日志",
+      "uk": "Немає інформації про зміни",
+      "fr": "Aucun journal des modifications disponible",
+      "es": "No hay registro de cambios disponible",
+      "tr": "Değişiklik listesi mevcut değil",
+      "kk": "Өзгерістер тізімі жоқ"
+    },
+    "UpdateNow": {
+      "en": "Update now",
+      "ru": "Обновить сейчас",
+      "zh": "立即更新",
+      "uk": "Оновити зараз",
+      "fr": "Mettre à jour maintenant",
+      "es": "Actualizar ahora",
+      "tr": "Şimdi güncelle",
+      "kk": "Қазір жаңарту"
+    },
+    "RemindLater": {
+      "en": "Remind later",
+      "ru": "Напомнить позже",
+      "zh": "稍后提醒",
+      "uk": "Нагадати пізніше",
+      "fr": "Rappeler plus tard",
+      "es": "Recordar más tarde",
+      "tr": "Daha sonra hatırlat",
+      "kk": "Кейін еске салу"
+    },
+    "SkipVersion": {
+      "en": "Skip version",
+      "ru": "Пропустить версию",
+      "zh": "跳过此版本",
+      "uk": "Пропустити версію",
+      "fr": "Ignorer cette version",
+      "es": "Omitir versión",
+      "tr": "Sürümü atla",
+      "kk": "Бұл нұсқаны өткізіп жіберу"
+    },
+    "RemindAfter": {
+      "en": "Remind after:",
+      "ru": "Напомнить через:",
+      "zh": "提醒时间：",
+      "uk": "Нагадати через:",
+      "fr": "Rappeler après :",
+      "es": "Recordar después de:",
+      "tr": "Şu süreden sonra hatırlat:",
+      "kk": "Кейін еске салу:"
+    },
+    "RemindOptions": {
+      "1Hour": {
+        "en": "1 hour",
+        "ru": "1 час",
+        "zh": "1 小时",
+        "uk": "1 година",
+        "fr": "1 heure",
+        "es": "1 hora",
+        "tr": "1 saat",
+        "kk": "1 сағат"
+      },
+      "1Day": {
+        "en": "1 day",
+        "ru": "1 день",
+        "zh": "1 天",
+        "uk": "1 день",
+        "fr": "1 jour",
+        "es": "1 día",
+        "tr": "1 gün",
+        "kk": "1 күн"
+      },
+      "3Days": {
+        "en": "3 days",
+        "ru": "3 дня",
+        "zh": "3 天",
+        "uk": "3 дні",
+        "fr": "3 jours",
+        "es": "3 días",
+        "tr": "3 gün",
+        "kk": "3 күн"
+      },
+      "7Days": {
+        "en": "7 days",
+        "ru": "7 дней",
+        "zh": "7 天",
+        "uk": "7 днів",
+        "fr": "7 jours",
+        "es": "7 días",
+        "tr": "7 gün",
+        "kk": "7 күн"
+      }
+    }
+  }
+}
