@@ -1,0 +1,28 @@
+<Solution>
+  <Folder Name="/changelog/">
+    <File Path="changelog/1.3.4.html" />
+    <File Path="changelog/1.4.4.html" />
+    <File Path="changelog/1.4.5.html" />
+    <File Path="changelog/1.4.6.html" />
+    <File Path="changelog/1.4.7.html" />
+    <File Path="changelog/1.4.8.html" />
+    <File Path="changelog/1.4.9.html" />
+    <File Path="changelog/1.5.0.html" />
+    <File Path="changelog/1.5.1.html" />
+    <File Path="changelog/1.5.2.html" />
+    <File Path="changelog/1.5.3.html" />
+    <File Path="changelog/1.5.4.html" />
+    <File Path="changelog/1.5.5.html" />
+    <File Path="changelog/1.5.6.html" />
+    <File Path="changelog/1.7.1.html" />
+    <File Path="changelog/1.7.2.html" />
+    <File Path="changelog/1.7.3.html" />
+    <File Path="changelog/1.7.4.html" />
+    <File Path="changelog/1.8.0.html" />
+    <File Path="changelog/1.8.1.html" />
+    <File Path="changelog/1.8.2.html" />
+    <File Path="changelog/1.8.3.json" />
+  </Folder>
+  <Project Path="src/NebulaAuth/NebulaAuth.csproj" />
+  <Project Path="src/SteamLibForked/SteamLibForked.csproj" />
+</Solution>
