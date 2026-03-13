@@ -8,11 +8,9 @@ public class UpdateSettings
 {
     private static readonly string FilePath = Path.Combine("settings", "update.json");
 
-    [JsonProperty("skippedVersion")]
-    public string? SkippedVersion { get; set; }
+    [JsonProperty("skippedVersion")] public string? SkippedVersion { get; set; }
 
-    [JsonProperty("remindAfter")]
-    public DateTime? RemindAfter { get; set; }
+    [JsonProperty("remindAfter")] public DateTime? RemindAfter { get; set; }
 
     public static UpdateSettings Load()
     {

@@ -1,11 +1,11 @@
-﻿using AutoUpdaterDotNET;
-using NebulaAuth.Model;
-using NebulaAuth.Model.Update;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
 using System.Net.Http;
 using System.Windows;
+using AutoUpdaterDotNET;
+using NebulaAuth.Model;
+using NebulaAuth.Model.Update;
+using Newtonsoft.Json;
 
 namespace NebulaAuth.Core;
 
@@ -13,6 +13,7 @@ public static class UpdateManager
 {
     private const string BASE_URL =
         "https://raw.githubusercontent.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/master/";
+
     private const string UPDATE_URL = BASE_URL + "NebulaAuth/update.xml";
 
     private const string CHANGELOG_BASE_URL = BASE_URL + "changelog/";
@@ -21,12 +22,13 @@ public static class UpdateManager
     private static bool _isManualCheck;
 
     public static bool HasPendingUpdate { get; private set; }
-    public static event Action? PendingUpdateDetected;
 
     static UpdateManager()
     {
         AutoUpdater.CheckForUpdateEvent += HandleCheckForUpdateEvent;
     }
+
+    public static event Action? PendingUpdateDetected;
 
     public static void CheckForUpdates(bool manual = false)
     {
@@ -62,7 +64,8 @@ public static class UpdateManager
                 if (isManual)
                 {
                     Application.Current.Dispatcher.Invoke(() =>
-                        SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Request error", "RequestError")));
+                        SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Request error",
+                            "RequestError")));
                 }
 
                 return;
@@ -81,7 +84,7 @@ public static class UpdateManager
                 return;
             }
 
-            var version = args.CurrentVersion.ToString();
+            var version = args.CurrentVersion;
             var settings = UpdateSettings.Load();
 
             if (!isManual && !settings.ShouldShow(version))

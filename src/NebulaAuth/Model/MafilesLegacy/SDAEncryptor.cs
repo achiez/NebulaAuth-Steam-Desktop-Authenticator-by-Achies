@@ -86,7 +86,8 @@ public static class SDAEncryptor
         }
     }
 
-    public static bool TryDecryptData(string password, string passwordSalt, string IV, string encryptedData, [NotNullWhen(true)] out string? plaintext)
+    public static bool TryDecryptData(string password, string passwordSalt, string IV, string encryptedData,
+        [NotNullWhen(true)] out string? plaintext)
     {
         plaintext = null;
         try

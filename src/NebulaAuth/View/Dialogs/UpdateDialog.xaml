@@ -57,57 +57,62 @@
 
             <!-- JSON changelog items -->
             <materialDesign:Card Grid.Row="1" Padding="10">
-                <ScrollViewer  MaxHeight="350" VerticalScrollBarVisibility="Auto"
-                               Visibility="{Binding HasJsonChangelog, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <ItemsControl ItemsSource="{Binding Changelog.Changes}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0,6,0,6">
-                                <Border CornerRadius="3" Padding="4,2,4,2" Margin="0,0,8,0"
-                                        VerticalAlignment="Center">
-                                    <Border.Style>
-                                        <Style TargetType="Border">
-                                            <Setter Property="Background" Value="{DynamicResource MaterialDesign.Brush.Primary}" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Type}" Value="NEW">
-                                                    <Setter Property="Background" Value="{DynamicResource SuccessBrush}" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding Type}" Value="FIX">
-                                                    <Setter Property="Background" Value="{DynamicResource WarningBrush}" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding Type}" Value="IMPROVEMENT">
-                                                    <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding Type}" Value="SECURITY">
-                                                    <Setter Property="Background" Value="{DynamicResource ErrorBrush}" />
-                                                </DataTrigger>
-                                                </Style.Triggers>
-                                        </Style>
-                                    </Border.Style>
-                                    <TextBlock Text="{Binding Type}" FontSize="11" FontWeight="Bold"
-                                               Foreground="White" />
-                                </Border>
-                                <TextBlock Text="{Binding Text}" TextWrapping="Wrap"
-                                           VerticalAlignment="Center" FontSize="14" MaxWidth="420" />
-                                <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                        Width="20" Height="20"
-                                        Padding="2"
-                                        Margin="4,0,0,0"
-                                        VerticalAlignment="Center"
-                                        Command="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                        CommandParameter="{Binding Link}"
-                                        ToolTip="Open Link"
-                                        Visibility="{Binding Link, Converter={StaticResource NullableToVisibilityConverter}}">
-                                    <materialDesign:PackIcon Kind="OpenInNew" Width="14" Height="14" />
-                                </Button>
-                            </StackPanel>
-                            <Separator Opacity="0.2" Margin="0,2,0,2"/>
-                            </StackPanel>
+                <ScrollViewer MaxHeight="350" VerticalScrollBarVisibility="Auto"
+                              Visibility="{Binding HasJsonChangelog, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ItemsControl ItemsSource="{Binding Changelog.Changes}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,6,0,6">
+                                        <Border CornerRadius="3" Padding="4,2,4,2" Margin="0,0,8,0"
+                                                VerticalAlignment="Center">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="Background"
+                                                            Value="{DynamicResource MaterialDesign.Brush.Primary}" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Type}" Value="NEW">
+                                                            <Setter Property="Background"
+                                                                    Value="{DynamicResource SuccessBrush}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Type}" Value="FIX">
+                                                            <Setter Property="Background"
+                                                                    Value="{DynamicResource WarningBrush}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Type}" Value="IMPROVEMENT">
+                                                            <Setter Property="Background"
+                                                                    Value="{DynamicResource AccentBrush}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Type}" Value="SECURITY">
+                                                            <Setter Property="Background"
+                                                                    Value="{DynamicResource ErrorBrush}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <TextBlock Text="{Binding Type}" FontSize="11" FontWeight="Bold"
+                                                       Foreground="White" />
+                                        </Border>
+                                        <TextBlock Text="{Binding Text}" TextWrapping="Wrap"
+                                                   VerticalAlignment="Center" FontSize="14" MaxWidth="420" />
+                                        <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                                Width="20" Height="20"
+                                                Padding="2"
+                                                Margin="4,0,0,0"
+                                                VerticalAlignment="Center"
+                                                Command="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding Link}"
+                                                ToolTip="Open Link"
+                                                Visibility="{Binding Link, Converter={StaticResource NullableToVisibilityConverter}}">
+                                            <materialDesign:PackIcon Kind="OpenInNew" Width="14" Height="14" />
+                                        </Button>
+                                    </StackPanel>
+                                    <Separator Opacity="0.2" Margin="0,2,0,2" />
+                                </StackPanel>
                             </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
             </materialDesign:Card>
             <!-- No changelog fallback -->
             <TextBlock Grid.Row="1" Text="{Tr UpdateDialog.NoChangelog}" FontSize="13" Opacity="0.6"
@@ -118,7 +123,8 @@
         <Grid Grid.Row="3" Margin="12,6,12,14">
 
             <!-- Normal buttons -->
-            <StackPanel Visibility="{Binding ShowRemindOptions, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+            <StackPanel
+                Visibility="{Binding ShowRemindOptions, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                 <Button Style="{StaticResource MaterialDesignRaisedButton}"
                         Command="{Binding UpdateNowCommand}"
                         HorizontalAlignment="Stretch"
@@ -141,7 +147,8 @@
             </StackPanel>
 
             <!-- Remind later options -->
-            <StackPanel Visibility="{Binding ShowRemindOptions, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel
+                Visibility="{Binding ShowRemindOptions, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <TextBlock Text="{Tr UpdateDialog.RemindAfter}" Margin="0,0,0,8" FontSize="14" />
                 <WrapPanel>
                     <Button Style="{StaticResource MaterialDesignOutlinedButton}" Margin="0,0,4,4"

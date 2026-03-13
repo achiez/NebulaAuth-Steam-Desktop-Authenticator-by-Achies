@@ -51,7 +51,7 @@ public static class Storage
         await Task.Run(() =>
         {
             return Parallel.ForEachAsync(files,
-                new ParallelOptions { CancellationToken = token, MaxDegreeOfParallelism = threadCount },
+                new ParallelOptions {CancellationToken = token, MaxDegreeOfParallelism = threadCount},
                 async (file, ct) =>
                 {
                     try
@@ -241,7 +241,7 @@ public static class Storage
 
                 if (counter % 5 == 0)
                 {
-                    progress?.Report(counter / (double)files.Count);
+                    progress?.Report(counter / (double) files.Count);
                     await Task.Delay(10);
                 }
             }

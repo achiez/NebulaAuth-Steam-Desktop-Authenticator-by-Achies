@@ -54,7 +54,8 @@ public static class SDAEncryptionHelper
         if (string.IsNullOrWhiteSpace(fileName))
             return null;
 
-        var entries = sdaManifest.Entries.ToDictionary(x => Path.GetFileName(x.Filename), StringComparer.OrdinalIgnoreCase);
+        var entries =
+            sdaManifest.Entries.ToDictionary(x => Path.GetFileName(x.Filename), StringComparer.OrdinalIgnoreCase);
         return new Context(sdaManifest, entries, null);
     }
 

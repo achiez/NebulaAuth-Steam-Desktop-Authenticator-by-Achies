@@ -1,10 +1,4 @@
-﻿using MaterialDesignThemes.Wpf;
-using NebulaAuth.Core;
-using NebulaAuth.Model;
-using NebulaAuth.View.Dialogs;
-using NebulaAuth.ViewModel;
-using NebulaAuth.ViewModel.Other;
-using System;
+﻿using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +7,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using MaterialDesignThemes.Wpf;
+using NebulaAuth.Core;
+using NebulaAuth.Model;
+using NebulaAuth.View.Dialogs;
+using NebulaAuth.ViewModel;
+using NebulaAuth.ViewModel.Other;
 
 namespace NebulaAuth;
 
@@ -55,12 +55,13 @@ public partial class MainWindow
 
     private static ColorAnimationUsingKeyFrames BuildBlinkAnimation(Duration duration, string targetName)
     {
-        var anim = new ColorAnimationUsingKeyFrames { Duration = duration };
+        var anim = new ColorAnimationUsingKeyFrames {Duration = duration};
         for (var i = 0; i <= 6; i++)
         {
             var color = i % 2 == 0 ? Colors.DodgerBlue : Colors.OrangeRed;
             anim.KeyFrames.Add(new DiscreteColorKeyFrame(color, KeyTime.FromTimeSpan(TimeSpan.FromSeconds(i))));
         }
+
         Storyboard.SetTargetName(anim, targetName);
         Storyboard.SetTargetProperty(anim, new PropertyPath(SolidColorBrush.ColorProperty));
         return anim;

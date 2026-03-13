@@ -174,7 +174,8 @@
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type entities:MarketMultiConfirmation}">
-        <Expander Padding="0" Background="Transparent" materialDesign:ExpanderAssist.ExpanderButtonPosition="Start" materialDesign:ExpanderAssist.HorizontalHeaderPadding="0" HorizontalAlignment="Stretch">
+        <Expander Padding="0" Background="Transparent" materialDesign:ExpanderAssist.ExpanderButtonPosition="Start"
+                  materialDesign:ExpanderAssist.HorizontalHeaderPadding="0" HorizontalAlignment="Stretch">
             <Expander.Header>
                 <Grid HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
@@ -236,7 +237,7 @@
 
                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                         <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding ItemName}" />
-                                       
+
                                     </StackPanel>
 
                                     <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Left"

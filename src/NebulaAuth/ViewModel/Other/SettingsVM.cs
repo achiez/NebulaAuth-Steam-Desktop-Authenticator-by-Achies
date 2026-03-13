@@ -20,8 +20,7 @@ public partial class SettingsVM : ObservableObject
 
     [ObservableProperty] private string? _renameResultText;
 
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(ApplyRenameSettingCommand))]
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ApplyRenameSettingCommand))]
     private bool _useAccountNameAsMafileNamePreview;
 
     public SettingsVM()

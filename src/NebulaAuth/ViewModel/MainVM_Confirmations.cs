@@ -77,7 +77,6 @@ public partial class MainVM //Confirmations
     }
 
 
-
     private async Task SendConfirmation(Mafile mafile, Confirmation confirmation, bool confirm)
     {
         bool result;

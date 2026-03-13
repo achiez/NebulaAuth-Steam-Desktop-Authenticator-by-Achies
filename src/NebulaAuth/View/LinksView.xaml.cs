@@ -1,8 +1,8 @@
-﻿using MaterialDesignThemes.Wpf;
-using NebulaAuth.Core;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using MaterialDesignThemes.Wpf;
+using NebulaAuth.Core;
 
 namespace NebulaAuth.View;
 
@@ -37,6 +37,6 @@ public partial class LinksView : UserControl
     private void CheckForUpdates_Click(object sender, RoutedEventArgs e)
     {
         DialogHost.Close(null);
-        UpdateManager.CheckForUpdates(manual: true);
+        UpdateManager.CheckForUpdates(true);
     }
 }
