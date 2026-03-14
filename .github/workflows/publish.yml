@@ -111,10 +111,12 @@ jobs:
 
       - name: Build NebulaAuth
         run: |
-          dotnet publish src/NebulaAuth/NebulaAuth.csproj \
+            dotnet publish src/NebulaAuth/NebulaAuth.csproj \
             -c Release \
-            -o build \
-            -p:EnableWindowsTargeting=true
+            -r win-x64 \
+            --self-contained false \
+            -p:EnableWindowsTargeting=true \
+            -o build
 
       # --------------------------------------------------------
       # Package ZIP

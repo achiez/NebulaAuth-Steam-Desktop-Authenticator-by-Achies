@@ -1,0 +1,50 @@
+{
+  "version": "1.8.4",
+  "date": "2026-03-14",
+  "changes": [
+    {
+      "type": "FIX",
+      "text": "Rebuilt release package to include the missing NebulaAuth.exe file. Version 1.8.4 is functionally identical to 1.8.3 and only fixes the packaging issue that caused the executable to be absent in the previous release."
+    },
+    {
+      "type": "NEW",
+      "text": "Introduced a redesigned update system with a custom update dialog and integrated changelog viewer",
+      "link": "https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/pull/19"
+    },
+    {
+      "type": "NEW",
+      "text": "Added support for importing SDA-encrypted mafiles with automatic manifest detection",
+      "link": "https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/pull/17"
+    },
+    {
+      "type": "NEW",
+      "text": "Grouped market confirmations can now be expanded to reveal individual items",
+      "link": "https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/pull/18"
+    },
+    {
+      "type": "SECURITY",
+      "text": "Added SHA256 checksum verification for downloaded update packages"
+    },
+    {
+      "type": "IMPROVEMENT",
+      "text": "Export feature now trims input automatically to prevent issues caused by invisible characters or extra spaces"
+    },
+    {
+      "type": "IMPROVEMENT",
+      "text": "Improved update experience with 'Remind later' and 'Skip version' options"
+    },
+    {
+      "type": "IMPROVEMENT",
+      "text": "Added visual update indicator and manual 'Check for updates' action"
+    },
+    {
+      "type": "IMPROVEMENT",
+      "text": "Expanded localization support with Spanish, Turkish and Kazakh languages"
+    },
+    {
+      "type": "INFO",
+      "text": "Read the full release notes for NebulaAuth 1.8.3",
+      "link": "https://teletype.in/@achies_raw/o-RDwZKZkAU"
+    }
+  ]
+}
