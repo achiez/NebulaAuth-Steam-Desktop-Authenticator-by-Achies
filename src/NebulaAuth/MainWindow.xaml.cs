@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,6 +11,7 @@ using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
 using NebulaAuth.Core;
 using NebulaAuth.Model;
+using NebulaAuth.Model.Entities;
 using NebulaAuth.View.Dialogs;
 using NebulaAuth.ViewModel;
 using NebulaAuth.ViewModel.Other;
@@ -163,6 +165,51 @@ public partial class MainWindow
     private void DialogHost_DialogClosed(object sender, DialogClosedEventArgs eventArgs)
     {
         DragNDropBorder.AllowDrop = true;
+    }
+
+    private void WatchInventoryButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        Console.WriteLine("[WatchInventoryButton_PreviewMouseDown] Button clicked!");
+        
+        if (sender is Button btn && DataContext is MainVM mainVm)
+        {
+            Console.WriteLine("[WatchInventoryButton_PreviewMouseDown] Getting Mafile parameter...");
+            
+            // Параметром є елемент з ListBox (Mafile)
+            var mafile = btn.DataContext as Mafile;
+            Console.WriteLine($"[WatchInventoryButton_PreviewMouseDown] Mafile: {mafile?.AccountName ?? "NULL"}");
+            
+            if (mafile != null)
+            {
+                Console.WriteLine("[WatchInventoryButton_PreviewMouseDown] Invoking OpenInventoryCommand directly...");
+                
+                // Спробуємо знайти та вызвать команду через рефлексію
+                var methodInfo = mainVm.GetType().GetMethod("OpenInventory", 
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                
+                if (methodInfo != null)
+                {
+                    Console.WriteLine("[WatchInventoryButton_PreviewMouseDown] Found OpenInventory method, invoking...");
+                    var task = methodInfo.Invoke(mainVm, new object?[] { mafile }) as Task;
+                    if (task != null)
+                    {
+                        _ = task.ContinueWith(t => 
+                        {
+                            if (t.IsFaulted)
+                                Console.WriteLine($"[WatchInventoryButton_PreviewMouseDown] Task failed: {t.Exception?.GetBaseException().Message}");
+                            else
+                                Console.WriteLine("[WatchInventoryButton_PreviewMouseDown] Task completed successfully");
+                        });
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("[WatchInventoryButton_PreviewMouseDown] OpenInventory method NOT found!");
+                }
+            }
+        }
+        
+        e.Handled = false;
     }
 
     #endregion

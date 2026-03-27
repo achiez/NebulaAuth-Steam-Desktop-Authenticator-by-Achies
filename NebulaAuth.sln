@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11612.150
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "changelog", "changelog", "{161BFADE-FCF3-45D1-82EA-8A1B187529F7}"
+	ProjectSection(SolutionItems) = preProject
+		changelog\1.3.4.html = changelog\1.3.4.html
+		changelog\1.4.4.html = changelog\1.4.4.html
+		changelog\1.4.5.html = changelog\1.4.5.html
+		changelog\1.4.6.html = changelog\1.4.6.html
+		changelog\1.4.7.html = changelog\1.4.7.html
+		changelog\1.4.8.html = changelog\1.4.8.html
+		changelog\1.4.9.html = changelog\1.4.9.html
+		changelog\1.5.0.html = changelog\1.5.0.html
+		changelog\1.5.1.html = changelog\1.5.1.html
+		changelog\1.5.2.html = changelog\1.5.2.html
+		changelog\1.5.3.html = changelog\1.5.3.html
+		changelog\1.5.4.html = changelog\1.5.4.html
+		changelog\1.5.5.html = changelog\1.5.5.html
+		changelog\1.5.6.html = changelog\1.5.6.html
+		changelog\1.7.1.html = changelog\1.7.1.html
+		changelog\1.7.2.html = changelog\1.7.2.html
+		changelog\1.7.3.html = changelog\1.7.3.html
+		changelog\1.7.4.html = changelog\1.7.4.html
+		changelog\1.8.0.html = changelog\1.8.0.html
+		changelog\1.8.1.html = changelog\1.8.1.html
+		changelog\1.8.2.html = changelog\1.8.2.html
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamLibForked", "src\SteamLibForked\SteamLibForked.csproj", "{224F9DB0-3D20-A614-BA2A-12F22B13A2C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NebulaAuth", "src\NebulaAuth\NebulaAuth.csproj", "{C42F63B6-32F7-ED08-5B86-CD51989761AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{224F9DB0-3D20-A614-BA2A-12F22B13A2C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{224F9DB0-3D20-A614-BA2A-12F22B13A2C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{224F9DB0-3D20-A614-BA2A-12F22B13A2C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{224F9DB0-3D20-A614-BA2A-12F22B13A2C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C42F63B6-32F7-ED08-5B86-CD51989761AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C42F63B6-32F7-ED08-5B86-CD51989761AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C42F63B6-32F7-ED08-5B86-CD51989761AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C42F63B6-32F7-ED08-5B86-CD51989761AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA34DDD5-BDC0-4C0A-B347-4ECDBF446900}
+	EndGlobalSection
+EndGlobal
