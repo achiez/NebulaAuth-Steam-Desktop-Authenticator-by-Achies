@@ -1,0 +1,28 @@
+[
+  {
+    "Name": "Default",
+    "UseLoginAsMafileName": false,
+    "IncludeSharedSecret": true,
+    "IncludeIdentitySecret": true,
+    "IncludeRCode": true,
+    "IncludeSessionData": true,
+    "IncludeOtherInfo": true,
+    "IncludeNebulaProxy": true,
+    "IncludeNebulaPassword": true,
+    "IncludeNebulaGroup": true,
+    "Path": null
+  },
+  {
+    "Name": "Auth only",
+    "UseLoginAsMafileName": true,
+    "IncludeSharedSecret": true,
+    "IncludeIdentitySecret": false,
+    "IncludeRCode": false,
+    "IncludeSessionData": false,
+    "IncludeOtherInfo": false,
+    "IncludeNebulaProxy": false,
+    "IncludeNebulaPassword": false,
+    "IncludeNebulaGroup": false,
+    "Path": null
+  }
+]

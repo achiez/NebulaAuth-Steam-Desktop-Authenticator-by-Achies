@@ -117,6 +117,17 @@ public class BeginAuthSessionViaCredentials_Response : IProtoMsg
 }
 
 [ProtoContract]
+public class BeginAuthSessionViaQR_Response : IProtoMsg
+{
+    [ProtoMember(1)] public ulong ClientId { get; set; }
+    [ProtoMember(2)] public string ChallengeUrl { get; set; }
+    [ProtoMember(3)] public byte[] RequestId { get; set; }
+    [ProtoMember(4)] public float Interval { get; set; }
+    [ProtoMember(5)] public List<AllowedConfirmationMsg> AllowedConfirmations { get; } = new();
+    [ProtoMember(6)] public int Version { get; set; }
+}
+
+[ProtoContract]
 public class AllowedConfirmationMsg : IProtoMsg
 {
     [ProtoMember(1)] public EAuthSessionGuardType ConfirmationType { get; set; }

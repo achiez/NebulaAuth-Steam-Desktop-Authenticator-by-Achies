@@ -1,0 +1,88 @@
+<Window x:Class="NebulaAuth.View.InventoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModel="clr-namespace:NebulaAuth.ViewModel"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        mc:Ignorable="d"
+        Title="Steam Inventory" WindowState="Maximized"
+        Style="{StaticResource MainWindow}"
+        FontFamily="{md:MaterialDesignFont}"
+        TextElement.Foreground="{DynamicResource BaseContentBrush}"
+        d:DataContext="{d:DesignInstance viewModel:InventoryVM}"
+        Background="{DynamicResource MaterialDesign.Brush.Background}"
+        Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Padding="15,10,15,10" 
+                Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
+                BorderThickness="0,0,0,1" BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock VerticalAlignment="Center" FontSize="18" FontWeight="Bold" 
+                           Text="Steam Inventory" />
+
+                <Button Grid.Column="1" 
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Content="Refresh"
+                        Click="RefreshButton_Click" />
+            </Grid>
+        </Border>
+
+        <!-- WebView2 Browser + Login Overlay -->
+        <Grid Grid.Row="1">
+            <!-- WebView2 — visible only after login -->
+            <wv2:WebView2 x:Name="SteamWebView" Margin="0"
+                          Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}" />
+
+            <!-- Login overlay — shown while authenticating -->
+            <Border Background="#FF1B2838"
+                    Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <!-- Steam-styled loading spinner -->
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                 IsIndeterminate="True" Width="64" Height="64"
+                                 Foreground="#66C0F4" />
+
+                    <!-- Status text -->
+                    <TextBlock Text="{Binding StatusMessage, Mode=OneWay}"
+                               FontSize="16" Foreground="#C7D5E0"
+                               HorizontalAlignment="Center" Margin="0,24,0,0"
+                               TextWrapping="Wrap" MaxWidth="400"
+                               TextAlignment="Center" />
+
+                    <!-- Subtle hint -->
+                    <TextBlock Text="Signing in automatically with your authenticator..."
+                               FontSize="12" Foreground="#556B7F"
+                               HorizontalAlignment="Center" Margin="0,12,0,0" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Status bar -->
+        <Border Grid.Row="2" Padding="15,10,15,10" 
+                Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
+                BorderThickness="0,1,0,0" BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="0,0,15,0" Foreground="{DynamicResource SecondaryContentBrush}">
+                    <Run Text="Status: " />
+                    <Run Text="{Binding StatusMessage, Mode=OneWay}" />
+                </TextBlock>
+                <ProgressBar Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
+                             IsIndeterminate="True" Margin="10,0,0,0" Width="100" Height="4" VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
