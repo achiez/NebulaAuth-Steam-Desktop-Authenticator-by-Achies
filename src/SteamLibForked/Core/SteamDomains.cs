@@ -1,49 +1,43 @@
-﻿using System.Collections.ObjectModel;
-using SteamLibForked.Models.Core;
+﻿using SteamLibForked.Models.Core;
+using System.Collections.Immutable;
 
 namespace SteamLib.Core;
 
 public static class SteamDomains
 {
     public static IReadOnlyDictionary<SteamDomain, string> Domains { get; } =
-        new ReadOnlyDictionary<SteamDomain, string>(
-            new Dictionary<SteamDomain, string>
-            {
-                {SteamDomain.Community, SteamConstants.STEAM_COMMUNITY},
-                {SteamDomain.Store, SteamConstants.STEAM_STORE},
-                {SteamDomain.Help, SteamConstants.STEAM_HELP},
-                {SteamDomain.TV, SteamConstants.STEAM_TV},
-                {SteamDomain.Checkout, SteamConstants.STEAM_CHECKOUT},
-                {SteamDomain.Login, SteamConstants.STEAM_LOGIN},
-                {SteamDomain.API, SteamConstants.STEAM_API}
-            });
+        new Dictionary<SteamDomain, string>
+        {
+            {SteamDomain.Community, SteamConstants.STEAM_COMMUNITY},
+            {SteamDomain.Store, SteamConstants.STEAM_STORE},
+            {SteamDomain.Help, SteamConstants.STEAM_HELP},
+            {SteamDomain.TV, SteamConstants.STEAM_TV},
+            {SteamDomain.Checkout, SteamConstants.STEAM_CHECKOUT},
+            {SteamDomain.Login, SteamConstants.STEAM_LOGIN},
+            {SteamDomain.API, SteamConstants.STEAM_API}
+        }.ToImmutableDictionary();
 
     public static IReadOnlyDictionary<SteamDomain, Uri> DomainUris { get; }
-        = new ReadOnlyDictionary<SteamDomain, Uri>(
-            Domains.ToDictionary(x => x.Key, x => new Uri(x.Value))
-        );
+        = Domains
+            .ToDictionary(x => x.Key, x => new Uri(x.Value))
+            .ToImmutableDictionary();
 
 
-    public static IEnumerable<SteamDomain> AllDomains { get; } =
-    [
-        SteamDomain.Community,
-        SteamDomain.Store,
-        SteamDomain.Help,
-        SteamDomain.TV,
-        SteamDomain.Checkout,
-        SteamDomain.Login,
-        SteamDomain.API
-    ];
+    /// <summary>
+    ///     All known public Steam domains.
+    /// </summary>
+    public static IEnumerable<SteamDomain> AllDomains { get; } = ImmutableHashSet.Create(SteamDomain.Community,
+        SteamDomain.Store, SteamDomain.Help, SteamDomain.TV, SteamDomain.Checkout, SteamDomain.Login, SteamDomain.API);
 
-    public static IEnumerable<SteamDomain> AuthDomains { get; } =
-    [
-        SteamDomain.Community,
-        SteamDomain.Store,
-        SteamDomain.Help,
-        SteamDomain.TV,
-        SteamDomain.Checkout
-    ];
-
+    /// <summary>
+    ///     Steam web domains that participate in the standard login authorization flow.
+    ///     <para>
+    ///         These domains use the <c>web:*</c> audience format and receive
+    ///         authentication cookies/tokens during session initialization.
+    ///     </para>
+    /// </summary>
+    public static IReadOnlySet<SteamDomain> WebDomains { get; } = ImmutableHashSet.Create(SteamDomain.Community,
+        SteamDomain.Store, SteamDomain.Help, SteamDomain.TV, SteamDomain.Checkout);
 
     public static Uri GetDomainUri(SteamDomain domain)
     {
