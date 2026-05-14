@@ -25,6 +25,11 @@ namespace NebulaAuth.ViewModel;
 
 public partial class MainVM //File //TODO: Refactor
 {
+    private record MafileReadResult(
+        Mafile? Mafile,
+        bool SdaPasswordPrompted,
+        SDAEncryptionHelper.Context? SdaContext);
+
     public Settings Settings => Settings.Instance;
 
 
@@ -347,9 +352,4 @@ public partial class MainVM //File //TODO: Refactor
         if (mafile is not Mafile maf) return false;
         return maf.Password != null && PHandler.IsPasswordSet;
     }
-
-    private record MafileReadResult(
-        Mafile? Mafile,
-        bool SdaPasswordPrompted,
-        SDAEncryptionHelper.Context? SdaContext);
 }

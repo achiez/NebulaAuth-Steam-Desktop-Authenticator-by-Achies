@@ -904,6 +904,16 @@
           "es": "Desvincular proxy",
           "tr": "Proxy bağlantısını kaldır",
           "kk": "Проксиді ажырату"
+        },
+        "AssignFreeProxy": {
+          "en": "Assign free proxy",
+          "ru": "Назначить свободный прокси",
+          "zh": "分配空闲代理",
+          "uk": "Призначити вільний проксі",
+          "fr": "Attribuer un proxy libre",
+          "es": "Asignar proxy libre",
+          "tr": "Serbest proxy ata",
+          "kk": "Бос проксиді тағайындау"
         }
       },
       "Proxy": {

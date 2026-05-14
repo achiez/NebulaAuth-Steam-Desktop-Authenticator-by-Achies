@@ -1,5 +1,5 @@
-﻿using SteamLibForked.Models.Core;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
+using SteamLibForked.Models.Core;
 
 namespace SteamLib.Core;
 
