@@ -45,10 +45,10 @@
                     CornerRadius="8"
                     BorderThickness="1">
                 <Border.Background>
-                    <SolidColorBrush Color="{DynamicResource BaseContentColor}" Opacity="0.07"/>
+                    <SolidColorBrush Color="{DynamicResource BaseContentColor}" Opacity="0.07" />
                 </Border.Background>
                 <Border.BorderBrush>
-                    <SolidColorBrush Color="{DynamicResource BaseContentColor}" Opacity="0.12"/>
+                    <SolidColorBrush Color="{DynamicResource BaseContentColor}" Opacity="0.12" />
                 </Border.BorderBrush>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -92,14 +92,12 @@
                       Margin="42,0,10,0"
                       IsEditable="True"
                       ItemsSource="{Binding Groups}"
-                      
+
                       Text="{Binding Group, UpdateSourceTrigger=PropertyChanged}"
                       materialDesign:HintAssist.Hint="{Tr MafileImportDialog.GroupFieldHint}"
                       materialDesign:HintAssist.IsFloating="False"
                       Visibility="{Binding AddToGroup, Converter={StaticResource BooleanToVisibilityConverter}}"
-                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                   
-                      />
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
 
             <Grid Grid.Row="5" Margin="10,16,10,5">
                 <Grid.ColumnDefinitions>
