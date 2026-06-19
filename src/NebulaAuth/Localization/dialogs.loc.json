@@ -35,5 +35,67 @@
       "tr": "Değer girin",
       "kk": "Мән енгізіңіз"
     }
+  },
+  "MafileImportDialog": {
+    "Title": {
+      "en": "Mafile import",
+      "ru": "Импорт мафайлов",
+      "zh": "导入 mafile",
+      "uk": "Імпорт mafile",
+      "fr": "Import de mafiles",
+      "es": "Importación de mafiles",
+      "tr": "Mafile içe aktarma",
+      "kk": "Mafile импорттау"
+    },
+    "TotalCount": {
+      "en": "Mafiles to import",
+      "ru": "Мафайлов к импорту",
+      "zh": "要导入的 mafile：",
+      "uk": "Mafile до імпорту:",
+      "fr": "Mafiles à importer :",
+      "es": "Mafiles para importar:",
+      "tr": "İçe aktarılacak mafile:",
+      "kk": "Импортталатын mafile:"
+    },
+    "ConflictCount": {
+      "en": "Already exist",
+      "ru": "Уже существуют",
+      "zh": "已存在：",
+      "uk": "Уже існують:",
+      "fr": "Déjà existants :",
+      "es": "Ya existen:",
+      "tr": "Zaten mevcut:",
+      "kk": "Бұрыннан бар:"
+    },
+    "OverwriteConflicts": {
+      "en": "Overwrite conflicting mafiles",
+      "ru": "Перезаписать конфликтующие мафайлы",
+      "zh": "覆盖冲突的 mafile",
+      "uk": "Перезаписати конфліктні mafile",
+      "fr": "Remplacer les mafiles en conflit",
+      "es": "Sobrescribir mafiles en conflicto",
+      "tr": "Çakışan mafile'ların üzerine yaz",
+      "kk": "Қақтығысатын mafile файлдарын қайта жазу"
+    },
+    "AddToGroup": {
+      "en": "Add imported accounts to a group",
+      "ru": "Добавить импортированные аккаунты в группу",
+      "zh": "将导入的账号添加到组",
+      "uk": "Додати імпортовані акаунти до групи",
+      "fr": "Ajouter les comptes importés à un groupe",
+      "es": "Añadir las cuentas importadas a un grupo",
+      "tr": "İçe aktarılan hesapları bir gruba ekle",
+      "kk": "Импортталған аккаунттарды топқа қосу"
+    },
+    "GroupFieldHint": {
+      "en": "Existing or new group",
+      "ru": "Существующая или новая группа",
+      "zh": "现有或新组",
+      "uk": "Наявна або нова група",
+      "fr": "Groupe existant ou nouveau",
+      "es": "Grupo existente o nuevo",
+      "tr": "Mevcut veya yeni grup",
+      "kk": "Бар немесе жаңа топ"
+    }
   }
 }
