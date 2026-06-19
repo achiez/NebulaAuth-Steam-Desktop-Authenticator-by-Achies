@@ -22,6 +22,13 @@ public static class ProxyStorage
         PatternRequirement.Optional,
         PatternRequirement.Optional);
 
+    public static readonly ProxyParser SignAtScheme = new(
+        ProxyDefaultFormats.UniversalSignAt, false, ProxyProtocol.HTTP,
+        ProxyPatternProtocol.All,
+        ProxyPatternHostFormat.Domain | ProxyPatternHostFormat.IPv4,
+        PatternRequirement.Required,
+        PatternRequirement.Required);
+
 
     public static ObservableDictionary<int, ProxyData> Proxies { get; } = new();
 
