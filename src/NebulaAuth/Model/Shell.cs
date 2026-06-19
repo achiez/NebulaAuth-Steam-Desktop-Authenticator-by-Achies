@@ -45,6 +45,7 @@ public static class Shell
 
         var threads = Environment.ProcessorCount > 0 ? Environment.ProcessorCount : 1;
         await Storage.Initialize(threads);
+        ProxyAssignmentCache.Initialize(Storage.MaFiles);
         MAACStorage.Initialize();
         MafileExporterStorage.Initialize();
 

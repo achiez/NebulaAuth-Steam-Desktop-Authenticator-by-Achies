@@ -38,7 +38,7 @@ public static class MaClient
     {
         ClientHandler.CookieContainer.ClearAllCookies();
         if (account == null) return;
-        ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(account.SessionData);
+        ClientHandler.CookieContainer.SetSteamMobileCookies(account.SessionData);
         Proxy.SetData(account.Proxy?.Data);
     }
 

@@ -31,7 +31,7 @@ public static class ClientBuilder
         }
         else
         {
-            container.SetSteamMobileCookiesWithMobileToken(sessionData);
+            container.SetSteamMobileCookies(sessionData);
         }
 
         //Nebula tweak:

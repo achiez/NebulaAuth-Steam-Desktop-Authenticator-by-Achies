@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -38,9 +39,10 @@ public partial class MainVM
         }
 
         if (!system && SelectedMafile != null)
-
         {
+            var oldProxyId = SelectedMafile.Proxy?.Id;
             SelectedMafile.Proxy = SelectedProxy;
+            ProxyAssignmentCache.UpdateAssignment(SelectedMafile.AccountName, oldProxyId, SelectedProxy?.Id);
             Storage.UpdateMafile(SelectedMafile);
         }
 
@@ -74,7 +76,9 @@ public partial class MainVM
     {
         mafile ??= SelectedMafile;
         if (mafile?.Proxy == null) return;
+        var oldProxyId = mafile.Proxy.Id;
         mafile.Proxy = null;
+        ProxyAssignmentCache.UpdateAssignment(mafile.AccountName, oldProxyId, null);
         if (mafile == SelectedMafile)
             SetProxy(null, false); //Not system, triggered by user
     }
@@ -83,6 +87,38 @@ public partial class MainVM
     {
         mafile ??= SelectedMafile;
         return mafile is {Proxy: not null};
+    }
+
+    [RelayCommand(CanExecute = nameof(AssignFreeProxyCanExecute))]
+    private void AssignFreeProxy(Mafile? mafile)
+    {
+        mafile ??= SelectedMafile;
+        if (mafile == null) return;
+
+        int? defaultProxyId = null;
+        if (MaClient.DefaultProxy != null)
+        {
+            var defKvp = ProxyStorage.Proxies.FirstOrDefault(kvp => kvp.Value.Equals(MaClient.DefaultProxy));
+            if (defKvp.Value != null)
+                defaultProxyId = defKvp.Key;
+        }
+
+        var freeProxy = ProxyAssignmentCache.GetRandomFreeProxy(ProxyStorage.Proxies, defaultProxyId);
+        if (freeProxy == null) return;
+
+        var newProxy = new MaProxy(freeProxy.Value.Key, freeProxy.Value.Value);
+        var oldProxyId = mafile.Proxy?.Id;
+        mafile.Proxy = newProxy;
+        ProxyAssignmentCache.UpdateAssignment(mafile.AccountName, oldProxyId, newProxy.Id);
+        Storage.UpdateMafile(mafile);
+
+        if (mafile == SelectedMafile)
+            SetProxy(newProxy, true); // system=true: update UI only, assignment already saved
+    }
+
+    private bool AssignFreeProxyCanExecute(Mafile? mafile)
+    {
+        return ProxyStorage.Proxies.Count > 0;
     }
 
     private void CheckProxyExist()

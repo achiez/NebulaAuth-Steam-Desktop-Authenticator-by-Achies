@@ -420,6 +420,9 @@
                                             <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.UnattachProxy}"
                                                       Command="{Binding RemoveProxyCommand}"
                                                       CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                            <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.AssignFreeProxy}"
+                                                      Command="{Binding AssignFreeProxyCommand}"
+                                                      CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                                         </ContextMenu>
                                     </FrameworkElement.ContextMenu>
 

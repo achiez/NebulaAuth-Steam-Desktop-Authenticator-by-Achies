@@ -4,14 +4,11 @@ namespace SteamLib.Utility.MafileSerialization;
 
 internal class LegacyMafile
 {
-    [JsonProperty("shared_secret")]
-    public string SharedSecret { get; set; } = null!;
+    [JsonProperty("shared_secret")] public string SharedSecret { get; set; } = null!;
 
-    [JsonProperty("identity_secret")]
-    public string IdentitySecret { get; set; } = null!;
+    [JsonProperty("identity_secret")] public string IdentitySecret { get; set; } = null!;
 
-    [JsonProperty("device_id")]
-    public string DeviceId { get; set; } = null!;
+    [JsonProperty("device_id")] public string DeviceId { get; set; } = null!;
 
     [JsonProperty("revocation_code")] public string RevocationCode { get; set; } = null!;
     [JsonProperty("account_name")] public string AccountName { get; set; } = null!;

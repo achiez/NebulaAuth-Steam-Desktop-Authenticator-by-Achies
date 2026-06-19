@@ -30,7 +30,7 @@ public partial class SessionHandler //API
         //Trigger PropertyChanged event for PortableMaClient handling session updated from MaClient
         mafile.SetSessionData(mafile.SessionData);
         await Storage.UpdateMafileAsync(mafile);
-        chp.Handler.CookieContainer.SetSteamMobileCookiesWithMobileToken(mafile.SessionData);
+        chp.Handler.CookieContainer.SetSteamMobileCookies(mafile.SessionData);
     }
 
     public static async Task LoginAgain(HttpClientHandlerPair chp, Mafile mafile, string password, bool savePassword)

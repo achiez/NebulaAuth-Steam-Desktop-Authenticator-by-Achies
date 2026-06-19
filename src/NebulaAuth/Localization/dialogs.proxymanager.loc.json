@@ -40,6 +40,26 @@
         "es": "El proxy tiene un formato incorrecto",
         "tr": "Proxy yanlış formatta",
         "kk": "Прокси қате форматта"
+      },
+      "AssignmentSuccess": {
+        "ru": "Прокси назначены: {0}",
+        "en": "Assigned: {0}",
+        "zh": "已分配：{0}",
+        "uk": "Проксі призначено: {0}",
+        "fr": "Attribués: {0}",
+        "es": "Asignados: {0}",
+        "tr": "Atandı: {0}",
+        "kk": "Тағайындалды: {0}"
+      },
+      "AssignmentPartialSuccess": {
+        "ru": "Назначено: {0}, не найдено: {1}, ошибки: {2}",
+        "en": "Assigned: {0}, not found: {1}, errors: {2}",
+        "zh": "已分配：{0}，未找到：{1}，错误：{2}",
+        "uk": "Призначено: {0}, не знайдено: {1}, помилки: {2}",
+        "fr": "Attribués: {0}, non trouvés: {1}, erreurs: {2}",
+        "es": "Asignados: {0}, no encontrados: {1}, errores: {2}",
+        "tr": "Atandı: {0}, bulunamadı: {1}, hatalar: {2}",
+        "kk": "Тағайындалды: {0}, табылмады: {1}, қателер: {2}"
       }
     }
   },
@@ -93,6 +113,96 @@
       "es": "Mostrar credenciales",
       "tr": "Kimlik bilgilerini göster",
       "kk": "Тіркелгі деректерін көрсету"
+    },
+    "TabManager": {
+      "en": "Manager",
+      "ru": "Менеджер",
+      "zh": "管理",
+      "uk": "Менеджер",
+      "fr": "Gestionnaire",
+      "es": "Administrador",
+      "tr": "Yönetici",
+      "kk": "Менеджер"
+    },
+    "TabAssignment": {
+      "en": "Assignment",
+      "ru": "Назначение",
+      "zh": "分配",
+      "uk": "Призначення",
+      "fr": "Attribution",
+      "es": "Asignación",
+      "tr": "Atama",
+      "kk": "Тағайындау"
+    },
+    "TotalAccounts": {
+      "en": "Accounts",
+      "ru": "Аккаунтов",
+      "zh": "账户",
+      "uk": "Акаунтів",
+      "fr": "Comptes",
+      "es": "Cuentas",
+      "tr": "Hesaplar",
+      "kk": "Аккаунттар"
+    },
+    "TotalProxies": {
+      "en": "Proxies",
+      "ru": "Прокси",
+      "zh": "代理",
+      "uk": "Проксі",
+      "fr": "Proxies",
+      "es": "Proxies",
+      "tr": "Proxy'ler",
+      "kk": "Проксилер"
+    },
+    "AssignedProxies": {
+      "en": "Assigned",
+      "ru": "Назначено",
+      "zh": "已分配",
+      "uk": "Призначено",
+      "fr": "Attribués",
+      "es": "Asignados",
+      "tr": "Atandı",
+      "kk": "Тағайындалды"
+    },
+    "UnspecifiedBehavior": {
+      "en": "Unspecified proxy:",
+      "ru": "Не указанный прокси:",
+      "zh": "未指定代理：",
+      "uk": "Не вказаний проксі:",
+      "fr": "Proxy non spécifié:",
+      "es": "Proxy no especificado:",
+      "tr": "Belirtilmemiş proxy:",
+      "kk": "Көрсетілмеген прокси:"
+    },
+    "UnspecifiedRandom": {
+      "en": "Assign random",
+      "ru": "Назначить случайный",
+      "zh": "随机分配",
+      "uk": "Призначити випадковий",
+      "fr": "Attribuer aléatoirement",
+      "es": "Asignar aleatorio",
+      "tr": "Rastgele ata",
+      "kk": "Кездейсоқ тағайындау"
+    },
+    "UnspecifiedRemove": {
+      "en": "Remove proxy",
+      "ru": "Удалить прокси",
+      "zh": "删除代理",
+      "uk": "Видалити проксі",
+      "fr": "Supprimer le proxy",
+      "es": "Eliminar proxy",
+      "tr": "Proxy'yi kaldır",
+      "kk": "Проксиді жою"
+    },
+    "ApplyAssignment": {
+      "en": "Apply",
+      "ru": "Применить",
+      "zh": "应用",
+      "uk": "Застосувати",
+      "fr": "Appliquer",
+      "es": "Aplicar",
+      "tr": "Uygula",
+      "kk": "Қолдану"
     }
   }
 }
