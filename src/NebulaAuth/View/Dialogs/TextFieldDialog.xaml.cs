@@ -14,7 +14,7 @@ public partial class TextFieldDialog
         InitializeComponent();
 
         if (!string.IsNullOrWhiteSpace(title))
-            TitleTextBlock.Text = title;
+            TitleHeader.Title = title;
 
         if (!string.IsNullOrEmpty(msg))
             HintAssist.SetHint(TextField, msg);

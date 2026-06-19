@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:other="clr-namespace:NebulaAuth.ViewModel.Other"
+             xmlns:nebulaAuth="clr-namespace:NebulaAuth"
              mc:Ignorable="d"
              TextElement.Foreground="{DynamicResource BaseContentBrush}"
              d:DataContext="{d:DesignInstance other:UpdateDialogVM}"
@@ -15,37 +16,15 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Grid Margin="10,10,10,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon Kind="Update" Width="20" Height="20" Margin="0,0,5,0"
-                                         VerticalAlignment="Center"
-                                         Foreground="{DynamicResource PrimaryContentBrush}" />
-                <TextBlock FontStyle="Normal" Foreground="{DynamicResource BaseContentBrush}"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center" FontSize="18">
-                    <Run Text="{Tr UpdateDialog.Title, IsDynamic=False}" />
-                    <Run FontWeight="Bold" Text="{Binding Version, Mode=OneWay}" />
-                </TextBlock>
-            </StackPanel>
-            <Button Grid.Column="1" Width="30" Height="30" Style="{StaticResource MaterialDesignIconForegroundButton}"
-                    HorizontalAlignment="Right"
-                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
-                <materialDesign:PackIcon Kind="Close" Width="24" Height="24" Foreground="IndianRed" />
-            </Button>
-        </Grid>
-
-        <Separator Grid.Row="1" Opacity="0.7" />
+        <nebulaAuth:DialogHeader IconKind="Update"
+                                 Title="{Tr UpdateDialog.Title, IsDynamic=False}"
+                                 TitleAccent="{Binding Version, Mode=OneWay}" />
 
         <!-- Changelog -->
-        <Grid Grid.Row="2" Margin="12,10,12,4">
+        <Grid Grid.Row="1" Margin="12,10,12,4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -120,7 +99,7 @@
         </Grid>
 
         <!-- Buttons -->
-        <Grid Grid.Row="3" Margin="12,6,12,14">
+        <Grid Grid.Row="2" Margin="12,6,12,14">
 
             <!-- Normal buttons -->
             <StackPanel

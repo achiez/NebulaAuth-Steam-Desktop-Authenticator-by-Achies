@@ -42,6 +42,7 @@
                        DialogClosed="DialogHost_DialogClosed"
                        ApplyBlurBackground="{Binding Settings.ApplyBlurBackground}"
                        BlurRadius="12"
+                       DialogContentUniformCornerRadius="12"
                        x:Name="DialogHostInstance">
 
             <Grid ZIndex="0">
