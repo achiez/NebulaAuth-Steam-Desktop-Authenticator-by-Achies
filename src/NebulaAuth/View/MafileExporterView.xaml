@@ -9,8 +9,8 @@
              mc:Ignorable="d"
              TextElement.Foreground="{DynamicResource BaseContentBrush}"
              FontFamily="{materialDesign:MaterialDesignFont}"
-             MinWidth="400"
-             MaxWidth="400"
+             MinWidth="500"
+             MaxWidth="500"
              Background="{DynamicResource WindowBackground}"
              d:DataContext="{d:DesignInstance other:MafileExporterVM}"
              d:Background="#141119"
@@ -113,6 +113,12 @@
                               IsEnabled="{Binding CurrentTemplate, Converter={StaticResource NullableToBooleanConverter}}">
 
                         <StackPanel>
+                            <CheckBox IsChecked="{Binding CurrentTemplate.ExportToZip, FallbackValue=False}"
+                                      Margin="3,0,0,3"
+                                      Content="{Tr ExportDialog.ExportOptions.ExportToZip}"
+                                      ToolTipService.InitialShowDelay="200"
+                                      ToolTip="{Tr ExportDialog.Tooltips.ExportToZip}" />
+
                             <TextBlock FontWeight="DemiBold"
                                        Text="{Tr ExportDialog.ExportSettingsCommon}" />
 

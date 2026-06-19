@@ -196,6 +196,16 @@
         "es": "Grupo",
         "tr": "Grup",
         "kk": "Топ"
+      },
+      "ExportToZip": {
+        "ru": "Экспортировать в ZIP архив",
+        "en": "Export to ZIP archive",
+        "uk": "Експортувати в ZIP архів",
+        "fr": "Exporter en archive ZIP",
+        "zh": "导出为 ZIP 压缩包",
+        "es": "Exportar a archivo ZIP",
+        "tr": "ZIP arşivine aktar",
+        "kk": "ZIP мұрағатқа экспорттау"
       }
     },
     "Tooltips": {
@@ -288,17 +298,27 @@
         "es": "Incluir datos de grupo compatibles con Nebula.",
         "tr": "Nebula uyumlu grup verilerini dahil et.",
         "kk": "Nebula үйлесімді топ деректерін қосу."
+      },
+      "ExportToZip": {
+        "ru": "Экспортировать в ZIP архив вместо папки. Архив будет сохранён в выбранной директории с именем вида N_timestamp.zip.",
+        "en": "Export to a ZIP archive instead of a folder. The archive will be saved in the selected directory as N_timestamp.zip.",
+        "uk": "Експортувати в ZIP архів замість папки. Архів буде збережено у вибраній директорії з назвою N_timestamp.zip.",
+        "fr": "Exporter dans une archive ZIP plutôt que dans un dossier. L'archive sera enregistrée dans le répertoire sélectionné sous le nom N_timestamp.zip.",
+        "zh": "导出为 ZIP 压缩包而非文件夹。压缩包将保存在所选目录中，名称格式为 N_timestamp.zip。",
+        "es": "Exportar a un archivo ZIP en lugar de una carpeta. El archivo se guardará en el directorio seleccionado como N_timestamp.zip.",
+        "tr": "Klasör yerine ZIP arşivine aktar. Arşiv, seçilen dizine N_timestamp.zip adıyla kaydedilecektir.",
+        "kk": "Қалта орнына ZIP мұрағатына экспорттау. Мұрағат таңдалған каталогта N_timestamp.zip атауымен сақталады."
       }
     },
     "ExportAccountsPlaceholder": {
-      "ru": "Введите логины аккаунтов или SteamID (по одному на строку) для экспорта в выбранную директорию.",
-      "en": "Enter account logins or SteamIDs (one per line) to export to the selected directory.",
-      "uk": "Введіть логіни акаунтів або SteamID (по одному на рядок) для експорту у вибрану директорію.",
-      "fr": "Entrez les identifiants de compte ou les SteamID (un par ligne) pour exporter vers le répertoire sélectionné.",
-      "zh": "输入要导出到所选目录的账户登录名或 SteamID（每行一个）。",
-      "es": "Introduce los logins de las cuentas o SteamID (uno por línea) para exportarlos al directorio seleccionado.",
-      "tr": "Seçilen dizine dışa aktarmak için hesap girişlerini veya SteamID’leri (her satıra bir tane) girin.",
-      "kk": "Таңдалған каталогқа экспорттау үшін аккаунт логиндерін немесе SteamID (әр жолға біреуден) енгізіңіз."
+      "ru": "Введите логины или SteamID (по одному на строку). Поддерживается формат логин:пароль — пароль будет проигнорирован. Оставьте пустым для экспорта всех аккаунтов.",
+      "en": "Enter logins or SteamIDs (one per line). Supports login:password format — the password will be ignored. Leave empty to export all accounts.",
+      "uk": "Введіть логіни або SteamID (по одному на рядок). Підтримується формат логін:пароль — пароль буде проігноровано. Залиште порожнім для експорту всіх акаунтів.",
+      "fr": "Entrez les identifiants ou SteamID (un par ligne). Supporte le format login:mot_de_passe — le mot de passe sera ignoré. Laissez vide pour exporter tous les comptes.",
+      "zh": "输入登录名或 SteamID（每行一个）。支持 login:password 格式——密码将被忽略。留空则导出所有账户。",
+      "es": "Introduce logins o SteamID (uno por línea). Soporta el formato login:contraseña — la contraseña será ignorada. Déjalo vacío para exportar todas las cuentas.",
+      "tr": "Girişleri veya SteamID’leri girin (her satıra bir tane). login:şifre formatı desteklenir — şifre yok sayılır. Tüm hesapları dışa aktarmak için boş bırakın.",
+      "kk": "Логиндерді немесе SteamID (әр жолға біреуден) енгізіңіз. логин:құпиясөз форматы қолданылады — құпиясөз еленбейді. Барлық аккаунттарды экспорттау үшін бос қалдырыңыз."
     }
   }
 }
