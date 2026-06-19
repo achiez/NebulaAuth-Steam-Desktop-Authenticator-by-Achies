@@ -1,0 +1,60 @@
+{
+  "version": "1.8.5",
+  "date": "2026-06-19",
+  "changes": [
+    {
+      "type": "NEW",
+      "text": "Bulk proxy assignment: assign proxies to multiple accounts at once via flexible login:proxy, login:ID or login-only input",
+      "link": "https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/pull/22"
+    },
+    {
+      "type": "NEW",
+      "text": "Import dialog now allows assigning imported mafiles to a group directly; added option to skip confirmation when no conflicts are detected",
+      "link": "https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/pull/24"
+    },
+    {
+      "type": "NEW",
+      "text": "Assign random free proxy to the account from context menu",
+      "link": "https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/pull/22"
+    },
+    {
+      "type": "NEW",
+      "text": "Export: added ZIP archive output, export-all mode when the input field is empty, and support for login:password input format",
+      "link": "https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/pull/28"
+    },
+    {
+      "type": "IMPROVEMENT",
+      "text": "When a session permanently expires during a user-initiated action, a login dialog is now shown instead of a generic error notification",
+      "link": "https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/pull/29"
+    },
+    {
+      "type": "IMPROVEMENT",
+      "text": "Proxy manager: account count badges now show how many accounts are assigned to each proxy entry",
+      "link": "https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/pull/22"
+    },
+    {
+      "type": "IMPROVEMENT",
+      "text": "Added login:pass@ip:port proxy format support",
+      "link": "https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/pull/25"
+    },
+    {
+      "type": "IMPROVEMENT",
+      "text": "Improved dialog header design",
+      "link": "https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/pull/27"
+    },
+    {
+      "type": "IMPROVEMENT",
+      "text": "Website and Documentation links are now available from the links window",
+      "link": "https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/pull/30"
+    },
+    {
+      "type": "FIX",
+      "text": "Application no longer fails to start when Steam time synchronization is unavailable (network issues, firewall)"
+    },
+    {
+      "type": "FIX",
+      "text": "Fixed incorrect Steam Guard error message shown in the Mafile Mover dialog",
+      "link": "https://github.com/achiez/NebulaAuth-Steam-Desktop-Authenticator-by-Achies/pull/23"
+    }
+  ]
+}
