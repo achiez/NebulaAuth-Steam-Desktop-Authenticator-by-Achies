@@ -15,13 +15,15 @@ namespace NebulaAuth.Core;
 
 public static class DialogsController
 {
-    public static async Task<LoginAgainVM?> ShowLoginAgainDialog(string username, string? currentPassword = null)
+    public static async Task<LoginAgainVM?> ShowLoginAgainDialog(string username, string? currentPassword = null,
+        bool showNoProxyWarning = false)
     {
         var vm = new LoginAgainVM
         {
             UserName = username,
             Password = currentPassword ?? string.Empty,
-            SavePassword = PHandler.IsPasswordSet
+            SavePassword = PHandler.IsPasswordSet,
+            ShowNoProxyWarning = showNoProxyWarning
         };
         var content = new LoginAgainDialog
         {

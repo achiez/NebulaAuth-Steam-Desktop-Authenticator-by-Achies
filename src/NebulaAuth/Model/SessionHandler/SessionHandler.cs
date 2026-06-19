@@ -6,7 +6,9 @@ using AchiesUtilities.Web.Models;
 using MaterialDesignThemes.Wpf;
 using NebulaAuth.Core;
 using NebulaAuth.Model.Entities;
+using NebulaAuth.Utility;
 using NebulaAuth.View.Dialogs;
+using NebulaAuth.ViewModel.Other;
 using SteamLib.Exceptions.Authorization;
 
 namespace NebulaAuth.Model;
@@ -16,13 +18,13 @@ public static partial class SessionHandler
     private static readonly SemaphoreSlim Semaphore = new(1, 1);
 
     public static async Task<T> Handle<T>(Func<Task<T>> func, Mafile mafile,
-        HttpClientHandlerPair? chp = null, string? snackbarPrefix = null)
+        HttpClientHandlerPair? chp = null, string? snackbarPrefix = null, bool allowInteractiveLogin = true)
     {
         chp ??= MaClient.GetHttpClientHandlerPair(mafile);
         await Semaphore.WaitAsync();
         try
         {
-            return await HandleInternal(func, chp.Value, mafile, snackbarPrefix);
+            return await HandleInternal(func, chp.Value, mafile, snackbarPrefix, allowInteractiveLogin);
         }
         finally
         {
@@ -31,7 +33,7 @@ public static partial class SessionHandler
     }
 
     private static async Task<T> HandleInternal<T>(Func<Task<T>> func, HttpClientHandlerPair chp, Mafile mafile,
-        string? snackbarPrefix = null)
+        string? snackbarPrefix = null, bool allowInteractiveLogin = true)
     {
         using var scope = Shell.Logger.PushScopeProperty("Scope", "SessionHandler");
         Exception? currentException = null;
@@ -86,6 +88,32 @@ public static partial class SessionHandler
             }
         }
 
+        if (allowInteractiveLogin && !DialogHost.IsDialogOpen(null))
+        {
+            var noProxy = mafile.Proxy == null && MaClient.DefaultProxy == null;
+            var currentPassword = GetPassword(mafile);
+
+            Task<LoginAgainVM?> dialogTask = null!;
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                dialogTask = DialogsController.ShowLoginAgainDialog(mafile.AccountName, currentPassword, noProxy);
+            });
+
+            var vm = await dialogTask;
+            if (vm != null)
+            {
+                Shell.Logger.Info("User provided credentials interactively for {name}, attempting login",
+                    mafile.AccountName);
+                var logged = await LoginAgainInternal(chp, mafile, vm.Password, vm.SavePassword);
+                if (logged)
+                {
+                    Shell.Logger.Debug("Interactive login for {name} succeeded, retrying operation",
+                        mafile.AccountName);
+                    return await func();
+                }
+            }
+        }
+
         throw new SessionPermanentlyExpiredException(SessionPermanentlyExpiredException.SESSION_EXPIRED_MSG,
             currentException);
     }
@@ -118,6 +146,7 @@ public static partial class SessionHandler
         {
             Shell.Logger.Debug(ex, "Failed to relogin mafile {name} {steamid}", mafile.AccountName,
                 mafile.SessionData?.SteamId);
+            ExceptionHandler.Handle(ex);
             return false;
         }
         finally
