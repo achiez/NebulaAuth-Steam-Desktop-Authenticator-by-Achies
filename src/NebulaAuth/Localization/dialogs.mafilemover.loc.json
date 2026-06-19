@@ -42,14 +42,14 @@
         "kk": "RCode: {0}\r\nФайл атауы: {1}.mafile"
       },
       "GuardIsNotActive": {
-        "ru": "Steam Guard установлен на данном аккаунте. Чтобы привязать mafile к аккаунту, воспользуйтесь окном \"Привязать\"",
-        "en": "Steam Guard is set on this account. To link mafile to the account, use the 'Link' window",
-        "zh": "此账户已启用令牌。要将 mafile 绑定到此账户，请使用“绑定”窗口。",
-        "uk": "Steam Guard встановлено на цьому акаунті. Щоб прив'язати mafile до акаунту, скористайтеся вікном 'Прив'язати'",
-        "fr": "Steam Guard est configuré sur ce compte. Pour lier mafile au compte, utilisez la fenêtre 'Lien'",
-        "es": "Steam Guard está activado en esta cuenta. Para vincular el mafile a la cuenta, usa la ventana 'Vincular'",
-        "tr": "Steam Guard bu hesapta zaten etkin. Mafile'ı hesaba bağlamak için 'Bağla' penceresini kullanın",
-        "kk": "Бұл аккаунтта Steam Guard орнатылған. Mafile-ды аккаунтқа байланыстыру үшін 'Байланыстыру' терезесін пайдаланыңыз"
+        "ru": "Steam Guard НЕ установлен на данном аккаунте. Чтобы привязать mafile к аккаунту, воспользуйтесь окном \"Привязать\"",
+        "en": "Steam Guard is NOT set on this account. To link mafile to the account, use the 'Link' window",
+        "zh": "此账户尚未启用令牌。要将 mafile 绑定到此账户，请使用“绑定”窗口。",
+        "uk": "Steam Guard НЕ встановлено на цьому акаунті. Щоб прив'язати mafile до акаунту, скористайтеся вікном 'Прив'язати'",
+        "fr": "Steam Guard n'est PAS configuré sur ce compte. Pour lier le mafile au compte, utilisez la fenêtre 'Lier'",
+        "es": "Steam Guard NO está activado en esta cuenta. Para vincular el mafile a la cuenta, usa la ventana 'Vincular'",
+        "tr": "Steam Guard bu hesapta etkin DEĞİL. Mafile'ı hesaba bağlamak için 'Bağla' penceresini kullanın",
+        "kk": "Бұл аккаунтта Steam Guard орнатылмаған. Mafile-ды аккаунтқа байланыстыру үшін 'Байланыстыру' терезесін пайдаланыңыз"
       },
       "SeemsNoPhoneNumber": {
         "en": "The account has no phone number linked, returned Fail code (2)",
