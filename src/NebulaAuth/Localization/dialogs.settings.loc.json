@@ -262,25 +262,25 @@
         "kk": "Дискке сақталмайды"
       }
     },
-    "LegacyMafileMode": {
-      "en": "Common mafiles format",
-      "ru": "Общепринятый формат мафайлов",
-      "zh": "常见的邮件文件格式",
-      "uk": "Загальноприйнятий формат мафайлів",
-      "fr": "Format de mafiles commun",
-      "es": "Formato común de mafiles",
-      "tr": "Ortak mafile formatı",
-      "kk": "Жалпы mafile форматы"
+    "ConfirmMafileImport": {
+      "en": "Ask confirmation when importing mafiles",
+      "ru": "Спрашивать подтверждение при импорте мафайлов",
+      "zh": "导入 mafile 时请求确认",
+      "uk": "Запитувати підтвердження під час імпорту mafile",
+      "fr": "Demander confirmation lors de l'import des mafiles",
+      "es": "Pedir confirmación al importar mafiles",
+      "tr": "Mafile içe aktarırken onay sor",
+      "kk": "Mafile импорттау кезінде растауды сұрау"
     },
-    "LegacyMafileModeHint": {
-      "en": "Save mafiles in compatibility format with Steam Desktop Authenticator and other applications",
-      "ru": "Сохранять мафайлы в старом формате для совместимости со Steam Desktop Authenticator и другими приложениями",
-      "zh": "以与 Steam 桌面认证器及其他应用程序兼容的格式保存 mafiles",
-      "uk": "Зберігати мафайли у старому форматі для сумісності зі Steam Desktop Authenticator та іншими додатками",
-      "fr": "Enregistrer les mafiles dans un format compatible avec Steam Desktop Authenticator et d'autres applications",
-      "es": "Guardar mafiles en formato compatible con Steam Desktop Authenticator y otras aplicaciones",
-      "tr": "Mafile'ları Steam Desktop Authenticator ve diğer uygulamalarla uyumlu formatta kaydet",
-      "kk": "Mafile файлдарын Steam Desktop Authenticator және басқа қолданбалармен үйлесімді форматта сақтау"
+    "ConfirmMafileImportHint": {
+      "en": "Allows selecting a group when importing maFiles. Does not affect showing the dialog when file conflicts occur",
+      "ru": "Позволяет выбрать группу при импорте maFiles. Не влияет на показ окна при конфликте файлов",
+      "zh": "允许在导入 maFiles 时选择分组。不影响发生文件冲突时窗口的显示",
+      "uk": "Дозволяє вибрати групу під час імпорту maFiles. Не впливає на показ вікна при конфлікті файлів",
+      "fr": "Permet de choisir un groupe lors de l'import des maFiles. N'affecte pas l'affichage de la fenêtre en cas de conflit de fichiers",
+      "es": "Permite seleccionar un grupo al importar maFiles. No afecta a la aparición de la ventana cuando hay conflictos de archivos",
+      "tr": "maFiles içe aktarılırken grup seçilmesine izin verir. Dosya çakışmalarında pencerenin gösterilmesini etkilemez",
+      "kk": "maFiles импорттау кезінде топ таңдауға мүмкіндік береді. Файл қайшылықтары болғанда терезенің көрсетілуіне әсер етпейді"
     },
     "AllowAutoUpdate": {
       "en": "Allow auto update",

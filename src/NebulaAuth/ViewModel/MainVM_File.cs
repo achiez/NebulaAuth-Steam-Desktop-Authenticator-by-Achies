@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
@@ -76,10 +77,11 @@ public partial class MainVM //File //TODO: Refactor
             : Task.CompletedTask;
     }
 
+    //TODO: extract flow and refactor, this method is too long and does too many things
     public async Task AddMafile(string[] path)
     {
-        bool? confirmOverwrite = null;
         var summary = new MafileImportSummary();
+        var items = new List<MafileImportPlanItem>();
         SDAEncryptionHelper.Context? sdaContext = null;
         var sdaPasswordPrompted = false;
         foreach (var str in path)
@@ -95,16 +97,7 @@ public partial class MainVM //File //TODO: Refactor
                     continue;
                 }
 
-                var overwrite = confirmOverwrite ?? false;
-                var res = await Storage.AddNewMafileFromData(mafile, overwrite);
-                if (res == AddMafileResult.AlreadyExist && confirmOverwrite == null)
-                {
-                    confirmOverwrite =
-                        await DialogsController.ShowConfirmCancelDialog(GetLocalization("ConfirmMafileOverwrite"));
-                    res = await Storage.AddNewMafileFromData(mafile, confirmOverwrite.Value);
-                }
-
-                summary.Apply(res);
+                items.Add(new MafileImportPlanItem(mafile, false, HasImportConflict(mafile)));
             }
             catch (FormatException)
             {
@@ -114,18 +107,11 @@ public partial class MainVM //File //TODO: Refactor
             {
                 if (path.Length == 1 && ex.Mafile != null)
                 {
-                    var mafile = ex.Mafile;
-                    if (await HandleAddMafileWithoutSession(mafile))
-                    {
-                        summary.AddedOne();
-                    }
-                    else
-                    {
-                        summary.ErrorOne();
-                    }
+                    items.Add(new MafileImportPlanItem(ex.Mafile, true, HasImportConflict(ex.Mafile)));
                 }
                 else
                 {
+                    summary.ErrorOne();
                     SnackbarController.SendSnackbar(
                         $"{GetLocalization("MafileImportError")} {Path.GetFileName(str)}{GetLocalization("MissingSessionInMafile")}",
                         TimeSpan.FromSeconds(4));
@@ -133,7 +119,76 @@ public partial class MainVM //File //TODO: Refactor
             }
         }
 
+        if (items.Count == 0)
+        {
+            ShowImportSummary(summary);
+            return;
+        }
+
+        var conflictCount = items.Count(i => i.HasConflict);
+        var showImportDialog = Settings.ConfirmMafileImport || conflictCount > 0;
+        MafileImportDialogResult? importOptions = null;
+        if (showImportDialog)
+        {
+            importOptions = await DialogsController.ShowMafileImportDialog(Groups, items.Count, conflictCount);
+            if (importOptions == null)
+            {
+                SnackbarController.SendSnackbar(LocManager.GetCommonOrDefault("Canceled", "Canceled"));
+                return;
+            }
+        }
+
+        var importGroup = importOptions?.Group;
+        var overwriteConflicts = importOptions?.OverwriteConflicts ?? false;
+        foreach (var item in items)
+        {
+            ApplyImportGroup(item.Mafile, importGroup);
+            if (item.RequiresRelogin)
+            {
+                if (item.HasConflict && !overwriteConflicts)
+                {
+                    summary.SkippedOne();
+                    continue;
+                }
+
+                if (await HandleAddMafileWithoutSession(item.Mafile))
+                {
+                    summary.AddedOne();
+                }
+                else
+                {
+                    summary.ErrorOne();
+                }
+
+                continue;
+            }
+
+            var res = await Storage.AddNewMafileFromData(item.Mafile, overwriteConflicts);
+            summary.Apply(res);
+        }
+
+        if (summary.Added > 0)
+        {
+            QueryGroups();
+            if (!string.IsNullOrWhiteSpace(importGroup))
+            {
+                SelectedGroup = importGroup;
+            }
+        }
+
         ShowImportSummary(summary);
+    }
+
+    private static void ApplyImportGroup(Mafile mafile, string? group)
+    {
+        if (string.IsNullOrWhiteSpace(group)) return;
+        mafile.Group = group;
+    }
+
+    private static bool HasImportConflict(Mafile mafile)
+    {
+        var fileName = MafilesStorageHelper.CreateMafileFileName(mafile, Settings.Instance.UseAccountNameAsMafileName);
+        return File.Exists(Path.Combine(Storage.MafilesDirectory, fileName));
     }
 
 
@@ -218,6 +273,7 @@ public partial class MainVM //File //TODO: Refactor
 
         var result = data.SessionData != null;
         if (!result) return result;
+        data.Filename = null;
         await Storage.SaveMafileAsync(data);
         {
             ResetQuery();
@@ -352,4 +408,11 @@ public partial class MainVM //File //TODO: Refactor
         if (mafile is not Mafile maf) return false;
         return maf.Password != null && PHandler.IsPasswordSet;
     }
+
+    private record MafileReadResult(
+        Mafile? Mafile,
+        bool SdaPasswordPrompted,
+        SDAEncryptionHelper.Context? SdaContext);
+
+    private record MafileImportPlanItem(Mafile Mafile, bool RequiresRelogin, bool HasConflict);
 }

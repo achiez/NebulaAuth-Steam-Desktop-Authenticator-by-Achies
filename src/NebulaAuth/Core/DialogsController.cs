@@ -73,6 +73,22 @@ public static class DialogsController
         return null;
     }
 
+    public static async Task<MafileImportDialogResult?> ShowMafileImportDialog(IEnumerable<string> groups,
+        int totalCount, int conflictCount)
+    {
+        var vm = new MafileImportDialogVM(groups, totalCount, conflictCount);
+        var content = new MafileImportDialog
+        {
+            DataContext = vm
+        };
+        var result = await DialogHost.Show(content);
+        return result is MafileImportDialogVM
+            ? new MafileImportDialogResult(
+                !vm.AddToGroup || string.IsNullOrWhiteSpace(vm.Group) ? null : vm.Group.Trim(),
+                vm.OverwriteConflicts)
+            : null;
+    }
+
     public static async Task<bool> ShowProxyManager()
     {
         var vm = new ProxyManagerVM();

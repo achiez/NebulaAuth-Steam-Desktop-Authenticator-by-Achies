@@ -91,7 +91,7 @@ public partial class Settings : ObservableObject
     [ObservableProperty] private Color? _iconColor;
     [ObservableProperty] private bool _isPasswordSet;
     [ObservableProperty] private LocalizationLanguage _language = LocalizationLanguage.English;
-    [ObservableProperty] private bool _legacyMode = true;
+    [ObservableProperty] private bool _confirmMafileImport = true;
     [ObservableProperty] private bool _allowAutoUpdate;
     [ObservableProperty] private bool _useAccountNameAsMafileName;
 
