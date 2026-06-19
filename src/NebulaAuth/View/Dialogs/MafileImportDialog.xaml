@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:nebulaAuth="clr-namespace:NebulaAuth"
              mc:Ignorable="d"
              Height="Auto" Width="Auto" MaxWidth="520"
              Background="{DynamicResource WindowBackground}">
@@ -11,27 +12,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Margin="10,10,10,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <TextBlock FontStyle="Normal" Foreground="{DynamicResource BaseContentBrush}"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center" FontSize="18" Text="{Tr MafileImportDialog.Title}" />
-            <Button Grid.Column="1" Width="30" Height="30" Style="{StaticResource MaterialDesignIconForegroundButton}"
-                    HorizontalAlignment="Right" CommandParameter="{x:Null}"
-                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
-                <materialDesign:PackIcon Kind="Close" Width="24" Height="24" Foreground="IndianRed" />
-            </Button>
-        </Grid>
+        <nebulaAuth:DialogHeader Title="{Tr MafileImportDialog.Title}" />
 
-        <Separator Grid.Row="1" Opacity="0.7" />
-
-        <Grid Grid.Row="2" Margin="14,14,14,16">
+        <Grid Grid.Row="1" Margin="14,14,14,16">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />

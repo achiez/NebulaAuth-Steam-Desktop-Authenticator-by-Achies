@@ -56,30 +56,7 @@
                 </Style.Triggers>
             </Style>
         </Grid.Resources>
-        <Grid Margin="10,10,10,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon Kind="LinkBoxOutline" Width="20" Height="20" Margin="0,0,5,0"
-                                         VerticalAlignment="Center"
-                                         Foreground="{DynamicResource PrimaryContentBrush}" />
-                <TextBlock FontStyle="Normal" Foreground="{DynamicResource BaseContentBrush}"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center" FontSize="18" Text="{Tr LinkerDialog.Title}" />
-                <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" FontSize="12">
-                    <Hyperlink Command="{Binding OpenTroubleshootingCommand}">
-                        <Run Text="{Tr LinkerDialog.GotErrorHyperlinkText, IsDynamic=False}" />
-                    </Hyperlink>
-                </TextBlock>
-            </StackPanel>
-            <Button Grid.Column="1" Width="30" Height="30" Style="{StaticResource MaterialDesignIconForegroundButton}"
-                    HorizontalAlignment="Right" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
-                <materialDesign:PackIcon Kind="Close" Width="24" Height="24" Foreground="IndianRed" />
-            </Button>
-        </Grid>
-        <Separator Background="DarkGray" Opacity="0.4" Grid.Row="1" />
+        <nebulaAuth:DialogHeader IconKind="LinkBoxOutline" Title="{Tr LinkerDialog.Title}" />
         <nebulaAuth:HintBox FontSize="14"
                             Visibility="{Binding Tip, Converter={StaticResource NullableToVisibilityConverter}}"
                             Grid.Row="2" Margin="10,10,10,0"
