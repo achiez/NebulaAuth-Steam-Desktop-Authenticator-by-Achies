@@ -80,7 +80,7 @@ public partial class ProxyManagerVM
 
                         resolvedProxy = new MaProxy(parsedId, byId);
                     }
-                    else if (ProxyStorage.DefaultScheme.TryParse(proxyPart, out var parsedProxy))
+                    else if (ProxyStorage.DefaultScheme.TryParse(proxyPart, out var parsedProxy) || ProxyStorage.SignAtScheme.TryParse(proxyPart, out parsedProxy))
                     {
                         // Mode: login:proxy_string — find existing or add
                         resolvedProxy = FindOrAddProxy(parsedProxy);
