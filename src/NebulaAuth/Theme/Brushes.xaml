@@ -89,4 +89,7 @@
                      Color="{StaticResource SecondaryColor}" />
     <SolidColorBrush x:Key="MaterialDesign.Brush.Secondary.Dark.Foreground"
                      Color="{StaticResource BaseContentColor}" />
+
+    <SolidColorBrush x:Key="MaterialDesign.Brush.RadioButton.Outline"
+                     Color="{StaticResource BaseContentColor}" />
 </ResourceDictionary>
