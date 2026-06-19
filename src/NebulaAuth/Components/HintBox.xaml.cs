@@ -77,6 +77,10 @@ public partial class HintBox : UserControl
                 IconKind = PackIconKind.ErrorOutline;
                 IconBrush = (Brush) Application.Current.FindResource("ErrorBrush")!;
                 break;
+            case HintBoxSeverity.Warning:
+                IconKind = PackIconKind.WarningOutline;
+                IconBrush = (Brush) Application.Current.FindResource("WarningBrush")!;
+                break;
             default:
                 IconKind = PackIconKind.InfoCircleOutline;
                 IconBrush = (Brush) Application.Current.FindResource("InfoBrush")!;
@@ -94,5 +98,6 @@ public partial class HintBox : UserControl
 public enum HintBoxSeverity
 {
     Info,
+    Warning,
     Error
 }
