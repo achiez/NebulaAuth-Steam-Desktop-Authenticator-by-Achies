@@ -80,4 +80,10 @@ public static class TimeAligner
             client.Dispose();
         }
     }
+
+    public static void SetTimeDifference(int timeDifference)
+    {
+        _timeDifference = timeDifference;
+        _aligned = true;
+    }
 }
