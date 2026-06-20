@@ -21,7 +21,7 @@ NebulaAuth is an application for emulating actions from the Steam Mobile App, re
   <img src="misc/main_window.png" width="600"/>
 </p>
 
-- **Localization in six languages**: English, Russian, Ukrainian, Spanish, Turkish and Kazakh.
+- **Localization in eight languages**: English, Russian, Ukrainian, Simplified Chinese, French, Spanish, Turkish, and Kazakh.
 - **Full functionality of Steam Desktop Authenticator** reimagining [old app](https://github.com/Jessecar96/SteamDesktopAuthenticator)
 - **Proxy support** in all account work processes.
 - **Mafile grouping** for improved management.
