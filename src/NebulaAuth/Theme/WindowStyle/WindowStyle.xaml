@@ -36,7 +36,8 @@
                         <!--  Window Buttons  -->
                         <StackPanel
                             HorizontalAlignment="Right"
-                            Orientation="Horizontal">
+                            Orientation="Horizontal"
+                            TextElement.Foreground="{DynamicResource PrimaryContentBrush}">
                             <StackPanel.Resources>
                                 <Style TargetType="materialDesign:PackIcon">
                                     <Setter Property="HorizontalAlignment" Value="Center" />

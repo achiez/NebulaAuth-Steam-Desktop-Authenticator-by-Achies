@@ -79,6 +79,16 @@
       "es": "Pulsa 'DEL' para eliminar",
       "tr": "Silmek için 'DEL' tuşuna bas",
       "kk": "Жою үшін 'DEL' пернесін басыңыз"
+    },
+    "NoProxyWarning": {
+      "en": "No proxy is assigned",
+      "ru": "Прокси не установлен",
+      "zh": "未分配代理",
+      "uk": "Проксі не призначено",
+      "fr": "Aucun proxy assigné",
+      "es": "No hay ningún proxy asignado",
+      "tr": "Proxy atanmamış",
+      "kk": "Прокси тағайындалмаған"
     }
   }
 }

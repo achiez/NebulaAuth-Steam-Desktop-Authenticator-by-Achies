@@ -42,6 +42,7 @@
                        DialogClosed="DialogHost_DialogClosed"
                        ApplyBlurBackground="{Binding Settings.ApplyBlurBackground}"
                        BlurRadius="12"
+                       DialogContentUniformCornerRadius="12"
                        x:Name="DialogHostInstance">
 
             <Grid ZIndex="0">
@@ -419,6 +420,9 @@
                                                       CommandParameter="{Binding Path=PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
                                             <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.UnattachProxy}"
                                                       Command="{Binding RemoveProxyCommand}"
+                                                      CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                            <MenuItem Header="{Tr MainWindow.ContextMenus.Mafile.AssignFreeProxy}"
+                                                      Command="{Binding AssignFreeProxyCommand}"
                                                       CommandParameter="{Binding PlacementTarget.SelectedValue, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                                         </ContextMenu>
                                     </FrameworkElement.ContextMenu>

@@ -93,7 +93,7 @@ public static class ExceptionHandler
             }
             case LoginException e:
             {
-                return "LoginException".GetCodeBehindLocalization() + ": " +
+                return "LoginException".GetCodeBehindLocalization() +
                        ErrorTranslatorHelper.TranslateLoginError(e.Error);
             }
             case UnsupportedAuthTypeException e:

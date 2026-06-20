@@ -62,7 +62,7 @@ public partial class PortableMaClient : ObservableObject, IDisposable
             SetStatus(newStatus);
 
         ClientHandler.CookieContainer.ClearAllCookies();
-        ClientHandler.CookieContainer.SetSteamMobileCookiesWithMobileToken(sessionData);
+        ClientHandler.CookieContainer.SetSteamMobileCookies(sessionData);
     }
 
 

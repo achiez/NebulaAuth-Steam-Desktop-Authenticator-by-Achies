@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using NebulaAuth.Core;
-using NebulaAuth.Model.Exceptions;
 using NebulaAuth.Model.MAAC;
 using NebulaAuth.Model.MafileExport;
 using NebulaAuth.Model.Mafiles;
@@ -40,13 +39,16 @@ public static class Shell
         }
         catch (Exception ex)
         {
-            throw new CantAlignTimeException("", ex);
+            Logger.Error(ex, "Failed to align time with Steam");
+            TimeAligner.SetTimeDifference(0);
         }
 
         var threads = Environment.ProcessorCount > 0 ? Environment.ProcessorCount : 1;
         await Storage.Initialize(threads);
+        ProxyAssignmentCache.Initialize(Storage.MaFiles);
         MAACStorage.Initialize();
         MafileExporterStorage.Initialize();
+        _ = LinksManager.FetchAsync();
 
         ExtensionsLogger.LogDebug("Application started");
     }

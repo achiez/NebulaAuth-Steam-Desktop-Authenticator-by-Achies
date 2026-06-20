@@ -7,6 +7,7 @@
              xmlns:other="clr-namespace:NebulaAuth.ViewModel.Other"
              xmlns:model="clr-namespace:NebulaAuth.Model"
              xmlns:entities="clr-namespace:NebulaAuth.Model.Entities"
+             xmlns:nebulaAuth="clr-namespace:NebulaAuth"
              mc:Ignorable="d"
              TextElement.Foreground="{DynamicResource BaseContentBrush}"
              d:DataContext="{d:DesignInstance other:LoginAgainVM}"
@@ -16,32 +17,12 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid Margin="10,10,10,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon Kind="Login" Width="20" Height="20" Margin="0,0,5,0"
-                                         VerticalAlignment="Center"
-                                         Foreground="{DynamicResource PrimaryContentBrush}" />
-                <TextBlock FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource BaseContentBrush}"
-                           Margin="7,0,0,0" HorizontalAlignment="Left">
-                    <Run Text="{Tr LoginAgainDialog.LoginFor, IsDynamic=False}" />
-                    <Run FontWeight="Bold" Text="{Binding UserName}" />
-                </TextBlock>
-            </StackPanel>
-            <Button Grid.Column="1" Width="30" Height="30" Style="{StaticResource MaterialDesignIconForegroundButton}"
-                    HorizontalAlignment="Right" CommandParameter="{StaticResource False}"
-                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
-                <materialDesign:PackIcon Kind="Close" Width="24" Height="24" Foreground="IndianRed" />
-
-            </Button>
-        </Grid>
-        <Separator Grid.Row="1" Opacity="0.7" />
-        <Grid Grid.Row="2" Margin="12">
+        <nebulaAuth:DialogHeader IconKind="Login"
+                                 Title="{Tr LoginAgainDialog.LoginFor, IsDynamic=False}"
+                                 TitleAccent="{Binding UserName}"
+                                 CloseParameter="{StaticResource False}" />
+        <Grid Grid.Row="1" Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />

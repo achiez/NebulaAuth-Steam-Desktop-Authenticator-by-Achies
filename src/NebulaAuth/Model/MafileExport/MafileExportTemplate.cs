@@ -13,4 +13,5 @@ public class MafileExportTemplate
     public bool IncludeNebulaPassword { get; set; }
     public bool IncludeNebulaGroup { get; set; }
     public string? Path { get; set; }
+    public bool ExportToZip { get; set; }
 }

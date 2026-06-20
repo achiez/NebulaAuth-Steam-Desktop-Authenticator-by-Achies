@@ -11,5 +11,7 @@ public partial class LoginAgainVM : ObservableObject
 
     [ObservableProperty] private bool _savePassword;
 
+    [ObservableProperty] private bool _showNoProxyWarning;
+
     [ObservableProperty] private string _userName = null!;
 }

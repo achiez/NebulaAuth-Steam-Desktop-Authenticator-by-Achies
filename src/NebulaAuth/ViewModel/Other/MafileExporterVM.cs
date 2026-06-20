@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -10,6 +10,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NebulaAuth.Core;
 using NebulaAuth.Model.MafileExport;
+using NebulaAuth.Model.Mafiles;
 
 namespace NebulaAuth.ViewModel.Other;
 
@@ -24,8 +25,7 @@ public partial class MafileExporterVM : ObservableObject
 
     public ObservableCollection<MafileExportTemplateVM> Templates { get; }
 
-    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(ExportCommand))]
-    private string? _accountsText;
+    [ObservableProperty] private string? _accountsText;
 
     private string? _cachedName;
     private MafileExportTemplateVM? _currentTemplate;
@@ -160,6 +160,7 @@ public partial class MafileExporterVM : ObservableObject
             IncludeNebulaProxy = true,
             IncludeNebulaPassword = true,
             IncludeNebulaGroup = true,
+            ExportToZip = false,
             Path = null
         };
         MafileExporterStorage.AddTemplate(template);
@@ -211,21 +212,26 @@ public partial class MafileExporterVM : ObservableObject
         }
     }
 
-    [RelayCommand(CanExecute = nameof(ExportCanExecute))]
+    [RelayCommand(CanExecute = nameof(CurrentTemplateNotNull))]
     private async Task Export()
     {
-        var lines = AccountsText;
         var template = CurrentTemplate;
-        if (string.IsNullOrWhiteSpace(lines) || template == null)
-        {
-            return;
-        }
+        if (template == null) return;
 
-        var split = Regex
-            .Split(lines, "\r\n|\r|\n")
-            .Select(x => x.Trim())
-            .Where(x => !string.IsNullOrWhiteSpace(x))
-            .ToArray();
+        string[] split;
+        if (string.IsNullOrWhiteSpace(AccountsText))
+        {
+            split = Storage.MaFiles.Select(m => m.AccountName).ToArray();
+        }
+        else
+        {
+            split = Regex
+                .Split(AccountsText, "\r\n|\r|\n")
+                .Select(x => x.Trim())
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Select(ExtractLogin)
+                .ToArray();
+        }
 
         ResetHintText();
         ExportResult res;
@@ -268,6 +274,14 @@ public partial class MafileExporterVM : ObservableObject
         AccountsText = text;
     }
 
+    // Strips the password part from "login:password" input lines.
+    // SteamId64 values contain no colon, so any colon signals the login:password format.
+    private static string ExtractLogin(string line)
+    {
+        var idx = line.IndexOf(':');
+        return idx > 0 ? line[..idx] : line;
+    }
+
     private void SetHintText(string? text, HintBoxSeverity severity = HintBoxSeverity.Error)
     {
         HintText = text;
@@ -280,12 +294,6 @@ public partial class MafileExporterVM : ObservableObject
     }
 
     #region CanExecute
-
-    private bool ExportCanExecute()
-    {
-        return CurrentTemplateNotNull() && !string.IsNullOrWhiteSpace(AccountsText);
-    }
-
 
     private bool CurrentTemplateNotNull()
     {
@@ -307,6 +315,7 @@ public partial class MafileExporterVM : ObservableObject
 
 public partial class MafileExportTemplateVM : ObservableObject
 {
+    [ObservableProperty] private bool _exportToZip;
     [ObservableProperty] private bool _includeIdentitySecret;
     [ObservableProperty] private bool _includeNebulaGroup;
     [ObservableProperty] private bool _includeNebulaPassword;
@@ -334,6 +343,7 @@ public partial class MafileExportTemplateVM : ObservableObject
             IncludeNebulaProxy = x.IncludeNebulaProxy,
             IncludeNebulaPassword = x.IncludeNebulaPassword,
             IncludeNebulaGroup = x.IncludeNebulaGroup,
+            ExportToZip = x.ExportToZip,
             Path = x.Path
         };
     }
@@ -352,6 +362,7 @@ public partial class MafileExportTemplateVM : ObservableObject
             IncludeNebulaProxy = IncludeNebulaProxy,
             IncludeNebulaPassword = IncludeNebulaPassword,
             IncludeNebulaGroup = IncludeNebulaGroup,
+            ExportToZip = ExportToZip,
             Path = Path
         };
     }
@@ -368,6 +379,7 @@ public partial class MafileExportTemplateVM : ObservableObject
         model.IncludeNebulaProxy = IncludeNebulaProxy;
         model.IncludeNebulaPassword = IncludeNebulaPassword;
         model.IncludeNebulaGroup = IncludeNebulaGroup;
+        model.ExportToZip = ExportToZip;
         model.Path = Path;
     }
 }

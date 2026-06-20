@@ -9,8 +9,8 @@
              mc:Ignorable="d"
              TextElement.Foreground="{DynamicResource BaseContentBrush}"
              FontFamily="{materialDesign:MaterialDesignFont}"
-             MinWidth="400"
-             MaxWidth="400"
+             MinWidth="500"
+             MaxWidth="500"
              Background="{DynamicResource WindowBackground}"
              d:DataContext="{d:DesignInstance other:MafileExporterVM}"
              d:Background="#141119"
@@ -19,32 +19,12 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid Margin="10,10,10,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon Kind="FileExport" Width="20" Height="20" Margin="0,0,5,0"
-                                         VerticalAlignment="Center"
-                                         Foreground="{DynamicResource PrimaryContentBrush}" />
-                <TextBlock FontStyle="Normal" Foreground="{DynamicResource BaseContentBrush}"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center" FontSize="18" Text="{Tr ExportDialog.ExportTitle}" />
-            </StackPanel>
-            <Button Grid.Column="1" Width="30" Height="30" Style="{StaticResource MaterialDesignIconForegroundButton}"
-                    HorizontalAlignment="Right" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                    IsCancel="True">
-                <materialDesign:PackIcon Kind="Close" Width="24" Height="24" Foreground="IndianRed" />
-            </Button>
-        </Grid>
-        <Separator Background="DarkGray" Opacity="0.4" Grid.Row="1" />
-        <Grid Grid.Row="2" Margin="15" TextElement.FontSize="14">
+        <nebulaAuth:DialogHeader IconKind="FileExport" Title="{Tr ExportDialog.ExportTitle}" />
+        <Grid Grid.Row="1" Margin="15" TextElement.FontSize="14">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -133,6 +113,12 @@
                               IsEnabled="{Binding CurrentTemplate, Converter={StaticResource NullableToBooleanConverter}}">
 
                         <StackPanel>
+                            <CheckBox IsChecked="{Binding CurrentTemplate.ExportToZip, FallbackValue=False}"
+                                      Margin="3,0,0,3"
+                                      Content="{Tr ExportDialog.ExportOptions.ExportToZip}"
+                                      ToolTipService.InitialShowDelay="200"
+                                      ToolTip="{Tr ExportDialog.Tooltips.ExportToZip}" />
+
                             <TextBlock FontWeight="DemiBold"
                                        Text="{Tr ExportDialog.ExportSettingsCommon}" />
 
@@ -233,8 +219,8 @@
 
 
         </Grid>
-        <Separator Grid.Row="3" />
-        <Button Command="{Binding ExportCommand}" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Grid.Row="4"
+        <Separator Grid.Row="2" />
+        <Button Command="{Binding ExportCommand}" Style="{StaticResource MaterialDesignFlatDarkBgButton}" Grid.Row="3"
                 Margin="20,7,20,7" MaxWidth="150" Content="{Tr ExportDialog.ExportButton}" />
     </Grid>
 </UserControl>

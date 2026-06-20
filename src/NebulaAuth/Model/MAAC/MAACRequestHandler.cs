@@ -82,7 +82,7 @@ public static class MAACRequestHandler
         {
             return withSessionHandler
                 ? Result<T>.Success(await SessionHandler.Handle(req, client.Mafile, client.Chp(),
-                    GetTimerPrefix(client.Mafile)))
+                    GetTimerPrefix(client.Mafile), false))
                 : Result<T>.Success(await req());
         }
         catch (SessionInvalidException ex)

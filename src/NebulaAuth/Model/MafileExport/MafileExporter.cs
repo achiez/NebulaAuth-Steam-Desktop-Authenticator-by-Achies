@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AchiesUtilities.Extensions;
 using NebulaAuth.Core;
@@ -36,47 +39,78 @@ public static class MafileExporter
             return new ExportResult(LocManager.GetCodeBehindOrDefault("AccessDenied", "MafileExporter.AccessDenied"));
         }
 
-
         var exported = new Dictionary<Mafile, string>();
         var notFound = new List<string>();
         var conflict = new List<string>();
 
+        var toExport = new List<(string key, Mafile mafile)>();
         foreach (var key in keys)
         {
             SteamId? steamId = null;
             if (SteamId64.TryParse(key, out var id64))
-            {
                 steamId = id64;
-            }
 
             var maf = Storage.MaFiles.FirstOrDefault(m => m.AccountName.EqualsIgnoreCase(key) || m.SteamId == steamId);
             if (maf != null)
+                toExport.Add((key, maf));
+            else
+                notFound.Add(key);
+        }
+
+        if (template.ExportToZip)
+        {
+            if (toExport.Count > 0)
             {
-                var fileName = await ExportMafile(template.Path, template, maf);
-                if (fileName == null)
+                var timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+                var zipName = $"{toExport.Count}_{timestamp}.zip";
+                var zipPath = Path.Combine(template.Path, zipName);
+
+                await using var zipStream = File.Create(zipPath);
+                using var archive = new ZipArchive(zipStream, ZipArchiveMode.Create);
+                var addedEntries = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+                foreach (var (key, maf) in toExport)
+                {
+                    var (content, fileName) = BuildMafileContent(template, maf);
+                    if (!addedEntries.Add(fileName))
+                    {
+                        conflict.Add(key);
+                        continue;
+                    }
+
+                    var entry = archive.CreateEntry(fileName);
+                    await using var entryStream = entry.Open();
+                    await using var writer = new StreamWriter(entryStream, Encoding.UTF8);
+                    await writer.WriteAsync(content);
+                    exported[maf] = fileName;
+                }
+            }
+        }
+        else
+        {
+            foreach (var (key, maf) in toExport)
+            {
+                var (content, fileName) = BuildMafileContent(template, maf);
+                var fullPath = Path.Combine(template.Path, fileName);
+                if (File.Exists(fullPath))
                 {
                     conflict.Add(key);
                     continue;
                 }
 
-                exported[maf] = fileName;
-            }
-            else
-            {
-                notFound.Add(key);
+                await File.WriteAllTextAsync(fullPath, content);
+                exported[maf] = fullPath;
             }
         }
 
         return new ExportResult(exported, notFound, conflict);
     }
 
-    private static async Task<string?> ExportMafile(string path, MafileExportTemplate template, Mafile mafile)
+    private static (string content, string fileName) BuildMafileContent(MafileExportTemplate template, Mafile mafile)
     {
-        // We preserve SteamId even if other info is not included
         var session = template.IncludeSessionData
             ? mafile.SessionData
             : new MobileSessionData(null!, mafile.SteamId, default, null, tokens: null);
-
 
         var serializeMaf = new Mafile
         {
@@ -102,14 +136,7 @@ public static class MafileExporter
         var serialized = NebulaSerializer.SerializeMafile(serializeMaf);
         var strategy = template.UseLoginAsMafileName ? MafileNamingStrategy.Login : MafileNamingStrategy.SteamId;
         var fileName = strategy.GetMafileName(serializeMaf);
-        var fullPath = Path.Combine(path, fileName);
-        if (File.Exists(fullPath))
-        {
-            return null;
-        }
-
-        await File.WriteAllTextAsync(fullPath, serialized);
-        return fullPath;
+        return (serialized, fileName);
     }
 
     private static bool PathIsValid(string path)

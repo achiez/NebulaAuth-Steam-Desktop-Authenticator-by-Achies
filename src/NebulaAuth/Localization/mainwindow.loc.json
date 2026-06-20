@@ -101,16 +101,6 @@
         "tr": "Onay hatası",
         "kk": "Растау қатесі"
       },
-      "ConfirmMafileOverwrite": {
-        "ru": "Внимание, мафайл(-ы) уже присутствует в папке mafiles.\r\nПерезаписать мафайлы, которые конфликтуют?",
-        "en": "Attention, mafile(-s) already exists in mafiles folder.\r\nOverwrite conflicting mafiles?",
-        "zh": "注意，mafile 已经存在于 mafiles 文件夹中。\r\n覆盖冲突的 mafiles 吗？",
-        "uk": "Увага, мафайл(-и) вже присутній у папці mafiles.\r\nПерезаписати мафайли, які конфліктують?",
-        "fr": "Attention, mafiles déjà présents dans le dossier mafiles.\r\nRemplacer les mafiles en conflit?",
-        "es": "Atención, los mafiles ya existen en la carpeta mafiles.\r\n¿Sobrescribir los mafiles en conflicto?",
-        "tr": "Dikkat, mafile(ler) zaten mafiles klasöründe mevcut.\r\nÇakışan mafile'lar üzerine yazılsın mı?",
-        "kk": "Назар аударыңыз, mafile(дер) mafiles қалтасында бар.\r\nҚайшылық тудырған mafile файлдарының үстінен жазу керек пе?"
-      },
       "MafileImportError": {
         "ru": "Ошибка при импорте мафайла",
         "en": "Mafile import error",
@@ -904,6 +894,16 @@
           "es": "Desvincular proxy",
           "tr": "Proxy bağlantısını kaldır",
           "kk": "Проксиді ажырату"
+        },
+        "AssignFreeProxy": {
+          "en": "Assign free proxy",
+          "ru": "Назначить свободный прокси",
+          "zh": "分配空闲代理",
+          "uk": "Призначити вільний проксі",
+          "fr": "Attribuer un proxy libre",
+          "es": "Asignar proxy libre",
+          "tr": "Serbest proxy ata",
+          "kk": "Бос проксиді тағайындау"
         }
       },
       "Proxy": {

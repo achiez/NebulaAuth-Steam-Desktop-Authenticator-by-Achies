@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using MaterialDesignThemes.Wpf;
@@ -11,6 +11,12 @@ public partial class LinksView : UserControl
     public LinksView()
     {
         InitializeComponent();
+    }
+
+    private void LinksView_Loaded(object sender, RoutedEventArgs e)
+    {
+        WebsiteButton.IsEnabled = LinksManager.WebsiteUrl != null;
+        DocumentationButton.IsEnabled = LinksManager.DocumentationUrl != null;
     }
 
     private void Telegram_Click(object sender, RoutedEventArgs e)
@@ -26,12 +32,14 @@ public partial class LinksView : UserControl
 
     private void Website_Click(object sender, RoutedEventArgs e)
     {
-        Process.Start(new ProcessStartInfo("https://yourwebsite.com") {UseShellExecute = true});
+        if (LinksManager.WebsiteUrl != null)
+            Process.Start(new ProcessStartInfo(LinksManager.WebsiteUrl) {UseShellExecute = true});
     }
 
     private void Documentation_Click(object sender, RoutedEventArgs e)
     {
-        Process.Start(new ProcessStartInfo("https://yourwebsite.com") {UseShellExecute = true});
+        if (LinksManager.DocumentationUrl != null)
+            Process.Start(new ProcessStartInfo(LinksManager.DocumentationUrl) {UseShellExecute = true});
     }
 
     private void CheckForUpdates_Click(object sender, RoutedEventArgs e)

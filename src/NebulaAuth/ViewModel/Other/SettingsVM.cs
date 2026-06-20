@@ -168,10 +168,10 @@ public partial class SettingsVM : ObservableObject
         }
     }
 
-    public bool LegacyMode
+    public bool ConfirmMafileImport
     {
-        get => Settings.LegacyMode;
-        set => Settings.LegacyMode = value;
+        get => Settings.ConfirmMafileImport;
+        set => Settings.ConfirmMafileImport = value;
     }
 
     public bool AllowAutoUpdate

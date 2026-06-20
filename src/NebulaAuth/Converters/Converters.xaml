@@ -15,6 +15,7 @@
     <converters:BoolToMafileNamingConverter x:Key="BoolToMafileNamingConverter" />
     <converters:BoolToValueConverter x:Key="BoolToValueConverter" />
     <converters:NullableToBooleanConverter x:Key="NullableToBooleanConverter" />
+    <converters:ProxyAccountCountConverter x:Key="ProxyAccountCountConverter" />
     <!-- Background converters-->
     <background:BackgroundImageVisibleConverter x:Key="BackgroundImageVisibleConverter" />
     <background:BackgroundSourceConverter x:Key="BackgroundSourceConverter" />

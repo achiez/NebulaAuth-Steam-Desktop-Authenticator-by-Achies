@@ -85,11 +85,6 @@ public static class NebulaSerializer
 
     public static string SerializeMafile(MobileDataExtended data, Dictionary<string, object?>? properties)
     {
-        if (Settings.Instance.LegacyMode)
-        {
-            return MafileSerializer.SerializeLegacy(data, Serializer.Settings.SerializationOptions, properties);
-        }
-
-        return Serializer.Serialize(data);
+        return MafileSerializer.SerializeLegacy(data, Serializer.Settings.SerializationOptions, properties);
     }
 }
