@@ -16,6 +16,8 @@ namespace NebulaAuth.Model.MafileExport;
 
 public static class MafileExporter
 {
+    private static readonly UTF8Encoding Utf8NoBom = new(encoderShouldEmitUTF8Identifier: false);
+
     public static async Task<ExportResult> ExportMafiles(IEnumerable<string> keys, MafileExportTemplate template)
     {
         if (template.Path == null || !PathIsValid(template.Path))
@@ -80,7 +82,7 @@ public static class MafileExporter
 
                     var entry = archive.CreateEntry(fileName);
                     await using var entryStream = entry.Open();
-                    await using var writer = new StreamWriter(entryStream, Encoding.UTF8);
+                    await using var writer = new StreamWriter(entryStream, Utf8NoBom);
                     await writer.WriteAsync(content);
                     exported[maf] = fileName;
                 }
