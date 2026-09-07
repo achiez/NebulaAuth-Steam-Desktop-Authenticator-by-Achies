@@ -92,7 +92,7 @@ public partial class ProxyManagerVM : ObservableObject
             }
 
 
-            if (ProxyStorage.DefaultScheme.TryParse(str, out var proxy))
+            if (ProxyStorage.DefaultScheme.TryParse(str, out var proxy) || ProxyStorage.SignAtScheme.TryParse(str, out proxy))
             {
                 if (id != null && proxies.Any(kvp => kvp.Key == id))
                 {
